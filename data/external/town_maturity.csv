@@ -1,0 +1,56 @@
+pln_area_n,maturity,note
+ANG MO KIO,mature,HDB mature town
+BEDOK,mature,HDB mature town
+BISHAN,mature,HDB mature town
+BUKIT MERAH,mature,HDB mature town
+BUKIT TIMAH,mature,HDB mature town
+CLEMENTI,mature,HDB mature town
+GEYLANG,mature,HDB mature town
+KALLANG,mature,HDB Kallang/Whampoa town
+MARINE PARADE,mature,HDB mature town
+PASIR RIS,mature,HDB mature town
+QUEENSTOWN,mature,HDB mature town
+SERANGOON,mature,HDB mature town
+TAMPINES,mature,HDB mature town
+TOA PAYOH,mature,HDB mature town
+NOVENA,mature,Balance of HDB Kallang/Whampoa town; also Central Area fringe
+BUKIT BATOK,non-mature,HDB non-mature town
+BUKIT PANJANG,non-mature,HDB non-mature town
+CHOA CHU KANG,non-mature,HDB non-mature town
+HOUGANG,non-mature,HDB non-mature town
+JURONG EAST,non-mature,HDB non-mature town
+JURONG WEST,non-mature,HDB non-mature town
+PUNGGOL,non-mature,HDB non-mature town
+SEMBAWANG,non-mature,HDB non-mature town
+SENGKANG,non-mature,HDB non-mature town
+TENGAH,non-mature,HDB non-mature town (new town under development)
+WOODLANDS,non-mature,HDB non-mature town
+YISHUN,non-mature,HDB non-mature town
+DOWNTOWN CORE,excluded,Central Area - not an HDB town
+MARINA EAST,excluded,Central Area - not an HDB town
+MARINA SOUTH,excluded,Central Area - not an HDB town
+MUSEUM,excluded,Central Area - not an HDB town
+NEWTON,excluded,Central Area - not an HDB town
+ORCHARD,excluded,Central Area - not an HDB town
+OUTRAM,excluded,Central Area - not an HDB town
+RIVER VALLEY,excluded,Central Area - not an HDB town
+ROCHOR,excluded,Central Area - not an HDB town
+SINGAPORE RIVER,excluded,Central Area - not an HDB town
+STRAITS VIEW,excluded,Central Area - not an HDB town
+TANGLIN,excluded,Predominantly private housing - not an HDB town
+BOON LAY,excluded,Industrial - not an HDB town
+CENTRAL WATER CATCHMENT,excluded,Non-residential
+CHANGI,excluded,Airport / non-residential
+CHANGI BAY,excluded,Non-residential
+LIM CHU KANG,excluded,Rural / non-residential
+MANDAI,excluded,Non-residential
+NORTH-EASTERN ISLANDS,excluded,Non-residential
+PAYA LEBAR,excluded,Airbase / industrial - not an HDB town
+PIONEER,excluded,Industrial - not an HDB town
+SELETAR,excluded,Aerospace / industrial - not an HDB town
+SIMPANG,excluded,Undeveloped
+SOUTHERN ISLANDS,excluded,Non-residential
+SUNGEI KADUT,excluded,Industrial - not an HDB town
+TUAS,excluded,Industrial - not an HDB town
+WESTERN ISLANDS,excluded,Industrial / non-residential
+WESTERN WATER CATCHMENT,excluded,Military / non-residential

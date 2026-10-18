@@ -1,0 +1,5 @@
+set,variant,n_reference,n_osm,n_matched,recall,ci_lo,ci_hi,via_name,via_postcode,via_proximity
+"CHAS clinics (n = 1,193)",strict,1193,807,266,0.223,0.2,0.247,244,18,4
+"CHAS clinics (n = 1,193)",wide,1193,1036,277,0.232,0.209,0.257,249,24,4
+"ECDA preschools (n = 1,975)",strict,1975,332,188,0.095,0.083,0.109,159,14,15
+"ECDA preschools (n = 1,975)",wide,1975,986,207,0.105,0.092,0.119,169,18,20

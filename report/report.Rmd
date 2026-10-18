@@ -1,0 +1,38 @@
+---
+title: "Whose 15-Minute City? Neighbourhood Types and Walkable Access to Everyday Services in Singapore"
+subtitle: "TBA4220 Geospatial Analysis, Group 3 (Metropolitans)"
+author: "Qu Haotian, Hew Xing Yi, Zachary Chng Yao Wei, Coltrane Yao Zhiming"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  pdf_document:
+    number_sections: true
+bibliography: references.bib
+---
+
+```{r setup, include = FALSE}
+# The report only reads outputs/ and data/processed/; run R/run_all.R first.
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+ROOT <- normalizePath("..", winslash = "/")
+fig  <- function(name) file.path(ROOT, "outputs", "figures", name)
+tab  <- function(name) readr::read_csv(file.path(ROOT, "outputs", "tables", name), show_col_types = FALSE)
+```
+
+```{r child = "sections/01_introduction.Rmd"}
+```
+
+```{r child = "sections/02_data_and_score.Rmd"}
+```
+
+```{r child = "sections/03_q1_spatial.Rmd"}
+```
+
+```{r child = "sections/04_q2_regression.Rmd"}
+```
+
+```{r child = "sections/05_q3_typology.Rmd"}
+```
+
+```{r child = "sections/06_discussion.Rmd"}
+```
+
+# References

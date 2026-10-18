@@ -1,0 +1,579 @@
+{
+ "chas_clinics": {
+  "code": 0,
+  "data": {
+   "datasetId": "d_548c33ea2d99e29ec63a7cc9edcccedc",
+   "createdAt": "2023-07-31T16:08:13+08:00",
+   "name": "CHAS Clinics",
+   "collectionIds": [
+    "2036"
+   ],
+   "format": "GEOJSON",
+   "lastUpdatedAt": "2024-06-06T14:36:42+08:00",
+   "managedBy": "Ministry of Health",
+   "datasetSize": 1644760,
+   "geoJsonMetadata": {
+    "properties": [
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "Name",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "Description",
+      "description": ""
+     }
+    ]
+   }
+  },
+  "errorMsg": ""
+ },
+ "preschools_location": {
+  "code": 0,
+  "data": {
+   "datasetId": "d_61eefab99958fd70e6aab17320a71f1c",
+   "createdAt": "2023-07-31T16:58:34+08:00",
+   "name": "Pre-Schools Location",
+   "collectionIds": [
+    "2064"
+   ],
+   "format": "GEOJSON",
+   "lastUpdatedAt": "2024-06-06T14:39:22+08:00",
+   "managedBy": "Early Childhood Development Agency",
+   "datasetSize": 1341092,
+   "geoJsonMetadata": {
+    "properties": [
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "Name",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "Description",
+      "description": ""
+     }
+    ]
+   }
+  },
+  "errorMsg": ""
+ },
+ "childcare_services": {
+  "code": 0,
+  "data": {
+   "datasetId": "d_5d668e3f544335f8028f546827b773b4",
+   "createdAt": "2023-07-31T18:53:41+08:00",
+   "name": "Child Care Services",
+   "collectionIds": [
+    "2015"
+   ],
+   "format": "GEOJSON",
+   "lastUpdatedAt": "2026-04-18T10:06:48+08:00",
+   "managedBy": "Early Childhood Development Agency",
+   "coverageStart": "2021-12-01T00:00:00+08:00",
+   "contactEmails": [
+    "feedback@data.gov.sg"
+   ],
+   "datasetSize": 1488543,
+   "geoJsonMetadata": {
+    "properties": [
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "OBJECTID",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSBLOCKHOUSENUMBER",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSBUILDINGNAME",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSPOSTALCODE",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "ADDRESSSTREETNAME",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSTYPE",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "DESCRIPTION",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "HYPERLINK",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "LANDXADDRESSPOINT",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "LANDYADDRESSPOINT",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "NAME",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "PHOTOURL",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSFLOORNUMBER",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "INC_CRC",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "FMEL_UPD_D",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSUNITNUMBER",
+      "description": ""
+     }
+    ]
+   }
+  },
+  "errorMsg": ""
+ },
+ "kindergartens": {
+  "code": 0,
+  "data": {
+   "datasetId": "d_7fe9a72b1afff18e48111772c8d0fd39",
+   "createdAt": "2023-07-31T16:03:42+08:00",
+   "name": "Kindergartens",
+   "collectionIds": [
+    "2034"
+   ],
+   "format": "GEOJSON",
+   "lastUpdatedAt": "2026-04-18T10:06:46+08:00",
+   "managedBy": "Early Childhood Development Agency",
+   "coverageStart": "2021-12-01T00:00:00+08:00",
+   "contactEmails": [
+    "feedback@data.gov.sg"
+   ],
+   "datasetSize": 338619,
+   "geoJsonMetadata": {
+    "properties": [
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "OBJECTID",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSBLOCKHOUSENUMBER",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSBUILDINGNAME",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSFLOORNUMBER",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSPOSTALCODE",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "ADDRESSSTREETNAME",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSTYPE",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "DESCRIPTION",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "HYPERLINK",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "LANDXADDRESSPOINT",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "LANDYADDRESSPOINT",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "NAME",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "PHOTOURL",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "INC_CRC",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "FMEL_UPD_D",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "ADDRESSUNITNUMBER",
+      "description": ""
+     }
+    ]
+   }
+  },
+  "errorMsg": ""
+ },
+ "mp19_subzone": {
+  "code": 0,
+  "data": {
+   "datasetId": "d_8594ae9ff96d0c708bc2af633048edfb",
+   "createdAt": "2019-12-23T00:00:00+08:00",
+   "name": "Master Plan 2019 Subzone Boundary (No Sea) (GEOJSON)",
+   "collectionIds": [
+    "1749"
+   ],
+   "description": "Indicative polygon of subzone boundary. \r\n\r\nTo facilitate urban planning, the Urban Redevelopment Authority (URA) divides Singapore into regions, planning areas and subzones. \r\n\r\nThe Planning Regions are divided into smaller Planning Areas. Each Planning Area is further divided into smaller subzones which are usually centred around a focal point such as neighbourhood centre or activity node. \r\n\r\nThe Master Plan is a forward looking guiding plan for Singapore's development in the medium term over the next 10 to 15 years and the planning boundaries may not coincide with existing developments for some areas.",
+   "format": "GEOJSON",
+   "lastUpdatedAt": "2025-12-03T10:07:59+08:00",
+   "managedBy": "Urban Redevelopment Authority",
+   "coverageStart": "2021-09-10T00:00:00+08:00",
+   "datasetSize": 3180569,
+   "geoJsonMetadata": {
+    "properties": [
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "OBJECTID",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "SUBZONE_NO",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "SUBZONE_N",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "SUBZONE_C",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "CA_IND",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "PLN_AREA_N",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "PLN_AREA_C",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "REGION_N",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "REGION_C",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Text",
+       "value": "TEXT"
+      },
+      "attribute": "INC_CRC",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "FMEL_UPD_D",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "SHAPE.AREA",
+      "description": ""
+     },
+     {
+      "dataType": {
+       "label": "Numeric",
+       "value": "NUMERIC"
+      },
+      "attribute": "SHAPE.LEN",
+      "description": ""
+     }
+    ]
+   }
+  },
+  "errorMsg": ""
+ },
+ "moh_health_fac": {
+  "code": 0,
+  "data": {
+   "datasetId": "d_e4663ad3f088a46dabd3972dc166402d",
+   "createdAt": "2017-11-13T17:53:28+08:00",
+   "name": "Health Facilities (Primary Care, Dental Clinics and Pharmacies)",
+   "collectionIds": [
+    "521"
+   ],
+   "description": "Health Facilities in Primary Care, Dental Clinics and Pharmacies with further breakdown",
+   "format": "CSV",
+   "lastUpdatedAt": "2024-06-06T15:04:56+08:00",
+   "managedBy": "Ministry of Health",
+   "coverageStart": "2009-01-01T08:00:00+08:00",
+   "coverageEnd": "2022-12-31T08:00:00+08:00",
+   "datasetSize": 6200,
+   "columnMetadata": {
+    "order": [
+     "c_6ehdpjfqveus48v7e5w40h7gk",
+     "c_3hghyw05s9dav3ie10pd6e2ah",
+     "c_9dwi6iv8g22qtfbw9drepoarb",
+     "c_1sgeh26pnobll9cs44c404ms3",
+     "c_bfqkwlct8t61ui3fybjvl7yw5"
+    ],
+    "map": {
+     "c_6ehdpjfqveus48v7e5w40h7gk": "year",
+     "c_3hghyw05s9dav3ie10pd6e2ah": "institution_type",
+     "c_9dwi6iv8g22qtfbw9drepoarb": "sector",
+     "c_1sgeh26pnobll9cs44c404ms3": "facility_type_b",
+     "c_bfqkwlct8t61ui3fybjvl7yw5": "no_of_facilities"
+    },
+    "metaMapping": {
+     "c_6ehdpjfqveus48v7e5w40h7gk": {
+      "name": "year",
+      "columnTitle": "Year",
+      "dataType": "Year (YYYY)",
+      "description": "Year",
+      "index": "0",
+      "isCategorical": false
+     },
+     "c_3hghyw05s9dav3ie10pd6e2ah": {
+      "name": "institution_type",
+      "columnTitle": "Institution type",
+      "dataType": "Text",
+      "index": "1",
+      "isCategorical": false
+     },
+     "c_9dwi6iv8g22qtfbw9drepoarb": {
+      "name": "sector",
+      "columnTitle": "Sector Type",
+      "dataType": "Text",
+      "description": "Public, Private",
+      "index": "2",
+      "isCategorical": false
+     },
+     "c_1sgeh26pnobll9cs44c404ms3": {
+      "name": "facility_type_b",
+      "columnTitle": "Type of Facility",
+      "dataType": "Text",
+      "index": "3",
+      "isCategorical": false
+     },
+     "c_bfqkwlct8t61ui3fybjvl7yw5": {
+      "name": "no_of_facilities",
+      "columnTitle": "Number of facilities",
+      "dataType": "Numeric",
+      "unitOfMeasure": "Number",
+      "index": "4",
+      "isCategorical": false
+     }
+    }
+   }
+  },
+  "errorMsg": ""
+ }
+}
