@@ -1,0 +1,786 @@
+<title>Metropolitans Team Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one 1080px reading column. Each track is drawn like a transit line in its own colour;
+   phases are stops on one route, hand-offs are the interchanges between lines. */
+:root{
+  --paper:#F2F5F4;
+  --surface:#FFFFFF;
+  --ink:#13212B;
+  --muted:#55646E;
+  --rule:#D2DBD9;
+  --soft:#E6ECEA;
+  --a:#B3302A;
+  --b:#1C7A46;
+  --c:#9E550C;
+  --d:#2A53A1;
+  --on-line:#FFFFFF;
+  --f-display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-body:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1317; --surface:#141D23; --ink:#E1E8EC; --muted:#93A1AA; --rule:#2A3740; --soft:#1B262D;
+    --a:#E8675F; --b:#4DBA7C; --c:#E39A47; --d:#729DEA; --on-line:#0D1317;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1317; --surface:#141D23; --ink:#E1E8EC; --muted:#93A1AA; --rule:#2A3740; --soft:#1B262D;
+  --a:#E8675F; --b:#4DBA7C; --c:#E39A47; --d:#729DEA; --on-line:#0D1317;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+table{font-size:inherit}
+.inner{max-width:1080px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.tA{--lc:var(--a)} .tB{--lc:var(--b)} .tC{--lc:var(--c)} .tD{--lc:var(--d)}
+.k{font:500 11px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.pill{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:5px;background:var(--lc);color:var(--on-line);font:600 12px/1 var(--f-mono);white-space:nowrap}
+
+/* Hero */
+.hero .inner{padding-block:52px 30px}
+.eyebrow{font:500 12px/1.4 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h1{font-family:var(--f-display);font-stretch:76%;font-weight:800;font-size:clamp(2.4rem,7vw,4.2rem);line-height:.96;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.sub{font-family:var(--f-display);font-stretch:88%;font-weight:600;font-size:clamp(1.1rem,2.4vw,1.4rem);line-height:1.25;color:var(--muted);margin:10px 0 0;text-wrap:balance}
+.lede{max-width:68ch;margin:22px 0 0;font-size:16px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 22px;margin:22px 0 0;padding:0;list-style:none;font:400 12.5px/1.5 var(--f-mono);color:var(--muted)}
+
+/* Track highlighter */
+.filterbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-block:1px solid var(--rule)}
+.filterbar .inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-block:10px}
+.filterbar .k{margin-right:4px}
+.chip{display:inline-flex;align-items:center;gap:7px;font:500 13px/1 var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:4px 12px 4px 4px;cursor:pointer}
+.chip.all{padding-left:12px;min-height:32px}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* Sections */
+main.inner{padding-block:8px 72px}
+section{padding-top:52px}
+h2{font-family:var(--f-display);font-stretch:84%;font-weight:750;font-size:clamp(1.6rem,3.6vw,2.2rem);line-height:1.06;margin:6px 0 10px;text-wrap:balance}
+.intro{max-width:68ch;margin:0 0 24px}
+
+/* Workload split */
+.split{display:flex;gap:3px;height:46px;margin:0 0 22px}
+.seg{flex:var(--w) 1 0;min-width:0;display:flex;align-items:center;gap:8px;padding:0 12px;border-radius:4px;background:var(--lc);color:var(--on-line);font:500 13px/1 var(--f-mono);white-space:nowrap;overflow:hidden}
+.seg b{font-weight:600}
+.seg .pc{margin-left:auto;font-weight:600}
+
+/* Question flow */
+.flow{display:grid;grid-template-columns:minmax(0,1.3fr) 34px minmax(0,1fr) 34px minmax(0,1fr);align-items:center}
+.mid{display:grid;gap:14px;min-width:0}
+.node{min-width:0;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px 18px 18px}
+.node header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.share{font:600 22px/1 var(--f-mono);color:var(--lc)}
+.node h3{font-family:var(--f-display);font-stretch:88%;font-weight:700;font-size:1.18rem;line-height:1.22;margin:12px 0 4px;text-wrap:balance}
+.lead{font-size:13px;color:var(--muted);margin:0 0 10px}
+.node p{margin:0 0 10px;font-size:14.5px}
+.h0{font-size:14px;line-height:1.45;padding:8px 10px;background:var(--soft);border-radius:4px;margin:0 0 8px}
+.h0 b{font-family:var(--f-mono);font-weight:600;font-size:12.5px;margin-right:4px}
+.node dl{margin:12px 0 0;display:grid;gap:10px}
+.node dd{margin:3px 0 0;font-size:14px}
+.arrow{display:flex;justify-content:center;align-items:center;color:var(--muted);font-size:22px;line-height:1}
+.arrow span{display:inline-block}
+.weights{width:100%;border-collapse:collapse;margin:4px 0 2px;font-size:13px}
+.weights caption{caption-side:top;text-align:left;padding-bottom:4px}
+.weights td{padding:3px 0;vertical-align:middle}
+.weights td.nm{width:44%;padding-right:10px}
+.weights .bar{height:8px;border-radius:2px;background:var(--lc)}
+.weights td.num{width:54px;text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* Phase route */
+.route{list-style:none;margin:8px 0 0;padding:0}
+.stop{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:22px;padding-bottom:44px}
+.stop::before{content:"";position:absolute;left:25px;top:52px;bottom:0;width:0;border-left:2px solid var(--muted);opacity:.55}
+.stop.opt::before,.stop.pre-opt::before{border-left-style:dashed}
+.stop:last-child{padding-bottom:0}
+.stop:last-child::before{display:none}
+.marker{width:52px;height:52px;border-radius:50%;border:2.5px solid var(--ink);background:var(--paper);display:grid;place-items:center;font:600 14px/1 var(--f-mono);position:relative;z-index:1}
+.stop.opt .marker{border-style:dashed;border-color:var(--muted);color:var(--muted)}
+.ph{min-width:0}
+.ph-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;min-height:52px}
+.ph-head h3{font-family:var(--f-display);font-stretch:85%;font-weight:750;font-size:1.5rem;line-height:1.1;margin:0}
+.ph-weeks{font:500 13px/1 var(--f-mono);color:var(--muted)}
+.ph-mix{display:flex;flex-wrap:wrap;gap:6px;margin-left:auto}
+.mx{display:inline-flex;align-items:center;gap:5px;font:500 12px/1 var(--f-mono);color:var(--ink);padding:4px 7px;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+.mx i{width:8px;height:8px;border-radius:50%;background:var(--lc)}
+.solves{margin:4px 0 12px;max-width:72ch}
+.solves .k{display:block;margin-bottom:3px}
+.solves span.q{font-family:var(--f-display);font-stretch:92%;font-weight:600;font-size:1.06rem;line-height:1.35}
+.note{font-size:14px;color:var(--muted);margin:0 0 12px;max-width:72ch}
+.tasks{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.task{display:grid;grid-template-columns:60px minmax(0,1fr) 54px;gap:12px;padding:11px 0;border-bottom:1px solid var(--soft);align-items:start}
+.task .pill{justify-self:start;margin-top:1px}
+.tk-t{font-weight:600}
+.tk-d{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+.tk-p{font:500 13px/1.7 var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.tk-p.opt{color:var(--muted)}
+.gate{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-top:14px;font-size:14px;max-width:80ch}
+.gate .k{flex:none}
+.gate .k::before{content:"";display:inline-block;width:8px;height:8px;margin-right:7px;background:var(--ink);transform:rotate(45deg) translateY(-1px)}
+
+/* Timeline */
+.gantt-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+.gantt{min-width:780px;padding:14px 18px 8px}
+.g-row{display:grid;grid-template-columns:150px minmax(0,1fr);column-gap:12px;border-top:1px solid var(--soft)}
+.g-head{border-top:0}
+.g-weeks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));font:500 12px/1 var(--f-mono);color:var(--muted)}
+.g-weeks span{padding:0 0 9px 6px;border-left:1px solid var(--rule)}
+.g-label{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;padding-block:10px;min-width:0}
+.g-lanes{position:relative;display:grid;gap:5px;padding:26px 0 10px;background-image:linear-gradient(to right,var(--rule) 1px,transparent 1px);background-size:calc(100% / 6) 100%}
+.lane{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));min-height:24px}
+.gbar{margin:0 2px;padding:4px 7px;border-radius:3px;background:var(--lc);color:var(--on-line);font-size:12px;line-height:1.25;font-weight:500;min-width:0}
+.gbar.opt{background:transparent;color:var(--ink);border:1.5px dashed var(--lc);padding:3px 6px}
+.hand{position:absolute;top:3px;bottom:4px;left:calc(100% * var(--at) / 12);border-left:2px solid var(--ink);z-index:1}
+.hand span{position:absolute;top:0;left:0;transform:translateX(-50%);background:var(--ink);color:var(--paper);font:600 10.5px/1 var(--f-mono);padding:3px 5px;border-radius:3px;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:12px 0 0;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.sw{width:22px;height:11px;border-radius:2px;background:var(--muted)}
+.sw.opt{background:transparent;border:1.5px dashed var(--muted)}
+.sw.hd{width:2px;height:14px;background:var(--ink);border-radius:0}
+.callout{max-width:72ch;margin:16px 0 0;font-size:14.5px}
+
+/* Tables */
+.tbl-wrap{overflow-x:auto}
+table.grid{width:100%;min-width:680px;border-collapse:collapse;font-size:14px}
+.grid th{font:500 11px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.09em;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink);vertical-align:bottom}
+.grid td{padding:10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.grid td.id{font-family:var(--f-mono);font-weight:600;white-space:nowrap}
+.grid td.who{white-space:nowrap}
+.grid td.who .pill{margin:0 3px 3px 0}
+.grid td.when{font-family:var(--f-mono);font-size:13px;white-space:nowrap}
+.grid .gap-t{font-weight:600;display:block}
+
+/* Ground rules */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;margin:0}
+.rules > div{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:14px 16px}
+.rules dd{margin:4px 0 0;font-size:14.5px}
+
+/* Task how-to guides */
+code{font-family:var(--f-mono);font-size:.88em;background:var(--soft);padding:0 4px;border-radius:3px;overflow-wrap:anywhere}
+.how{margin-top:8px}
+.how summary{cursor:pointer;font:500 12.5px/1.6 var(--f-mono);color:var(--lc)}
+.how summary:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.taught{margin-left:10px;color:var(--muted)}
+.how ol{margin:8px 0 0;padding-left:20px;font-size:14px}
+.how li{margin:0 0 5px}
+.watch{font-size:14px;margin:8px 0 0;padding:7px 10px;border-left:3px solid var(--lc);background:var(--soft);border-radius:0 4px 4px 0}
+.watch b{font:600 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.09em;margin-right:6px}
+
+/* Glossary */
+h3.gl{font-family:var(--f-display);font-stretch:88%;font-weight:700;font-size:1.25rem;margin:28px 0 8px}
+.grid td.term{font-weight:600;white-space:nowrap}
+.grid td.taught-c{white-space:nowrap;font-size:13px;color:var(--muted)}
+
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--muted)}
+footer p{margin:0 0 6px;max-width:80ch}
+
+/* Highlighting one track dims the rest */
+[data-focus="A"] [data-track]:not([data-track="A"]),[data-focus="A"] [data-involves]:not([data-involves~="A"]),
+[data-focus="B"] [data-track]:not([data-track="B"]),[data-focus="B"] [data-involves]:not([data-involves~="B"]),
+[data-focus="C"] [data-track]:not([data-track="C"]),[data-focus="C"] [data-involves]:not([data-involves~="C"]),
+[data-focus="D"] [data-track]:not([data-track="D"]),[data-focus="D"] [data-involves]:not([data-involves~="D"]){opacity:.2}
+@media (prefers-reduced-motion:no-preference){[data-track],[data-involves]{transition:opacity .18s ease}}
+
+@media (max-width:860px){
+  .flow{grid-template-columns:minmax(0,1fr)}
+  .arrow{height:34px}
+  .arrow span{transform:rotate(90deg)}
+}
+@media (max-width:640px){
+  .seg .nm{display:none}
+  .seg{padding:0 9px}
+  .stop{grid-template-columns:36px minmax(0,1fr);column-gap:14px}
+  .stop::before{left:17px;top:36px}
+  .marker{width:36px;height:36px;font-size:12px;border-width:2px}
+  .ph-head{min-height:36px}
+  .ph-head h3{font-size:1.3rem}
+  .ph-mix{margin-left:0;width:100%}
+  .task{grid-template-columns:52px minmax(0,1fr) 46px;gap:10px}
+}
+</style>
+
+<header class="hero">
+  <div class="inner">
+    <p class="eyebrow">TBA4220 Geospatial Analysis &middot; Group 3 Metropolitans &middot; AY 2026/27 Sem 1</p>
+    <h1>Whose 15-Minute City?</h1>
+    <p class="sub">Team plan: four tracks, six phases, one target question</p>
+    <p class="lede">The proposal asks one thing: what kinds of neighbourhood exist in Singapore, and does the same set appear in towns planned in different eras? This plan splits that work into four tracks and orders it into phases. The access-score track carries 40% of the effort because every question runs on its output. Each question track carries 20%.</p>
+    <ul class="meta">
+      <li>Plan of 24 Oct 2026, revised 25 Oct 2026</li>
+      <li>Built from the submitted proposal; current repo progress ignored</li>
+      <li>Weeks are relative: W1 is the week we start</li>
+      <li>1 pt = 1% of project effort</li>
+    </ul>
+  </div>
+</header>
+
+<nav class="filterbar" aria-label="Highlight a track">
+  <div class="inner">
+    <span class="k">Highlight</span>
+    <button type="button" class="chip all" id="f-all" data-f="" aria-pressed="true">All tracks</button>
+    <button type="button" class="chip tA" id="f-a" data-f="A" aria-pressed="false"><span class="pill">A</span>Score</button>
+    <button type="button" class="chip tB" id="f-b" data-f="B" aria-pressed="false"><span class="pill">B</span>Q1</button>
+    <button type="button" class="chip tC" id="f-c" data-f="C" aria-pressed="false"><span class="pill">C</span>Q2</button>
+    <button type="button" class="chip tD" id="f-d" data-f="D" aria-pressed="false"><span class="pill">D</span>Q3</button>
+  </div>
+</nav>
+
+<main class="inner">
+
+<section id="tracks">
+  <p class="k">Tracks</p>
+  <h2>Four tracks, one target question</h2>
+  <p class="intro">Q3 is the target. The access score builds the input every question uses, and Q1 and Q2 each rule out one way Q3 could fail. Arrows show what each track hands to the next.</p>
+
+  <div class="split" role="img" aria-label="Workload split: Track A 40 percent, Tracks B, C and D 20 percent each">
+    <div class="seg tA" data-track="A" style="--w:40"><b>A</b><span class="nm">Access score</span><span class="pc">40%</span></div>
+    <div class="seg tB" data-track="B" style="--w:20"><b>B</b><span class="nm">Q1 Structure</span><span class="pc">20%</span></div>
+    <div class="seg tC" data-track="C" style="--w:20"><b>C</b><span class="nm">Q2 Drivers</span><span class="pc">20%</span></div>
+    <div class="seg tD" data-track="D" style="--w:20"><b>D</b><span class="nm">Q3 Types</span><span class="pc">20%</span></div>
+  </div>
+
+  <div class="flow">
+    <article class="node tA" data-track="A">
+      <header><span class="pill">A</span><span class="share">40%</span></header>
+      <h3>Access score</h3>
+      <p class="lead">Lead: Qu Haotian &middot; <span data-count="A"></span></p>
+      <p>For each subzone, count facilities within 1&nbsp;km of where residents live, in six categories, weighted by what households spend on each.</p>
+      <table class="weights">
+        <caption class="k">HES 2023 weights</caption>
+        <tr><td class="nm">Food services</td><td><div class="bar" style="width:100%"></div></td><td class="num">30.8%</td></tr>
+        <tr><td class="nm">Retail goods</td><td><div class="bar" style="width:52.3%"></div></td><td class="num">16.1%</td></tr>
+        <tr><td class="nm">Health</td><td><div class="bar" style="width:49.0%"></div></td><td class="num">15.1%</td></tr>
+        <tr><td class="nm">Food retail</td><td><div class="bar" style="width:47.1%"></div></td><td class="num">14.5%</td></tr>
+        <tr><td class="nm">Education</td><td><div class="bar" style="width:41.9%"></div></td><td class="num">12.9%</td></tr>
+        <tr><td class="nm">Recreation</td><td><div class="bar" style="width:34.7%"></div></td><td class="num">10.7%</td></tr>
+      </table>
+      <dl>
+        <div><dt class="k">Guards against</dt><dd>Silent gaps in OpenStreetMap. Preschool coverage is checked against the ECDA register, overall and by town group.</dd></div>
+        <div><dt class="k">Hands over</dt><dd>H4 score v0 &middot; H5 score v1 with robustness variants</dd></div>
+      </dl>
+    </article>
+
+    <div class="arrow" aria-hidden="true"><span>&rarr;</span></div>
+
+    <div class="mid">
+      <article class="node tB" data-track="B">
+        <header><span class="pill">B</span><span class="share">20%</span></header>
+        <h3>Q1 &middot; How is each category structured in space?</h3>
+        <p class="lead">Lead: Hew Xing Yi &middot; <span data-count="B"></span></p>
+        <p class="h0"><b>H&#8320;</b>Moran&rsquo;s I = 0, run per category and for the composite.</p>
+        <dl>
+          <div><dt class="k">Input</dt><dd>One score per subzone for each category (from A), plus a neighbour list. Not facility coordinates.</dd></div>
+          <div><dt class="k">Output</dt><dd>One Moran&rsquo;s I and p-value per category and for the composite: a 7-row table. Positive I means similar subzones sit together; near 0 means no pattern.</dd></div>
+          <div><dt class="k">Guards against</dt><dd>&ldquo;Types&rdquo; that are really a few extreme subzones, caused by facilities packed below subzone scale.</dd></div>
+          <div><dt class="k">Hands over</dt><dd>H3 weights and blocks &middot; H6 memo to Q3</dd></div>
+        </dl>
+      </article>
+      <article class="node tC" data-track="C">
+        <header><span class="pill">C</span><span class="share">20%</span></header>
+        <h3>Q2 &middot; What explains access, and how much is just density?</h3>
+        <p class="lead">Lead: Zachary Chng Yao Wei &middot; <span data-count="C"></span></p>
+        <p class="h0"><b>H&#8320;</b>Elderly share and housing mix have zero effect on the score (one-sided).</p>
+        <dl>
+          <div><dt class="k">Model</dt><dd>Composite score ~ elderly share + housing mix + population density + distance to rail + OSM contributor density, one row per subzone. The same model per category is a supporting table.</dd></div>
+          <div><dt class="k">Reads as</dt><dd>Once density is held fixed, do subzones with more elderly residents (expected: lower) or a different housing mix have different scores? This shows association, not cause.</dd></div>
+          <div><dt class="k">Guards against</dt><dd>A typology that is only the population-density gradient under another name.</dd></div>
+          <div><dt class="k">Hands over</dt><dd>H2 residential set &middot; H7 density call and residuals</dd></div>
+        </dl>
+      </article>
+    </div>
+
+    <div class="arrow" aria-hidden="true"><span>&rarr;</span></div>
+
+    <article class="node tD" data-track="D">
+      <header><span class="pill">D</span><span class="share">20%</span></header>
+      <h3>Q3 &middot; What kinds of neighbourhood exist, and do both kinds of town have the same ones?</h3>
+      <p class="lead">Lead: Coltrane Yao Zhiming &middot; <span data-count="D"></span></p>
+      <p class="h0"><b>H&#8320;(a)</b>The mix of types is the same in mature and non-mature towns.</p>
+      <p class="h0"><b>H&#8320;(b)</b>Type membership is unrelated to Q2&rsquo;s residuals.</p>
+      <dl>
+        <div><dt class="k">Takes in</dt><dd>Score v1 (A), blocks and memo (B), density call and residuals (C)</dd></div>
+        <div><dt class="k">Hands over</dt><dd>H1 town list &middot; H8 types and test results for the Discussion</dd></div>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section id="unit">
+  <p class="k">Ground rules</p>
+  <h2>One row per residential subzone</h2>
+  <p class="intro">Every table in the project has the same rows. When any track says &ldquo;subzone&rdquo;, this is what it means.</p>
+  <dl class="rules">
+    <div><dt class="k">Unit</dt><dd>URA Master Plan 2019 subzone: 332 in total, nested in 55 planning areas and 5 regions. File: <code>data/raw/sg/mp19_subzone.geojson</code>. Census 2020 is published on the same boundaries.</dd></div>
+    <div><dt class="k">Which subzones count</dt><dd>The residential set (H2): subzones above the population cut-off fixed in P0. Airports, reservoirs, ports and industrial estates drop out. C1 publishes the list and its n.</dd></div>
+    <div><dt class="k">Standardising</dt><dd>Whenever scores are rescaled (category scores in A5, z-scores for k-means in D2), the mean, SD or maximum comes from the residential set only, so empty subzones do not set the scale.</dd></div>
+    <div><dt class="k">Join key and CRS</dt><dd><code>subzone_c</code> (e.g. <code>BMSZ12</code>), never the name. EPSG:3414 (SVY21, metres) for every layer.</dd></div>
+    <div><dt class="k">Where data lives</dt><dd>In the repo. Raw downloads go in <code>data/raw/sg/</code>: committed, never edited, one row each in <code>docs/data_log.md</code>. Lookups go in <code>data/external/</code>, hand-offs in <code>data/processed/</code>. <code>data/interim/</code> is git-ignored and rebuilt by script, as is any file over ~50&nbsp;MB.</dd></div>
+  </dl>
+</section>
+
+<section id="phases">
+  <p class="k">Workflow</p>
+  <h2>Six phases, each solving one part of the problem</h2>
+  <p class="intro">Read top to bottom. Each phase states the part of the problem it answers, the tasks per track with their points, and the gate that must pass before the next phase relies on it. Chips beside each phase show how its points split across tracks. Open &ldquo;How to do it&rdquo; under a task for steps, R functions and pitfalls; it also says whether the lectures covered the method.</p>
+  <ol class="route" id="route"></ol>
+</section>
+
+<section id="timeline">
+  <p class="k">Timeline</p>
+  <h2>Six weeks, in half-week steps</h2>
+  <p class="intro">Map W1 to the real calendar at kickoff. Vertical lines mark hand-offs on the track that delivers them.</p>
+  <div class="gantt-scroll"><div class="gantt" id="gantt"></div></div>
+  <div class="legend">
+    <span><i class="sw"></i>Planned work</span>
+    <span><i class="sw opt"></i>Optional Hong Kong extension</span>
+    <span><i class="sw hd"></i>Hand-off</span>
+  </div>
+  <p class="callout"><b>Critical path:</b> A3 &rarr; A5 (score v0) &rarr; B4&ndash;B6 and C3&ndash;C5 &rarr; D3&ndash;D5 &rarr; D7. A slip in score v0 moves everything after it by the same amount. Distance calibration (A6) and the coverage check (A7) are off the path, so they never hold up Q1&ndash;Q3.</p>
+</section>
+
+<section id="handoffs">
+  <p class="k">Interfaces</p>
+  <h2>Hand-offs between tracks</h2>
+  <p class="intro">Every hand-off is a table keyed by subzone code, in the format fixed by the data contract (A1). Once published, a hand-off changes only with notice to every track that uses it.</p>
+  <div class="tbl-wrap"><table class="grid" id="handoff-table">
+    <thead><tr><th>ID</th><th>What</th><th>From</th><th>To</th><th>Due</th><th>Used for</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
+
+<section id="review">
+  <p class="k">Proposal review</p>
+  <h2>Settle before work starts</h2>
+  <p class="intro">The proposal&rsquo;s chain from score to Q3 holds together. These are the gaps that would otherwise get decided mid-analysis, after people have seen results. Record each decision in P0.</p>
+  <div class="tbl-wrap"><table class="grid">
+    <thead><tr><th>#</th><th>Gap in the proposal</th><th>Decision to record</th><th>Owner</th></tr></thead>
+    <tbody>
+      <tr data-involves="C D"><td class="id">1</td><td><span class="gap-t">Density rule</span>Q3 switches to density-adjusted scores &ldquo;if Q2 finds density dominant&rdquo;, with no threshold.</td><td>Write the threshold down before Q2 runs, for example: density alone explains more than half the model&rsquo;s R&sup2;.</td><td class="who"><span class="pill tC">C</span><span class="pill tD">D</span></td></tr>
+      <tr data-involves="C"><td class="id">2</td><td><span class="gap-t">Residential cut-off</span>&ldquo;Almost no residents&rdquo; is undefined, and n will fall well below 332.</td><td>Fix a population cut-off and report n. Q1&rsquo;s weights, Q2&rsquo;s power and Q3&rsquo;s stability all use this set.</td><td class="who"><span class="pill tC">C</span></td></tr>
+      <tr data-involves="A"><td class="id">3</td><td><span class="gap-t">Population layer</span>Population-weighted centres need population below subzone level. Table 1 lists no such source.</td><td>Pick one (for example residential building footprints) and add it to the data table.</td><td class="who"><span class="pill tA">A</span></td></tr>
+      <tr data-involves="C"><td class="id">4</td><td><span class="gap-t">Housing mix</span>Only elderly share has a stated direction; &ldquo;housing mix&rdquo; is not defined.</td><td>Choose one measure (for example share in HDB 1&ndash;3 room flats) and state its expected sign.</td><td class="who"><span class="pill tC">C</span></td></tr>
+      <tr data-involves="D"><td class="id">5</td><td><span class="gap-t">Test for H&#8320;(b)</span>No test is named.</td><td>Permute the between-type difference in mean residual within spatial blocks, the same scheme as H&#8320;(a).</td><td class="who"><span class="pill tD">D</span></td></tr>
+      <tr data-involves="D"><td class="id">6</td><td><span class="gap-t">Town groups</span>Mature / non-mature covers HDB towns only. Central and industrial subzones belong to neither.</td><td>Exclude them from H&#8320;(a) or treat them as a third group; say which.</td><td class="who"><span class="pill tD">D</span></td></tr>
+      <tr data-involves="A"><td class="id">7</td><td><span class="gap-t">Walk radius</span>1&nbsp;km is asserted; only the weights get a robustness check.</td><td>Add 800&nbsp;m and 1.2&nbsp;km variants (A8). It is one loop.</td><td class="who"><span class="pill tA">A</span></td></tr>
+      <tr data-involves="B"><td class="id">8</td><td><span class="gap-t">Local-test correction</span>LISA and Gi* p-values are &ldquo;adjusted for the number of tests&rdquo; with no method named.</td><td>Name it, for example Benjamini&ndash;Hochberg FDR.</td><td class="who"><span class="pill tB">B</span></td></tr>
+      <tr data-involves="A"><td class="id">9</td><td><span class="gap-t">Text fix</span>&ldquo;Three caveats&rdquo; under the weights table lists two.</td><td>Add the third caveat or correct the count in the report.</td><td class="who"><span class="pill tA">A</span></td></tr>
+      <tr data-involves="B C D"><td class="id">10</td><td><span class="gap-t">Methods outside the lectures</span>The course covered global Moran&rsquo;s I, queen weights and permutation (Lecture 8). LISA, Gi*, OLS, LM tests, the spatial error model, silhouette and the block bootstrap were not taught.</td><td>Keep only what each question needs. Cite a source for each one and explain it in a sentence in the report. Consider dropping Gi*: it repeats LISA&rsquo;s clusters and cannot show the outliers Q3 needs.</td><td class="who"><span class="pill tB">B</span><span class="pill tC">C</span><span class="pill tD">D</span></td></tr>
+      <tr data-involves="A"><td class="id">11</td><td><span class="gap-t">Score normalisation</span>Category counts sit on very different scales (hundreds of eateries, tens of clinics). The proposal does not say how they are made comparable before weighting.</td><td>Pick one rule, for example <code>log1p(count)</code> divided by the maximum across the residential set, and apply it before the HES weights.</td><td class="who"><span class="pill tA">A</span></td></tr>
+      <tr data-involves="D"><td class="id">12</td><td><span class="gap-t">Permutation for H&#8320;(a)</span>Maturity is set by planning area and blocks start as planning areas, so shuffling town labels <em>within</em> a block changes nothing.</td><td>Shuffle town labels between whole blocks. H&#8320;(b) can still permute residuals within blocks.</td><td class="who"><span class="pill tD">D</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="glossary">
+  <p class="k">Glossary</p>
+  <h2>Terms used in this plan</h2>
+  <p class="intro">Plain-language meanings. In the methods table, &ldquo;Taught&rdquo; says whether the lectures covered it. Anything marked &ldquo;No&rdquo; needs a citation and a one-line explanation in the report.</p>
+
+  <h3 class="gl">Planning, housing and project terms</h3>
+  <div class="tbl-wrap"><table class="grid">
+    <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td class="term">Subzone</td><td>Smallest URA planning unit, from a few streets to a whole estate (median 1.2&nbsp;km&sup2;). One subzone is one row in every table.</td></tr>
+      <tr><td class="term">Planning area</td><td>A group of subzones, e.g. Bedok or Toa Payoh; 55 in total. Used as the starting resampling blocks.</td></tr>
+      <tr><td class="term">HDB town</td><td>HDB&rsquo;s own grouping of public-housing estates. Close to planning areas, but the boundaries are not identical.</td></tr>
+      <tr><td class="term">Mature / non-mature town</td><td>HDB&rsquo;s old label. Mature towns were built earlier and have established amenities (e.g. Toa Payoh, Queenstown); non-mature towns are newer and still filling in (e.g. Punggol, Sengkang). HDB retired the label in 2024; we use it as a fixed historical grouping.</td></tr>
+      <tr><td class="term">Residential subzone</td><td>A subzone with enough residents for its score to mean something. The cut-off is fixed in P0 and applied in C1.</td></tr>
+      <tr><td class="term">Elderly share</td><td>Share of a subzone&rsquo;s residents aged 65 and over (Census 2020). Q2 expects a higher elderly share to go with a lower score.</td></tr>
+      <tr><td class="term">Housing mix</td><td>The kinds of home residents live in, from the Census 2020 &ldquo;type of dwelling&rdquo; table: HDB 1&ndash;2 room, 3-room, 4-room, 5-room and executive flats, condominiums and other apartments, landed houses. It stands in for wealth, because income is not published by subzone. Reduced to one number, e.g. share in HDB 1&ndash;3 room flats (higher means less affluent).</td></tr>
+      <tr><td class="term">Population density</td><td>Residents per km&sup2; of subzone area. A control in Q2: shops go where people are.</td></tr>
+      <tr><td class="term">Distance to transit</td><td>Distance from the population-weighted centre to the nearest MRT or LRT station.</td></tr>
+      <tr><td class="term">Access score</td><td>How many everyday facilities lie within 1&nbsp;km of where a subzone&rsquo;s residents live, per category and combined.</td></tr>
+      <tr><td class="term">Category</td><td>One of six service groups: food services, retail goods, health, food retail, education, recreation.</td></tr>
+      <tr><td class="term">HES weights</td><td>Each category&rsquo;s share of household spending in the 2023 Household Expenditure Survey. Sets how much a category counts in the composite.</td></tr>
+      <tr><td class="term">Composite score</td><td>The six category scores combined using the HES weights.</td></tr>
+      <tr><td class="term">Variety</td><td>How many different kinds of facility (distinct OSM tags) are within reach. Counted separately from the score.</td></tr>
+      <tr><td class="term">Population-weighted centre</td><td>The point where a subzone&rsquo;s residents live on average, rather than its geometric middle.</td></tr>
+      <tr><td class="term">15-minute city</td><td>The planning idea that daily needs should be a short walk or ride from home. Singapore&rsquo;s version is &ldquo;20-minute towns&rdquo; (LTMP 2040).</td></tr>
+      <tr><td class="term">Under-served</td><td>A subzone or type whose score is lower than Q2&rsquo;s model predicts for it (a negative residual).</td></tr>
+      <tr><td class="term">OSM</td><td>OpenStreetMap: a free, volunteer-built world map and our source of facility locations.</td></tr>
+      <tr><td class="term">Crosswalk</td><td>Lookup table from OSM tags (e.g. <code>amenity=clinic</code>) to our six categories.</td></tr>
+      <tr><td class="term">ECDA register</td><td>The official list of licensed preschools. Used only to check how complete OSM is.</td></tr>
+      <tr><td class="term">Recall / coverage</td><td>Share of ECDA preschools that OSM also contains.</td></tr>
+      <tr><td class="term">OSM contributor density</td><td>Distinct OSM mappers per km&sup2;: a stand-in for how much mapping effort an area has had.</td></tr>
+      <tr><td class="term">Hand-off</td><td>A table one track gives another, keyed by <code>subzone_c</code> (H1&ndash;H8).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="gl">Methods</h3>
+  <div class="tbl-wrap"><table class="grid">
+    <thead><tr><th>Term</th><th>Meaning</th><th>Taught</th></tr></thead>
+    <tbody>
+      <tr><td class="term">CRS / SVY21</td><td>Coordinate reference system. SVY21 (EPSG:3414) is Singapore&rsquo;s, in metres, so distances come out in metres.</td><td class="taught-c">Lecture 3</td></tr>
+      <tr><td class="term">Buffer / within-distance</td><td>Everything within a set distance of a point; how the 1&nbsp;km count is done.</td><td class="taught-c">Lectures 4&ndash;5</td></tr>
+      <tr><td class="term">Spatial autocorrelation</td><td>Nearby places having similar values.</td><td class="taught-c">Lecture 8</td></tr>
+      <tr><td class="term">Spatial weights</td><td>The rule for who counts as a neighbour. Queen: shares a border or a corner. kNN: the k nearest centres.</td><td class="taught-c">Lecture 8 (queen); kNN no</td></tr>
+      <tr><td class="term">Moran&rsquo;s I</td><td>One number for a whole map. Positive: similar values cluster. Near 0: random. Negative: high next to low, like a checkerboard.</td><td class="taught-c">Lecture 8</td></tr>
+      <tr><td class="term">Permutation test</td><td>Shuffle the values many times (e.g. 999) and see how often chance gives a result as strong as the real one. That share is the p-value.</td><td class="taught-c">Lecture 8</td></tr>
+      <tr><td class="term">LISA</td><td>Local Moran&rsquo;s I: Moran&rsquo;s I for each subzone and its neighbours. Labels clusters (High-High, Low-Low) and outliers (High-Low, Low-High), the four quadrants of the Moran scatterplot.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">Getis-Ord Gi*</td><td>For each subzone, compares the total of it and its neighbours with the city-wide average. Finds hot and cold spots, but not outliers.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">Benjamini-Hochberg</td><td>A multiple-testing correction. With 300 tests at p &lt; 0.05, about 15 pass by chance; this adjusts the p-values so they don&rsquo;t.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">OLS</td><td>Ordinary least squares: standard linear regression, <code>lm()</code> in R. Fits the line that makes squared prediction errors smallest.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">Coefficient</td><td>How much the score changes when one predictor rises by one unit (or one SD), with the others held fixed.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">One-sided test</td><td>Tests for an effect in one stated direction only, e.g. elderly share lowers the score.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">VIF</td><td>Variance inflation factor. Flags predictors that overlap so much that their effects cannot be told apart (above ~5 is a warning).</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">Residual</td><td>Actual score minus the score the model predicts.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">R&sup2;</td><td>Share of the variation in the score that the model explains (0 to 1).</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">LM tests</td><td>Lagrange multiplier tests, run on OLS residuals. They say whether leftover spatial pattern looks like a <em>lag</em> (a score depends on its neighbours&rsquo; scores) or an <em>error</em> (unmeasured causes cluster in space), which picks the spatial model.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">Spatial error model</td><td>Regression that allows the errors of neighbouring subzones to be correlated. Fixes OLS p-values that are too small.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">z-score</td><td>Value minus the mean, divided by the standard deviation. Puts categories on one scale before clustering.</td><td class="taught-c">&mdash;</td></tr>
+      <tr><td class="term">k-means</td><td>Splits subzones into k groups, each as close as possible to its group&rsquo;s average profile.</td><td class="taught-c">Lecture 4 (as a map class style only)</td></tr>
+      <tr><td class="term">Elbow / silhouette</td><td>Ways to choose k. Elbow: the point where more groups stop helping much. Silhouette: how well each subzone fits its own group compared with the next nearest.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">Spatial block bootstrap</td><td>Rerun the clustering many times on data resampled in whole blocks of neighbouring subzones, and see which groups survive.</td><td class="taught-c">No</td></tr>
+      <tr><td class="term">Jaccard stability</td><td>Overlap between a cluster and its match in a bootstrap run, from 0 to 1. Above 0.75 is usually called stable.</td><td class="taught-c">No</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <p>Leads are as listed in the proposal and remain tentative. Each track&rsquo;s points add up to its share of the 100. Kickoff, weekly hand-off check-ins and the final read-through are shared and not counted. The Hong Kong extension (P4) sits outside the split.</p>
+  <p>Source: Group 3 Metropolitans project proposal, &ldquo;Whose 15-Minute City? Neighbourhood Types and Walkable Access to Everyday Services in Singapore&rdquo;.</p>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  var NAMES = {A:'Access score', B:'Q1 Structure', C:'Q2 Drivers', D:'Q3 Types'};
+
+  // [id, track, points (null = optional), title, detail]
+  var PHASES = [
+    {id:'P0', name:'Fix the ground rules', weeks:'W1',
+     solves:'What is a row, which subzones count, and which towns are mature? Settle this before anyone computes anything.',
+     tasks:[
+      ['A1','A',2,'Data contract and pipeline skeleton','CRS SVY21 (EPSG:3414), subzone code as the join key, one folder layout, one run-all script. Every hand-off follows it.'],
+      ['A2','A',2,'Download the Singapore sources','MP19 subzones and rail stations, Census 2020 (age; dwelling type), HES 2023, ECDA listings. Save into the repo&rsquo;s <code>data/raw/sg/</code>, commit, and log source, date, licence and md5 in <code>docs/data_log.md</code>.'],
+      ['B3','B',2,'Shared map and figure theme','One tmap / ggplot2 style (palette, legend, scale bar, fonts) that every track uses from day one.'],
+      ['C1','C',2,'Residential subzone set','Apply the population cut-off agreed at kickoff; publish the set and how many of the 332 subzones remain (H2).'],
+      ['D1','D',2,'Mature / non-mature town list','Fix the list from a dated source, label it historical (HDB retired it in 2024) and tag every subzone. Non-HDB areas get their own label (H1).']
+     ],
+     gate:'Data contract agreed, H1 and H2 published, and every row of &ldquo;Settle before work starts&rdquo; has a recorded decision.'},
+
+    {id:'P1', name:'Build the instrument', weeks:'W1&ndash;W3',
+     solves:'How easily can residents of each subzone walk to each of the six categories, and how far can the OpenStreetMap counts be trusted?',
+     tasks:[
+      ['A3','A',7,'OSM extraction and category crosswalk','Amenity points for all six categories plus the footway network. Publish the OSM tag &rarr; category table so the other tracks can audit it.'],
+      ['A4','A',3,'Population-weighted centres','Put each subzone&rsquo;s centre where its residents live, not at the polygon centroid. Needs a population layer below subzone level (review item 3).'],
+      ['A5','A',6,'Score v0','Facilities within 1&nbsp;km of each centre, weighted by HES 2023 shares, with variety counted separately, combined per subzone. Released as H4.'],
+      ['A6','A',4,'Distance calibration','Route about 200 sample journeys on the footway network and measure how far the straight-line estimate is off. Off the critical path.'],
+      ['A7','A',6,'OSM coverage check','Match OSM preschools to ECDA; recall overall and by town group with a two-proportion test; shrink miss rates where a subzone holds fewer than five reference centres.'],
+      ['A8','A',4,'Robustness and freeze v1','Equal-weight and 800&nbsp;m / 1.2&nbsp;km radius variants, then freeze v1 (H5). After this, changes go through all four tracks.'],
+      ['B1','B',3,'Spatial weights','Queen contiguity on the residential set, with k-nearest neighbours as a check; resolve subzones with no neighbours.'],
+      ['B2','B',2,'Resampling blocks','Spatial blocks for Q3&rsquo;s bootstrap and permutations (planning areas are the obvious start); check block sizes. Ships with B1 as H3.'],
+      ['C2','C',5,'Covariate table','Elderly share, housing mix, population density, distance to the nearest rail station and OSM contributor density for every residential subzone.'],
+      ['D2','D',4,'Clustering pipeline','Scaling, k-means, elbow and silhouette, block bootstrap and block permutation code. Test on mock data, then on score v0.']
+     ],
+     gate:'Score v1 frozen (H5). If preschool recall differs between mature and non-mature towns, that result travels into Q3 as a stated caveat on H&#8320;(a).'},
+
+    {id:'P2', name:'Diagnose the score', weeks:'W3&ndash;W4',
+     solves:'Q1: How is each category structured in space? Q2: What explains access, and how much of it is just density?',
+     note:'Both questions run on score v0 first and rerun on v1 when it lands. The code should not change between the two runs.',
+     tasks:[
+      ['B4','B',4,'Global Moran&rsquo;s I','Input: each subzone&rsquo;s score (six categories, then the composite) and B1&rsquo;s weights. Output: one I and p-value per score, 999 permutations, queen against kNN. H&#8320;: I = 0.'],
+      ['B5','B',4,'LISA and Getis-Ord Gi*','Local clusters and hot spots with the multiple-testing correction agreed in P0; maps in the shared theme.'],
+      ['B6','B',2,'Memo to Q3','Which categories form contiguous regions, which concentrate below subzone scale, and which subzones are outliers (H6).'],
+      ['C3','C',3,'OLS model','Composite score on the covariates; collinearity check (VIF); one-sided tests on elderly share and housing mix. Repeat per category as a supporting table.'],
+      ['C4','C',4,'Residual diagnostics','Moran&rsquo;s I and LM tests on the residuals using B&rsquo;s weights; refit as a spatial error model if they are correlated.'],
+      ['C5','C',3,'Outputs for Q3','Density&rsquo;s share of explained variance and the raw-or-adjusted call, density-adjusted category scores, and the residual vector (H7).']
+     ],
+     gate:'H6 and H7 delivered. The raw-or-adjusted call follows the threshold fixed in P0, not a look at the clusters.'},
+
+    {id:'P3', name:'Answer the target question', weeks:'W4&ndash;W5',
+     solves:'Q3: What kinds of neighbourhood exist, and do mature and non-mature towns have the same ones?',
+     tasks:[
+      ['D3','D',4,'Choose k and test stability','Run on the final inputs: elbow and silhouette for k, then spatial block bootstrap. Flag groups that move.'],
+      ['D4','D',2,'H&#8320;(a): type mix','Is the mix of types the same in mature and non-mature towns? Permute town labels between whole blocks (review item 12).'],
+      ['D5','D',2,'H&#8320;(b): under-service','Is type membership unrelated to Q2&rsquo;s residuals? Permutation within spatial blocks.'],
+      ['D6','D',2,'Profile and name the types','Category profile and map for each stable type, with plain-language names. Unstable groups are reported as unstable, not named.']
+     ],
+     gate:'Stable types named and mapped, H&#8320;(a) and H&#8320;(b) decided, results shared as H8.'},
+
+    {id:'P4', name:'Hong Kong extension', weeks:'W5, optional', optional:true,
+     solves:'Do the same spatial structure and the same types appear in Hong Kong? Q1 and Q3 only, because Q2&rsquo;s coefficients depend on count levels that cannot be validated there.',
+     tasks:[
+      ['A&middot;HK','A',null,'Hong Kong extraction and score','Same crosswalk and Singapore weights, so the score measures access to a Singapore-weighted basket. Say so in the report.'],
+      ['B&middot;HK','B',null,'Moran&rsquo;s I for Hong Kong','Per category on the 2021 census small units.'],
+      ['C&middot;HK','C',null,'Comparability check','OSM contributor density, Singapore against Hong Kong: the only check available.'],
+      ['D&middot;HK','D',null,'Assign Hong Kong units to Singapore types','Nearest Singapore centroid with no refit, then repeat the type-mix test across the two cities.']
+     ],
+     gate:'Go only if H6 and H7 landed by mid-W4 and P3 is on track. Every Hong Kong result is labelled provisional.'},
+
+    {id:'P5', name:'Synthesise and write', weeks:'W4&ndash;W6',
+     solves:'Whose 15-minute city? One answer, built from the score, Q1, Q2 and Q3.',
+     tasks:[
+      ['A9','A',3,'Data and score section','Sources, the weights table, coverage and calibration results, robustness.'],
+      ['B7','B',3,'Q1 section','Global and local results, and what they mean for Q3.'],
+      ['C6','C',3,'Q2 section','Model, diagnostics, the density share and the call it decided.'],
+      ['D7','D',4,'Q3 section and Discussion','Write Q3, then lead the Discussion that answers the target question using Q1 and Q2.'],
+      ['A10','A',3,'Assemble and rerun','Knit the R Markdown report, check cross-references, rerun everything from a clean clone.']
+     ],
+     gate:'The report knits from a clean clone with one command, every figure uses the shared theme, and the Discussion answers the target question in its first paragraph.'}
+  ];
+
+  // How-to notes per task id: lecture coverage, steps, one pitfall
+  var GUIDES = {
+    A1:{taught:'Lecture 3 (CRS)', steps:[
+      'Use EPSG:3414 (SVY21, metres) for every layer: <code>st_transform(x, 3414)</code>. Metre distances only work in a projected CRS.',
+      'Use the MP19 subzone code <code>subzone_c</code> as the join key. Never join on names.',
+      'Every hand-off is one row per subzone in <code>data/processed/</code>: <code>.rds</code> if it carries geometry, <code>.csv</code> if not. Prefix files by stage: <code>score_</code>, <code>q1_</code>, <code>q2_</code>, <code>q3_</code>.',
+      '<code>R/run_all.R</code> sources each stage in order; every script runs from the repo root.'],
+     watch:'Write each hand-off&rsquo;s column list into its plan file before coding. Renaming a column later breaks other tracks.'},
+    A2:{steps:[
+      'Open each link in <code>data/DATA_SOURCES.md</code> and download the file.',
+      'Save it unchanged in <code>data/raw/sg/</code> under a short snake_case name, e.g. <code>census2020_age.csv</code>. Raw files are read-only: clean them in code, never by hand.',
+      'Add a row to <code>docs/data_log.md</code>: file, source URL, download date, licence, md5 (<code>tools::md5sum(&quot;data/raw/sg/census2020_age.csv&quot;)</code>).',
+      'Commit raw files so everyone works on the same snapshot. Files over ~50&nbsp;MB (e.g. a Geofabrik <code>.osm.pbf</code>) are git-ignored: fetch them by script and log the URL.'],
+     watch:'Census 2020 tables list subzones by <em>name</em>, not code. Join them to MP19 on upper-cased subzone name plus planning area, and list any that fail to match.'},
+    C1:{steps:[
+      'Take total residents per subzone from the Census 2020 age table.',
+      'Apply the cut-off agreed in P0, e.g. at least 1,000 residents. Airports, water catchments, ports and industrial estates drop out.',
+      'Publish <code>data/processed/residential_set.csv</code> (<code>subzone_c</code>, <code>pop</code>, <code>residential</code>) and the count kept.'],
+     watch:'Census shows very small counts as &ldquo;-&rdquo; and rounds to tens; treat &ldquo;-&rdquo; as 0. Report n under two cut-offs so the choice is visible.'},
+    D1:{steps:[
+      'Take HDB&rsquo;s last published mature / non-mature list (before the 2024 change) and record its URL and date.',
+      'Map each HDB town to URA planning areas and tag every subzone <code>mature</code>, <code>non_mature</code> or <code>neither</code> (private, central or industrial areas).',
+      'Save to <code>data/external/town_maturity.csv</code> with a source column.'],
+     watch:'HDB towns and planning areas do not share boundaries (e.g. Kallang/Whampoa, Central Area). Note every case where you had to choose.'},
+    A3:{steps:[
+      'Query OSM with <code>osmdata</code> (<code>opq()</code> &rarr; <code>add_osm_feature()</code> &rarr; <code>osmdata_sf()</code>) or Overpass, clipped to Singapore.',
+      'Keep points and polygons; turn polygons (e.g. a supermarket drawn as a building) into points with <code>st_point_on_surface()</code>.',
+      'Write the crosswalk as a CSV: <code>osm_key</code>, <code>osm_value</code>, <code>category</code>, e.g. <code>amenity</code>, <code>clinic</code>, <code>health</code>. Unlisted tags are dropped.',
+      'Remove duplicates: the same place mapped as both a point and a building.',
+      'Pull the walkable network separately (<code>highway</code> = footway, path, pedestrian, steps, residential, service) for A6.'],
+     watch:'Each tag maps to exactly one category. Print counts per category and sanity-check them against known totals, e.g. NEA&rsquo;s hawker centre list.'},
+    A4:{steps:[
+      'Get a layer showing where people live inside a subzone, e.g. OSM buildings tagged residential / apartments / house, or HDB building footprints.',
+      'Weight each building by floor area (footprint &times; <code>building:levels</code> where present) and take the weighted mean of building centroids per subzone.',
+      'Subzones without residential buildings fall back to <code>st_point_on_surface()</code>; flag them.'],
+     watch:'A plain polygon centroid can land in a reservoir, a forest or outside an L-shaped subzone. Map the centres over the subzones and check by eye.'},
+    A5:{taught:'Lectures 4&ndash;5 (buffers, distance joins)', steps:[
+      'Count facilities within 1&nbsp;km of each centre, per category: <code>lengths(st_is_within_distance(centres, pois_cat, 1000))</code>.',
+      'Put categories on one scale before weighting (review item 11), e.g. <code>log1p(count)</code> divided by the maximum across the residential set. Otherwise food services (hundreds of outlets) swamp health (tens) whatever the weights say.',
+      'Composite = sum of category scores &times; HES weights. Variety = number of distinct OSM tag values within 1&nbsp;km.',
+      'Save <code>score_subzone.rds</code> in the column format of the data contract (H4).'],
+     watch:'Write the normalisation rule into the report. Every later result depends on it.'},
+    A6:{taught:'No', steps:[
+      'Sample about 200 pairs: a subzone centre and a facility 200&ndash;1,000&nbsp;m away in a straight line, spread across town types.',
+      'Route each pair on the footway network (<code>sfnetworks</code> or <code>dodgr</code>) to get the walking distance.',
+      'Detour factor = walking distance &divide; straight-line distance. Report the median and spread.'],
+     watch:'A median of 1.3 means the 1&nbsp;km circle reaches places up to about 1.3&nbsp;km of real walking. State it in the report; it shifts levels more than rankings.'},
+    A7:{steps:[
+      'Match each ECDA centre to the nearest OSM preschool within about 100&nbsp;m with a similar name (<code>stringdist</code>).',
+      'Recall = matched ECDA centres &divide; all ECDA centres, overall and per town group.',
+      'Compare mature with non-mature using <code>prop.test()</code>.',
+      'Where a subzone has fewer than five ECDA centres, shrink its miss rate towards the overall rate (beta-binomial) before mapping.'],
+     watch:'Check a random sample of matches by hand to estimate how many are wrong.'},
+    A8:{steps:[
+      'Rerun A5 three times: equal weights, 800&nbsp;m, 1.2&nbsp;km.',
+      'Compare each variant with the main score by rank correlation (<code>cor(x, y, method = &quot;spearman&quot;)</code>) and list subzones whose rank moves a lot.',
+      'Freeze v1: save <code>score_subzone.rds</code>, tag the commit <code>score-v1</code>, tell every track.']},
+    B1:{taught:'Lecture 8 (queen contiguity, listw)', steps:[
+      'Queen neighbours on the residential set: <code>nb &lt;- poly2nb(sz, queen = TRUE)</code>.',
+      'Find subzones with no neighbours: <code>which(card(nb) == 0)</code>. Give each its nearest subzone as a neighbour.',
+      'Row-standardised weights: <code>lw &lt;- nb2listw(nb, style = &quot;W&quot;)</code>.',
+      'kNN check: <code>knn2nb(knearneigh(st_coordinates(st_centroid(sz)), k = 6))</code>.'],
+     watch:'Dropping non-residential subzones punches holes in the map, so some subzones lose neighbours. Build the weights <em>after</em> applying H2.'},
+    B2:{steps:[
+      'Start with planning areas as blocks: <code>block_id = pln_area_n</code>.',
+      'Merge blocks with only one or two residential subzones into a neighbouring block.',
+      'Save <code>q1_blocks.csv</code> (<code>subzone_c</code>, <code>block_id</code>) and report the number and sizes of blocks.'],
+     watch:'Resampling whole blocks keeps neighbouring, near-duplicate subzones together, so Q3 does not overstate stability.'},
+    B4:{taught:'Lecture 8', steps:[
+      'For each of the seven score columns: <code>moran.mc(sz$score_health, lw, nsim = 999)</code>.',
+      'Collect I and p into one table, 7 rows &times; (queen, kNN): <code>q1_morans_i.csv</code>.',
+      'Draw a Moran scatterplot per category: <code>moran.plot(x, lw)</code>.'],
+     watch:'The input is subzone <em>scores</em>, not facility coordinates. Positive I: similar subzones sit together. Near 0: no pattern. Negative: high next to low.'},
+    B5:{taught:'No (extends the Lecture 8 Moran scatterplot)', steps:[
+      'LISA: <code>loc &lt;- localmoran(x, lw)</code> gives one local I and p-value per subzone.',
+      'Correct the p-values: <code>p.adjust(p, method = &quot;BH&quot;)</code>.',
+      'Label each significant subzone by its Moran scatterplot quadrant: High-High and Low-Low are clusters; High-Low and Low-High are outliers.',
+      'Gi*, if kept (review item 10): <code>localG(x, nb2listw(include.self(nb)))</code> gives a z-score; large positive is a hot spot, large negative a cold spot.',
+      'Map the labels in the shared theme.'],
+     watch:'With ~300 subzones, about 15 look significant at p &lt; 0.05 by chance alone. That is why the correction matters.'},
+    B6:{steps:[
+      'One short table: category, global I, number of High-High / Low-Low subzones, number of High-Low / Low-High outliers.',
+      'Call each category &ldquo;contiguous&rdquo; (large High-High / Low-Low patches) or &ldquo;concentrated&rdquo; (scattered outliers, e.g. tuition centres in malls).',
+      'List outlier subzones by code so Q3 can check whether they form a cluster of their own.']},
+    C2:{steps:[
+      'Elderly share = residents aged 65+ &divide; all residents (Census age table).',
+      'Housing mix = one number from the dwelling table, as fixed in review item 4, e.g. share of residents in HDB 1&ndash;3 room flats.',
+      'Population density = residents &divide; subzone area in km&sup2; (<code>st_area()</code>). Use the log; it is very skewed.',
+      'Distance to rail = metres from the population-weighted centre to the nearest station (<code>st_nearest_feature()</code>, then <code>st_distance()</code>).',
+      'OSM contributor density = distinct OSM user IDs per km&sup2;. Needs <code>out meta;</code> in the Overpass query.'],
+     watch:'Use the same population-weighted centres as the score (A4), and the residential set only.'},
+    C3:{taught:'No (standard linear regression)', steps:[
+      'Standardise the predictors with <code>scale()</code> so coefficients compare: &ldquo;1 SD more elderly share goes with b points of score&rdquo;.',
+      'Fit: <code>m &lt;- lm(score ~ elderly + housing + log_density + dist_rail + osm_users, data = sz)</code>.',
+      'Collinearity: <code>car::vif(m)</code>. Above ~5 means two predictors carry the same information.',
+      'One-sided p: if the coefficient has the expected sign, p = two-sided p &divide; 2; if not, H&#8320; stands.',
+      'Rerun the same model on each of the six category scores and put the coefficients in one table.'],
+     watch:'This is association, not cause. Write &ldquo;subzones with more elderly residents have lower scores&rdquo;, not &ldquo;elderly residents cause lower access&rdquo;.'},
+    C4:{taught:'No', steps:[
+      'Moran&rsquo;s I on the residuals: <code>lm.morantest(m, lw)</code>.',
+      'LM tests: <code>lm.RStests(m, lw, test = &quot;all&quot;)</code> (<code>lm.LMtests</code> in older spdep). Compare the error tests with the lag tests.',
+      'If the error tests are significant: <code>sem &lt;- spatialreg::errorsarlm(formula, data = sz, listw = lw)</code>, and compare AIC with OLS.',
+      'Report both models side by side.'],
+     watch:'Correlated residuals make OLS p-values too small. The spatial error model fixes the p-values; coefficients usually change little.'},
+    C5:{steps:[
+      'Density share = R&sup2; of <code>lm(score ~ log_density)</code> &divide; R&sup2; of the full model.',
+      'Apply the threshold fixed in P0: above it, Q3 clusters on density-adjusted scores.',
+      'Density-adjusted category score = residuals of <code>lm(score_cat ~ log_density)</code>, one per category.',
+      'Residual vector = residuals of the final model (OLS or spatial error), saved as <code>q2_residuals.csv</code>.']},
+    D2:{taught:'Lecture 4 (k-means as a map class style only)', steps:[
+      'Standardise the six category scores across the residential set: <code>X &lt;- scale(scores)</code>.',
+      'Fit: <code>kmeans(X, centers = k, nstart = 50)</code>. <code>nstart</code> guards against a bad random start.',
+      'Elbow: <code>factoextra::fviz_nbclust(X, kmeans, method = &quot;wss&quot;)</code>. Silhouette: <code>cluster::silhouette(km$cluster, dist(X))</code>.',
+      'Write the bootstrap and permutation functions for D3&ndash;D5 now, and test them on fake data with three known groups, like Lecture 7&rsquo;s simulated clusters.']},
+    D3:{taught:'No', steps:[
+      'Pick k where the elbow bends and the average silhouette is high; show both plots.',
+      'Block bootstrap: resample whole blocks (H3) with replacement and refit k-means, 200 or more times.',
+      'Match each run&rsquo;s clusters to the original (<code>clue::solve_LSAP()</code>) and compute each cluster&rsquo;s mean Jaccard overlap.',
+      'Rule of thumb: above 0.75 is stable; below 0.5 the group has dissolved.']},
+    D4:{taught:'Lecture 8 (permutation idea)', steps:[
+      'Cross-tabulate type &times; town group and use the chi-square statistic as the test statistic.',
+      'Shuffle town-group labels between whole blocks, recompute, 999 times.',
+      'p = share of shuffled statistics at least as large as the observed one. Do not use the textbook chi-square p-value: neighbouring subzones are not independent.'],
+     watch:'Maturity is set by planning area and blocks start as planning areas, so shuffling <em>inside</em> a block changes nothing (review item 12).'},
+    D5:{taught:'Lecture 8 (permutation idea)', steps:[
+      'Test statistic: F from <code>anova(lm(residual ~ type))</code>, i.e. how far apart the types&rsquo; mean residuals are.',
+      'Shuffle residuals within blocks, recompute, 999 times. p = share of shuffled F at least as large as the observed one.',
+      'A type with a clearly negative mean residual is under-served: lower access than its density and population predict.']},
+    D6:{steps:[
+      'Mean z-score per category for each stable type, as a heatmap or grouped bars.',
+      'Map the types in the shared theme.',
+      'Name each type from its profile, e.g. &ldquo;food-rich town centre&rdquo;, &ldquo;thin fringe estate&rdquo;. Unstable groups stay unnamed.']}
+  };
+
+  function howTo(g){
+    if (!g) return '';
+    return '<details class="how"><summary>How to do it' + (g.taught ? '<span class="taught">Taught: ' + g.taught + '</span>' : '') + '</summary>' +
+      '<ol>' + g.steps.map(function(s){ return '<li>' + s + '</li>'; }).join('') + '</ol>' +
+      (g.watch ? '<p class="watch"><b>Watch out</b>' + g.watch + '</p>' : '') + '</details>';
+  }
+
+  // [track, lane, from half-week, to half-week, label, optional]
+  var BARS = [
+    ['A',0,1,1,'P0'],['A',0,2,4,'P1 OSM &rarr; score v0'],['A',0,5,6,'P1 Robustness, v1'],['A',0,7,10,'P5 Data &amp; score section'],['A',0,11,12,'P5 Assemble'],
+    ['A',1,3,6,'P1 Coverage check, distance calibration'],['A',1,9,10,'P4 HK score',true],
+    ['B',0,1,2,'P0 Figure theme'],['B',0,3,4,'P1 Weights, blocks'],['B',0,5,7,'P2 Moran&rsquo;s I, LISA, Gi*'],['B',0,8,12,'P5 Q1 section'],
+    ['B',1,9,10,'P4 HK Moran&rsquo;s I',true],
+    ['C',0,1,2,'P0 Residential set'],['C',0,3,4,'P1 Covariates'],['C',0,5,7,'P2 OLS &rarr; SEM'],['C',0,8,12,'P5 Q2 section'],
+    ['C',1,9,10,'P4 HK check',true],
+    ['D',0,1,2,'P0 Town list'],['D',0,3,6,'P1 Clustering pipeline'],['D',0,7,10,'P3 Types and tests'],['D',0,11,12,'P5 Q3, Discussion'],
+    ['D',1,10,11,'P4 HK assign',true]
+  ];
+
+  // [id, what, from, to[], due, half-week, used for]
+  var HANDOFFS = [
+    ['H1','Town list: mature, non-mature or neither, per subzone','D',['A','D'],'End W1',2,'Coverage check by town group (A7); H&#8320;(a) (D4)'],
+    ['H2','Residential subzone set and its n','C',['A','B','D'],'End W1',2,'Every analysis runs on the same rows'],
+    ['H3','Spatial weights and resampling blocks','B',['C','D'],'End W2',4,'Residual tests (C4); bootstrap and permutations (D3&ndash;D5)'],
+    ['H4','Score v0: six category scores, variety and composite','A',['B','C','D'],'End W2',4,'Q1&ndash;Q3 start on real data'],
+    ['H5','Score v1, frozen, with equal-weight and radius variants','A',['B','C','D'],'End W3',6,'Final runs and robustness'],
+    ['H6','Q1 memo: contiguous vs concentrated categories, outlier subzones','B',['D'],'Mid W4',7,'How Q3 resamples and reads odd clusters'],
+    ['H7','Q2 outputs: density share, raw-or-adjusted call, adjusted scores, residuals','C',['D'],'Mid W4',7,'What Q3 clusters on; H&#8320;(b)'],
+    ['H8','Q3 results: stable types, test outcomes, maps','D',['A','B','C'],'End W5',10,'Discussion and final report']
+  ];
+
+  function pill(t, txt){ return '<span class="pill t' + t + '">' + (txt || t) + '</span>'; }
+
+  // Points per track, for the flow cards
+  var totals = {};
+  PHASES.forEach(function(p){ p.tasks.forEach(function(k){
+    if (k[2] === null) return;
+    var t = totals[k[1]] || (totals[k[1]] = {pts:0, n:0});
+    t.pts += k[2]; t.n += 1;
+  }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-count]'), function(el){
+    var t = totals[el.getAttribute('data-count')];
+    if (t) el.textContent = t.pts + ' pts across ' + t.n + ' tasks';
+  });
+
+  // Phase route
+  var route = '';
+  PHASES.forEach(function(p, i){
+    var mix = {};
+    p.tasks.forEach(function(k){ if (k[2] !== null) mix[k[1]] = (mix[k[1]] || 0) + k[2]; });
+    var mixHtml = p.optional
+      ? '<span class="mx">Outside the split</span>'
+      : Object.keys(mix).sort().map(function(t){
+          return '<span class="mx t' + t + '" data-track="' + t + '" title="Track ' + t + ' points in this phase"><i></i>' + t + ' ' + mix[t] + '</span>';
+        }).join('');
+    var next = PHASES[i + 1];
+    var cls = 'stop' + (p.optional ? ' opt' : '') + (next && next.optional ? ' pre-opt' : '');
+    var tasks = p.tasks.slice().sort(function(a, b){ return a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0; }).map(function(k){
+      return '<li class="task" data-track="' + k[1] + '">' + pill(k[1], k[0]) +
+        '<div><span class="tk-t">' + k[3] + '</span><span class="tk-d">' + k[4] + '</span>' + howTo(GUIDES[k[0]]) + '</div>' +
+        '<span class="tk-p' + (k[2] === null ? ' opt' : '') + '">' + (k[2] === null ? 'opt' : k[2] + ' pts') + '</span></li>';
+    }).join('');
+    route += '<li class="' + cls + '" id="' + p.id.toLowerCase() + '">' +
+      '<div class="marker" aria-hidden="true">' + p.id + '</div>' +
+      '<div class="ph"><div class="ph-head"><h3>' + p.name + '</h3><span class="ph-weeks">' + p.weeks + '</span><span class="ph-mix">' + mixHtml + '</span></div>' +
+      '<p class="solves"><span class="k">Solves</span><span class="q">' + p.solves + '</span></p>' +
+      (p.note ? '<p class="note">' + p.note + '</p>' : '') +
+      '<ul class="tasks">' + tasks + '</ul>' +
+      '<p class="gate"><span class="k">' + (p.optional ? 'Go / no-go' : 'Exit gate') + '</span><span>' + p.gate + '</span></p></div></li>';
+  });
+  document.getElementById('route').innerHTML = route;
+
+  // Timeline
+  var g = '<div class="g-row g-head"><div></div><div class="g-weeks">';
+  for (var w = 1; w <= 6; w++) g += '<span>W' + w + '</span>';
+  g += '</div></div>';
+  ['A','B','C','D'].forEach(function(t){
+    var lanes = [[], []];
+    BARS.forEach(function(b){ if (b[0] === t) lanes[b[1]].push(b); });
+    var lanesHtml = lanes.filter(function(l){ return l.length; }).map(function(l){
+      return '<div class="lane">' + l.map(function(b){
+        return '<div class="gbar' + (b[5] ? ' opt' : '') + '" style="grid-column:' + b[2] + ' / ' + (b[3] + 1) + '">' + b[4] + '</div>';
+      }).join('') + '</div>';
+    }).join('');
+    var hands = HANDOFFS.filter(function(h){ return h[2] === t; }).map(function(h){
+      return '<div class="hand" style="--at:' + h[5] + '" title="' + h[0] + ' due ' + h[4] + '"><span>' + h[0] + '</span></div>';
+    }).join('');
+    g += '<div class="g-row t' + t + '" data-track="' + t + '"><div class="g-label">' + pill(t) + NAMES[t] + '</div>' +
+      '<div class="g-lanes">' + lanesHtml + hands + '</div></div>';
+  });
+  document.getElementById('gantt').innerHTML = g;
+
+  // Hand-off table
+  document.querySelector('#handoff-table tbody').innerHTML = HANDOFFS.map(function(h){
+    var involves = [h[2]].concat(h[3]).filter(function(v, i, a){ return a.indexOf(v) === i; }).join(' ');
+    return '<tr data-involves="' + involves + '"><td class="id">' + h[0] + '</td><td>' + h[1] + '</td>' +
+      '<td class="who">' + pill(h[2]) + '</td><td class="who">' + h[3].map(function(t){ return pill(t); }).join('') + '</td>' +
+      '<td class="when">' + h[4] + '</td><td>' + h[6] + '</td></tr>';
+  }).join('');
+
+  // Track highlighter
+  var root = document.documentElement;
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  function setFocus(f){
+    if (f) root.setAttribute('data-focus', f); else root.removeAttribute('data-focus');
+    chips.forEach(function(c){ c.setAttribute('aria-pressed', String(c.getAttribute('data-f') === f)); });
+    try { localStorage.setItem('plan-focus', f); } catch (e) {}
+  }
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      var f = c.getAttribute('data-f');
+      setFocus(f === (root.getAttribute('data-focus') || '') ? '' : f);
+    });
+  });
+  var saved = '';
+  try { saved = localStorage.getItem('plan-focus') || ''; } catch (e) {}
+  setFocus(/^[ABCD]$/.test(saved) ? saved : '');
+})();
+</script>
