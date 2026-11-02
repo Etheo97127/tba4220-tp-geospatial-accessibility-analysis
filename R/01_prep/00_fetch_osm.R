@@ -40,11 +40,13 @@ poi_query <- function(rows) {
 }
 
 # ~46,000 footprints with full geometry is more than the public server will
-# stream in one response, so the island is pulled in four tiles (south, west,
-# north, east). A way crossing a tile edge comes back twice; 04_buildings.R
-# drops the duplicate by id.
-TILES <- list(sw = c(1.15, 103.55, 1.35, 103.85), se = c(1.15, 103.85, 1.35, 104.10),
-              nw = c(1.35, 103.55, 1.48, 103.85), ne = c(1.35, 103.85, 1.48, 104.10))
+# stream in one response, so the island is pulled in tiles (south, west, north,
+# east); the denser north is cut in two again, because quarter-island responses
+# there kept being dropped mid-transfer. A way crossing a tile edge comes back
+# twice; 04_buildings.R drops the duplicate by id.
+TILES <- list(sw  = c(1.15, 103.55, 1.35, 103.85),  se  = c(1.15, 103.85, 1.35, 104.10),
+              nw1 = c(1.35, 103.55, 1.48, 103.70),  nw2 = c(1.35, 103.70, 1.48, 103.85),
+              ne1 = c(1.35, 103.85, 1.48, 103.975), ne2 = c(1.35, 103.975, 1.48, 104.10))
 
 building_query <- function(bb) paste0(
   "[out:json][timeout:600];\n",
