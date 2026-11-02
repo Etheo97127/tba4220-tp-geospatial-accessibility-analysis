@@ -20,7 +20,9 @@ stages <- list(
     "R/02_coverage/03_outputs.R",               # tables and figures
     "R/02_coverage/04_ceiling_and_validation.R" # matcher ceiling + manual-check sample
   ),
-  score    = character(0),                      # R/03_score/        (Haotian)
+  score    = c(                                 # R/03_score/        (Haotian)
+    "R/03_score/01_centres.R"                   # population-weighted centres (A4)
+  ),
   q1       = character(0),                      # R/04_q1_spatial/   (Hew)
   q2       = character(0),                      # R/05_q2_regression/ (Zachary)
   q3       = character(0)                       # R/06_q3_typology/  (Coltrane)
