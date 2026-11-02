@@ -49,15 +49,22 @@ prop_one <- function(df, set_name, label, role) {
   m  <- tab %>% filter(maturity == "mature")
   nm <- tab %>% filter(maturity == "non-mature")
   ht <- prop.test(c(m$missed, nm$missed), c(m$n, nm$n), correct = TRUE)
-  # Power to detect the observed difference, given these arm sizes.
-  pw <- pwr.2p2n.test(h = ES.h(m$missed / m$n, nm$missed / nm$n),
-                      n1 = m$n, n2 = nm$n, sig.level = 0.05)
+  # Power at the observed difference says little after the fact. Report instead
+  # the smallest difference these arm sizes detect at 80% power: solve for
+  # Cohen's h, then turn h back into a gap in miss rate centred on the observed
+  # overall miss rate. h is on the arcsine scale, so near 0 or 1 the same h is
+  # a smaller gap in percentage points than near 50%.
+  h_mdd <- pwr.2p2n.test(n1 = m$n, n2 = nm$n, sig.level = 0.05, power = 0.80)$h
+  p0 <- (m$missed + nm$missed) / (m$n + nm$n)
+  gap <- uniroot(function(g) ES.h(p0 + g / 2, p0 - g / 2) - h_mdd,
+                 c(0, 2 * min(p0, 1 - p0)))$root
   tibble(set = set_name, role = role, test = label,
          n_mature = m$n, miss_mature = m$missed, p_mature = m$missed / m$n,
          n_nonmature = nm$n, miss_nonmature = nm$missed, p_nonmature = nm$missed / nm$n,
          diff = m$missed / m$n - nm$missed / nm$n,
          ci_lo = ht$conf.int[1], ci_hi = ht$conf.int[2],
-         chisq = unname(ht$statistic), p_value = ht$p.value, power = pw$power)
+         chisq = unname(ht$statistic), p_value = ht$p.value,
+         mdd_h = h_mdd, mdd_pp = 100 * gap)
 }
 
 # Holm is applied within each role, never across them: the headline is a single
