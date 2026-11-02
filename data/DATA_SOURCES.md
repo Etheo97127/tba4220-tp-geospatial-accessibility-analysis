@@ -114,7 +114,7 @@ cities.
 
 | Route | URL | Notes |
 |---|---|---|
-| **Overpass API** (what the project uses) | <https://overpass-api.de/api/interpreter> | POST a query; the exact queries are in `R/02_osm.R`. **Clicking this link gives a 406** — it only answers POSTs, so use Overpass Turbo below to look at a query |
+| **Overpass API** (what the project uses) | <https://overpass-api.de/api/interpreter> | `R/01_prep/00_fetch_osm.R` builds the queries from `data/external/osm_crosswalk.csv` and saves each one beside its result as `data/raw/sg/osm/*.overpassql`. **Clicking this link gives a 406**: the server refuses clients without a descriptive User-Agent. Use Overpass Turbo below to look at a query |
 | Overpass Turbo (to eyeball a query) | <https://overpass-turbo.eu/> | paste a query and run it visually |
 | Geofabrik — Malaysia/Singapore/Brunei extract | <https://download.geofabrik.de/asia/malaysia-singapore-brunei.html> | Singapore is **not** a standalone Geofabrik extract; it comes bundled |
 | Geofabrik — China extract | <https://download.geofabrik.de/asia/china.html> | where HK would come from if using Geofabrik |
@@ -122,7 +122,10 @@ cities.
 
 Singapore was pulled via Overpass using the OSM administrative area
 `3600536780` (relation 536780), which clips to the national boundary and avoids
-dragging in Johor Bahru the way a bounding box would.
+dragging in Johor Bahru the way a bounding box would. The snapshot every stage
+uses is the 2026-11-02 pull in `data/raw/sg/osm/` (six category files plus
+residential building footprints). The September `osm_health.json` and
+`osm_education.json` are superseded and kept only as history.
 
 Licence: ODbL 1.0 — attribution required, share-alike on derived databases.
 

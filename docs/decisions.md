@@ -25,3 +25,19 @@ H2 due 1 Nov, and H3 and H4 due 8 Nov. Confirm or correct at the meeting.
 | 10 | Methods outside the lectures | Keep LISA (Q3 needs its outliers), OLS + VIF + LM tests + spatial error model (Q2), silhouette + spatial block bootstrap + Jaccard (Q3). **Drop Gi\***: it repeats LISA's clusters and cannot show outliers. Each kept method gets a citation and a one-sentence explanation in the report. | B, C, D | proposed |
 | 11 | Score normalisation | Category score = **100 × log1p(count) ÷ max log1p(count) over the residential set**, so 0–100 with the best-served residential subzone at 100. Composite = Σ HES weight × category score, also 0–100. Equal-weight variant = mean of the six. Non-residential subzones can exceed 100; they are outside every analysis. | A | proposed |
 | 12 | Permutation for H₀(a) | Permute town-group labels **between whole blocks** (each block keeps one label), 999 times, with the chi-square statistic of type × town group. H₀(b) still permutes residuals within blocks (item 5). | D | proposed |
+
+## Category crosswalk (follows from item 11 and the proposal's Table 2)
+
+The tag → category table is `data/external/osm_crosswalk.csv`, and the OSM pull is
+generated from it, so the file is the single definition. Choices worth checking:
+
+- Hospitals are pulled (the coverage check uses them) but **not scored**. The proposal's
+  health examples are GP and dental clinics, polyclinics and pharmacies.
+- Libraries count as **education**, as in the proposal's Table 2.
+- Bars and pubs are not pulled: alcohol is its own COICOP division, outside the six.
+- Private facilities (`access=private` or `no`: condo playgrounds, staff canteens) are pulled
+  but not scored.
+- Swimming pools and sports pitches are not pulled at all: in Singapore most are condo
+  facilities, and they are mapped too unevenly to count.
+- `shop=electronics` counts as retail goods. In Singapore these stores mostly sell household
+  appliances (COICOP 05), even though audio-visual equipment strictly falls under recreation.

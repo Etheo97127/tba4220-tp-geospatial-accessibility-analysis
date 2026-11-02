@@ -53,7 +53,8 @@ H6 (Q1 memo) and the rest of H7 (density share, raw-or-adjusted call) are
 R/
   00_setup.R            shared paths, CRS, seed, helpers (sourced by every script)
   run_all.R             whole pipeline; `Rscript R/run_all.R q2 q3` runs selected stages
-  01_prep/              subzone frame, reference lists, OSM extraction
+  01_prep/              subzone frame, reference lists, OSM, census, buildings
+                        (00_fetch_*.R download raw data; run by hand, not by run_all)
   02_coverage/          OSM vs ECDA record linkage + uniformity tests
   03_score/  04_q1_spatial/  05_q2_regression/  06_q3_typology/
 data/
