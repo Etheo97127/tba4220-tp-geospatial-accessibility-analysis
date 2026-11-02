@@ -37,8 +37,13 @@ log_step("excluded (not an HDB town): ", sum(mt$maturity == "excluded"),
 tested <- mt %>% filter(maturity %in% c("mature", "non-mature"))
 
 # --- (a) two-proportion test -------------------------------------------------
+# ECDA is the headline benchmark (docs/REQUIREMENTS.md section 3, decided
+# 2026-09-16): it is close to a census of its category. CHAS lists only
+# scheme-participating clinics, and scheme membership varies along the same
+# heartland / central axis as the hypothesis, so its row is supplementary and
+# the two lists are never pooled.
 
-prop_one <- function(df, label) {
+prop_one <- function(df, set_name, label, role) {
   tab <- df %>% group_by(maturity) %>%
     summarise(n = n(), missed = sum(missed), .groups = "drop")
   m  <- tab %>% filter(maturity == "mature")
@@ -47,7 +52,7 @@ prop_one <- function(df, label) {
   # Power to detect the observed difference, given these arm sizes.
   pw <- pwr.2p2n.test(h = ES.h(m$missed / m$n, nm$missed / nm$n),
                       n1 = m$n, n2 = nm$n, sig.level = 0.05)
-  tibble(test = label,
+  tibble(set = set_name, role = role, test = label,
          n_mature = m$n, miss_mature = m$missed, p_mature = m$missed / m$n,
          n_nonmature = nm$n, miss_nonmature = nm$missed, p_nonmature = nm$missed / nm$n,
          diff = m$missed / m$n - nm$missed / nm$n,
@@ -55,12 +60,17 @@ prop_one <- function(df, label) {
          chisq = unname(ht$statistic), p_value = ht$p.value, power = pw$power)
 }
 
+# Holm is applied within each role, never across them: the headline is a single
+# pre-specified test and is not adjusted for the supplementary rows. With CHAS
+# the only supplementary row, its adjusted p equals its raw p until another
+# supplementary benchmark is added.
 prop_res <- bind_rows(
-  prop_one(tested %>% filter(set == "chas"), "CHAS clinics"),
-  prop_one(tested %>% filter(set == "ecda"), "ECDA preschools"),
-  prop_one(tested,                            "pooled")
+  prop_one(tested %>% filter(set == "ecda"), "ecda", "ECDA preschools", "headline"),
+  prop_one(tested %>% filter(set == "chas"), "chas", "CHAS clinics (supplementary)", "supplementary")
 ) %>%
-  mutate(p_holm = p.adjust(p_value, method = "holm"))
+  group_by(role) %>%
+  mutate(p_holm = p.adjust(p_value, method = "holm")) %>%
+  ungroup()
 
 write_csv(prop_res, file.path(DIR_TAB, "coverage_prop_test.csv"))
 cat("\n=== (a) two-proportion test: miss rate, mature vs non-mature ===\n")
