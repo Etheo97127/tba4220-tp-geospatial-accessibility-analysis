@@ -25,16 +25,27 @@ prep ──> coverage
 
 ## Hand-off files
 
-Each stage reads only from `data/processed/` and writes its own outputs there.
-Join key is always `subzone_c`; CRS is EPSG:3414. Column contracts are in each plan.
+Each stage reads only from `data/processed/` (and the hand-built lookups in
+`data/external/`) and writes its own outputs there. Join key is always `subzone_c`;
+CRS is EPSG:3414. Column contracts are in each plan; H1–H8 are the hand-off IDs in
+`docs/team_plan.html`. Open decisions behind them are in `docs/decisions.md`.
 
-| File | Written by | Read by |
-|---|---|---|
-| `score_subzone.rds` | score | Q1, Q2, Q3 |
-| `subzone_covariates.rds` | prep | Q2, Q3 |
-| `q1_neighbours.rds`, `q1_blocks.csv` | Q1 | Q2, Q3 |
-| `q2_residuals.csv` | Q2 | Q3 |
-| `q3_clusters.csv` | Q3 | report |
+| File | ID | Written by | Read by |
+|---|---|---|---|
+| `external/town_maturity.csv` | H1 | Q3 (D1) | coverage, Q3 |
+| `external/osm_crosswalk.csv` | | score (A3) | anyone auditing the categories |
+| `processed/census2020_subzone.csv` | | prep | score, Q2 |
+| `processed/residential_set.csv` | H2 | Q2 (C1) | all |
+| `processed/subzone_quality_flag.csv` | | coverage | Q2, Q3 (robustness) |
+| `processed/score_subzone.rds` | H4, H5 | score | Q1, Q2, Q3 |
+| `processed/score_centres.rds` | | score (A4) | Q2 (distance to rail) |
+| `processed/subzone_covariates.rds` | | Q2 (C2) | Q2, Q3 |
+| `processed/q1_neighbours.rds`, `q1_blocks.csv` | H3 | Q1 | Q2, Q3 |
+| `processed/q2_residuals.csv` | H7 | Q2 | Q3 |
+| `processed/q3_clusters.csv` | H8 | Q3 | report |
+
+H6 (Q1 memo) and the rest of H7 (density share, raw-or-adjusted call) are
+`outputs/tables/q1_*` and `outputs/tables/q2_density_share.csv`.
 
 ## Layout
 
