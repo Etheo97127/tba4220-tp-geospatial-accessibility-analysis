@@ -1,5 +1,44 @@
 # Q1 — How complete is OpenStreetMap, and are the gaps spread evenly?
 
+> **Status (2026-11-02):** `R/02_coverage/` now follows the 2026-09-16 decision.
+> ECDA preschools are the headline benchmark; CHAS clinics are reported only as a
+> labelled supplementary row and are never pooled with ECDA. What changed:
+> the pooled proportion-test row is gone, and Holm runs within headline /
+> supplementary rather than across all rows (section 4's "pooled, three tests,
+> Holm" is superseded). The post-hoc `power` column is replaced by the minimum
+> detectable difference (`mdd_pp`). The logistic regression is fitted per set
+> instead of pooled with `set` as a term. `subzone_quality_flag.csv` is built
+> from ECDA only, with the same columns. The figures lead with ECDA, and every
+> number in their titles and captions is computed from the tables.
+>
+> Headline numbers (ECDA, strict match, d = 50 m, s = 0.80):
+>
+> - **Recall 9.5%** (Wilson 95% CI 8.3–10.9%; 188 of 1,975), and 6–11% across all
+>   twelve threshold cells.
+> - **Miss rate 90.9% mature vs 90.6% non-mature** (909/1,000 vs 786/868):
+>   difference +0.3 pp, 95% CI −2.4 to +3.1 pp, **p = 0.86**. The arms detect a gap
+>   of **3.7 pp** at 80% power and alpha 0.05, so this null result does not come
+>   from low power.
+> - **Random labelling p = 0.32**: missed preschools cluster no more than the
+>   preschools themselves.
+> - **Logistic** `missed ~ maturity + dist_cbd_km`: non-mature **OR 0.35**
+>   (0.22–0.57, p < 0.001), distance OR 1.16 per km. The maturity effect from the
+>   old pooled fit (OR 0.44) survives on ECDA alone, but read it as supporting
+>   evidence only. The unadjusted maturity OR is 0.96 (p = 0.80). Maturity and
+>   distance to the CBD correlate at r = 0.72, so the two arms barely overlap in
+>   distance. The effect rests on Sengkang (70% missed) and Hougang (83%):
+>   dropping Sengkang gives OR 0.56 (p = 0.03), and dropping both gives 0.83
+>   (p = 0.56). The standard errors are not clustered by town (26 towns).
+> - **Quality flag** (ECDA only): island miss rate 90.5%. 141 subzones hold at least 5
+>   preschools (187 when pooled), flagged 28 better / 56 typical / 57 worse.
+>   100 subzones have no preschool and an NA flag (78 when pooled).
+> - CHAS, supplementary: recall 22.3% (20.0–24.7%). Miss rate 78.4% mature vs
+>   73.4% non-mature, p = 0.07, MDD 7.4 pp. Logistic OR 0.53 (0.35–0.82).
+>   Random labelling p = 0.002.
+>
+> For section 6, the result points to the "recall low but uniform" case, with
+> the north-east caveat from the logistic fit.
+>
 > **Status (2026-10-19):** written before the final proposal. Q1 here is now the
 > *coverage check* inside the score workstream (ECDA only; CHAS dropped, see
 > `docs/REQUIREMENTS.md` section 3). The new Q1 is per-category Moran's I, `plans/q1_spatial.md`.
