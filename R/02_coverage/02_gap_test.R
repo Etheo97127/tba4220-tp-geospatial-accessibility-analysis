@@ -149,6 +149,8 @@ random_label_test <- function(set_name, nsim = 999) {
        n = npoints(X), n_missed = sum(marks(X) == "missed"))
 }
 
+# Simulated CHAS first, then ECDA, so the seeded draws match earlier runs; the
+# table below puts the ECDA headline first. Holm within role, as in (a).
 set.seed(SEED)
 rl <- lapply(c("chas", "ecda"), random_label_test)
 names(rl) <- c("chas", "ecda")
@@ -156,18 +158,24 @@ saveRDS(rl, file.path(DIR_INT, "random_labelling.rds"))
 
 cat("\n=== (c) random labelling test (999 permutations) ===\n")
 rl_tab <- bind_rows(lapply(rl, function(z) tibble(
-  set = z$set, n_points = z$n, n_missed = z$n_missed,
-  statistic = z$statistic, p_value = z$p.value)))
-rl_tab$p_holm <- p.adjust(rl_tab$p_value, method = "holm")
+  set = z$set, role = ifelse(z$set == "ecda", "headline", "supplementary"),
+  n_points = z$n, n_missed = z$n_missed,
+  statistic = z$statistic, p_value = z$p.value))) %>%
+  arrange(role != "headline") %>%
+  group_by(role) %>%
+  mutate(p_holm = p.adjust(p_value, method = "holm")) %>%
+  ungroup()
 print(as.data.frame(rl_tab))
 write_csv(rl_tab, file.path(DIR_TAB, "coverage_random_labelling.csv"))
 
 # --- subzone quality flag ----------------------------------------------------
-# The hand-off to the score and Q1-Q3. Raw subzone miss rates are unstable where there are
+# The hand-off to the score and Q1-Q3. Built from ECDA only: CHAS lists only
+# scheme-participating clinics, so a CHAS miss says less about how well a
+# subzone is mapped. Raw subzone miss rates are unstable where there are
 # only a few reference facilities, so shrink them towards the island mean with a
 # beta-binomial (empirical Bayes) prior fitted by moments.
 
-sz <- mt %>% group_by(subzone_c) %>%
+sz <- mt %>% filter(set == "ecda") %>% group_by(subzone_c) %>%
   summarise(n_ref = n(), n_missed = sum(missed), .groups = "drop") %>%
   mutate(miss_raw = n_missed / n_ref)
 
@@ -188,10 +196,10 @@ sz_all <- subzones %>% st_drop_geometry() %>%
   mutate(n_ref = coalesce(n_ref, 0L), n_missed = coalesce(n_missed, 0L))
 
 write_csv(sz_all, file.path(DIR_PROC, "subzone_quality_flag.csv"))
-log_step("island miss rate mu = ", round(mu, 3), ", prior kappa = ", round(kappa, 1))
-log_step("subzones with >= 5 reference facilities: ", sum(sz_all$n_ref >= 5, na.rm = TRUE),
+log_step("ECDA island miss rate mu = ", round(mu, 3), ", prior kappa = ", round(kappa, 1))
+log_step("subzones with >= 5 ECDA preschools: ", sum(sz_all$n_ref >= 5, na.rm = TRUE),
          " of ", nrow(sz_all))
-cat("\nquality flag distribution (subzones with >= 5 reference facilities):\n")
+cat("\nquality flag distribution (subzones with >= 5 ECDA preschools):\n")
 print(sz_all %>% filter(n_ref >= 5) %>% count(quality_flag))
 
 saveRDS(mt, file.path(DIR_INT, "match_tested.rds"))
