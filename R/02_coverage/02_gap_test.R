@@ -85,6 +85,8 @@ print(prop_res %>% mutate(across(where(is.numeric), ~round(.x, 4))) %>% as.data.
 
 # --- (b) logistic regression -------------------------------------------------
 # Does town maturity still matter once distance from the centre is allowed for?
+# Fitted on each set separately: ECDA is the headline, CHAS supplementary. Not
+# pooled with `set` as a term, for the same reason as the proportion test.
 
 cbd <- st_sfc(st_point(c(103.8515, 1.2839)), crs = CRS_WGS84) %>% st_transform(CRS_SVY21)
 ref_xy <- reference %>% st_drop_geometry() %>%
@@ -93,14 +95,20 @@ ref_xy <- reference %>% st_drop_geometry() %>%
 glm_dat <- tested %>% left_join(ref_xy %>% select(ref_id, dist_cbd_km), by = "ref_id") %>%
   mutate(maturity = factor(maturity, levels = c("mature", "non-mature")))
 
-fit <- glm(missed ~ maturity + dist_cbd_km + set, data = glm_dat, family = binomial())
-cat("\n=== (b) logistic regression: P(facility missing from OSM) ===\n")
-print(summary(fit)$coefficients)
-or <- exp(cbind(OR = coef(fit), confint.default(fit)))
-cat("\nodds ratios:\n"); print(round(or, 3))
-write_csv(as_tibble(or, rownames = "term") %>%
-            rename(ci_lo = `2.5 %`, ci_hi = `97.5 %`),
-          file.path(DIR_TAB, "coverage_logistic.csv"))
+fit_one <- function(set_name, role) {
+  fit <- glm(missed ~ maturity + dist_cbd_km, data = glm_dat %>% filter(set == set_name),
+             family = binomial())
+  co <- summary(fit)$coefficients
+  ci <- confint.default(fit)
+  tibble(set = set_name, role = role, term = rownames(co),
+         OR = exp(co[, "Estimate"]), ci_lo = exp(ci[, 1]), ci_hi = exp(ci[, 2]),
+         p_value = co[, "Pr(>|z|)"])
+}
+
+logit_res <- bind_rows(fit_one("ecda", "headline"), fit_one("chas", "supplementary"))
+cat("\n=== (b) logistic regression: P(facility missing from OSM), odds ratios ===\n")
+print(logit_res %>% mutate(across(where(is.numeric), ~round(.x, 4))) %>% as.data.frame())
+write_csv(logit_res, file.path(DIR_TAB, "coverage_logistic.csv"))
 
 # --- (c) random labelling ----------------------------------------------------
 # Under H0 the missed facilities are a random thinning of the real ones. Permute
