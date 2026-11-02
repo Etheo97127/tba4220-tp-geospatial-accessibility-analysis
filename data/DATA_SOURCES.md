@@ -45,9 +45,11 @@ Dataset IDs, md5 hashes and file sizes for these are in [`../docs/data_log.md`](
 - **CHAS was last updated 2024-06**, so it is roughly two years behind the live OSM
   extract. Some "missing" clinics are clinics that closed.
 
-## B. Singapore — proposed, not yet downloaded
+## B. Singapore — score and Q2 inputs
 
-Needed for the access score and for Q3. IDs verified against the portal.
+Needed for the access score and for Q2. IDs verified against the portal. All but
+Hawker Centres were downloaded on 2026-11-02 by `R/01_prep/00_fetch_datagov.R`; see
+[`../docs/data_log.md`](../docs/data_log.md).
 
 | Dataset | Agency | Format | Portal last updated | Needed for | Link |
 |---|---|---|---|---|---|
