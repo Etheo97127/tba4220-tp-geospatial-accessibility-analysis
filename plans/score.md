@@ -16,12 +16,30 @@ Owner: Qu Haotian. Code: `R/01_prep/`, `R/03_score/`. On the critical path: Q1-Q
 
 ## Steps
 
-- [ ] OSM extraction for all six categories (only health + education pulled so far)
-- [ ] Tag -> category lookup, extending `OSM_CATEGORY` in `R/01_prep/02_osm.R`
-- [ ] Population-weighted centre per subzone
-- [ ] Distance calibration: route ~200 sample journeys on the footway network, compare to straight line
-- [ ] Score: weighted composite + equal-weight robustness variant + variety count
-- [ ] Coverage check write-up (done in code, `R/02_coverage/`, ECDA only)
+- [x] OSM extraction for all six categories: one scripted snapshot, `R/01_prep/00_fetch_osm.R` → `data/raw/sg/osm/`
+- [x] Tag -> category lookup: `data/external/osm_crosswalk.csv`, which also generates the Overpass queries
+- [x] Population-weighted centre per subzone: `R/03_score/01_centres.R` (OSM residential footprints × storeys)
+- [ ] Distance calibration (A6): route ~200 sample journeys on the footway network, compare to straight line. Needs a footway pull; off the critical path
+- [x] Score v0 (A5): weighted composite + equal-weight variant + variety count, `R/03_score/02_score.R`
+- [x] Radius variants (A8, part): 800 m and 1.2 km composites with rank agreement in `outputs/tables/score_robustness.csv`
+- [ ] Freeze v1 (A8): after P0 decisions are agreed and H2 is published; tag the commit `score-v1`
+- [ ] Coverage check write-up (done in code, `R/02_coverage/`; ECDA-only re-scope in progress on its own branch)
+
+Next:
+- v1 freeze: once the P0 meeting agrees decisions 2, 3, 7 and 11 and C1 publishes
+  `residential_set.csv`, rerun `Rscript R/run_all.R prep score`, recheck
+  `score_robustness.csv`, and tag `score-v1`.
+- Rerun `coverage` after the ECDA re-scope branch and this one are both merged: this branch
+  moved the OSM snapshot from September to 2026-11-02, so the committed coverage outputs are stale.
+- A6: pull the footway network (`highway` = footway, path, pedestrian, steps, residential,
+  service) through `00_fetch_osm.R` (tile it like the buildings), then route ~200 pairs.
+- Tell Q3: food services, retail and food retail correlate 0.84–0.87 across the 201
+  residential subzones (`outputs/tables/score_category_correlation.csv`). Unless k-means
+  allows for that, it will mostly see one general-access axis. Recreation correlates
+  least (0.29–0.48).
+- v0 numbers: 201 residential subzones; median composite 58.9 (range 14–97); 800 m and
+  1.2 km variants keep rank order at Spearman 0.95 and 0.92, but individual subzones move
+  by up to 74 and 100 places.
 
 ## Hand-off (contract, do not rename columns without telling the team)
 
