@@ -10,7 +10,8 @@
 stages <- list(
   prep = c(
     "R/01_prep/01_reference.R",                 # MP19 subzone frame + ECDA/CHAS reference lists
-    "R/01_prep/02_osm.R"                        # Overpass JSON -> tidy sf points
+    "R/01_prep/02_osm.R",                       # Overpass JSON -> tidy sf points
+    "R/01_prep/03_census.R"                     # Census 2020 counts by subzone_c
   ),
   coverage = c(
     "R/02_coverage/01_match.R",                 # record linkage + threshold grid

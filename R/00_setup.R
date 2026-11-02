@@ -27,6 +27,15 @@ CRS_WGS84 <- 4326
 SEED <- 4220
 set.seed(SEED)
 
+# The six score categories, in the order every table uses. Tags map to them in
+# data/external/osm_crosswalk.csv.
+CATEGORIES <- c("food_services", "retail", "health", "food_retail", "education", "recreation")
+
+# Proposed P0 decisions (docs/decisions.md); change here, not in the scripts.
+RES_MIN_POP <- 1000          # item 2: residents needed for a subzone to count as residential
+RADIUS_M    <- 1000          # item 7: walking radius for the main score ...
+RADII_ALT   <- c(800, 1200)  # ... and the robustness variants
+
 # --- helpers -----------------------------------------------------------------
 
 # data.gov.sg ships its KML-derived GeoJSONs with every attribute glued into one
