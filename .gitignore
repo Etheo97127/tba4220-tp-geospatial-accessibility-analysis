@@ -33,3 +33,7 @@ data/interim/
 Thumbs.db
 desktop.ini
 ~$*
+
+# Claude Code: per-machine worktrees and settings
+.claude/worktrees/
+.claude/settings.local.json
