@@ -23,14 +23,12 @@ Owner: Qu Haotian. Code: `R/01_prep/`, `R/03_score/`. On the critical path: Q1-Q
 - [x] Score v0 (A5): weighted composite + equal-weight variant + variety count, `R/03_score/02_score.R`
 - [x] Radius variants (A8, part): 800 m and 1.2 km composites with rank agreement in `outputs/tables/score_robustness.csv`
 - [ ] Freeze v1 (A8): after P0 decisions are agreed and H2 is published; tag the commit `score-v1`
-- [ ] Coverage check write-up (done in code, `R/02_coverage/`; ECDA-only re-scope in progress on its own branch)
+- [ ] Coverage check write-up (code done in `R/02_coverage/`, ECDA headline with CHAS supplementary; status and numbers in `plans/coverage_check.md`)
 
 Next:
 - v1 freeze: once the P0 meeting agrees decisions 2, 3, 7 and 11 and C1 publishes
   `residential_set.csv`, rerun `Rscript R/run_all.R prep score`, recheck
   `score_robustness.csv`, and tag `score-v1`.
-- Rerun `coverage` after the ECDA re-scope branch and this one are both merged: this branch
-  moved the OSM snapshot from September to 2026-11-02, so the committed coverage outputs are stale.
 - A6: pull the footway network (`highway` = footway, path, pedestrian, steps, residential,
   service) through `00_fetch_osm.R` (tile it like the buildings), then route ~200 pairs.
 - Tell Q3: food services, retail and food retail correlate 0.84–0.88 across the 201
