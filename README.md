@@ -45,7 +45,7 @@ CRS is EPSG:3414. Column contracts are in each plan; H1–H8 are the hand-off ID
 | `processed/score_centres.rds` | | score (A4) | Q2 (distance to rail) |
 | `processed/subzone_covariates.rds` | | Q2 (C2) | Q2, Q3 |
 | `processed/q1_neighbours.rds`, `q1_blocks.csv` | H3 | Q1 | Q2, Q3 |
-| `processed/q2_residuals.csv` | H7 | Q2 | Q3 |
+| `processed/q2_residuals.csv`, `q2_adjusted_scores.csv` | H7 | Q2 | Q3 |
 | `processed/q3_clusters.csv` | H8 | Q3 | report |
 
 H6 (Q1 memo) and the rest of H7 (density share, raw-or-adjusted call) are

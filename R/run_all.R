@@ -40,7 +40,8 @@ stages <- list(
     "R/05_q2_regression/01_residential_set.R",  # H2: residential subzones
     "R/05_q2_regression/02_covariates.R",       # elderly share, housing mix, controls
     "R/05_q2_regression/03_ols.R",              # OLS, VIF, one-sided tests (C3)
-    "R/05_q2_regression/04_spatial_model.R"     # residual tests, spatial error / lag (C4)
+    "R/05_q2_regression/04_spatial_model.R",    # residual tests, spatial error / lag (C4)
+    "R/05_q2_regression/05_handoff.R"           # density share, adjusted scores, residuals (H7)
   ),
   q3       = character(0)                       # R/06_q3_typology/  (Coltrane)
 )

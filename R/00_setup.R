@@ -36,6 +36,7 @@ RES_MIN_POP <- 1000          # item 2: residents needed for a subzone to count a
 RES_MIN_POP_ALT <- 500       # item 2: second cut-off, reported so the choice is visible
 RADIUS_M    <- 1000          # item 7: walking radius for the main score ...
 RADII_ALT   <- c(800, 1200)  # ... and the robustness variants
+DENSITY_SHARE_MAX <- 0.5     # item 1: above this share of R2, Q3 clusters on density-adjusted scores
 
 # --- helpers -----------------------------------------------------------------
 
