@@ -46,7 +46,8 @@ stages <- list(
   q3       = c(                                 # R/06_q3_typology/  (Coltrane)
     "R/06_q3_typology/01_inputs.R",             # z-scored scores, blocks, town group, residuals
     "R/06_q3_typology/02_choose_k.R",           # elbow + silhouette, simulation check (D3)
-    "R/06_q3_typology/03_stability.R"           # block bootstrap, H8 clusters (D3)
+    "R/06_q3_typology/03_stability.R",          # block bootstrap, H8 clusters (D3)
+    "R/06_q3_typology/04_tests.R"               # H0(a) and H0(b) block permutations (D4, D5)
   )
 )
 

@@ -1,0 +1,3 @@
+hypothesis,statistic,observed,permutation,n_perm,n_subzones,p_value
+H0(a): type mix same in mature and non-mature towns,chi-square,2.972,town labels between whole blocks,999,176,0.269
+H0(b): type unrelated to Q2 residual,F,103.827,residuals within blocks,999,201,0.001
