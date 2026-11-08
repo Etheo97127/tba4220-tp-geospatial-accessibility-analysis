@@ -18,8 +18,9 @@ stages <- list(
   coverage = c(
     "R/02_coverage/01_match.R",                 # record linkage + threshold grid
     "R/02_coverage/02_gap_test.R",              # proportion test, logistic, random labelling
-    "R/02_coverage/03_outputs.R",               # tables and figures
-    "R/02_coverage/04_ceiling_and_validation.R" # matcher ceiling + manual-check sample
+    "R/02_coverage/03_quality_flag.R",          # subzone quality flag (hand-off)
+    "R/02_coverage/04_outputs.R",               # tables and figures
+    "R/02_coverage/05_ceiling_and_validation.R" # matcher ceiling + manual-check sample
   ),
   score    = c(                                 # R/03_score/        (Haotian)
     "R/03_score/01_centres.R",                  # population-weighted centres (A4)
