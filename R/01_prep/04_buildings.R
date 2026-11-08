@@ -10,6 +10,11 @@
 source("R/00_setup.R")
 
 HOUSE_TYPES <- c("house", "detached", "semidetached_house", "terrace", "bungalow")
+# Dormitories are pulled but not weighted: most house migrant workers, whom the
+# Census 2020 resident count (citizens + PRs) leaves out, so their floor area would
+# pull a centre away from the residents the score describes (23% of the weight in
+# Woodlands WDSZ09 before this exclusion).
+NON_RESIDENT_TYPES <- c("dormitory")
 
 # Pulled in six tiles (TILES in 00_fetch_osm.R); a way crossing a tile edge
 # appears in two of them.
@@ -49,7 +54,8 @@ bld <- bld %>%
          levels  = suppressWarnings(as.numeric(str_extract(levels_raw, "\\d+(\\.\\d+)?"))),
          levels  = if_else(levels > 0 & levels <= 80, levels, NA_real_),
          kind    = if_else(building %in% HOUSE_TYPES, "house", "block")) %>%
-  filter(area_m2 >= 20)                    # sheds, kiosks and digitising slivers
+  filter(area_m2 >= 20,                    # sheds, kiosks and digitising slivers
+         !building %in% NON_RESIDENT_TYPES)
 
 # Attach planning area / subzone by a point guaranteed to be inside the footprint.
 subzones <- readRDS(file.path(DIR_INT, "subzones.rds"))
