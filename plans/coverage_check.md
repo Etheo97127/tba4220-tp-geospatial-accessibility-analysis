@@ -30,8 +30,9 @@
 >   dropping Sengkang gives OR 0.56 (p = 0.03), and dropping both gives 0.83
 >   (p = 0.56). The standard errors are not clustered by town (26 towns).
 > - **Quality flag** (ECDA only): island miss rate 90.5%. 141 subzones hold at
->   least 5 preschools (187 when pooled) and get a flag: 10 better / 100 typical /
->   31 worse. The other 191 have an NA flag: 100 with no preschool, 91 with 1–4.
+>   least 5 preschools (187 when pooled) and get a flag: 9 better / 127 typical /
+>   5 worse. The other 191 have an NA flag: 100 with no preschool, 91 with 1–4.
+>   The empirical-Bayes prior sample size is kappa = 18.4.
 > - CHAS, supplementary: recall 22.3% (20.0–24.7%). Miss rate 78.4% mature vs
 >   73.4% non-mature, p = 0.07, MDD 7.4 pp. Logistic OR 0.53 (0.35–0.82).
 >   Random labelling p = 0.002.
@@ -207,7 +208,9 @@ Optional, and reported as supporting rather than headline.
   let a single matched preschool make a subzone "better", while no subzone with
   fewer than 6 preschools could ever be "worse". Some asymmetry remains, and it
   is real: when the mean is already 0.9, a high miss rate is weak evidence, so
-  "worse" needs about ten or more preschools, nearly all of them missed.
+  "worse" needs about twenty or more preschools, nearly all of them missed.
+  The prior is fitted by moments on subzones with at least 5 preschools, after
+  subtracting the binomial share of the variance in their raw rates.
 
 ## 6. What the answer changes downstream
 

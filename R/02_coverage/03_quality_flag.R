@@ -22,8 +22,20 @@ sz <- mt %>% filter(set == "ecda") %>% group_by(subzone_c) %>%
   mutate(miss_raw = n_missed / n_ref)
 
 mu <- sum(sz$n_missed) / sum(sz$n_ref)
-vw <- with(sz %>% filter(n_ref >= MIN_N), var(miss_raw))
-kappa <- max(mu * (1 - mu) / vw - 1, 1)      # prior sample size
+
+# Moments over subzones with at least MIN_N preschools. Their raw rates vary
+# partly through binomial noise, mu(1 - mu) / n on average; only the rest is
+# real between-subzone variation, and that is what sets the prior.
+big <- sz %>% filter(n_ref >= MIN_N)
+vw  <- var(big$miss_raw) - mu * (1 - mu) * mean(1 / big$n_ref)
+if (vw > 0) {
+  kappa <- max(mu * (1 - mu) / vw - 1, 1)    # prior sample size
+} else {
+  # No variation beyond noise: pool completely, so every subzone is shrunk to mu
+  # and flagged typical. A huge kappa does that and keeps pbeta() finite.
+  kappa <- 1e6
+  log_step("WARNING: no between-subzone variance in ECDA miss rates; pooling completely")
+}
 alpha <- mu * kappa; beta <- (1 - mu) * kappa
 
 # The flag cuts the posterior probability that a subzone's true miss rate is
