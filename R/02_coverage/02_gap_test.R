@@ -95,8 +95,8 @@ ref_xy <- reference %>% st_drop_geometry() %>%
 glm_dat <- tested %>% left_join(ref_xy %>% select(ref_id, dist_cbd_km), by = "ref_id") %>%
   mutate(maturity = factor(maturity, levels = c("mature", "non-mature")))
 
-fit_one <- function(set_name, role) {
-  fit <- glm(missed ~ maturity + dist_cbd_km, data = glm_dat %>% filter(set == set_name),
+fit_one <- function(dat, set_name, role) {
+  fit <- glm(missed ~ maturity + dist_cbd_km, data = dat %>% filter(set == set_name),
              family = binomial())
   co <- summary(fit)$coefficients
   ci <- confint.default(fit)
@@ -105,7 +105,8 @@ fit_one <- function(set_name, role) {
          p_value = co[, "Pr(>|z|)"])
 }
 
-logit_res <- bind_rows(fit_one("ecda", "headline"), fit_one("chas", "supplementary"))
+logit_res <- bind_rows(fit_one(glm_dat, "ecda", "headline"),
+                       fit_one(glm_dat, "chas", "supplementary"))
 cat("\n=== (b) logistic regression: P(facility missing from OSM), odds ratios ===\n")
 print(logit_res %>% mutate(across(where(is.numeric), ~round(.x, 4))) %>% as.data.frame())
 write_csv(logit_res, file.path(DIR_TAB, "coverage_logistic.csv"))
