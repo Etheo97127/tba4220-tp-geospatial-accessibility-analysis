@@ -60,5 +60,32 @@ then frozen as v1 (H5).
 | `variety` | distinct OSM tag values (`key=value`) within 1 km, all six categories |
 | `score_r800`, `score_r1200` | `score` recomputed at 800 m and 1.2 km (decision 7) |
 
-`data/processed/score_centres.rds`: sf points, CRS 3414, `subzone_c`, `centre_method`.
-Q2 measures distance to rail from these, so the score and the covariates share one centre.
+`data/processed/score_centres.rds`: sf points, CRS 3414, one row per subzone (332):
+`subzone_c`, `centre_method`, `n_buildings` (residential footprints behind the centre; 0
+for fallbacks). Q2 measures distance to rail from these, so the score and the covariates
+share one centre.
+
+Prep hand-offs this track also writes (`R/01_prep/`):
+
+`data/processed/census2020_subzone.csv`, one row per subzone (332), Census 2020 resident
+counts. SingStat rounds to tens and shows zero as "-", read here as 0.
+
+| Column | Meaning |
+|---|---|
+| `subzone_c` | join key |
+| `pop` | residents (citizens + PRs) |
+| `pop_65plus` | residents aged 65 and over |
+| `dw_total` | residents in all dwelling types (equals `pop` within rounding) |
+| `dw_hdb` | residents in HDB flats, all sizes |
+| `dw_hdb_1_2room`, `dw_hdb_3room`, `dw_hdb_4room`, `dw_hdb_5room_ec` | residents by HDB flat size (5-room includes executive) |
+| `dw_condo`, `dw_landed`, `dw_other` | residents in condominiums and other apartments, landed homes, and other dwellings |
+
+The `dw_*` columns count **residents** by the type of dwelling they live in, not
+dwellings. Housing mix (decision 4) is `(dw_hdb_1_2room + dw_hdb_3room) / dw_total`.
+
+`data/processed/hes_weights.csv`, six rows in `CATEGORIES` order: `category`,
+`hes_lines` (the HES lines summed), `sgd_month` (2023 S$ per month), `weight` (sums to 1).
+
+Inputs the score expects from other tracks: `residential_set.csv` (H2, from C1) with all
+332 subzones, `subzone_c` and a logical `residential`. `02_score.R` coerces 0/1 and stops
+on anything else. Until H2 exists, the score uses `pop >= RES_MIN_POP`.
