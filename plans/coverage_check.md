@@ -29,9 +29,9 @@
 >   distance. The effect rests on Sengkang (70% missed) and Hougang (83%):
 >   dropping Sengkang gives OR 0.56 (p = 0.03), and dropping both gives 0.83
 >   (p = 0.56). The standard errors are not clustered by town (26 towns).
-> - **Quality flag** (ECDA only): island miss rate 90.5%. 141 subzones hold at least 5
->   preschools (187 when pooled), flagged 28 better / 56 typical / 57 worse.
->   100 subzones have no preschool and an NA flag (78 when pooled).
+> - **Quality flag** (ECDA only): island miss rate 90.5%. 141 subzones hold at
+>   least 5 preschools (187 when pooled) and get a flag: 10 better / 100 typical /
+>   31 worse. The other 191 have an NA flag: 100 with no preschool, 91 with 1–4.
 > - CHAS, supplementary: recall 22.3% (20.0–24.7%). Miss rate 78.4% mature vs
 >   73.4% non-mature, p = 0.07, MDD 7.4 pp. Logistic OR 0.53 (0.35–0.82).
 >   Random labelling p = 0.002.
@@ -199,6 +199,15 @@ Optional, and reported as supporting rather than headline.
   empirical-Bayes shrunk miss rate (so thin subzones do not dominate), and a
   three-level flag. Built by `R/02_coverage/03_quality_flag.R`. **This is the
   hand-off to Q2/Q3/Q4.**
+  The flag is NA below 5 preschools, the same cut that greys out the map.
+  Otherwise it cuts the posterior probability that the subzone's true miss rate
+  is below the island mean (Beta posterior from the empirical-Bayes prior):
+  at least 0.90 is "better", at most 0.10 "worse", anything between "typical".
+  This replaced a ±5 pp band around the mean. With the mean near 0.9 that band
+  let a single matched preschool make a subzone "better", while no subzone with
+  fewer than 6 preschools could ever be "worse". Some asymmetry remains, and it
+  is real: when the mean is already 0.9, a high miss rate is weak evidence, so
+  "worse" needs about ten or more preschools, nearly all of them missed.
 
 ## 6. What the answer changes downstream
 

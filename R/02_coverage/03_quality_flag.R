@@ -9,6 +9,9 @@ mt       <- readRDS(file.path(DIR_INT, "match_tested.rds"))
 subzones <- readRDS(file.path(DIR_INT, "subzones.rds"))
 maturity <- read_csv(file.path(DIR_EXT, "town_maturity.csv"), show_col_types = FALSE)
 
+MIN_N  <- 5      # fewer preschools than this: no flag (the map's MIN_N in 04_outputs.R)
+P_FLAG <- 0.90   # posterior probability needed to call a subzone better or worse
+
 # --- subzone quality flag ----------------------------------------------------
 # Raw subzone miss rates are unstable where there are only a few reference
 # facilities, so shrink them towards the island mean with a beta-binomial
@@ -19,14 +22,23 @@ sz <- mt %>% filter(set == "ecda") %>% group_by(subzone_c) %>%
   mutate(miss_raw = n_missed / n_ref)
 
 mu <- sum(sz$n_missed) / sum(sz$n_ref)
-vw <- with(sz %>% filter(n_ref >= 5), var(miss_raw))
+vw <- with(sz %>% filter(n_ref >= MIN_N), var(miss_raw))
 kappa <- max(mu * (1 - mu) / vw - 1, 1)      # prior sample size
 alpha <- mu * kappa; beta <- (1 - mu) * kappa
 
+# The flag cuts the posterior probability that a subzone's true miss rate is
+# below the island mean, not a +-x pp band around it. With mu near 0.9 a fixed
+# band is lopsided (a rate can fall far below mu but barely rise above it), and
+# it ignores how many preschools the rate rests on.
 sz <- sz %>%
   mutate(miss_shrunk = (n_missed + alpha) / (n_ref + alpha + beta),
-         quality_flag = cut(miss_shrunk, breaks = c(-Inf, mu - 0.05, mu + 0.05, Inf),
-                            labels = c("better", "typical", "worse")))
+         p_below = pbeta(mu, n_missed + alpha, n_ref - n_missed + beta),
+         quality_flag = case_when(n_ref < MIN_N        ~ NA_character_,
+                                  p_below >= P_FLAG     ~ "better",
+                                  p_below <= 1 - P_FLAG ~ "worse",
+                                  TRUE                  ~ "typical"),
+         quality_flag = factor(quality_flag, levels = c("better", "typical", "worse"))) %>%
+  select(-p_below)
 
 sz_all <- subzones %>% st_drop_geometry() %>%
   select(subzone_c, subzone_n, pln_area_n) %>%
@@ -36,7 +48,6 @@ sz_all <- subzones %>% st_drop_geometry() %>%
 
 write_csv(sz_all, file.path(DIR_PROC, "subzone_quality_flag.csv"))
 log_step("ECDA island miss rate mu = ", round(mu, 3), ", prior kappa = ", round(kappa, 1))
-log_step("subzones with >= 5 ECDA preschools: ", sum(sz_all$n_ref >= 5, na.rm = TRUE),
-         " of ", nrow(sz_all))
-cat("\nquality flag distribution (subzones with >= 5 ECDA preschools):\n")
-print(sz_all %>% filter(n_ref >= 5) %>% count(quality_flag))
+flags <- table(sz_all$quality_flag)
+log_step("flagged subzones (>= ", MIN_N, " ECDA preschools): ", sum(flags), " of ", nrow(sz_all),
+         ": ", paste(names(flags), flags, collapse = " / "))
