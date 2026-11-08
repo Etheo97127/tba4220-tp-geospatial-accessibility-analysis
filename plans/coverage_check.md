@@ -1,15 +1,20 @@
 # Q1 — How complete is OpenStreetMap, and are the gaps spread evenly?
 
-> **Status (2026-11-02):** `R/02_coverage/` now follows the 2026-09-16 decision.
-> ECDA preschools are the headline benchmark; CHAS clinics are reported only as a
-> labelled supplementary row and are never pooled with ECDA. What changed:
-> the pooled proportion-test row is gone, and Holm runs within headline /
-> supplementary rather than across all rows (section 4's "pooled, three tests,
-> Holm" is superseded). The post-hoc `power` column is replaced by the minimum
-> detectable difference (`mdd_pp`). The logistic regression is fitted per set
-> instead of pooled with `set` as a term. `subzone_quality_flag.csv` is built
-> from ECDA only, with the same columns. The figures lead with ECDA, and every
-> number in their titles and captions is computed from the tables.
+> **Status (2026-11-08):** this file was written before the final proposal. Q1
+> here is now the *coverage check* inside the score workstream; the new Q1 is
+> per-category Moran's I, `plans/q1_spatial.md`. `R/02_coverage/` now follows
+> the 2026-09-16 decision as amended on 2026-11-08 (`docs/REQUIREMENTS.md`
+> section 3). ECDA preschools are the headline benchmark; CHAS clinics are
+> reported only as a labelled supplementary row and are never pooled with
+> ECDA. What changed: the pooled proportion-test row is gone, and Holm runs
+> within headline / supplementary rather than across all rows (section 4's
+> "pooled, three tests, Holm" is superseded). The post-hoc `power` column is
+> replaced by the minimum detectable difference (`mdd_pp`). The logistic
+> regression is fitted per set instead of pooled with `set` as a term.
+> `subzone_quality_flag.csv` is built from ECDA only, with the same columns,
+> and flags subzones by a posterior tail probability (section 5). The figures
+> lead with ECDA, and every number in their titles and captions is computed
+> from the tables.
 >
 > Headline numbers (ECDA, strict match, d = 50 m, s = 0.80):
 >
@@ -41,10 +46,6 @@
 >
 > For section 6, the result points to the "recall low but uniform" case, with
 > the north-east caveat from the logistic fit.
->
-> **Status (2026-10-19):** written before the final proposal. Q1 here is now the
-> *coverage check* inside the score workstream (ECDA only; CHAS dropped, see
-> `docs/REQUIREMENTS.md` section 3). The new Q1 is per-category Moran's I, `plans/q1_spatial.md`.
 
 Owner: Member 1. Weeks 1–5. Also on the critical path: the access score (section 7),
 because Q2/Q3/Q4 all consume it.
