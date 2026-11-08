@@ -4,6 +4,9 @@
 # snapshot (Jurong Region and Cross Island Lines, shell stations). Those are
 # listed in data/external/rail_not_open.csv and dropped; stations marked
 # "uncertain" there (2026 openings) are kept until someone confirms them.
+# Nine polygons carry no name (e.g. Orchard Boulevard, a Sentosa Express stop,
+# platforms inside Chinatown and Newton); they are kept as "unnamed" and open,
+# since dropping them overstated distance to rail for central subzones.
 
 source("R/00_setup.R")
 
@@ -15,7 +18,7 @@ not_open <- read_csv(file.path(DIR_EXT, "rail_not_open.csv"), show_col_types = F
 
 stations <- raw %>%
   transmute(name = str_squish(NAME), rail_type = RAIL_TYPE) %>%
-  filter(!is.na(name), name != "<Null>") %>%
+  mutate(name = if_else(is.na(name) | name == "<Null>", "unnamed", name)) %>%
   mutate(status = coalesce(not_open$status[match(name, not_open$name)], "open"))
 
 missing <- setdiff(not_open$name, stations$name)

@@ -1,5 +1,6 @@
 name,line,status,note
 BAHAR JUNCTION,JRL,not_open,Jurong Region Line; first stage targeted 2027
+BUKIT BATOK WEST,JRL,not_open,Jurong Region Line
 CHOA CHU KANG WEST,JRL,not_open,Jurong Region Line
 CORPORATION,JRL,not_open,Jurong Region Line
 ENTERPRISE,JRL,not_open,Jurong Region Line
@@ -29,6 +30,7 @@ TAVISTOCK,CRL,not_open,Cross Island Line
 TECK GHEE,CRL,not_open,Cross Island Line
 BUKIT BROWN,CCL,not_open,Shell station; never opened
 MOUNT PLEASANT,TEL,not_open,Shell station; not opened
+FOUNDERS' MEMORIAL,TEL,not_open,Opens with the Founders' Memorial (about 2028)
 BEDOK SOUTH,TEL,uncertain,TEL stage 5; targeted 2026; verify opening before v1
 SUNGEI BEDOK,TEL/DTL,uncertain,TEL stage 5 and DTL3 extension; targeted 2026; verify
 XILIN,DTL,uncertain,DTL3 extension; targeted 2026; verify
