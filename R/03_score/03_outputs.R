@@ -33,8 +33,8 @@ p1 <- ggplot(map_dat) +
   labs(title = paste0("Access score v0: everyday services within ", RADIUS_M / 1000,
                      " km of where residents live"),
        subtitle = paste0("Composite of six categories weighted by HES 2023 spending shares; ",
-                         n_res, " residential subzones.\nGrey: fewer than ", RES_MIN_POP,
-                         " residents, outside every analysis."),
+                         n_res, " residential subzones.\nGrey: non-residential subzones, ",
+                         "outside every analysis."),
        caption = "Source: OpenStreetMap (ODbL), Census 2020, HES 2023, URA MP19. Score v0 - provisional.") +
   theme_map
 ggsave(file.path(DIR_FIG, "score_composite_map.png"), p1, width = 7.8, height = 4.4, dpi = 300, bg = "white")
