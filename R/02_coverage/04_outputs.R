@@ -96,10 +96,13 @@ bb <- st_bbox(map_dat %>% filter(!is.na(n_ref) & n_ref >= MIN_N))
 pad <- 1500
 
 # Shrunk rates sit in a narrow band below 100%, so a 0-100% continuous ramp
-# would render the whole island one shade. Five equal bins over the range that
-# actually occurs, widened to whole percents.
-rng <- range(map_dat$shown, na.rm = TRUE)
-BRK <- round(seq(floor(rng[1] * 100) / 100, ceiling(rng[2] * 100) / 100, length.out = 6), 3)
+# would render the whole island one shade. Five bins of a whole-percent width
+# over the range that actually occurs, anchored at the top so the scale never
+# passes 100%.
+rng  <- range(map_dat$shown, na.rm = TRUE)
+top  <- ceiling(rng[2] * 100)
+step <- ceiling((top - floor(rng[1] * 100)) / 5)
+BRK  <- (top - step * (5:0)) / 100
 
 island_miss <- sum(szq$n_missed) / sum(szq$n_ref)
 
@@ -111,7 +114,7 @@ p2 <- ggplot() +
                     guide = guide_coloursteps(barheight = 7, barwidth = 0.8)) +
   coord_sf(xlim = c(bb$xmin - pad, bb$xmax + pad),
            ylim = c(bb$ymin - pad, bb$ymax + pad), expand = FALSE) +
-  labs(title = sprintf("OSM misses %s of ECDA preschools; the best-mapped subzone still misses %s",
+  labs(title = sprintf("OSM misses %s of ECDA preschools; the best-mapped subzone misses an estimated %s",
                        percent(island_miss, accuracy = 1), percent(rng[1], accuracy = 1)),
        subtitle = paste0("MP19 subzones, empirical-Bayes shrunk share of ECDA preschools absent from OSM.\n",
                          "Grey: fewer than ", MIN_N, " preschools, too few to rate."),
