@@ -38,7 +38,8 @@ stages <- list(
   ),
   q2       = c(                                 # R/05_q2_regression/ (Zachary)
     "R/05_q2_regression/01_residential_set.R",  # H2: residential subzones
-    "R/05_q2_regression/02_covariates.R"        # elderly share, housing mix, controls
+    "R/05_q2_regression/02_covariates.R",       # elderly share, housing mix, controls
+    "R/05_q2_regression/03_ols.R"               # OLS, VIF, one-sided tests (C3)
   ),
   q3       = character(0)                       # R/06_q3_typology/  (Coltrane)
 )

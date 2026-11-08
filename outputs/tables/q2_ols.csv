@@ -1,0 +1,7 @@
+outcome,term,estimate,se,t,p_two_sided,alternative,p_one_sided
+score,(Intercept),58.15,0.7466,77.88,7.447999999999998e-149,two.sided,NA
+score,elderly_share,0.1819,1.053,0.1728,0.863,less,0.5685
+score,housing_mix,0.1615,1.114,0.145,0.8849,less,0.5576
+score,log_density,2.203,0.9132,2.412,0.01679,two.sided,NA
+score,dist_rail_m,-3.992,0.8209,-4.864,2.37e-6,two.sided,NA
+score,log_contrib,7.683,0.9391,8.181,3.561e-14,two.sided,NA
