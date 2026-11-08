@@ -38,6 +38,7 @@ CRS is EPSG:3414. Column contracts are in each plan; H1–H8 are the hand-off ID
 | `processed/hes_weights.csv` | | prep | score, Q2, report |
 | `processed/rail_stations.rds` | | prep | Q2 (distance to rail) |
 | `external/rail_not_open.csv` | | prep | stations dropped as not yet open |
+| `processed/osm_contributors.csv` | | prep | Q2 (mapping-effort control) |
 | `processed/residential_set.csv` | H2 | Q2 (C1) | all |
 | `processed/subzone_quality_flag.csv` | | coverage | Q2, Q3 (robustness) |
 | `processed/score_subzone.rds` | H4, H5 | score | Q1, Q2, Q3 |

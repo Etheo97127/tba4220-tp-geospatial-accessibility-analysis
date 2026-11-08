@@ -14,7 +14,8 @@ stages <- list(
     "R/01_prep/03_census.R",                    # Census 2020 counts by subzone_c
     "R/01_prep/04_buildings.R",                 # residential footprints + floor-area weight
     "R/01_prep/05_hes_weights.R",               # HES 2023 category weights
-    "R/01_prep/06_rail_stations.R"              # rail stations in service
+    "R/01_prep/06_rail_stations.R",             # rail stations in service
+    "R/01_prep/07_osm_contributors.R"           # OSM mappers per km2 (mapping effort)
   ),
   coverage = c(
     "R/02_coverage/01_match.R",                 # record linkage + threshold grid
