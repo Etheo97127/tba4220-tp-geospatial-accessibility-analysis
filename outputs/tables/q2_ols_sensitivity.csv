@@ -1,6 +1,6 @@
 outcome,term,estimate,se,t,p_two_sided,alternative,p_one_sided,model,r2
-score,(Intercept),58.15,0.8631,67.37,1.6839999999999996e-137,two.sided,NA,without mapping effort,0.3636
-score,elderly_share,2.466,1.174,2.101,0.03693,less,0.9815,without mapping effort,0.3636
-score,housing_mix,1.575,1.273,1.237,0.2175,less,0.8913,without mapping effort,0.3636
-score,log_density,3.719,1.034,3.598,4.064e-4,two.sided,NA,without mapping effort,0.3636
-score,dist_rail_m,-5.673,0.9188,-6.175,3.743e-9,two.sided,NA,without mapping effort,0.3636
+score,(Intercept),58.15,0.8572,67.83,4.653999999999999e-138,two.sided,NA,without mapping effort,0.3723
+score,elderly_share,2.514,1.165,2.159,0.03209,less,0.984,without mapping effort,0.3723
+score,housing_mix,1.491,1.263,1.18,0.2394,less,0.8803,without mapping effort,0.3723
+score,log_density,3.792,1.02,3.717,2.627e-4,two.sided,NA,without mapping effort,0.3723
+score,dist_rail_m,-5.831,0.9067,-6.431,9.486e-10,two.sided,NA,without mapping effort,0.3723

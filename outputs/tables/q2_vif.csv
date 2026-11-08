@@ -1,6 +1,6 @@
 predictor,vif
 elderly_share,1.98
-housing_mix,2.22
-log_density,1.49
+housing_mix,2.21
+log_density,1.47
 dist_rail_m,1.2
-log_contrib,1.57
+log_contrib,1.59
