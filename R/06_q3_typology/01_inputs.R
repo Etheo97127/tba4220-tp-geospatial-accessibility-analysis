@@ -14,7 +14,8 @@ resid    <- read_csv(file.path(DIR_PROC, "q2_residuals.csv"), show_col_types = F
 adjusted <- read_csv(file.path(DIR_PROC, "q2_adjusted_scores.csv"), show_col_types = FALSE)
 call     <- read_csv(file.path(DIR_TAB, "q2_density_share.csv"), show_col_types = FALSE)$q3_clusters_on
 maturity <- read_csv(file.path(DIR_EXT, "town_maturity.csv"), show_col_types = FALSE)
-pa       <- readRDS(file.path(DIR_INT, "subzones.rds")) %>% st_drop_geometry() %>% select(subzone_c, pln_area_n)
+pa       <- read_csv(file.path(DIR_PROC, "census2020_subzone.csv"), show_col_types = FALSE) %>%
+  select(subzone_c, pln_area_n)
 
 raw_cols <- paste0("score_", CATEGORIES)
 scores <- if (call == "adjusted") {
