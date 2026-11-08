@@ -44,7 +44,8 @@ stages <- list(
     "R/05_q2_regression/05_handoff.R"           # density share, adjusted scores, residuals (H7)
   ),
   q3       = c(                                 # R/06_q3_typology/  (Coltrane)
-    "R/06_q3_typology/01_inputs.R"              # z-scored scores, blocks, town group, residuals
+    "R/06_q3_typology/01_inputs.R",             # z-scored scores, blocks, town group, residuals
+    "R/06_q3_typology/02_choose_k.R"            # elbow + silhouette, simulation check (D3)
   )
 )
 
