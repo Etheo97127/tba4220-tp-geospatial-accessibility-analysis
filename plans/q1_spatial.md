@@ -7,7 +7,7 @@ Owner: Hew Xing Yi. Code: `R/04_q1_spatial/`.
 ## Method
 
 - Queen contiguity, k-nearest-neighbours as a check; 999 permutations
-- LISA and Getis-Ord Gi* for local clusters, p-values adjusted for multiple testing
+- LISA for local clusters, Benjamini-Hochberg corrected (decision 8); Gi* dropped (decision 10)
 - Flag categories concentrated below subzone scale (outlier subzones, not neighbourhood types)
 
 ## Steps
@@ -28,6 +28,6 @@ Owner: Hew Xing Yi. Code: `R/04_q1_spatial/`.
 
 ## Hand-off
 
-- `data/processed/q1_neighbours.rds`: the `nb` / `listw` objects (reused by Q2's spatial error model)
+- `data/processed/q1_neighbours.rds`: the `nb` / `listw` objects (reused by Q2's residual tests and spatial model)
 - `data/processed/q1_blocks.csv`: `subzone_c`, `block_id`, the spatial blocks Q3 resamples on
 - `outputs/tables/q1_morans_i.csv`: one row per category + composite
