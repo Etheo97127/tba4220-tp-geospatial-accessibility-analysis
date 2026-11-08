@@ -25,10 +25,12 @@
 >   (0.22–0.57, p < 0.001), distance OR 1.16 per km. The maturity effect from the
 >   old pooled fit (OR 0.44) survives on ECDA alone, but read it as supporting
 >   evidence only. The unadjusted maturity OR is 0.96 (p = 0.80). Maturity and
->   distance to the CBD correlate at r = 0.72, so the two arms barely overlap in
->   distance. The effect rests on Sengkang (70% missed) and Hougang (83%):
->   dropping Sengkang gives OR 0.56 (p = 0.03), and dropping both gives 0.83
->   (p = 0.56). The standard errors are not clustered by town (26 towns).
+>   distance to the CBD correlate at r = 0.72: non-mature preschools sit further
+>   out (median 15.0 km against 8.4 km), though both arms share the 7.0–16.3 km
+>   band, which holds about 63% of each. The effect rests on Sengkang (70%
+>   missed) and Hougang (83%): dropping Sengkang gives OR 0.56 (p = 0.03), and
+>   dropping both gives 0.83 (p = 0.56). The standard errors are not clustered
+>   by town (26 towns).
 > - **Quality flag** (ECDA only): island miss rate 90.5%. 141 subzones hold at
 >   least 5 preschools (187 when pooled) and get a flag: 9 better / 127 typical /
 >   5 worse. The other 191 have an NA flag: 100 with no preschool, 91 with 1–4.
