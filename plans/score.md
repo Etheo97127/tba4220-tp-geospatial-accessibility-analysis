@@ -33,12 +33,12 @@ Next:
   moved the OSM snapshot from September to 2026-11-02, so the committed coverage outputs are stale.
 - A6: pull the footway network (`highway` = footway, path, pedestrian, steps, residential,
   service) through `00_fetch_osm.R` (tile it like the buildings), then route ~200 pairs.
-- Tell Q3: food services, retail and food retail correlate 0.84–0.87 across the 201
+- Tell Q3: food services, retail and food retail correlate 0.84–0.88 across the 201
   residential subzones (`outputs/tables/score_category_correlation.csv`). Unless k-means
   allows for that, it will mostly see one general-access axis. Recreation correlates
-  least (0.29–0.48).
+  least (0.30–0.48).
 - v0 numbers: 201 residential subzones; median composite 58.9 (range 14–97); 800 m and
-  1.2 km variants keep rank order at Spearman 0.95 and 0.92, but individual subzones move
+  1.2 km variants keep rank order at Spearman 0.95 and 0.91, but individual subzones move
   by up to 74 and 100 places.
 
 ## Hand-off (contract, do not rename columns without telling the team)

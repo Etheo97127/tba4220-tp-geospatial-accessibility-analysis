@@ -1,4 +1,4 @@
 variant,column,spearman,max_rank_shift
 equal weights,score_equal,0.994,28
 800 m radius,score_r800,0.953,74
-1200 m radius,score_r1200,0.915,100
+1200 m radius,score_r1200,0.913,100
