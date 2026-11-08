@@ -12,6 +12,16 @@ Owner: Coltrane Yao Zhiming. Code: `R/06_q3_typology/`.
 - Type mix vs maturity: permutation within spatial blocks, not a naive chi-square
 - Unstable groups are reported as unstable, not named
 
+## Steps
+
+- [x] D1 town list: `data/external/town_maturity.csv` with `source` and `as_of` (HDB classification last in force before Oct 2024); excluded areas left out of H₀(a) (decision 6). Residential set: 106 mature, 70 non-mature, 25 excluded subzones
+- [x] D2 inputs: `R/06_q3_typology/01_inputs.R` → `data/interim/q3_inputs.rds`: six category scores (raw, per Q2's call), z-scored over the residential set, with block, town group and Q2 residual
+- [ ] D3 choose k and test stability (block bootstrap)
+- [ ] D4 H₀(a) type mix vs town group, labels permuted between whole blocks (decision 12)
+- [ ] D5 H₀(b) type vs Q2 residual, residuals permuted within blocks (decision 5)
+- [ ] D6 profile, name and map the stable types (H8)
+- [ ] D7 report section and Discussion
+
 ## Inputs
 
 - `data/processed/score_subzone.rds`

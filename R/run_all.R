@@ -43,7 +43,9 @@ stages <- list(
     "R/05_q2_regression/04_spatial_model.R",    # residual tests, spatial error / lag (C4)
     "R/05_q2_regression/05_handoff.R"           # density share, adjusted scores, residuals (H7)
   ),
-  q3       = character(0)                       # R/06_q3_typology/  (Coltrane)
+  q3       = c(                                 # R/06_q3_typology/  (Coltrane)
+    "R/06_q3_typology/01_inputs.R"              # z-scored scores, blocks, town group, residuals
+  )
 )
 
 # Rscript R/run_all.R q2 q3  -> run only those stages (upstream outputs must exist)
