@@ -31,8 +31,10 @@ write_csv(weights %>% mutate(weight = round(weight, 4)), file.path(DIR_TAB, "sco
 
 h2 <- file.path(DIR_PROC, "residential_set.csv")
 if (file.exists(h2)) {
-  res <- read_csv(h2, show_col_types = FALSE) %>%
-    transmute(subzone_c, residential = as.logical(residential))
+  res <- read_csv(h2, show_col_types = FALSE) %>% select(subzone_c, residential)
+  # as.logical() turns any non-zero number into TRUE, so accept only TRUE/FALSE or 0/1.
+  stopifnot(is.logical(res$residential) || all(res$residential %in% c(0, 1)))
+  res <- res %>% mutate(residential = as.logical(residential))
   log_step("residential set: from ", basename(h2))
 } else {
   res <- census %>% transmute(subzone_c, residential = pop >= RES_MIN_POP)
