@@ -28,7 +28,9 @@ stages <- list(
     "R/03_score/03_outputs.R"                   # maps
   ),
   q1       = character(0),                      # R/04_q1_spatial/   (Hew)
-  q2       = character(0),                      # R/05_q2_regression/ (Zachary)
+  q2       = c(                                 # R/05_q2_regression/ (Zachary)
+    "R/05_q2_regression/01_residential_set.R"   # H2: residential subzones
+  ),
   q3       = character(0)                       # R/06_q3_typology/  (Coltrane)
 )
 
