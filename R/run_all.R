@@ -34,7 +34,8 @@ stages <- list(
     "R/04_q1_spatial/02_blocks.R"               # resampling blocks (H3)
   ),
   q2       = c(                                 # R/05_q2_regression/ (Zachary)
-    "R/05_q2_regression/01_residential_set.R"   # H2: residential subzones
+    "R/05_q2_regression/01_residential_set.R",  # H2: residential subzones
+    "R/05_q2_regression/02_covariates.R"        # elderly share, housing mix, controls
   ),
   q3       = character(0)                       # R/06_q3_typology/  (Coltrane)
 )
