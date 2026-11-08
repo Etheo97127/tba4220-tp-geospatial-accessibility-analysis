@@ -1,6 +1,6 @@
 # 03_score/01_centres.R ---------------------------------------------------------
 # One population-weighted centre per subzone (A4): the floor-area-weighted mean
-# of its residential buildings, so the 1 km circle is drawn from where people
+# of its residential buildings, so the walk-radius circle is drawn from where people
 # live rather than from the polygon's middle, which can sit in a reservoir, a
 # forest, or outside an L-shaped subzone.
 #
@@ -65,7 +65,7 @@ p <- ggplot() +
   geom_sf(data = subzones, fill = "#f2f1ee", colour = "white", linewidth = 0.15) +
   geom_sf(data = centres, aes(colour = centre_method), size = 0.7) +
   scale_colour_manual(values = c(buildings = "#1c5cab", point_on_surface = "#c2410c"), name = NULL) +
-  labs(title = "Subzone centres used for the 1 km access count",
+  labs(title = paste0("Subzone centres used for the ", RADIUS_M / 1000, " km access count"),
        subtitle = "Blue: floor-area-weighted mean of residential buildings. Orange: no residential buildings mapped, polygon point used.",
        caption = "Source: OSM residential building footprints; MP19 subzones.") +
   theme_void(base_size = 9) +

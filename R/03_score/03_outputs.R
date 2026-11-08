@@ -30,7 +30,8 @@ n_res <- sum(score$residential)
 p1 <- ggplot(map_dat) +
   geom_sf(aes(fill = shown), colour = "white", linewidth = 0.1) +
   fill_score +
-  labs(title = "Access score v0: everyday services within 1 km of where residents live",
+  labs(title = paste0("Access score v0: everyday services within ", RADIUS_M / 1000,
+                     " km of where residents live"),
        subtitle = paste0("Composite of six categories weighted by HES 2023 spending shares; ",
                          n_res, " residential subzones.\nGrey: fewer than ", RES_MIN_POP,
                          " residents, outside every analysis."),
@@ -48,7 +49,8 @@ p2 <- ggplot(long) +
   facet_wrap(~panel, ncol = 3) +
   fill_score +
   labs(title = "The six category scores behind the composite",
-       subtitle = "100 = best-served residential subzone in that category (log of the 1 km count). Weight in brackets.",
+       subtitle = paste0("100 = best-served residential subzone in that category (log of the ",
+                         RADIUS_M / 1000, " km count). Weight in brackets."),
        caption = "Grey: non-residential subzones.") +
   theme_map
 ggsave(file.path(DIR_FIG, "score_category_maps.png"), p2, width = 7.8, height = 4.6, dpi = 300, bg = "white")
