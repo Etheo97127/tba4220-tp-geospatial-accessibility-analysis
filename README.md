@@ -48,6 +48,10 @@ CRS is EPSG:3414. Column contracts are in each plan; H1–H8 are the hand-off ID
 H6 (Q1 memo) and the rest of H7 (density share, raw-or-adjusted call) are
 `outputs/tables/q1_*` and `outputs/tables/q2_density_share.csv`.
 
+H2 `residential_set.csv` must hold all 332 subzones with `subzone_c` and a
+`residential` column of `TRUE`/`FALSE` (0/1 is coerced; anything else stops the
+score). Extra columns such as `pop` are fine.
+
 ## Layout
 
 ```

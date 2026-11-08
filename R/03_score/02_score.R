@@ -26,15 +26,20 @@ write_csv(weights %>% mutate(weight = round(weight, 4)), file.path(DIR_TAB, "sco
 
 # --- residential set ---------------------------------------------------------
 # C1 publishes the agreed set as H2. Until it exists, apply the proposed cut-off.
+# The flag indexes the normalisation below, so a 0/1 column read as numbers
+# would silently pick the wrong rows: coerce it, and insist on all 332 subzones.
 
 h2 <- file.path(DIR_PROC, "residential_set.csv")
 if (file.exists(h2)) {
-  res <- read_csv(h2, show_col_types = FALSE) %>% select(subzone_c, residential)
+  res <- read_csv(h2, show_col_types = FALSE) %>%
+    transmute(subzone_c, residential = as.logical(residential))
   log_step("residential set: from ", basename(h2))
 } else {
   res <- census %>% transmute(subzone_c, residential = pop >= RES_MIN_POP)
   log_step("residential set: provisional, pop >= ", RES_MIN_POP, " (no residential_set.csv yet)")
 }
+stopifnot(setequal(res$subzone_c, subzones$subzone_c), !anyDuplicated(res$subzone_c),
+          !anyNA(res$residential))
 
 sz <- centres %>%
   left_join(census %>% select(subzone_c, pop), by = "subzone_c") %>%
