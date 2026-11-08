@@ -4,11 +4,17 @@
 # threshold fixed before any clustering (decision 1, DENSITY_SHARE_MAX).
 # (2) Density-adjusted category scores: residuals of each score on log density.
 # (3) The final model's residuals, against which Q3 tests under-service (H0(b)).
+# "Under-served" means a score below what the predictors alone imply, so for a
+# lag model the residual is the reduced form y - (I - rho W)^-1 X beta, not the
+# innovation y - rho W y - X beta (which would count neighbours' observed scores
+# as part of the prediction). For an error model it is y - X beta.
 
 source("R/00_setup.R")
+library(spdep)
 library(spatialreg)
 
-mod <- readRDS(file.path(DIR_INT, "q2_model.rds"))
+mod   <- readRDS(file.path(DIR_INT, "q2_model.rds"))
+nbobj <- readRDS(file.path(DIR_PROC, "q1_neighbours.rds"))
 
 dat <- mod$data
 r2_full    <- summary(mod$ols)$r.squared
@@ -21,8 +27,22 @@ for (k in CATEGORIES) {
   adjusted[[paste0("score_", k, "_adj")]] <- residuals(lm(reformulate("log_density", paste0("score_", k)), data = dat))
 }
 
-final_model <- switch(mod$final, lag = mod$slm, error = mod$sem, ols = mod$ols)
-resid <- tibble(subzone_c = dat$subzone_c, residual = as.numeric(residuals(final_model)),
+reduced_form_residual <- function(mod, dat, lw) {
+  X <- model.matrix(formula(mod$ols), dat)
+  y <- dat$score
+  switch(mod$final,
+         ols   = as.numeric(residuals(mod$ols)),
+         error = as.numeric(y - X %*% coef(mod$sem)[colnames(X)]),
+         lag   = {
+           W <- listw2mat(lw)
+           fitted <- solve(diag(nrow(W)) - mod$slm$rho * W, X %*% coef(mod$slm)[colnames(X)])
+           as.numeric(y - fitted)
+         })
+}
+
+stopifnot(identical(dat$subzone_c, nbobj$subzone_c))
+resid <- tibble(subzone_c = dat$subzone_c,
+                residual = reduced_form_residual(mod, dat, nbobj$lw_queen),
                 model = mod$final)
 
 write_csv(tibble(r2_density = r2_density, r2_full = r2_full, density_share = share,
