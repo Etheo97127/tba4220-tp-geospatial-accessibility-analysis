@@ -15,7 +15,8 @@ stages <- list(
     "R/01_prep/04_buildings.R",                 # residential footprints + floor-area weight
     "R/01_prep/05_hes_weights.R",               # HES 2023 category weights
     "R/01_prep/06_rail_stations.R",             # rail stations in service
-    "R/01_prep/07_osm_contributors.R"           # OSM mappers per km2 (mapping effort)
+    "R/01_prep/07_osm_contributors.R",          # OSM mappers per km2 (mapping effort)
+    "R/05_q2_regression/01_residential_set.R"   # H2, run here: score and Q1 read it
   ),
   coverage = c(
     "R/02_coverage/01_match.R",                 # record linkage + threshold grid
@@ -37,7 +38,6 @@ stages <- list(
     "R/04_q1_spatial/05_memo.R"                 # H6 memo to Q3 (B6)
   ),
   q2       = c(                                 # R/05_q2_regression/ (Zachary)
-    "R/05_q2_regression/01_residential_set.R",  # H2: residential subzones
     "R/05_q2_regression/02_covariates.R",       # elderly share, housing mix, controls
     "R/05_q2_regression/03_ols.R",              # OLS, VIF, one-sided tests (C3)
     "R/05_q2_regression/04_spatial_model.R",    # residual tests, spatial error / lag (C4)
