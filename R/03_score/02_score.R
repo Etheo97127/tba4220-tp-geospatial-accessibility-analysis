@@ -18,38 +18,11 @@ subzones <- readRDS(file.path(DIR_INT, "subzones.rds"))
 osm      <- readRDS(file.path(DIR_INT, "osm_poi.rds")) %>% filter(scored)
 centres  <- readRDS(file.path(DIR_PROC, "score_centres.rds"))
 census   <- read_csv(file.path(DIR_PROC, "census2020_subzone.csv"), show_col_types = FALSE)
+weights  <- read_csv(file.path(DIR_PROC, "hes_weights.csv"), show_col_types = FALSE)
 
-# --- HES 2023 weights, straight from the raw file ----------------------------
-# "Retail goods" is the sum of two COICOP divisions; say so in the report.
-
-HES_LINES <- tribble(
-  ~category,       ~line,
-  "food_services", "Food And Beverage Serving Services",
-  "retail",        "Clothing And Footwear",
-  "retail",        "Furnishing, Household Equipment And Routine Household Maintenance",
-  "health",        "Health",
-  "food_retail",   "Food And Non-Alcoholic Beverages",
-  "education",     "Education",
-  "recreation",    "Recreation, Sport And Culture"
-)
-
-hes <- read_csv(file.path(DIR_RAW, "hes_quinquennial.csv"), show_col_types = FALSE) %>%
-  mutate(line = str_squish(DataSeries)) %>%
-  select(line, sgd_month = `2023`)
-
-weights <- HES_LINES %>%
-  left_join(hes, by = "line") %>%
-  group_by(category) %>%
-  summarise(hes_lines = paste(line, collapse = " + "), sgd_month = sum(sgd_month), .groups = "drop") %>%
-  mutate(weight = sgd_month / sum(sgd_month)) %>%
-  arrange(match(category, CATEGORIES))
-
-stopifnot(!anyNA(weights$sgd_month), nrow(weights) == 6,
-          abs(sum(weights$sgd_month) - 3138.2) < 0.05)     # the proposal's Table 2 total
 W <- setNames(weights$weight, weights$category)
-write_csv(weights %>% mutate(sgd_month = round(sgd_month, 1), weight = round(weight, 4)),
-          file.path(DIR_TAB, "score_weights.csv"))
-log_step("HES weights: ", paste0(names(W), " ", round(100 * W, 1), "%", collapse = ", "))
+stopifnot(setequal(names(W), CATEGORIES), abs(sum(W) - 1) < 1e-9)
+write_csv(weights %>% mutate(weight = round(weight, 4)), file.path(DIR_TAB, "score_weights.csv"))
 
 # --- residential set ---------------------------------------------------------
 # C1 publishes the agreed set as H2. Until it exists, apply the proposed cut-off.

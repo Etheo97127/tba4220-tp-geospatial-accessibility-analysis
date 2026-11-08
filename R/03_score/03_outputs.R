@@ -7,7 +7,7 @@ source("R/00_setup.R")
 library(ggplot2)
 
 score    <- readRDS(file.path(DIR_PROC, "score_subzone.rds"))
-weights  <- read_csv(file.path(DIR_TAB, "score_weights.csv"), show_col_types = FALSE)
+weights  <- read_csv(file.path(DIR_PROC, "hes_weights.csv"), show_col_types = FALSE)
 
 SEQ  <- c("#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#1c5cab", "#0d366b")
 GREY <- "#d9d8d4"
