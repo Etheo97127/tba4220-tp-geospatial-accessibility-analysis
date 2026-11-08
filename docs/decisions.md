@@ -39,5 +39,10 @@ generated from it, so the file is the single definition. Choices worth checking:
   but not scored.
 - Swimming pools and sports pitches are not pulled at all: in Singapore most are condo
   facilities, and they are mapped too unevenly to count.
+- Every facility is one point. Overpass gives a way or relation the centre of its bounding
+  box, so a long or large park counts as a single point that may sit far from residents
+  living along it. Pasir Ris Park and Changi Beach Park land outside every subzone. This
+  understates recreation access beside coastal and linear parks. A fix for v1 would measure
+  parks by distance to the polygon edge.
 - `shop=electronics` counts as retail goods. In Singapore these stores mostly sell household
   appliances (COICOP 05), even though audio-visual equipment strictly falls under recreation.
