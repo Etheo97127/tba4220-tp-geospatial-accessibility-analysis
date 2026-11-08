@@ -141,12 +141,15 @@ random_label_test <- function(set_name, nsim = 999) {
   # simfuns is an fv object; go via data.frame, since fv refuses to drop `r`.
   sf_df <- as.data.frame(attr(env, "simfuns"))
   fns <- as.matrix(sf_df[, setdiff(names(sf_df), "r"), drop = FALSE])
-  obs <- env$obs
-  dev_obs <- max(abs(obs - rowMeans(fns)), na.rm = TRUE)
+  dev <- env$obs - rowMeans(fns)
+  dev_obs <- max(abs(dev), na.rm = TRUE)
   dev_sim <- apply(fns, 2, function(z) max(abs(z - rowMeans(fns)), na.rm = TRUE))
   p_mad <- (1 + sum(dev_sim >= dev_obs)) / (1 + length(dev_sim))
+  # The MAD test is two-sided. Record which side the largest departure lies on,
+  # so "more clustered than chance" is only claimed when K sits above the mean.
+  direction <- ifelse(dev[which.max(abs(dev))] > 0, "clustered", "dispersed")
   list(set = set_name, env = env, statistic = dev_obs, p.value = p_mad,
-       n = npoints(X), n_missed = sum(marks(X) == "missed"))
+       direction = direction, n = npoints(X), n_missed = sum(marks(X) == "missed"))
 }
 
 # Simulated CHAS first, then ECDA, so the seeded draws match earlier runs; the
@@ -160,7 +163,7 @@ cat("\n=== (c) random labelling test (999 permutations) ===\n")
 rl_tab <- bind_rows(lapply(rl, function(z) tibble(
   set = z$set, role = ifelse(z$set == "ecda", "headline", "supplementary"),
   n_points = z$n, n_missed = z$n_missed,
-  statistic = z$statistic, p_value = z$p.value))) %>%
+  statistic = z$statistic, direction = z$direction, p_value = z$p.value))) %>%
   arrange(role != "headline") %>%
   group_by(role) %>%
   mutate(p_holm = p.adjust(p_value, method = "holm")) %>%

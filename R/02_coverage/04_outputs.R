@@ -138,7 +138,12 @@ ggsave(file.path(DIR_FIG, "coverage_missrate_map.png"), p2,
 rl_path <- file.path(DIR_INT, "random_labelling.rds")
 if (file.exists(rl_path)) {
   rl <- readRDS(rl_path)
-  rl_stats <- read_csv(file.path(DIR_TAB, "coverage_random_labelling.csv"), show_col_types = FALSE)
+  # The MAD test is two-sided: "beyond chance" needs p < 0.05 and the observed
+  # K above the permutation mean at its largest departure.
+  rl_stats <- read_csv(file.path(DIR_TAB, "coverage_random_labelling.csv"), show_col_types = FALSE) %>%
+    mutate(claim = case_when(p_value >= 0.05          ~ "cluster no more than chance",
+                             direction == "clustered" ~ "cluster beyond chance",
+                             TRUE                     ~ "are more dispersed than chance"))
   # K(r) grows like r^2, which swamps the departure we care about. Centre each
   # curve on the permutation mean so the envelope is a flat band around zero and
   # the excess is legible.
@@ -152,10 +157,6 @@ if (file.exists(rl_path)) {
            obs = e$obs - e$mmean, lo = e$lo - e$mmean, hi = e$hi - e$mmean)
   })) %>%
     mutate(set = factor(set, levels = unique(set)))
-  clusters <- function(s) {
-    p <- rl_stats$p_value[rl_stats$set == s]
-    if (p < 0.05) "cluster beyond chance" else "cluster no more than chance"
-  }
   p3 <- ggplot(env_df, aes(r)) +
     geom_ribbon(aes(ymin = lo, ymax = hi), fill = SEQ[2], alpha = 0.7) +
     geom_hline(yintercept = 0, colour = INK2, linewidth = 0.3, linetype = "22") +
@@ -163,7 +164,7 @@ if (file.exists(rl_path)) {
     facet_wrap(~set, scales = "free_y") +
     scale_y_continuous(labels = label_number(scale = 1e-6, suffix = "M")) +
     labs(title = sprintf("Preschool gaps %s; clinic gaps (supplementary) %s",
-                         clusters("ecda"), clusters("chas")),
+                         rl_stats$claim[rl_stats$set == "ecda"], rl_stats$claim[rl_stats$set == "chas"]),
          subtitle = "Observed K of the missed facilities minus the mean over 999 random relabellings.\nBand: the 999 relabellings. A line above the band means the gaps are more clustered than chance.",
          x = "distance r (m)", y = "K(r) - permutation mean",
          caption = "Random labelling permutes matched/missed over fixed facility locations, so it tests clustering of the gaps beyond the clustering of the facilities themselves.\nCo-located facilities are collapsed to one point, which is why the counts are below the full reference totals.") +
