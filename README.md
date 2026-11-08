@@ -35,6 +35,7 @@ CRS is EPSG:3414. Column contracts are in each plan; H1–H8 are the hand-off ID
 | `external/town_maturity.csv` | H1 | Q3 (D1) | coverage, Q3 |
 | `external/osm_crosswalk.csv` | | score (A3) | anyone auditing the categories |
 | `processed/census2020_subzone.csv` | | prep | score, Q2 |
+| `processed/hes_weights.csv` | | prep | score, Q2, report |
 | `processed/residential_set.csv` | H2 | Q2 (C1) | all |
 | `processed/subzone_quality_flag.csv` | | coverage | Q2, Q3 (robustness) |
 | `processed/score_subzone.rds` | H4, H5 | score | Q1, Q2, Q3 |
