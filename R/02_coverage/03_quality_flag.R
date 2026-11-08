@@ -30,13 +30,14 @@ sz <- mt %>% filter(set == "ecda") %>% group_by(subzone_c) %>%
 
 mu <- sum(sz$n_missed) / sum(sz$n_ref)
 
-# Moments over subzones with at least MIN_N preschools. Their raw rates vary
-# partly through binomial noise, mu(1 - mu) / n on average; only the rest is
-# real between-subzone variation, and that is what sets the prior.
+# Moments over subzones with at least MIN_N preschools. Under a beta-binomial,
+# Var(raw rate) = mu(1 - mu) * [1/n + (1 - 1/n) / (kappa + 1)]: binomial noise
+# plus real between-subzone variation. Subtract the noise, then solve for kappa,
+# keeping the (1 - 1/n) factor the between-subzone part carries.
 big <- sz %>% filter(n_ref >= MIN_N)
 vw  <- var(big$miss_raw) - mu * (1 - mu) * mean(1 / big$n_ref)
 if (vw > 0) {
-  kappa <- max(mu * (1 - mu) / vw - 1, 1)    # prior sample size
+  kappa <- max(mu * (1 - mu) * (1 - mean(1 / big$n_ref)) / vw - 1, 1)    # prior sample size
 } else {
   # No variation beyond noise: pool completely, so every subzone is shrunk to mu
   # and flagged typical. A huge kappa does that and keeps pbeta() finite.

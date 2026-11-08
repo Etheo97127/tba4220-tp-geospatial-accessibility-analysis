@@ -37,9 +37,9 @@
 >   Hougang (83%): dropping Sengkang gives OR 0.57 (p = 0.03), and dropping both
 >   gives 0.83 (p = 0.56). The standard errors are not clustered by town (26 towns).
 > - **Quality flag** (ECDA only): island miss rate 90.3%. 141 subzones hold at
->   least 5 preschools and get a flag: 7 better / 129 typical / 5 worse. The other
+>   least 5 preschools and get a flag: 9 better / 124 typical / 8 worse. The other
 >   191 have an NA flag: 100 with no preschool, 91 with 1–4. The empirical-Bayes
->   prior sample size is kappa = 19.7.
+>   prior sample size is kappa = 17.5.
 > - CHAS, supplementary: recall 22.2% (19.9–24.7%). Miss rate 78.6% mature vs
 >   73.4% non-mature, p = 0.06, MDD 7.4 pp. Logistic OR 0.53 (0.34–0.81).
 >   Random labelling p = 0.003.
