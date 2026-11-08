@@ -253,9 +253,11 @@ Not part of Q1's question, but it is what the other three are waiting on.
 - De-duplicate: polygons and relations to centroids, then drop same-category
   points within 25 m whose normalised names match. Left untreated, malls and food
   courts double-count badly.
-- Population-weighted centroids: use a gridded population raster (GHS-POP or
+- ~~Population-weighted centroids: use a gridded population raster (GHS-POP or
   WorldPop, 100 m) for *both* cities rather than a Singapore-specific source, so
-  the centroid definition is identical on each side.
+  the centroid definition is identical on each side.~~ **Superseded** by item 3
+  in `docs/decisions.md` (proposed; on branch `score/v0` until it merges):
+  centroids are weighted by OSM residential building footprints instead.
 - Detour factor: 200 sampled OD pairs routed on the OSM foot network (`dodgr`, or
   a local OSRM foot profile); report the mean ratio and its spread, and apply the
   1 km walk as a `1000 / detour` straight-line radius. Report score sensitivity to
