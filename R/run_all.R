@@ -33,7 +33,8 @@ stages <- list(
     "R/04_q1_spatial/01_weights.R",             # queen + kNN weights on the residential set (H3)
     "R/04_q1_spatial/02_blocks.R",              # resampling blocks (H3)
     "R/04_q1_spatial/03_morans_i.R",            # global Moran's I per category (B4)
-    "R/04_q1_spatial/04_lisa.R"                 # LISA with BH correction (B5)
+    "R/04_q1_spatial/04_lisa.R",                # LISA with BH correction (B5)
+    "R/04_q1_spatial/05_memo.R"                 # H6 memo to Q3 (B6)
   ),
   q2       = c(                                 # R/05_q2_regression/ (Zachary)
     "R/05_q2_regression/01_residential_set.R",  # H2: residential subzones
