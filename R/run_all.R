@@ -27,7 +27,10 @@ stages <- list(
     "R/03_score/02_score.R",                    # counts, HES weights, variants (A5, A8)
     "R/03_score/03_outputs.R"                   # maps
   ),
-  q1       = character(0),                      # R/04_q1_spatial/   (Hew)
+  q1       = c(                                 # R/04_q1_spatial/   (Hew)
+    "R/04_q1_spatial/01_weights.R",             # queen + kNN weights on the residential set (H3)
+    "R/04_q1_spatial/02_blocks.R"               # resampling blocks (H3)
+  ),
   q2       = c(                                 # R/05_q2_regression/ (Zachary)
     "R/05_q2_regression/01_residential_set.R"   # H2: residential subzones
   ),
