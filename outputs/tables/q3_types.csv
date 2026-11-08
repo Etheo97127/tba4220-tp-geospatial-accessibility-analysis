@@ -1,3 +1,3 @@
-cluster,stable,n_subzones,mean_z,name
-1,TRUE,92,-0.71,Low-access
-2,TRUE,109,0.6,High-access
+cluster,stable,n_subzones,mean_z,name,structure
+1,TRUE,92,-0.71,Low-access end,one gradient
+2,TRUE,109,0.6,High-access end,one gradient
