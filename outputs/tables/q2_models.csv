@@ -1,0 +1,24 @@
+model,term,estimate,se,p_two_sided,p_one_sided
+OLS,(Intercept),58.15,0.7466,7.447999999999998e-149,NA
+OLS,elderly_share,0.1819,1.053,0.863,0.5685
+OLS,housing_mix,0.1615,1.114,0.8849,0.5576
+OLS,log_density,2.203,0.9132,0.01679,NA
+OLS,dist_rail_m,-3.992,0.8209,2.37e-6,NA
+OLS,log_contrib,7.683,0.9391,3.561e-14,NA
+spatial error,(Intercept),57.33,1.63,0,NA
+spatial error,elderly_share,1.037,0.9834,0.2915,0.8542
+spatial error,housing_mix,0.04938,0.9497,0.9585,0.5207
+spatial error,log_density,2.698,0.8952,0.002581,NA
+spatial error,dist_rail_m,-3.178,0.7241,1.136e-5,NA
+spatial error,log_contrib,4.192,0.9718,1.602e-5,NA
+spatial lag (coefficient),(Intercept),26.03,3.45,4.463e-14,NA
+spatial lag (coefficient),elderly_share,0.5867,0.8612,0.4957,0.7521
+spatial lag (coefficient),housing_mix,-0.4791,0.9159,0.6009,0.3004
+spatial lag (coefficient),log_density,2.539,0.7471,6.771e-4,NA
+spatial lag (coefficient),dist_rail_m,-3.158,0.6766,3.057e-6,NA
+spatial lag (coefficient),log_contrib,4.071,0.8271,8.554e-7,NA
+spatial lag (total impact),elderly_share,1.289,1.955,0.4972,0.7514
+spatial lag (total impact),housing_mix,-1.053,2.101,0.5923,0.2962
+spatial lag (total impact),log_density,5.58,1.954,0.00371,NA
+spatial lag (total impact),dist_rail_m,-6.939,1.679,2.827e-5,NA
+spatial lag (total impact),log_contrib,8.946,1.844,9.862e-7,NA

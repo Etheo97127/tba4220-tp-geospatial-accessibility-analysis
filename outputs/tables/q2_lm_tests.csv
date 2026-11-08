@@ -1,0 +1,6 @@
+test,statistic,p_value
+RSerr,34.33,4.646e-9
+RSlag,60.03,9.326e-15
+adjRSerr,0.7381,0.3903
+adjRSlag,26.44,2.724e-7
+SARMA,60.77,6.373e-14
