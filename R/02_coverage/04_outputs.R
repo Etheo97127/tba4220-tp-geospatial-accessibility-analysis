@@ -1,6 +1,7 @@
 # 02_coverage/04_outputs.R ------------------------------------------------------
-# Tables and figures for the coverage check. Print output, so: single-hue sequential ramp for
-# magnitude, a distinct grey for "not enough data to say", recessive axes.
+# Tables and figures for the coverage check; the subzone map is drawn with the
+# flag in 03_quality_flag.R. Print output, so: single-hue sequential ramp for
+# magnitude, recessive axes.
 #
 # ECDA preschools lead every figure; CHAS clinics appear only as a labelled
 # supplementary benchmark (docs/REQUIREMENTS.md section 3). Every number and
@@ -12,19 +13,14 @@ library(ggplot2)
 library(binom)
 library(scales)
 
-grid        <- read_csv(file.path(DIR_TAB, "coverage_threshold_sensitivity.csv"), show_col_types = FALSE)
-match_table <- readRDS(file.path(DIR_INT, "match_table.rds"))
-mt          <- readRDS(file.path(DIR_INT, "match_tested.rds"))
-subzones    <- readRDS(file.path(DIR_INT, "subzones.rds"))
-reference   <- readRDS(file.path(DIR_INT, "reference.rds"))
-szq         <- read_csv(file.path(DIR_PROC, "subzone_quality_flag.csv"), show_col_types = FALSE)
-prop_test   <- read_csv(file.path(DIR_TAB, "coverage_prop_test.csv"), show_col_types = FALSE)
+grid      <- read_csv(file.path(DIR_TAB, "coverage_threshold_sensitivity.csv"), show_col_types = FALSE)
+mt        <- readRDS(file.path(DIR_INT, "match_tested.rds"))
+prop_test <- read_csv(file.path(DIR_TAB, "coverage_prop_test.csv"), show_col_types = FALSE)
 
 # Sequential blue ramp, light -> dark; ordinal steps 250/450/650 for the three
-# name thresholds. Grey is reserved for "insufficient data", never a data value.
+# name thresholds. 03_quality_flag.R draws its map from the same ramp.
 SEQ    <- c("#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#2a78d6", "#1c5cab", "#0d366b")
 ORD3   <- c("#86b6ef", "#2a78d6", "#104281")
-GREY   <- "#d9d8d4"
 INK    <- "#0b0b0b"; INK2 <- "#52514e"
 
 theme_cov <- theme_minimal(base_size = 9) +
@@ -81,59 +77,7 @@ p1 <- grid %>% filter(variant == "strict") %>%
 ggsave(file.path(DIR_FIG, "coverage_threshold_sensitivity.png"), p1,
        width = 7.2, height = 3.2, dpi = 300, bg = "white")
 
-# --- Figure 2: subzone miss-rate map -----------------------------------------
-# ECDA only, since the quality flag is. Subzones holding fewer than 5 preschools
-# are greyed out rather than coloured: a one-of-one miss is not a 100% miss rate.
-
-MIN_N <- 5
-map_dat <- subzones %>%
-  left_join(szq %>% select(subzone_c, n_ref, n_missed, miss_shrunk), by = "subzone_c") %>%
-  mutate(shown = ifelse(!is.na(n_ref) & n_ref >= MIN_N, miss_shrunk, NA_real_))
-
-# Crop to the inhabited part of the island. The offshore and industrial subzones
-# hold no reference facilities and otherwise stretch the frame to no purpose.
-bb <- st_bbox(map_dat %>% filter(!is.na(n_ref) & n_ref >= MIN_N))
-pad <- 1500
-
-# Shrunk rates sit in a narrow band below 100%, so a 0-100% continuous ramp
-# would render the whole island one shade. Five bins of a whole-percent width
-# over the range that actually occurs, anchored at the top so the scale never
-# passes 100%.
-rng  <- range(map_dat$shown, na.rm = TRUE)
-top  <- ceiling(rng[2] * 100)
-step <- ceiling((top - floor(rng[1] * 100)) / 5)
-BRK  <- (top - step * (5:0)) / 100
-
-island_miss <- sum(szq$n_missed) / sum(szq$n_ref)
-
-p2 <- ggplot() +
-  geom_sf(data = map_dat, aes(fill = shown), colour = "white", linewidth = 0.1) +
-  scale_fill_stepsn(colours = SEQ[c(2, 3, 4, 6, 7)], breaks = BRK, limits = range(BRK),
-                    na.value = GREY, labels = percent_format(accuracy = 1),
-                    name = "share of ECDA\npreschools missing\nfrom OSM",
-                    guide = guide_coloursteps(barheight = 7, barwidth = 0.8)) +
-  coord_sf(xlim = c(bb$xmin - pad, bb$xmax + pad),
-           ylim = c(bb$ymin - pad, bb$ymax + pad), expand = FALSE) +
-  labs(title = sprintf("OSM misses %s of ECDA preschools; the best-mapped subzone misses an estimated %s",
-                       percent(island_miss, accuracy = 1), percent(rng[1], accuracy = 1)),
-       subtitle = paste0("MP19 subzones, empirical-Bayes shrunk share of ECDA preschools absent from OSM.\n",
-                         "Grey: fewer than ", MIN_N, " preschools, too few to rate."),
-       caption = sprintf(paste0("Reference: ECDA childcare and kindergarten listings, Singapore only. ",
-                                "Island-wide miss rate %s (%s of %s).\n",
-                                "CHAS clinics are a supplementary benchmark and are not mapped. ",
-                                "Per-subzone counts in data/processed/subzone_quality_flag.csv."),
-                         percent(island_miss, accuracy = 0.1),
-                         comma(sum(szq$n_missed)), comma(sum(szq$n_ref)))) +
-  theme_void(base_size = 9) +
-  theme(plot.title = element_text(colour = INK, face = "bold", size = 10),
-        plot.subtitle = element_text(colour = INK2, size = 8),
-        plot.caption = element_text(colour = INK2, size = 7, hjust = 0),
-        legend.title = element_text(colour = INK2, size = 8),
-        legend.text = element_text(colour = INK2, size = 7))
-ggsave(file.path(DIR_FIG, "coverage_missrate_map.png"), p2,
-       width = 7.8, height = 3.6, dpi = 300, bg = "white")
-
-# --- Figure 3: random labelling envelope -------------------------------------
+# --- Figure 2: random labelling envelope -------------------------------------
 
 rl_path <- file.path(DIR_INT, "random_labelling.rds")
 if (file.exists(rl_path)) {
@@ -176,7 +120,7 @@ if (file.exists(rl_path)) {
   log_step("random_labelling.rds not found - skipping figure 3")
 }
 
-# --- Figure 4: miss rate by planning area ------------------------------------
+# --- Figure 3: miss rate by planning area ------------------------------------
 # ECDA only. CHAS is not split by town: scheme membership itself varies along
 # the mature / non-mature axis, so a CHAS split would confound the two.
 
