@@ -66,4 +66,4 @@ write_csv(joined %>% select(-subzone_n, -pln_area_n), file.path(DIR_PROC, "censu
 log_step("census2020_subzone.csv: ", nrow(joined), " subzones, ",
          format(sum(joined$pop), big.mark = ","), " residents; ",
          sum(joined$pop >= RES_MIN_POP), " with >= ", RES_MIN_POP, ", ",
-         sum(joined$pop >= 500), " with >= 500, ", sum(joined$pop == 0), " with none")
+         sum(joined$pop >= RES_MIN_POP_ALT), " with >= ", RES_MIN_POP_ALT, ", ", sum(joined$pop == 0), " with none")

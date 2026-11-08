@@ -33,6 +33,7 @@ CATEGORIES <- c("food_services", "retail", "health", "food_retail", "education",
 
 # Proposed P0 decisions (docs/decisions.md); change here, not in the scripts.
 RES_MIN_POP <- 1000          # item 2: residents needed for a subzone to count as residential
+RES_MIN_POP_ALT <- 500       # item 2: second cut-off, reported so the choice is visible
 RADIUS_M    <- 1000          # item 7: walking radius for the main score ...
 RADII_ALT   <- c(800, 1200)  # ... and the robustness variants
 
