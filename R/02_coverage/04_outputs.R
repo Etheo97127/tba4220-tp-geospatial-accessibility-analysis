@@ -1,4 +1,4 @@
-# 02_coverage/03_outputs.R ------------------------------------------------------
+# 02_coverage/04_outputs.R ------------------------------------------------------
 # Tables and figures for the coverage check. Print output, so: single-hue sequential ramp for
 # magnitude, a distinct grey for "not enough data to say", recessive axes.
 #

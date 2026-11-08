@@ -1,4 +1,4 @@
-# 02_coverage/04_ceiling_and_validation.R ---------------------------------------
+# 02_coverage/05_ceiling_and_validation.R ---------------------------------------
 # Two checks on the matcher, both aimed at the same question: is the low recall
 # a property of OpenStreetMap, or of our matching procedure?
 #
