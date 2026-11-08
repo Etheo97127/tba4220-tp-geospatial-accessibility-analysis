@@ -1,6 +1,8 @@
 # 04_q1_spatial/01_weights.R ----------------------------------------------------
 # H3 part 1: who counts as a neighbour, on the residential set only (H2). Queen
-# contiguity is the main rule (Lecture 8); k = 6 nearest centroids is the check.
+# contiguity is the main rule (Lecture 8); the k = 6 nearest subzones, measured
+# between points on each polygon's surface (a centroid can fall outside an
+# L-shaped subzone), is the check.
 # Dropping non-residential subzones punches holes in the map, so weights are
 # built after the filter, and any subzone left with no neighbour is linked to
 # its nearest residential subzone rather than dropped.

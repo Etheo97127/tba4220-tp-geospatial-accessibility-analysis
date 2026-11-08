@@ -8,9 +8,8 @@
 source("R/00_setup.R")
 library(spdep)
 
-score <- readRDS(file.path(DIR_PROC, "score_subzone.rds"))
 nbobj <- readRDS(file.path(DIR_PROC, "q1_neighbours.rds"))
-pa    <- readRDS(file.path(DIR_INT, "subzones.rds")) %>% st_drop_geometry() %>%
+pa    <- read_csv(file.path(DIR_PROC, "census2020_subzone.csv"), show_col_types = FALSE) %>%
   select(subzone_c, pln_area_n)
 
 MIN_BLOCK <- 3
