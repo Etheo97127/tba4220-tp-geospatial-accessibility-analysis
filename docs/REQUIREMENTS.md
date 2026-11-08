@@ -75,8 +75,8 @@ benchmark (amended 2026-11-08, below).
 > next to ECDA. It is never pooled with ECDA, never a headline result, and never
 > enters the subzone quality flag. It is kept for transparency, not as evidence
 > of coverage. CHAS shows the bias this decision warned about: its missed clinics
-> cluster beyond chance where ECDA's do not (random labelling p = 0.002 against
-> 0.32), and its mature / non-mature gap (78.4% vs 73.4% missed, p = 0.07) runs
+> cluster beyond chance where ECDA's do not (random labelling p = 0.003 against
+> 0.51), and its mature / non-mature gap (78.6% vs 73.4% missed, p = 0.06) runs
 > along the heartland / central axis. Reporting it shows why it was not used.
 
 Rationale:
@@ -104,7 +104,7 @@ from ~36,700 free-text address strings. Retail goods (16.1%) has no government
 registry in any form and should be named as unauditable.
 
 **Health stays as one of the six score categories.** Only the CHAS *audit* is
-dropped, demoted to a supplementary row by the amendment above. The six weights are unchanged, and Q3's elderly-access hypothesis depends
+changed: demoted to a supplementary row by the amendment above, not dropped. The six weights are unchanged, and Q3's elderly-access hypothesis depends
 on health being present.
 
 ## 4. Page-limit cuts
