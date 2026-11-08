@@ -194,9 +194,11 @@ Optional, and reported as supporting rather than headline.
   missed facilities drawn over it. Subzones holding fewer than 5 reference
   facilities are greyed out, not coloured; a one-of-one miss is not 100%.
 - `outputs/figures/q1_random_labelling.png` — the envelope plot.
-- `data/processed/subzone_quality_flag.csv` — per subzone: reference count, miss
-  rate, empirical-Bayes shrunk miss rate (so thin subzones do not dominate), and
-  a three-level flag. **This is the hand-off to Q2/Q3/Q4.**
+- `data/processed/subzone_quality_flag.csv` — per subzone, counting ECDA
+  preschools only (CHAS clinics never enter it): reference count, miss rate,
+  empirical-Bayes shrunk miss rate (so thin subzones do not dominate), and a
+  three-level flag. Built by `R/02_coverage/03_quality_flag.R`. **This is the
+  hand-off to Q2/Q3/Q4.**
 
 ## 6. What the answer changes downstream
 
