@@ -71,6 +71,7 @@ counts. SingStat rounds to tens and shows zero as "-", read here as 0.
 | Column | Meaning |
 |---|---|
 | `subzone_c` | join key |
+| `pln_area_n` | URA planning area (upper case); Q1 blocks and Q3 town groups key on it |
 | `pop` | residents (citizens + PRs) |
 | `pop_65plus` | residents aged 65 and over |
 | `dw_total` | residents in all dwelling types (equals `pop` within rounding) |

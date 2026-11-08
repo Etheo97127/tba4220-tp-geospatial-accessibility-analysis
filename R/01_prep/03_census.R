@@ -62,7 +62,7 @@ if (nrow(unmatched_mp19) || nrow(unmatched_census)) {
 off <- sum(abs(joined$pop - joined$dw_total) > 10)
 log_step("subzones where age and dwelling totals differ by > 10: ", off)
 
-write_csv(joined %>% select(-subzone_n, -pln_area_n), file.path(DIR_PROC, "census2020_subzone.csv"))
+write_csv(joined %>% select(subzone_c, pln_area_n, everything(), -subzone_n), file.path(DIR_PROC, "census2020_subzone.csv"))
 log_step("census2020_subzone.csv: ", nrow(joined), " subzones, ",
          format(sum(joined$pop), big.mark = ","), " residents; ",
          sum(joined$pop >= RES_MIN_POP), " with >= ", RES_MIN_POP, ", ",
