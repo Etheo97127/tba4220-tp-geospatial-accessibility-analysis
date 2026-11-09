@@ -22,7 +22,8 @@ Owner: Coltrane Yao Zhiming. Code: `R/06_q3_typology/`.
 - [x] D6 profiles: `05_profiles.R` → `outputs/tables/q3_types.csv`, `q3_profiles.csv`, `outputs/figures/q3_profiles.png`, `q3_types_map.png`. Names by a fixed rule (level ±0.5 SD; standout category ±0.5 SD from the type's own mean; "under-served" avoided because the plan reserves it for negative Q2 residuals): with the null test's verdict, the groups are named as ends of one gradient: **Low-access end** (92 subzones, every category 0.5–0.8 SD below average) and **High-access end** (109). No standout categories: they differ in level, not mix
 
 Next (for the Discussion): the six category scores do not separate into discrete neighbourhood types. They vary along one general-access gradient (PC1 carries about 70% of the variance; food services, retail and food retail correlate at Spearman 0.84–0.88), and k = 2 is a reproducible high/low cut through it, no better separated than a no-cluster null (p = 0.47). Density explains only a third of Q2's model, so the gradient is not just density. Mature and non-mature towns hold the high and low ends in statistically indistinguishable proportions (H₀(a) p = 0.27). The answer to the target question: Singapore's residential subzones differ in how much everyday service lies within walking distance, not in what kind, and the older and newer towns are spread along that gradient alike. H₀(b) (p = 0.001) is partly mechanical, as noted under D5.
-- [ ] D7 report section and Discussion
+- [x] D7 Q3 report section: `report/sections/05_q3_typology.Rmd`
+- [ ] D7 Discussion (`report/sections/06_discussion.Rmd`)
 
 ## Inputs
 

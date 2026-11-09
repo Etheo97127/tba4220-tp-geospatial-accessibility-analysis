@@ -1,4 +1,50 @@
-<!-- Owner: Coltrane Yao Zhiming -->
+<!-- Owner: Coltrane Yao Zhiming (D7) -->
 
-# Q3: Neighbourhood types
+```{r q3}
+ck    <- tab("q3_choose_k.csv")
+nul   <- tab("q3_null_test.csv")
+stab  <- tab("q3_stability.csv")
+tests <- tab("q3_tests.csv")
+mix   <- tab("q3_type_mix.csv")
+types <- tab("q3_types.csv")
+rbt   <- tab("q3_residual_by_type.csv")
+k     <- nul$k_chosen
+sil_k <- ck$silhouette[ck$k == k]; sil_3 <- ck$silhouette[ck$k == 3]
+ta    <- tests[grepl("H0\\(a\\)", tests$hypothesis), ]
+tb    <- tests[grepl("H0\\(b\\)", tests$hypothesis), ]
+share <- function(m, cl) mix$share[mix$maturity == m & mix$cluster == cl]
+low   <- types$cluster[grepl("^Low", types$name)]
+high  <- types$cluster[grepl("^High", types$name)]
+sc    <- readRDS(file.path(ROOT, "data", "processed", "score_subzone.rds")) %>% st_drop_geometry() %>% filter(residential)
+pc1   <- summary(prcomp(scale(sc[paste0("score_", names(CAT_LAB))])))$importance[2, 1]
+```
 
+# Q3: What kinds of neighbourhood exist?
+
+**H₀(a)**: the mix of neighbourhood types is the same in mature and non-mature towns. **H₀(b)**: type membership is unrelated to Q2's residuals.
+
+**Method.** We clustered the `r sum(stab$n_subzones)` residential subzones with k-means [@hartigan1979], using their six category scores as z-scores so each category weighs equally. The lectures used k-means only to bin map colours. The number of groups k is chosen by the highest mean silhouette [@rousseeuw1987]. On simulated data with three planted groups, the same code recovers exactly three.
+
+**There is one gradient, not discrete types.** The silhouette rule picks k = `r k` (`r num(sil_k, 2)`, against `r num(sil_3, 2)` at k = 3; Figure 5). But silhouette always picks some k ≥ 2, even in data with no groups. We therefore re-ran the same rule on `r nul$n_null` simulated datasets that have the real scores' correlations but no groups at all (a no-cluster null, as in @tibshirani2001; the same logic as Lecture 7's simulation envelope). The real data separate no better than these structureless clouds:
+
+- observed silhouette `r num(nul$observed_max_silhouette, 3)`;
+- null mean `r num(nul$null_mean, 3)`, 95th percentile `r num(nul$null_q95, 3)`;
+- p = `r num(nul$p_value, 2)`.
+
+The six scores move together along one general-access axis, with the first principal component carrying `r pct(pc1, 0)` of their variance. k = `r k` is a cut through that axis, not two kinds of neighbourhood. Both halves are reproducible: in a spatial block bootstrap [@kunsch1989; @hennig2007] that resamples Q1's planning-area blocks 200 times, their mean Jaccard overlap is `r num(min(stab$mean_jaccard), 2)`–`r num(max(stab$mean_jaccard), 2)`, well above the 0.75 stability bar. A cut through a continuum is also stable, though, so this confirms a repeatable split, not distinct types. We call the halves the **low-access end** (`r types$n_subzones[types$cluster == low]` subzones, every category 0.5–0.8 SD below average) and the **high-access end** (`r types$n_subzones[types$cluster == high]`). Their profiles differ in level, not in mix (Figures 6 and 7).
+
+```{r fig-k, fig.cap = "Figure 5. Choosing k: within-cluster sum of squares and mean silhouette.", out.width = "90%"}
+knitr::include_graphics(fig("q3_choose_k.png"))
+```
+
+```{r fig-profiles, fig.cap = "Figure 6. Mean z-score per category for the two ends of the access gradient.", out.width = "80%"}
+knitr::include_graphics(fig("q3_profiles.png"))
+```
+
+```{r fig-types-map, fig.cap = "Figure 7. The two ends of the access gradient across Singapore.", out.width = "100%"}
+knitr::include_graphics(fig("q3_types_map.png"))
+```
+
+**H₀(a): not rejected.** The low-access end holds `r pct(share("mature", low), 0)` of mature-town subzones and `r pct(share("non-mature", low), 0)` of non-mature ones. Neighbouring subzones are not independent, so the textbook χ² p-value would be too small. Instead, town labels were permuted between whole blocks (the label is set by planning area, so shuffling within a block would change nothing). The gap is within chance (χ² = `r num(ta$observed, 2)`, p = `r num(ta$p_value, 2)`) [@good2005]. Older and newer towns sit along the access gradient alike. Central and largely private planning areas, which belong to neither group, are left out.
+
+**H₀(b): rejected, but partly by construction.** Q2's residuals were permuted within blocks. The low-access end averages `r num(abs(rbt$mean_residual[rbt$cluster == low]), 1)` points below what density, rail distance and mapping effort predict, and the high-access end `r num(rbt$mean_residual[rbt$cluster == high], 1)` above (F = `r num(tb$observed, 1)`, p `r p_fmt(tb$p_value)`). But both the groups and the residuals are built from the scores, so a low-access group gets negative residuals partly by definition. The defensible reading is narrower: low access in these subzones is not explained away by their density, rail distance or how well they are mapped.
