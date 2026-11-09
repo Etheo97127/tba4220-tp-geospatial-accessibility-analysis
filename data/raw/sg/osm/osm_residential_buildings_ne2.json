@@ -1,0 +1,2040 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-02T15:44:32Z",
+    "timestamp_areas_base": "2026-11-02T11:28:36Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 1451712918,
+  "bounds": {
+    "minlat": 1.3530164,
+    "minlon": 104.0016981,
+    "maxlat": 1.3537866,
+    "maxlon": 104.0021073
+  },
+  "geometry": [
+    { "lat": 1.3530164, "lon": 104.0018190 },
+    { "lat": 1.3537061, "lon": 104.0021073 },
+    { "lat": 1.3537243, "lon": 104.0020637 },
+    { "lat": 1.3537553, "lon": 104.0020767 },
+    { "lat": 1.3537866, "lon": 104.0020018 },
+    { "lat": 1.3535054, "lon": 104.0018841 },
+    { "lat": 1.3535209, "lon": 104.0018471 },
+    { "lat": 1.3534437, "lon": 104.0018148 },
+    { "lat": 1.3534292, "lon": 104.0018496 },
+    { "lat": 1.3530669, "lon": 104.0016981 },
+    { "lat": 1.3530164, "lon": 104.0018190 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712919,
+  "bounds": {
+    "minlat": 1.3529482,
+    "minlon": 104.0018419,
+    "maxlat": 1.3537012,
+    "maxlon": 104.0022617
+  },
+  "geometry": [
+    { "lat": 1.3529987, "lon": 104.0018419 },
+    { "lat": 1.3536884, "lon": 104.0021303 },
+    { "lat": 1.3536702, "lon": 104.0021739 },
+    { "lat": 1.3537012, "lon": 104.0021868 },
+    { "lat": 1.3536699, "lon": 104.0022617 },
+    { "lat": 1.3533887, "lon": 104.0021443 },
+    { "lat": 1.3533732, "lon": 104.0021813 },
+    { "lat": 1.3532960, "lon": 104.0021490 },
+    { "lat": 1.3533105, "lon": 104.0021143 },
+    { "lat": 1.3529482, "lon": 104.0019628 },
+    { "lat": 1.3529987, "lon": 104.0018419 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712920,
+  "bounds": {
+    "minlat": 1.3528344,
+    "minlon": 104.0021162,
+    "maxlat": 1.3536047,
+    "maxlon": 104.0025254
+  },
+  "geometry": [
+    { "lat": 1.3528344, "lon": 104.0022371 },
+    { "lat": 1.3535242, "lon": 104.0025254 },
+    { "lat": 1.3535424, "lon": 104.0024818 },
+    { "lat": 1.3535734, "lon": 104.0024948 },
+    { "lat": 1.3536047, "lon": 104.0024199 },
+    { "lat": 1.3533235, "lon": 104.0023023 },
+    { "lat": 1.3533390, "lon": 104.0022652 },
+    { "lat": 1.3532618, "lon": 104.0022329 },
+    { "lat": 1.3532473, "lon": 104.0022677 },
+    { "lat": 1.3528849, "lon": 104.0021162 },
+    { "lat": 1.3528344, "lon": 104.0022371 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712921,
+  "bounds": {
+    "minlat": 1.3527740,
+    "minlon": 104.0022672,
+    "maxlat": 1.3535270,
+    "maxlon": 104.0026870
+  },
+  "geometry": [
+    { "lat": 1.3528245, "lon": 104.0022672 },
+    { "lat": 1.3535142, "lon": 104.0025555 },
+    { "lat": 1.3534960, "lon": 104.0025992 },
+    { "lat": 1.3535270, "lon": 104.0026121 },
+    { "lat": 1.3534957, "lon": 104.0026870 },
+    { "lat": 1.3532145, "lon": 104.0025695 },
+    { "lat": 1.3531990, "lon": 104.0026066 },
+    { "lat": 1.3531218, "lon": 104.0025743 },
+    { "lat": 1.3531363, "lon": 104.0025395 },
+    { "lat": 1.3527740, "lon": 104.0023881 },
+    { "lat": 1.3528245, "lon": 104.0022672 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712922,
+  "bounds": {
+    "minlat": 1.3526681,
+    "minlon": 104.0025015,
+    "maxlat": 1.3534383,
+    "maxlon": 104.0029107
+  },
+  "geometry": [
+    { "lat": 1.3526681, "lon": 104.0026224 },
+    { "lat": 1.3533578, "lon": 104.0029107 },
+    { "lat": 1.3533760, "lon": 104.0028671 },
+    { "lat": 1.3534070, "lon": 104.0028801 },
+    { "lat": 1.3534383, "lon": 104.0028052 },
+    { "lat": 1.3531572, "lon": 104.0026875 },
+    { "lat": 1.3531726, "lon": 104.0026505 },
+    { "lat": 1.3530954, "lon": 104.0026182 },
+    { "lat": 1.3530809, "lon": 104.0026530 },
+    { "lat": 1.3527186, "lon": 104.0025015 },
+    { "lat": 1.3526681, "lon": 104.0026224 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712924,
+  "bounds": {
+    "minlat": 1.3526051,
+    "minlon": 104.0026503,
+    "maxlat": 1.3533581,
+    "maxlon": 104.0030701
+  },
+  "geometry": [
+    { "lat": 1.3526556, "lon": 104.0026503 },
+    { "lat": 1.3533453, "lon": 104.0029386 },
+    { "lat": 1.3533271, "lon": 104.0029822 },
+    { "lat": 1.3533581, "lon": 104.0029952 },
+    { "lat": 1.3533268, "lon": 104.0030701 },
+    { "lat": 1.3530456, "lon": 104.0029526 },
+    { "lat": 1.3530301, "lon": 104.0029896 },
+    { "lat": 1.3529529, "lon": 104.0029574 },
+    { "lat": 1.3529674, "lon": 104.0029226 },
+    { "lat": 1.3526051, "lon": 104.0027711 },
+    { "lat": 1.3526556, "lon": 104.0026503 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712933,
+  "bounds": {
+    "minlat": 1.3531777,
+    "minlon": 104.0033429,
+    "maxlat": 1.3536084,
+    "maxlon": 104.0036660
+  },
+  "geometry": [
+    { "lat": 1.3531777, "lon": 104.0035643 },
+    { "lat": 1.3532720, "lon": 104.0033429 },
+    { "lat": 1.3536084, "lon": 104.0034863 },
+    { "lat": 1.3535727, "lon": 104.0035701 },
+    { "lat": 1.3534747, "lon": 104.0035283 },
+    { "lat": 1.3534161, "lon": 104.0036660 },
+    { "lat": 1.3531777, "lon": 104.0035643 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712908,
+  "bounds": {
+    "minlat": 1.3520936,
+    "minlon": 104.0024517,
+    "maxlat": 1.3525665,
+    "maxlon": 104.0027334
+  },
+  "geometry": [
+    { "lat": 1.3520936, "lon": 104.0025528 },
+    { "lat": 1.3525393, "lon": 104.0027334 },
+    { "lat": 1.3525665, "lon": 104.0026663 },
+    { "lat": 1.3525235, "lon": 104.0026490 },
+    { "lat": 1.3525446, "lon": 104.0025969 },
+    { "lat": 1.3521859, "lon": 104.0024517 },
+    { "lat": 1.3521693, "lon": 104.0024926 },
+    { "lat": 1.3521252, "lon": 104.0024747 },
+    { "lat": 1.3520936, "lon": 104.0025528 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712909,
+  "bounds": {
+    "minlat": 1.3521737,
+    "minlon": 104.0022921,
+    "maxlat": 1.3526512,
+    "maxlon": 104.0025744
+  },
+  "geometry": [
+    { "lat": 1.3522054, "lon": 104.0022921 },
+    { "lat": 1.3526512, "lon": 104.0024727 },
+    { "lat": 1.3526240, "lon": 104.0025398 },
+    { "lat": 1.3525811, "lon": 104.0025224 },
+    { "lat": 1.3525600, "lon": 104.0025744 },
+    { "lat": 1.3522014, "lon": 104.0024290 },
+    { "lat": 1.3522179, "lon": 104.0023882 },
+    { "lat": 1.3521737, "lon": 104.0023703 },
+    { "lat": 1.3522054, "lon": 104.0022921 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712910,
+  "bounds": {
+    "minlat": 1.3523381,
+    "minlon": 104.0019046,
+    "maxlat": 1.3528156,
+    "maxlon": 104.0021869
+  },
+  "geometry": [
+    { "lat": 1.3523698, "lon": 104.0019046 },
+    { "lat": 1.3528156, "lon": 104.0020852 },
+    { "lat": 1.3527884, "lon": 104.0021522 },
+    { "lat": 1.3527455, "lon": 104.0021348 },
+    { "lat": 1.3527244, "lon": 104.0021869 },
+    { "lat": 1.3523658, "lon": 104.0020415 },
+    { "lat": 1.3523823, "lon": 104.0020006 },
+    { "lat": 1.3523381, "lon": 104.0019827 },
+    { "lat": 1.3523698, "lon": 104.0019046 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712911,
+  "bounds": {
+    "minlat": 1.3522580,
+    "minlon": 104.0020642,
+    "maxlat": 1.3527309,
+    "maxlon": 104.0023458
+  },
+  "geometry": [
+    { "lat": 1.3522580, "lon": 104.0021653 },
+    { "lat": 1.3527037, "lon": 104.0023458 },
+    { "lat": 1.3527309, "lon": 104.0022788 },
+    { "lat": 1.3526879, "lon": 104.0022614 },
+    { "lat": 1.3527090, "lon": 104.0022093 },
+    { "lat": 1.3523503, "lon": 104.0020642 },
+    { "lat": 1.3523338, "lon": 104.0021050 },
+    { "lat": 1.3522896, "lon": 104.0020871 },
+    { "lat": 1.3522580, "lon": 104.0021653 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712916,
+  "bounds": {
+    "minlat": 1.3525343,
+    "minlon": 104.0014468,
+    "maxlat": 1.3526522,
+    "maxlon": 104.0015659
+  },
+  "geometry": [
+    { "lat": 1.3525670, "lon": 104.0014468 },
+    { "lat": 1.3525343, "lon": 104.0015339 },
+    { "lat": 1.3526195, "lon": 104.0015659 },
+    { "lat": 1.3526522, "lon": 104.0014788 },
+    { "lat": 1.3525670, "lon": 104.0014468 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712923,
+  "bounds": {
+    "minlat": 1.3525075,
+    "minlon": 104.0028762,
+    "maxlat": 1.3532777,
+    "maxlon": 104.0032854
+  },
+  "geometry": [
+    { "lat": 1.3525075, "lon": 104.0029971 },
+    { "lat": 1.3531972, "lon": 104.0032854 },
+    { "lat": 1.3532154, "lon": 104.0032418 },
+    { "lat": 1.3532464, "lon": 104.0032548 },
+    { "lat": 1.3532777, "lon": 104.0031799 },
+    { "lat": 1.3529966, "lon": 104.0030623 },
+    { "lat": 1.3530120, "lon": 104.0030252 },
+    { "lat": 1.3529348, "lon": 104.0029930 },
+    { "lat": 1.3529203, "lon": 104.0030277 },
+    { "lat": 1.3525580, "lon": 104.0028762 },
+    { "lat": 1.3525075, "lon": 104.0029971 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712925,
+  "bounds": {
+    "minlat": 1.3524452,
+    "minlon": 104.0030278,
+    "maxlat": 1.3531982,
+    "maxlon": 104.0034477
+  },
+  "geometry": [
+    { "lat": 1.3524957, "lon": 104.0030278 },
+    { "lat": 1.3531854, "lon": 104.0033162 },
+    { "lat": 1.3531672, "lon": 104.0033598 },
+    { "lat": 1.3531982, "lon": 104.0033728 },
+    { "lat": 1.3531670, "lon": 104.0034477 },
+    { "lat": 1.3528857, "lon": 104.0033302 },
+    { "lat": 1.3528702, "lon": 104.0033672 },
+    { "lat": 1.3527930, "lon": 104.0033349 },
+    { "lat": 1.3528076, "lon": 104.0033002 },
+    { "lat": 1.3524452, "lon": 104.0031487 },
+    { "lat": 1.3524957, "lon": 104.0030278 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 453265915,
+  "bounds": {
+    "minlat": 1.3590461,
+    "minlon": 103.9756523,
+    "maxlat": 1.3591730,
+    "maxlon": 103.9757872
+  },
+  "geometry": [
+    { "lat": 1.3590720, "lon": 103.9756523 },
+    { "lat": 1.3591730, "lon": 103.9756758 },
+    { "lat": 1.3591471, "lon": 103.9757872 },
+    { "lat": 1.3590461, "lon": 103.9757637 },
+    { "lat": 1.3590720, "lon": 103.9756523 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120D",
+    "addr:postcode": "498911",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached"
+  }
+},
+{
+  "type": "way",
+  "id": 453265916,
+  "bounds": {
+    "minlat": 1.3592106,
+    "minlon": 103.9756218,
+    "maxlat": 1.3593147,
+    "maxlon": 103.9758279
+  },
+  "geometry": [
+    { "lat": 1.3592936, "lon": 103.9756306 },
+    { "lat": 1.3592871, "lon": 103.9756563 },
+    { "lat": 1.3593147, "lon": 103.9756633 },
+    { "lat": 1.3592731, "lon": 103.9758279 },
+    { "lat": 1.3592106, "lon": 103.9758121 },
+    { "lat": 1.3592587, "lon": 103.9756218 },
+    { "lat": 1.3592936, "lon": 103.9756306 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120S",
+    "addr:postcode": "498936",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453265917,
+  "bounds": {
+    "minlat": 1.3590474,
+    "minlon": 103.9758890,
+    "maxlat": 1.3592479,
+    "maxlon": 103.9759840
+  },
+  "geometry": [
+    { "lat": 1.3590474, "lon": 103.9759557 },
+    { "lat": 1.3590642, "lon": 103.9758890 },
+    { "lat": 1.3592479, "lon": 103.9759329 },
+    { "lat": 1.3592425, "lon": 103.9759494 },
+    { "lat": 1.3592328, "lon": 103.9759669 },
+    { "lat": 1.3592029, "lon": 103.9759706 },
+    { "lat": 1.3591961, "lon": 103.9759836 },
+    { "lat": 1.3591780, "lon": 103.9759840 },
+    { "lat": 1.3590474, "lon": 103.9759557 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120R",
+    "addr:postcode": "498923",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453265918,
+  "bounds": {
+    "minlat": 1.3588766,
+    "minlon": 103.9758221,
+    "maxlat": 1.3590113,
+    "maxlon": 103.9759538
+  },
+  "geometry": [
+    { "lat": 1.3589853, "lon": 103.9759538 },
+    { "lat": 1.3588766, "lon": 103.9759269 },
+    { "lat": 1.3589025, "lon": 103.9758221 },
+    { "lat": 1.3590113, "lon": 103.9758490 },
+    { "lat": 1.3589853, "lon": 103.9759538 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122F",
+    "addr:postcode": "498918",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 453265919,
+  "bounds": {
+    "minlat": 1.3585145,
+    "minlon": 103.9758187,
+    "maxlat": 1.3587333,
+    "maxlon": 103.9759842
+  },
+  "geometry": [
+    { "lat": 1.3585759, "lon": 103.9759554 },
+    { "lat": 1.3585695, "lon": 103.9759842 },
+    { "lat": 1.3585145, "lon": 103.9759718 },
+    { "lat": 1.3585463, "lon": 103.9758308 },
+    { "lat": 1.3585821, "lon": 103.9758389 },
+    { "lat": 1.3585867, "lon": 103.9758187 },
+    { "lat": 1.3587333, "lon": 103.9758517 },
+    { "lat": 1.3587035, "lon": 103.9759841 },
+    { "lat": 1.3585759, "lon": 103.9759554 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122J",
+    "addr:postcode": "498921",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 453265920,
+  "bounds": {
+    "minlat": 1.3585157,
+    "minlon": 103.9757088,
+    "maxlat": 1.3587169,
+    "maxlon": 103.9758135
+  },
+  "geometry": [
+    { "lat": 1.3585286, "lon": 103.9757088 },
+    { "lat": 1.3587169, "lon": 103.9757436 },
+    { "lat": 1.3587039, "lon": 103.9758135 },
+    { "lat": 1.3585157, "lon": 103.9757787 },
+    { "lat": 1.3585286, "lon": 103.9757088 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122M",
+    "addr:postcode": "498940",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453265921,
+  "bounds": {
+    "minlat": 1.3588102,
+    "minlon": 103.9752299,
+    "maxlat": 1.3589367,
+    "maxlon": 103.9753565
+  },
+  "geometry": [
+    { "lat": 1.3588305, "lon": 103.9752299 },
+    { "lat": 1.3589367, "lon": 103.9752502 },
+    { "lat": 1.3589164, "lon": 103.9753565 },
+    { "lat": 1.3588102, "lon": 103.9753362 },
+    { "lat": 1.3588305, "lon": 103.9752299 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118F",
+    "addr:postcode": "498905",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 453265922,
+  "bounds": {
+    "minlat": 1.3585794,
+    "minlon": 103.9752464,
+    "maxlat": 1.3589335,
+    "maxlon": 103.9754364
+  },
+  "geometry": [
+    { "lat": 1.3585794, "lon": 103.9753852 },
+    { "lat": 1.3585927, "lon": 103.9753081 },
+    { "lat": 1.3586833, "lon": 103.9753237 },
+    { "lat": 1.3586966, "lon": 103.9752464 },
+    { "lat": 1.3587161, "lon": 103.9752498 },
+    { "lat": 1.3587224, "lon": 103.9753304 },
+    { "lat": 1.3588906, "lon": 103.9753593 },
+    { "lat": 1.3588895, "lon": 103.9753661 },
+    { "lat": 1.3589335, "lon": 103.9753737 },
+    { "lat": 1.3589250, "lon": 103.9754235 },
+    { "lat": 1.3588804, "lon": 103.9754158 },
+    { "lat": 1.3588769, "lon": 103.9754364 },
+    { "lat": 1.3585794, "lon": 103.9753852 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118G",
+    "addr:postcode": "498906",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453265923,
+  "bounds": {
+    "minlat": 1.3592514,
+    "minlon": 103.9752761,
+    "maxlat": 1.3593461,
+    "maxlon": 103.9754850
+  },
+  "geometry": [
+    { "lat": 1.3592848, "lon": 103.9754493 },
+    { "lat": 1.3592785, "lon": 103.9754850 },
+    { "lat": 1.3592514, "lon": 103.9754802 },
+    { "lat": 1.3592875, "lon": 103.9752761 },
+    { "lat": 1.3593461, "lon": 103.9752864 },
+    { "lat": 1.3593163, "lon": 103.9754549 },
+    { "lat": 1.3592848, "lon": 103.9754493 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118N",
+    "addr:postcode": "498930",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453265924,
+  "bounds": {
+    "minlat": 1.3591129,
+    "minlon": 103.9752529,
+    "maxlat": 1.3592048,
+    "maxlon": 103.9754569
+  },
+  "geometry": [
+    { "lat": 1.3591613, "lon": 103.9754270 },
+    { "lat": 1.3591559, "lon": 103.9754569 },
+    { "lat": 1.3591129, "lon": 103.9754493 },
+    { "lat": 1.3591477, "lon": 103.9752529 },
+    { "lat": 1.3592048, "lon": 103.9752630 },
+    { "lat": 1.3591753, "lon": 103.9754295 },
+    { "lat": 1.3591613, "lon": 103.9754270 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118Q",
+    "addr:postcode": "498934",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453265925,
+  "bounds": {
+    "minlat": 1.3594668,
+    "minlon": 103.9753155,
+    "maxlat": 1.3596098,
+    "maxlon": 103.9755134
+  },
+  "geometry": [
+    { "lat": 1.3595009, "lon": 103.9753155 },
+    { "lat": 1.3596098, "lon": 103.9753355 },
+    { "lat": 1.3595800, "lon": 103.9754979 },
+    { "lat": 1.3595357, "lon": 103.9754898 },
+    { "lat": 1.3595313, "lon": 103.9755134 },
+    { "lat": 1.3594668, "lon": 103.9755016 },
+    { "lat": 1.3595009, "lon": 103.9753155 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118B",
+    "addr:postcode": "498901",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453265926,
+  "bounds": {
+    "minlat": 1.3597336,
+    "minlon": 103.9754020,
+    "maxlat": 1.3598634,
+    "maxlon": 103.9755354
+  },
+  "geometry": [
+    { "lat": 1.3597336, "lon": 103.9755152 },
+    { "lat": 1.3597545, "lon": 103.9754020 },
+    { "lat": 1.3598634, "lon": 103.9754222 },
+    { "lat": 1.3598425, "lon": 103.9755354 },
+    { "lat": 1.3597336, "lon": 103.9755152 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118",
+    "addr:postcode": "498899",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 453266092,
+  "bounds": {
+    "minlat": 1.3596899,
+    "minlon": 103.9757542,
+    "maxlat": 1.3598484,
+    "maxlon": 103.9759513
+  },
+  "geometry": [
+    { "lat": 1.3597796, "lon": 103.9759343 },
+    { "lat": 1.3597735, "lon": 103.9759513 },
+    { "lat": 1.3596899, "lon": 103.9759211 },
+    { "lat": 1.3597423, "lon": 103.9757756 },
+    { "lat": 1.3597582, "lon": 103.9757814 },
+    { "lat": 1.3597680, "lon": 103.9757542 },
+    { "lat": 1.3598484, "lon": 103.9757833 },
+    { "lat": 1.3597923, "lon": 103.9759389 },
+    { "lat": 1.3597796, "lon": 103.9759343 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120",
+    "addr:postcode": "498907",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "2"
+  }
+},
+{
+  "type": "way",
+  "id": 453266093,
+  "bounds": {
+    "minlat": 1.3595591,
+    "minlon": 103.9760862,
+    "maxlat": 1.3596881,
+    "maxlon": 103.9762099
+  },
+  "geometry": [
+    { "lat": 1.3595813, "lon": 103.9760862 },
+    { "lat": 1.3596881, "lon": 103.9761089 },
+    { "lat": 1.3596649, "lon": 103.9762099 },
+    { "lat": 1.3595591, "lon": 103.9761827 },
+    { "lat": 1.3595813, "lon": 103.9760862 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122A",
+    "addr:postcode": "498913",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 453266094,
+  "bounds": {
+    "minlat": 1.3595954,
+    "minlon": 103.9760159,
+    "maxlat": 1.3597524,
+    "maxlon": 103.9761056
+  },
+  "geometry": [
+    { "lat": 1.3596095, "lon": 103.9760159 },
+    { "lat": 1.3597524, "lon": 103.9760488 },
+    { "lat": 1.3597461, "lon": 103.9760764 },
+    { "lat": 1.3597250, "lon": 103.9760715 },
+    { "lat": 1.3597171, "lon": 103.9761056 },
+    { "lat": 1.3595954, "lon": 103.9760775 },
+    { "lat": 1.3596095, "lon": 103.9760159 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122B",
+    "addr:postcode": "498838",
+    "addr:street": "Tanah Merah Besar Road",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453266095,
+  "bounds": {
+    "minlat": 1.3596095,
+    "minlon": 103.9759519,
+    "maxlat": 1.3597682,
+    "maxlon": 103.9760517
+  },
+  "geometry": [
+    { "lat": 1.3596251, "lon": 103.9759519 },
+    { "lat": 1.3597535, "lon": 103.9759817 },
+    { "lat": 1.3597461, "lon": 103.9760134 },
+    { "lat": 1.3597682, "lon": 103.9760185 },
+    { "lat": 1.3597605, "lon": 103.9760517 },
+    { "lat": 1.3597524, "lon": 103.9760488 },
+    { "lat": 1.3596095, "lon": 103.9760159 },
+    { "lat": 1.3596251, "lon": 103.9759519 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122",
+    "addr:postcode": "498837",
+    "addr:street": "Tanah Merah Besar Road",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453266096,
+  "bounds": {
+    "minlat": 1.3594222,
+    "minlon": 103.9759195,
+    "maxlat": 1.3595914,
+    "maxlon": 103.9760043
+  },
+  "geometry": [
+    { "lat": 1.3595914, "lon": 103.9759449 },
+    { "lat": 1.3595791, "lon": 103.9760043 },
+    { "lat": 1.3594222, "lon": 103.9759718 },
+    { "lat": 1.3594281, "lon": 103.9759431 },
+    { "lat": 1.3594626, "lon": 103.9759503 },
+    { "lat": 1.3594690, "lon": 103.9759195 },
+    { "lat": 1.3595914, "lon": 103.9759449 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120J",
+    "addr:postcode": "498938",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453266097,
+  "bounds": {
+    "minlat": 1.3594161,
+    "minlon": 103.9759718,
+    "maxlat": 1.3595791,
+    "maxlon": 103.9760669
+  },
+  "geometry": [
+    { "lat": 1.3594161, "lon": 103.9760014 },
+    { "lat": 1.3594222, "lon": 103.9759718 },
+    { "lat": 1.3595791, "lon": 103.9760043 },
+    { "lat": 1.3595662, "lon": 103.9760669 },
+    { "lat": 1.3594415, "lon": 103.9760412 },
+    { "lat": 1.3594484, "lon": 103.9760080 },
+    { "lat": 1.3594161, "lon": 103.9760014 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120K",
+    "addr:postcode": "498939",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453266098,
+  "bounds": {
+    "minlat": 1.3593432,
+    "minlon": 103.9760587,
+    "maxlat": 1.3595368,
+    "maxlon": 103.9761572
+  },
+  "geometry": [
+    { "lat": 1.3593432, "lon": 103.9761166 },
+    { "lat": 1.3593528, "lon": 103.9760745 },
+    { "lat": 1.3593839, "lon": 103.9760816 },
+    { "lat": 1.3593891, "lon": 103.9760587 },
+    { "lat": 1.3595368, "lon": 103.9760922 },
+    { "lat": 1.3595220, "lon": 103.9761572 },
+    { "lat": 1.3593432, "lon": 103.9761166 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120L",
+    "addr:postcode": "498932",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453266101,
+  "bounds": {
+    "minlat": 1.3595984,
+    "minlon": 103.9756972,
+    "maxlat": 1.3596936,
+    "maxlon": 103.9759276
+  },
+  "geometry": [
+    { "lat": 1.3595984, "lon": 103.9759146 },
+    { "lat": 1.3596504, "lon": 103.9756972 },
+    { "lat": 1.3596823, "lon": 103.9757049 },
+    { "lat": 1.3596710, "lon": 103.9757518 },
+    { "lat": 1.3596936, "lon": 103.9757572 },
+    { "lat": 1.3596528, "lon": 103.9759276 },
+    { "lat": 1.3595984, "lon": 103.9759146 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120E",
+    "addr:postcode": "498926",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453266102,
+  "bounds": {
+    "minlat": 1.3595414,
+    "minlon": 103.9756893,
+    "maxlat": 1.3596504,
+    "maxlon": 103.9759146
+  },
+  "geometry": [
+    { "lat": 1.3595414, "lon": 103.9759009 },
+    { "lat": 1.3595832, "lon": 103.9757261 },
+    { "lat": 1.3596069, "lon": 103.9757317 },
+    { "lat": 1.3596171, "lon": 103.9756893 },
+    { "lat": 1.3596504, "lon": 103.9756972 },
+    { "lat": 1.3595984, "lon": 103.9759146 },
+    { "lat": 1.3595414, "lon": 103.9759009 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120F",
+    "addr:postcode": "498927",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331950,
+  "bounds": {
+    "minlat": 1.3596346,
+    "minlon": 103.9753838,
+    "maxlat": 1.3597545,
+    "maxlon": 103.9755152
+  },
+  "geometry": [
+    { "lat": 1.3597545, "lon": 103.9754020 },
+    { "lat": 1.3596568, "lon": 103.9753838 },
+    { "lat": 1.3596346, "lon": 103.9754960 },
+    { "lat": 1.3597336, "lon": 103.9755152 },
+    { "lat": 1.3597545, "lon": 103.9754020 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118A",
+    "addr:postcode": "498900",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331951,
+  "bounds": {
+    "minlat": 1.3593389,
+    "minlon": 103.9753027,
+    "maxlat": 1.3594731,
+    "maxlon": 103.9754895
+  },
+  "geometry": [
+    { "lat": 1.3594061, "lon": 103.9753027 },
+    { "lat": 1.3594731, "lon": 103.9753150 },
+    { "lat": 1.3594421, "lon": 103.9754834 },
+    { "lat": 1.3593857, "lon": 103.9754730 },
+    { "lat": 1.3593827, "lon": 103.9754895 },
+    { "lat": 1.3593389, "lon": 103.9754814 },
+    { "lat": 1.3593705, "lon": 103.9753092 },
+    { "lat": 1.3594038, "lon": 103.9753153 },
+    { "lat": 1.3594061, "lon": 103.9753027 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118C",
+    "addr:postcode": "498902",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331952,
+  "bounds": {
+    "minlat": 1.3591945,
+    "minlon": 103.9752652,
+    "maxlat": 1.3592875,
+    "maxlon": 103.9754802
+  },
+  "geometry": [
+    { "lat": 1.3592875, "lon": 103.9752761 },
+    { "lat": 1.3592514, "lon": 103.9754802 },
+    { "lat": 1.3592213, "lon": 103.9754748 },
+    { "lat": 1.3592272, "lon": 103.9754420 },
+    { "lat": 1.3591945, "lon": 103.9754362 },
+    { "lat": 1.3592250, "lon": 103.9752652 },
+    { "lat": 1.3592875, "lon": 103.9752761 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118P",
+    "addr:postcode": "498931",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331953,
+  "bounds": {
+    "minlat": 1.3590615,
+    "minlon": 103.9752430,
+    "maxlat": 1.3591477,
+    "maxlon": 103.9754493
+  },
+  "geometry": [
+    { "lat": 1.3591477, "lon": 103.9752529 },
+    { "lat": 1.3591129, "lon": 103.9754493 },
+    { "lat": 1.3590741, "lon": 103.9754422 },
+    { "lat": 1.3590803, "lon": 103.9754074 },
+    { "lat": 1.3590615, "lon": 103.9754041 },
+    { "lat": 1.3590902, "lon": 103.9752430 },
+    { "lat": 1.3591477, "lon": 103.9752529 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118R",
+    "addr:postcode": "498935",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331954,
+  "bounds": {
+    "minlat": 1.3585371,
+    "minlon": 103.9756062,
+    "maxlat": 1.3587382,
+    "maxlon": 103.9757109
+  },
+  "geometry": [
+    { "lat": 1.3585500, "lon": 103.9756062 },
+    { "lat": 1.3587382, "lon": 103.9756410 },
+    { "lat": 1.3587253, "lon": 103.9757109 },
+    { "lat": 1.3585371, "lon": 103.9756761 },
+    { "lat": 1.3585500, "lon": 103.9756062 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122L",
+    "addr:postcode": "498941",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331955,
+  "bounds": {
+    "minlat": 1.3585657,
+    "minlon": 103.9754120,
+    "maxlat": 1.3588198,
+    "maxlon": 103.9755136
+  },
+  "geometry": [
+    { "lat": 1.3585770, "lon": 103.9754120 },
+    { "lat": 1.3587914, "lon": 103.9754509 },
+    { "lat": 1.3587898, "lon": 103.9754599 },
+    { "lat": 1.3588198, "lon": 103.9754653 },
+    { "lat": 1.3588119, "lon": 103.9755092 },
+    { "lat": 1.3587830, "lon": 103.9755039 },
+    { "lat": 1.3587812, "lon": 103.9755136 },
+    { "lat": 1.3585657, "lon": 103.9754745 },
+    { "lat": 1.3585770, "lon": 103.9754120 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "118H",
+    "addr:postcode": "498942",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331956,
+  "bounds": {
+    "minlat": 1.3585527,
+    "minlon": 103.9755003,
+    "maxlat": 1.3587613,
+    "maxlon": 103.9756138
+  },
+  "geometry": [
+    { "lat": 1.3587613, "lon": 103.9755361 },
+    { "lat": 1.3585689, "lon": 103.9755003 },
+    { "lat": 1.3585527, "lon": 103.9755793 },
+    { "lat": 1.3587456, "lon": 103.9756138 },
+    { "lat": 1.3587613, "lon": 103.9755361 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122M",
+    "addr:postcode": "498943",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331957,
+  "bounds": {
+    "minlat": 1.3588542,
+    "minlon": 103.9759269,
+    "maxlat": 1.3589853,
+    "maxlon": 103.9760489
+  },
+  "geometry": [
+    { "lat": 1.3588766, "lon": 103.9759269 },
+    { "lat": 1.3589853, "lon": 103.9759538 },
+    { "lat": 1.3589618, "lon": 103.9760489 },
+    { "lat": 1.3588542, "lon": 103.9760243 },
+    { "lat": 1.3588766, "lon": 103.9759269 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122G",
+    "addr:postcode": "498919",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331958,
+  "bounds": {
+    "minlat": 1.3590403,
+    "minlon": 103.9759651,
+    "maxlat": 1.3591665,
+    "maxlon": 103.9760898
+  },
+  "geometry": [
+    { "lat": 1.3591665, "lon": 103.9759894 },
+    { "lat": 1.3590642, "lon": 103.9759651 },
+    { "lat": 1.3590403, "lon": 103.9760656 },
+    { "lat": 1.3591427, "lon": 103.9760898 },
+    { "lat": 1.3591665, "lon": 103.9759894 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "122E",
+    "addr:postcode": "498917",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "detached",
+    "building:levels": "1"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331959,
+  "bounds": {
+    "minlat": 1.3590642,
+    "minlon": 103.9758177,
+    "maxlat": 1.3592499,
+    "maxlon": 103.9759329
+  },
+  "geometry": [
+    { "lat": 1.3590642, "lon": 103.9758890 },
+    { "lat": 1.3590822, "lon": 103.9758177 },
+    { "lat": 1.3592114, "lon": 103.9758510 },
+    { "lat": 1.3592233, "lon": 103.9758601 },
+    { "lat": 1.3592253, "lon": 103.9758752 },
+    { "lat": 1.3592360, "lon": 103.9758803 },
+    { "lat": 1.3592376, "lon": 103.9758890 },
+    { "lat": 1.3592463, "lon": 103.9758914 },
+    { "lat": 1.3592499, "lon": 103.9759025 },
+    { "lat": 1.3592479, "lon": 103.9759329 },
+    { "lat": 1.3590642, "lon": 103.9758890 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120Q",
+    "addr:postcode": "498922",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331960,
+  "bounds": {
+    "minlat": 1.3591605,
+    "minlon": 103.9756153,
+    "maxlat": 1.3592587,
+    "maxlon": 103.9758121
+  },
+  "geometry": [
+    { "lat": 1.3592587, "lon": 103.9756218 },
+    { "lat": 1.3592106, "lon": 103.9758121 },
+    { "lat": 1.3591605, "lon": 103.9757995 },
+    { "lat": 1.3592020, "lon": 103.9756349 },
+    { "lat": 1.3592272, "lon": 103.9756413 },
+    { "lat": 1.3592338, "lon": 103.9756153 },
+    { "lat": 1.3592587, "lon": 103.9756218 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120T",
+    "addr:postcode": "498937",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331961,
+  "bounds": {
+    "minlat": 1.3594022,
+    "minlon": 103.9756653,
+    "maxlat": 1.3595025,
+    "maxlon": 103.9758828
+  },
+  "geometry": [
+    { "lat": 1.3594022, "lon": 103.9758689 },
+    { "lat": 1.3594422, "lon": 103.9756913 },
+    { "lat": 1.3594715, "lon": 103.9756979 },
+    { "lat": 1.3594789, "lon": 103.9756653 },
+    { "lat": 1.3595025, "lon": 103.9756683 },
+    { "lat": 1.3594546, "lon": 103.9758828 },
+    { "lat": 1.3594022, "lon": 103.9758689 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120H",
+    "addr:postcode": "498929",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331962,
+  "bounds": {
+    "minlat": 1.3594546,
+    "minlon": 103.9756683,
+    "maxlat": 1.3595542,
+    "maxlon": 103.9758964
+  },
+  "geometry": [
+    { "lat": 1.3594546, "lon": 103.9758828 },
+    { "lat": 1.3595025, "lon": 103.9756683 },
+    { "lat": 1.3595386, "lon": 103.9756763 },
+    { "lat": 1.3595292, "lon": 103.9757183 },
+    { "lat": 1.3595542, "lon": 103.9757239 },
+    { "lat": 1.3595156, "lon": 103.9758964 },
+    { "lat": 1.3594546, "lon": 103.9758828 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120G",
+    "addr:postcode": "498928",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331963,
+  "bounds": {
+    "minlat": 1.3593355,
+    "minlon": 103.9761166,
+    "maxlat": 1.3595220,
+    "maxlon": 103.9762212
+  },
+  "geometry": [
+    { "lat": 1.3593432, "lon": 103.9761166 },
+    { "lat": 1.3595220, "lon": 103.9761572 },
+    { "lat": 1.3595075, "lon": 103.9762212 },
+    { "lat": 1.3593576, "lon": 103.9761873 },
+    { "lat": 1.3593644, "lon": 103.9761570 },
+    { "lat": 1.3593355, "lon": 103.9761504 },
+    { "lat": 1.3593432, "lon": 103.9761166 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "120M",
+    "addr:postcode": "498933",
+    "addr:street": "Tanah Merah Besar Lane",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 453265927,
+  "bounds": {
+    "minlat": 1.3599102,
+    "minlon": 103.9754014,
+    "maxlat": 1.3600332,
+    "maxlon": 103.9755004
+  },
+  "geometry": [
+    { "lat": 1.3599241, "lon": 103.9754014 },
+    { "lat": 1.3600004, "lon": 103.9754149 },
+    { "lat": 1.3599989, "lon": 103.9754239 },
+    { "lat": 1.3600332, "lon": 103.9754299 },
+    { "lat": 1.3600208, "lon": 103.9755004 },
+    { "lat": 1.3600089, "lon": 103.9754982 },
+    { "lat": 1.3599102, "lon": 103.9754809 },
+    { "lat": 1.3599241, "lon": 103.9754014 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "116",
+    "addr:postcode": "498845",
+    "addr:street": "Tanah Merah Besar Road",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 1269331949,
+  "bounds": {
+    "minlat": 1.3598907,
+    "minlon": 103.9754809,
+    "maxlat": 1.3600089,
+    "maxlon": 103.9755919
+  },
+  "geometry": [
+    { "lat": 1.3600089, "lon": 103.9754982 },
+    { "lat": 1.3599853, "lon": 103.9755627 },
+    { "lat": 1.3599510, "lon": 103.9755576 },
+    { "lat": 1.3599425, "lon": 103.9755919 },
+    { "lat": 1.3598907, "lon": 103.9755833 },
+    { "lat": 1.3599102, "lon": 103.9754809 },
+    { "lat": 1.3600089, "lon": 103.9754982 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "116A",
+    "addr:postcode": "498846",
+    "addr:street": "Tanah Merah Besar Road",
+    "building": "semidetached_house",
+    "building:levels": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 266892357,
+  "bounds": {
+    "minlat": 1.3782565,
+    "minlon": 103.9834461,
+    "maxlat": 1.3787090,
+    "maxlon": 103.9837965
+  },
+  "geometry": [
+    { "lat": 1.3787090, "lon": 103.9836422 },
+    { "lat": 1.3783381, "lon": 103.9837965 },
+    { "lat": 1.3782565, "lon": 103.9836003 },
+    { "lat": 1.3786274, "lon": 103.9834461 },
+    { "lat": 1.3787090, "lon": 103.9836422 }
+  ],
+  "tags": {
+    "building": "house"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712926,
+  "bounds": {
+    "minlat": 1.3537022,
+    "minlon": 104.0024218,
+    "maxlat": 1.3544552,
+    "maxlon": 104.0028416
+  },
+  "geometry": [
+    { "lat": 1.3537527, "lon": 104.0024218 },
+    { "lat": 1.3544424, "lon": 104.0027101 },
+    { "lat": 1.3544242, "lon": 104.0027538 },
+    { "lat": 1.3544552, "lon": 104.0027667 },
+    { "lat": 1.3544239, "lon": 104.0028416 },
+    { "lat": 1.3541427, "lon": 104.0027241 },
+    { "lat": 1.3541272, "lon": 104.0027612 },
+    { "lat": 1.3540500, "lon": 104.0027289 },
+    { "lat": 1.3540645, "lon": 104.0026941 },
+    { "lat": 1.3537022, "lon": 104.0025427 },
+    { "lat": 1.3537527, "lon": 104.0024218 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712927,
+  "bounds": {
+    "minlat": 1.3535963,
+    "minlon": 104.0026561,
+    "maxlat": 1.3543666,
+    "maxlon": 104.0030653
+  },
+  "geometry": [
+    { "lat": 1.3535963, "lon": 104.0027770 },
+    { "lat": 1.3542860, "lon": 104.0030653 },
+    { "lat": 1.3543042, "lon": 104.0030217 },
+    { "lat": 1.3543352, "lon": 104.0030347 },
+    { "lat": 1.3543666, "lon": 104.0029598 },
+    { "lat": 1.3540854, "lon": 104.0028421 },
+    { "lat": 1.3541008, "lon": 104.0028051 },
+    { "lat": 1.3540236, "lon": 104.0027728 },
+    { "lat": 1.3540091, "lon": 104.0028076 },
+    { "lat": 1.3536468, "lon": 104.0026561 },
+    { "lat": 1.3535963, "lon": 104.0027770 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712928,
+  "bounds": {
+    "minlat": 1.3535373,
+    "minlon": 104.0028266,
+    "maxlat": 1.3542903,
+    "maxlon": 104.0032465
+  },
+  "geometry": [
+    { "lat": 1.3535878, "lon": 104.0028266 },
+    { "lat": 1.3542775, "lon": 104.0031150 },
+    { "lat": 1.3542593, "lon": 104.0031586 },
+    { "lat": 1.3542903, "lon": 104.0031715 },
+    { "lat": 1.3542590, "lon": 104.0032465 },
+    { "lat": 1.3539778, "lon": 104.0031290 },
+    { "lat": 1.3539623, "lon": 104.0031660 },
+    { "lat": 1.3538851, "lon": 104.0031337 },
+    { "lat": 1.3538996, "lon": 104.0030990 },
+    { "lat": 1.3535373, "lon": 104.0029475 },
+    { "lat": 1.3535878, "lon": 104.0028266 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712929,
+  "bounds": {
+    "minlat": 1.3534268,
+    "minlon": 104.0030717,
+    "maxlat": 1.3541970,
+    "maxlon": 104.0034809
+  },
+  "geometry": [
+    { "lat": 1.3534268, "lon": 104.0031925 },
+    { "lat": 1.3541165, "lon": 104.0034809 },
+    { "lat": 1.3541347, "lon": 104.0034373 },
+    { "lat": 1.3541657, "lon": 104.0034502 },
+    { "lat": 1.3541970, "lon": 104.0033753 },
+    { "lat": 1.3539158, "lon": 104.0032577 },
+    { "lat": 1.3539313, "lon": 104.0032207 },
+    { "lat": 1.3538541, "lon": 104.0031884 },
+    { "lat": 1.3538396, "lon": 104.0032232 },
+    { "lat": 1.3534773, "lon": 104.0030717 },
+    { "lat": 1.3534268, "lon": 104.0031925 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712930,
+  "bounds": {
+    "minlat": 1.3533677,
+    "minlon": 104.0032180,
+    "maxlat": 1.3541207,
+    "maxlon": 104.0036378
+  },
+  "geometry": [
+    { "lat": 1.3534182, "lon": 104.0032180 },
+    { "lat": 1.3541079, "lon": 104.0035063 },
+    { "lat": 1.3540897, "lon": 104.0035499 },
+    { "lat": 1.3541207, "lon": 104.0035629 },
+    { "lat": 1.3540894, "lon": 104.0036378 },
+    { "lat": 1.3538082, "lon": 104.0035203 },
+    { "lat": 1.3537927, "lon": 104.0035573 },
+    { "lat": 1.3537155, "lon": 104.0035251 },
+    { "lat": 1.3537300, "lon": 104.0034903 },
+    { "lat": 1.3533677, "lon": 104.0033388 },
+    { "lat": 1.3534182, "lon": 104.0032180 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712931,
+  "bounds": {
+    "minlat": 1.3537681,
+    "minlon": 104.0022742,
+    "maxlat": 1.3545384,
+    "maxlon": 104.0026834
+  },
+  "geometry": [
+    { "lat": 1.3537681, "lon": 104.0023951 },
+    { "lat": 1.3544579, "lon": 104.0026834 },
+    { "lat": 1.3544761, "lon": 104.0026398 },
+    { "lat": 1.3545071, "lon": 104.0026528 },
+    { "lat": 1.3545384, "lon": 104.0025779 },
+    { "lat": 1.3542572, "lon": 104.0024603 },
+    { "lat": 1.3542727, "lon": 104.0024232 },
+    { "lat": 1.3541955, "lon": 104.0023910 },
+    { "lat": 1.3541810, "lon": 104.0024257 },
+    { "lat": 1.3538186, "lon": 104.0022742 },
+    { "lat": 1.3537681, "lon": 104.0023951 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712932,
+  "bounds": {
+    "minlat": 1.3537605,
+    "minlon": 104.0019861,
+    "maxlat": 1.3541326,
+    "maxlon": 104.0023510
+  },
+  "geometry": [
+    { "lat": 1.3538549, "lon": 104.0019861 },
+    { "lat": 1.3537605, "lon": 104.0022076 },
+    { "lat": 1.3540969, "lon": 104.0023510 },
+    { "lat": 1.3541326, "lon": 104.0022672 },
+    { "lat": 1.3540346, "lon": 104.0022254 },
+    { "lat": 1.3540933, "lon": 104.0020877 },
+    { "lat": 1.3538549, "lon": 104.0019861 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712934,
+  "bounds": {
+    "minlat": 1.3546498,
+    "minlon": 104.0023783,
+    "maxlat": 1.3554027,
+    "maxlon": 104.0027984
+  },
+  "geometry": [
+    { "lat": 1.3553522, "lon": 104.0027984 },
+    { "lat": 1.3546626, "lon": 104.0025098 },
+    { "lat": 1.3546808, "lon": 104.0024662 },
+    { "lat": 1.3546498, "lon": 104.0024532 },
+    { "lat": 1.3546811, "lon": 104.0023783 },
+    { "lat": 1.3549623, "lon": 104.0024959 },
+    { "lat": 1.3549778, "lon": 104.0024589 },
+    { "lat": 1.3550550, "lon": 104.0024912 },
+    { "lat": 1.3550404, "lon": 104.0025259 },
+    { "lat": 1.3554027, "lon": 104.0026775 },
+    { "lat": 1.3553522, "lon": 104.0027984 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712935,
+  "bounds": {
+    "minlat": 1.3545738,
+    "minlon": 104.0025395,
+    "maxlat": 1.3553440,
+    "maxlon": 104.0029490
+  },
+  "geometry": [
+    { "lat": 1.3553440, "lon": 104.0028281 },
+    { "lat": 1.3546544, "lon": 104.0025395 },
+    { "lat": 1.3546362, "lon": 104.0025832 },
+    { "lat": 1.3546052, "lon": 104.0025702 },
+    { "lat": 1.3545738, "lon": 104.0026451 },
+    { "lat": 1.3548550, "lon": 104.0027628 },
+    { "lat": 1.3548395, "lon": 104.0027998 },
+    { "lat": 1.3549167, "lon": 104.0028321 },
+    { "lat": 1.3549312, "lon": 104.0027974 },
+    { "lat": 1.3552935, "lon": 104.0029490 },
+    { "lat": 1.3553440, "lon": 104.0028281 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712936,
+  "bounds": {
+    "minlat": 1.3544783,
+    "minlon": 104.0028020,
+    "maxlat": 1.3552312,
+    "maxlon": 104.0032221
+  },
+  "geometry": [
+    { "lat": 1.3551807, "lon": 104.0032221 },
+    { "lat": 1.3544911, "lon": 104.0029335 },
+    { "lat": 1.3545093, "lon": 104.0028899 },
+    { "lat": 1.3544783, "lon": 104.0028769 },
+    { "lat": 1.3545096, "lon": 104.0028020 },
+    { "lat": 1.3547908, "lon": 104.0029196 },
+    { "lat": 1.3548063, "lon": 104.0028826 },
+    { "lat": 1.3548835, "lon": 104.0029149 },
+    { "lat": 1.3548690, "lon": 104.0029496 },
+    { "lat": 1.3552312, "lon": 104.0031012 },
+    { "lat": 1.3551807, "lon": 104.0032221 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712937,
+  "bounds": {
+    "minlat": 1.3544024,
+    "minlon": 104.0029632,
+    "maxlat": 1.3551726,
+    "maxlon": 104.0033727
+  },
+  "geometry": [
+    { "lat": 1.3551726, "lon": 104.0032518 },
+    { "lat": 1.3544829, "lon": 104.0029632 },
+    { "lat": 1.3544647, "lon": 104.0030069 },
+    { "lat": 1.3544337, "lon": 104.0029939 },
+    { "lat": 1.3544024, "lon": 104.0030688 },
+    { "lat": 1.3546835, "lon": 104.0031865 },
+    { "lat": 1.3546680, "lon": 104.0032235 },
+    { "lat": 1.3547452, "lon": 104.0032558 },
+    { "lat": 1.3547597, "lon": 104.0032211 },
+    { "lat": 1.3551220, "lon": 104.0033727 },
+    { "lat": 1.3551726, "lon": 104.0032518 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712938,
+  "bounds": {
+    "minlat": 1.3543035,
+    "minlon": 104.0031916,
+    "maxlat": 1.3550565,
+    "maxlon": 104.0036117
+  },
+  "geometry": [
+    { "lat": 1.3550059, "lon": 104.0036117 },
+    { "lat": 1.3543163, "lon": 104.0033231 },
+    { "lat": 1.3543346, "lon": 104.0032795 },
+    { "lat": 1.3543035, "lon": 104.0032665 },
+    { "lat": 1.3543348, "lon": 104.0031916 },
+    { "lat": 1.3546160, "lon": 104.0033092 },
+    { "lat": 1.3546315, "lon": 104.0032722 },
+    { "lat": 1.3547087, "lon": 104.0033045 },
+    { "lat": 1.3546942, "lon": 104.0033392 },
+    { "lat": 1.3550565, "lon": 104.0034908 },
+    { "lat": 1.3550059, "lon": 104.0036117 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712939,
+  "bounds": {
+    "minlat": 1.3542276,
+    "minlon": 104.0033528,
+    "maxlat": 1.3549978,
+    "maxlon": 104.0037623
+  },
+  "geometry": [
+    { "lat": 1.3549978, "lon": 104.0036414 },
+    { "lat": 1.3543082, "lon": 104.0033528 },
+    { "lat": 1.3542899, "lon": 104.0033965 },
+    { "lat": 1.3542589, "lon": 104.0033835 },
+    { "lat": 1.3542276, "lon": 104.0034584 },
+    { "lat": 1.3545087, "lon": 104.0035761 },
+    { "lat": 1.3544932, "lon": 104.0036131 },
+    { "lat": 1.3545704, "lon": 104.0036454 },
+    { "lat": 1.3545850, "lon": 104.0036107 },
+    { "lat": 1.3549473, "lon": 104.0037623 },
+    { "lat": 1.3549978, "lon": 104.0036414 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712940,
+  "bounds": {
+    "minlat": 1.3541214,
+    "minlon": 104.0036137,
+    "maxlat": 1.3548744,
+    "maxlon": 104.0040338
+  },
+  "geometry": [
+    { "lat": 1.3548238, "lon": 104.0040338 },
+    { "lat": 1.3541342, "lon": 104.0037452 },
+    { "lat": 1.3541525, "lon": 104.0037016 },
+    { "lat": 1.3541214, "lon": 104.0036886 },
+    { "lat": 1.3541527, "lon": 104.0036137 },
+    { "lat": 1.3544339, "lon": 104.0037313 },
+    { "lat": 1.3544494, "lon": 104.0036943 },
+    { "lat": 1.3545266, "lon": 104.0037266 },
+    { "lat": 1.3545121, "lon": 104.0037614 },
+    { "lat": 1.3548744, "lon": 104.0039129 },
+    { "lat": 1.3548238, "lon": 104.0040338 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712941,
+  "bounds": {
+    "minlat": 1.3540455,
+    "minlon": 104.0037750,
+    "maxlat": 1.3548157,
+    "maxlon": 104.0041844
+  },
+  "geometry": [
+    { "lat": 1.3548157, "lon": 104.0040635 },
+    { "lat": 1.3541261, "lon": 104.0037750 },
+    { "lat": 1.3541078, "lon": 104.0038186 },
+    { "lat": 1.3540768, "lon": 104.0038056 },
+    { "lat": 1.3540455, "lon": 104.0038805 },
+    { "lat": 1.3543266, "lon": 104.0039982 },
+    { "lat": 1.3543111, "lon": 104.0040352 },
+    { "lat": 1.3543883, "lon": 104.0040676 },
+    { "lat": 1.3544029, "lon": 104.0040328 },
+    { "lat": 1.3547652, "lon": 104.0041844 },
+    { "lat": 1.3548157, "lon": 104.0040635 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712942,
+  "bounds": {
+    "minlat": 1.3552948,
+    "minlon": 104.0028893,
+    "maxlat": 1.3558311,
+    "maxlon": 104.0032553
+  },
+  "geometry": [
+    { "lat": 1.3558311, "lon": 104.0030265 },
+    { "lat": 1.3557367, "lon": 104.0032553 },
+    { "lat": 1.3552948, "lon": 104.0030730 },
+    { "lat": 1.3553274, "lon": 104.0029938 },
+    { "lat": 1.3554369, "lon": 104.0030390 },
+    { "lat": 1.3554987, "lon": 104.0028893 },
+    { "lat": 1.3558311, "lon": 104.0030265 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712943,
+  "bounds": {
+    "minlat": 1.3552619,
+    "minlon": 104.0031362,
+    "maxlat": 1.3557233,
+    "maxlon": 104.0034195
+  },
+  "geometry": [
+    { "lat": 1.3552916, "lon": 104.0031362 },
+    { "lat": 1.3557233, "lon": 104.0033139 },
+    { "lat": 1.3556921, "lon": 104.0033898 },
+    { "lat": 1.3556616, "lon": 104.0033773 },
+    { "lat": 1.3556443, "lon": 104.0034195 },
+    { "lat": 1.3552774, "lon": 104.0032686 },
+    { "lat": 1.3552962, "lon": 104.0032227 },
+    { "lat": 1.3552619, "lon": 104.0032086 },
+    { "lat": 1.3552916, "lon": 104.0031362 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712944,
+  "bounds": {
+    "minlat": 1.3551768,
+    "minlon": 104.0032962,
+    "maxlat": 1.3556397,
+    "maxlon": 104.0035780
+  },
+  "geometry": [
+    { "lat": 1.3551768, "lon": 104.0034002 },
+    { "lat": 1.3556085, "lon": 104.0035780 },
+    { "lat": 1.3556397, "lon": 104.0035021 },
+    { "lat": 1.3556092, "lon": 104.0034895 },
+    { "lat": 1.3556266, "lon": 104.0034473 },
+    { "lat": 1.3552598, "lon": 104.0032962 },
+    { "lat": 1.3552409, "lon": 104.0033420 },
+    { "lat": 1.3552065, "lon": 104.0033279 },
+    { "lat": 1.3551768, "lon": 104.0034002 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712945,
+  "bounds": {
+    "minlat": 1.3550103,
+    "minlon": 104.0036845,
+    "maxlat": 1.3554733,
+    "maxlon": 104.0039663
+  },
+  "geometry": [
+    { "lat": 1.3550103, "lon": 104.0037886 },
+    { "lat": 1.3554420, "lon": 104.0039663 },
+    { "lat": 1.3554733, "lon": 104.0038904 },
+    { "lat": 1.3554428, "lon": 104.0038779 },
+    { "lat": 1.3554602, "lon": 104.0038357 },
+    { "lat": 1.3550934, "lon": 104.0036845 },
+    { "lat": 1.3550745, "lon": 104.0037304 },
+    { "lat": 1.3550401, "lon": 104.0037162 },
+    { "lat": 1.3550103, "lon": 104.0037886 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712946,
+  "bounds": {
+    "minlat": 1.3550954,
+    "minlon": 104.0035246,
+    "maxlat": 1.3555569,
+    "maxlon": 104.0038079
+  },
+  "geometry": [
+    { "lat": 1.3551252, "lon": 104.0035246 },
+    { "lat": 1.3555569, "lon": 104.0037023 },
+    { "lat": 1.3555257, "lon": 104.0037782 },
+    { "lat": 1.3554952, "lon": 104.0037656 },
+    { "lat": 1.3554778, "lon": 104.0038079 },
+    { "lat": 1.3551109, "lon": 104.0036570 },
+    { "lat": 1.3551298, "lon": 104.0036111 },
+    { "lat": 1.3550954, "lon": 104.0035969 },
+    { "lat": 1.3551252, "lon": 104.0035246 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 1451712947,
+  "bounds": {
+    "minlat": 1.3549342,
+    "minlon": 104.0038374,
+    "maxlat": 1.3554088,
+    "maxlon": 104.0042486
+  },
+  "geometry": [
+    { "lat": 1.3553144, "lon": 104.0042486 },
+    { "lat": 1.3554088, "lon": 104.0040198 },
+    { "lat": 1.3549669, "lon": 104.0038374 },
+    { "lat": 1.3549342, "lon": 104.0039166 },
+    { "lat": 1.3550438, "lon": 104.0039618 },
+    { "lat": 1.3549820, "lon": 104.0041115 },
+    { "lat": 1.3553144, "lon": 104.0042486 }
+  ],
+  "tags": {
+    "building": "dormitory"
+  }
+},
+{
+  "type": "way",
+  "id": 54725336,
+  "bounds": {
+    "minlat": 1.4080880,
+    "minlon": 103.9891863,
+    "maxlat": 1.4082670,
+    "maxlon": 103.9894396
+  },
+  "geometry": [
+    { "lat": 1.4081956, "lon": 103.9891863 },
+    { "lat": 1.4082312, "lon": 103.9892951 },
+    { "lat": 1.4082670, "lon": 103.9894043 },
+    { "lat": 1.4081593, "lon": 103.9894396 },
+    { "lat": 1.4081234, "lon": 103.9893298 },
+    { "lat": 1.4080880, "lon": 103.9892216 },
+    { "lat": 1.4081956, "lon": 103.9891863 }
+  ],
+  "tags": {
+    "building": "detached",
+    "building:levels": "2",
+    "name": "Visitor Centre",
+    "name:zh": "访客中心",
+    "roof:levels": "0"
+  }
+},
+{
+  "type": "way",
+  "id": 541205101,
+  "bounds": {
+    "minlat": 1.4041718,
+    "minlon": 104.0314124,
+    "maxlat": 1.4048830,
+    "maxlon": 104.0320589
+  },
+  "geometry": [
+    { "lat": 1.4041857, "lon": 104.0318554 },
+    { "lat": 1.4046360, "lon": 104.0318934 },
+    { "lat": 1.4046132, "lon": 104.0318500 },
+    { "lat": 1.4046823, "lon": 104.0318074 },
+    { "lat": 1.4047029, "lon": 104.0318515 },
+    { "lat": 1.4047501, "lon": 104.0314124 },
+    { "lat": 1.4048830, "lon": 104.0314267 },
+    { "lat": 1.4048330, "lon": 104.0318926 },
+    { "lat": 1.4047210, "lon": 104.0318826 },
+    { "lat": 1.4047934, "lon": 104.0320228 },
+    { "lat": 1.4047235, "lon": 104.0320589 },
+    { "lat": 1.4046431, "lon": 104.0319055 },
+    { "lat": 1.4046298, "lon": 104.0320465 },
+    { "lat": 1.4041718, "lon": 104.0319898 },
+    { "lat": 1.4041857, "lon": 104.0318554 }
+  ],
+  "tags": {
+    "addr:city": "Singapore",
+    "addr:housenumber": "46",
+    "addr:street": "Pulau Tekong Besar",
+    "building": "residential",
+    "building:levels": "5",
+    "name": "Leopard, Mohawk Company"
+  }
+},
+{
+  "type": "way",
+  "id": 98093062,
+  "bounds": {
+    "minlat": 1.4043355,
+    "minlon": 104.0310604,
+    "maxlat": 1.4046825,
+    "maxlon": 104.0312323
+  },
+  "geometry": [
+    { "lat": 1.4046825, "lon": 104.0311081 },
+    { "lat": 1.4046645, "lon": 104.0312323 },
+    { "lat": 1.4043355, "lon": 104.0311846 },
+    { "lat": 1.4043535, "lon": 104.0310604 },
+    { "lat": 1.4046825, "lon": 104.0311081 }
+  ],
+  "tags": {
+    "building": "residential",
+    "building:levels": "5",
+    "name": "Orion Company"
+  }
+},
+{
+  "type": "way",
+  "id": 98093090,
+  "bounds": {
+    "minlat": 1.4043261,
+    "minlon": 104.0313397,
+    "maxlat": 1.4046449,
+    "maxlon": 104.0315102
+  },
+  "geometry": [
+    { "lat": 1.4046449, "lon": 104.0313774 },
+    { "lat": 1.4046283, "lon": 104.0315102 },
+    { "lat": 1.4043261, "lon": 104.0314725 },
+    { "lat": 1.4043427, "lon": 104.0313397 },
+    { "lat": 1.4046449, "lon": 104.0313774 }
+  ],
+  "tags": {
+    "building": "residential",
+    "building:levels": "5",
+    "name": "Ninja Company"
+  }
+},
+{
+  "type": "way",
+  "id": 541205100,
+  "bounds": {
+    "minlat": 1.4044879,
+    "minlon": 104.0305173,
+    "maxlat": 1.4050014,
+    "maxlon": 104.0310584
+  },
+  "geometry": [
+    { "lat": 1.4048021, "lon": 104.0306795 },
+    { "lat": 1.4049459, "lon": 104.0305768 },
+    { "lat": 1.4050014, "lon": 104.0306510 },
+    { "lat": 1.4048682, "lon": 104.0307507 },
+    { "lat": 1.4049786, "lon": 104.0307641 },
+    { "lat": 1.4049430, "lon": 104.0310584 },
+    { "lat": 1.4048102, "lon": 104.0310423 },
+    { "lat": 1.4048433, "lon": 104.0307694 },
+    { "lat": 1.4047864, "lon": 104.0308120 },
+    { "lat": 1.4047309, "lon": 104.0307378 },
+    { "lat": 1.4047770, "lon": 104.0307033 },
+    { "lat": 1.4044879, "lon": 104.0306622 },
+    { "lat": 1.4045080, "lon": 104.0305173 },
+    { "lat": 1.4048165, "lon": 104.0305601 },
+    { "lat": 1.4048021, "lon": 104.0306795 }
+  ],
+  "tags": {
+    "building": "residential",
+    "building:levels": "5",
+    "name": "Pegasus, Raven Company"
+  }
+}
+
+  ]
+}

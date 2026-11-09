@@ -15,6 +15,7 @@
 *.utf8.md
 *.knit.md
 report/*.html
+report/*.docx
 report/*.tex
 report/*.log
 

@@ -1,0 +1,3 @@
+weights,n,mean_links,min_links,components,islands_linked
+queen,201,4.84,1,1,1
+knn6,201,7.19,6,1,0

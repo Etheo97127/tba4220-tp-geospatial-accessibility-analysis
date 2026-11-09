@@ -1,8 +1,66 @@
 # Q1 — How complete is OpenStreetMap, and are the gaps spread evenly?
 
-> **Status (2026-10-19):** written before the final proposal. Q1 here is now the
-> *coverage check* inside the score workstream (ECDA only; CHAS dropped, see
-> `docs/REQUIREMENTS.md` section 3). The new Q1 is per-category Moran's I, `plans/q1_spatial.md`.
+> **Status (2026-11-08):** this file was written before the final proposal. Q1
+> here is now the *coverage check* inside the score workstream; the new Q1 is
+> per-category Moran's I, `plans/q1_spatial.md`. `R/02_coverage/` now follows
+> the 2026-09-16 decision as amended on 2026-11-08 (`docs/REQUIREMENTS.md`
+> section 3). ECDA preschools are the headline benchmark; CHAS clinics are
+> reported only as a labelled supplementary row and are never pooled with
+> ECDA. What changed: the pooled proportion-test row is gone, and Holm runs
+> within headline / supplementary rather than across all rows (section 4's
+> "pooled, three tests, Holm" is superseded). The post-hoc `power` column is
+> replaced by the minimum detectable difference (`mdd_pp`). The logistic
+> regression is fitted per set instead of pooled with `set` as a term.
+> `subzone_quality_flag.csv` is built from ECDA only, with the same columns,
+> and flags subzones by a posterior tail probability (section 5). The figures
+> lead with ECDA, and every number in their titles and captions is computed
+> from the tables.
+>
+> Headline numbers (ECDA, strict match, d = 50 m, s = 0.80; OSM snapshot of
+> 2026-11-02, rerun after the merge into `score/v0`):
+>
+> - **Recall 9.7%** (Wilson 95% CI 8.5–11.1%; 192 of 1,975), and 6–11% across all
+>   twelve threshold cells.
+> - **Miss rate 90.9% mature vs 90.1% non-mature** (909/1,000 vs 782/868):
+>   difference +0.8 pp, 95% CI −2.0 to +3.6 pp, **p = 0.61**. The arms detect a gap
+>   of **3.8 pp** at 80% power and alpha 0.05, so this null result does not come
+>   from low power.
+> - **Random labelling p = 0.32** (1,974 preschools, co-located ones kept as
+>   separate points): missed preschools cluster no more than the preschools
+>   themselves.
+> - **Logistic** `missed ~ maturity + dist_cbd_km`: non-mature **OR 0.36**
+>   (0.22–0.58, p < 0.001), distance OR 1.15 per km. The maturity effect from the
+>   old pooled fit survives on ECDA alone, but read it as supporting evidence
+>   only. The unadjusted maturity OR is 0.91 (p = 0.55). Maturity and distance to
+>   the CBD correlate at r = 0.72: non-mature preschools sit further out (median
+>   15.0 km against 8.4 km), though both arms share the 7.0–16.3 km band, which
+>   holds 63% and 62% of them. The effect rests mainly on Sengkang (69% missed):
+>   dropping it gives OR 0.57 (p = 0.03), while dropping Hougang (83%) alone leaves
+>   OR 0.37 (p = 0.001); only dropping both leaves no detectable effect, 0.83
+>   (p = 0.56) (`outputs/tables/coverage_logistic_sensitivity.csv`). The
+>   standard errors are not clustered by town (26 towns).
+> - **Quality flag** (ECDA only): island miss rate 90.3%. 141 subzones hold at
+>   least 5 preschools and get a flag: 9 better / 124 typical / 8 worse. The other
+>   191 have an NA flag: 100 with no preschool, 91 with 1–4. The empirical-Bayes
+>   prior sample size is kappa = 17.5.
+> - CHAS, supplementary: recall 22.2% (19.9–24.7%). Miss rate 78.6% mature vs
+>   73.4% non-mature, p = 0.06, MDD 7.4 pp. Logistic OR 0.53 (0.34–0.81).
+>   Random labelling p = 0.001.
+>
+> - **Matcher error** (`06_matcher_error.R`, verdicts in
+>   `data/external/coverage_validation_verdicts.csv`, unsure rows excluded): ECDA
+>   false-match 0/40, false-miss 1/38 (2.6%, Wilson 0.5–13.5%). Two more of those
+>   38 are in OSM only as `building=kindergarten`, a tag the crosswalk does not
+>   read: a tagging gap, not matcher error. CHAS false-match 3/40 (7.5%), all from
+>   the postcode rule in multi-tenant buildings, false-miss 3/37 (8.1%), all
+>   clinics in OSM just beyond 50 m. Corrected recall: **ECDA 9.7% → 12.1%**
+>   (9.3–21.9% with both error rates at their Wilson bounds; 16.8% counting the
+>   tagging gaps), CHAS 22.2% → 26.9% (20.0–38.2%). The OSM features the score
+>   reads still miss close to nine in ten preschools (about five in six counting
+>   building-only kindergartens); matcher error accounts for 2.4 points of that gap.
+>
+> For section 6, the result points to the "recall low but uniform" case, with
+> the north-east caveat from the logistic fit.
 
 Owner: Member 1. Weeks 1–5. Also on the critical path: the access score (section 7),
 because Q2/Q3/Q4 all consume it.
@@ -155,9 +213,22 @@ Optional, and reported as supporting rather than headline.
   missed facilities drawn over it. Subzones holding fewer than 5 reference
   facilities are greyed out, not coloured; a one-of-one miss is not 100%.
 - `outputs/figures/q1_random_labelling.png` — the envelope plot.
-- `data/processed/subzone_quality_flag.csv` — per subzone: reference count, miss
-  rate, empirical-Bayes shrunk miss rate (so thin subzones do not dominate), and
-  a three-level flag. **This is the hand-off to Q2/Q3/Q4.**
+- `data/processed/subzone_quality_flag.csv` — per subzone, counting ECDA
+  preschools only (CHAS clinics never enter it): reference count, miss rate,
+  empirical-Bayes shrunk miss rate (so thin subzones do not dominate), and a
+  three-level flag. Built by `R/02_coverage/03_quality_flag.R`. **This is the
+  hand-off to Q2/Q3/Q4.**
+  The flag is NA below 5 preschools, the same cut that greys out the map.
+  Otherwise it cuts the posterior probability that the subzone's true miss rate
+  is below the island mean (Beta posterior from the empirical-Bayes prior):
+  at least 0.90 is "better", at most 0.10 "worse", anything between "typical".
+  This replaced a ±5 pp band around the mean. With the mean near 0.9 that band
+  let a single matched preschool make a subzone "better", while no subzone with
+  fewer than 6 preschools could ever be "worse". Some asymmetry remains, and it
+  is real: when the mean is already 0.9, a high miss rate is weak evidence, so
+  "worse" needs about twenty or more preschools, nearly all of them missed.
+  The prior is fitted by moments on subzones with at least 5 preschools, after
+  subtracting the binomial share of the variance in their raw rates.
 
 ## 6. What the answer changes downstream
 
@@ -197,9 +268,11 @@ Not part of Q1's question, but it is what the other three are waiting on.
 - De-duplicate: polygons and relations to centroids, then drop same-category
   points within 25 m whose normalised names match. Left untreated, malls and food
   courts double-count badly.
-- Population-weighted centroids: use a gridded population raster (GHS-POP or
+- ~~Population-weighted centroids: use a gridded population raster (GHS-POP or
   WorldPop, 100 m) for *both* cities rather than a Singapore-specific source, so
-  the centroid definition is identical on each side.
+  the centroid definition is identical on each side.~~ **Superseded** by item 3
+  in `docs/decisions.md` (proposed; on branch `score/v0` until it merges):
+  centroids are weighted by OSM residential building footprints instead.
 - Detour factor: 200 sampled OD pairs routed on the OSM foot network (`dodgr`, or
   a local OSRM foot profile); report the mean ratio and its spread, and apply the
   1 km walk as a `1000 / detour` straight-line radius. Report score sensitivity to
@@ -230,3 +303,14 @@ Not part of Q1's question, but it is what the other three are waiting on.
 - **A null result is a real outcome.** If the gaps are spread evenly, that is a
   clean answer that strengthens Q2–Q4, and the report should say so plainly rather
   than hunting for a split that yields a significant p.
+
+Next (from the validation check, 2026-11-09):
+- The headline thresholds are **not** re-tuned on these verdicts (section 9, threshold
+  fishing). Candidate fixes for a future, pre-declared matcher version: require name
+  similarity with the postcode rule for clinics; allow 75–100 m when name similarity is
+  near 1; pull `building=kindergarten` (two checked unmatched ECDA preschools are mapped only
+  that way: tagging gaps, not matcher misses); strip spaces inside brand names ("Sparkle Tots").
+- 29 sample rows are flagged `needs_maps_check` (possible closures, generic names, church
+  preschools). A Google Maps pass on them would firm up the rates.
+- Every ECDA childcare record carries `FMEL_UPD_D` 2021-12-01, though the portal says the
+  dataset was updated 2026-04. Some "missing" centres may have closed or renamed since 2021.

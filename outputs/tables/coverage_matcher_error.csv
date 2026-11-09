@@ -1,0 +1,5 @@
+set,stratum,n_checked,n_error,rate,ci_lo,ci_hi,n_tag_gap,n_unsure
+chas,accepted match,40,3,0.075,0.026,0.199,0,0
+chas,rejected (counted as missing),37,3,0.081,0.028,0.213,0,3
+ecda,accepted match,40,0,0,0,0.088,0,0
+ecda,rejected (counted as missing),38,1,0.026,0.005,0.135,2,2

@@ -1,0 +1,8 @@
+variable,I_queen,p_queen,n_high_high,n_low_low,n_high_low,n_low_high,clusters,outliers,pattern
+score_food_services,0.568,0.001,10,0,0,0,10,0,contiguous
+score_retail,0.5,0.001,7,1,0,0,8,0,contiguous
+score_health,0.473,0.001,5,0,0,0,5,0,contiguous
+score_food_retail,0.535,0.001,7,0,0,0,7,0,contiguous
+score_education,0.487,0.001,14,0,0,0,14,0,contiguous
+score_recreation,0.521,0.001,18,8,0,0,26,0,contiguous
+score,0.548,0.001,7,0,0,0,7,0,contiguous

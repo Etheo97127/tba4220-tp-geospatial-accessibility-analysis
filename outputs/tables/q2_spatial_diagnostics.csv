@@ -1,0 +1,2 @@
+residual_moran_I,residual_moran_p,robust_lm_error_p,robust_lm_lag_p,lambda_error,rho_lag,aic_ols,aic_error,aic_lag,final_model
+0.2818,1.742e-10,0.4175,2.951e-7,0.6126,0.5441,1525,1485,1468,lag

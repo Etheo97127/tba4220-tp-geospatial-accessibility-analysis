@@ -1,0 +1,6 @@
+variable,mean,sd,min,max
+elderly_share,0.166,0.06,0.046,0.383
+housing_mix,0.189,0.216,0,0.96
+log_density,9.397,1.017,5.438,10.723
+dist_rail_m,535.981,398.582,5.284,2492.495
+log_contrib,2.742,0.764,0.606,5.684

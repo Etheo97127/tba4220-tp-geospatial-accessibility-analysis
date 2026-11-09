@@ -1,0 +1,39 @@
+name,line,status,note
+BAHAR JUNCTION,JRL,not_open,Jurong Region Line; first stage targeted 2027
+BUKIT BATOK WEST,JRL,not_open,Jurong Region Line
+CHOA CHU KANG WEST,JRL,not_open,Jurong Region Line
+CORPORATION,JRL,not_open,Jurong Region Line
+ENTERPRISE,JRL,not_open,Jurong Region Line
+GEK POH,JRL,not_open,Jurong Region Line
+HONG KAH,JRL,not_open,Jurong Region Line
+JURONG HILL,JRL,not_open,Jurong Region Line
+JURONG PIER,JRL,not_open,Jurong Region Line
+JURONG TOWN HALL,JRL,not_open,Jurong Region Line
+JURONG WEST,JRL,not_open,Jurong Region Line
+NANYANG CRESCENT,JRL,not_open,Jurong Region Line
+NANYANG GATEWAY,JRL,not_open,Jurong Region Line
+PANDAN RESERVOIR,JRL,not_open,Jurong Region Line
+PENG KANG HILL,JRL,not_open,Jurong Region Line
+TAWAS,JRL,not_open,Jurong Region Line
+TENGAH,JRL,not_open,Jurong Region Line
+TENGAH PARK,JRL,not_open,Jurong Region Line
+TENGAH PLANTATION,JRL,not_open,Jurong Region Line
+TOH GUAN,JRL,not_open,Jurong Region Line
+TUKANG,JRL,not_open,Jurong Region Line
+AVIATION PARK,CRL,not_open,Cross Island Line; targeted 2030 or later
+LOYANG,CRL,not_open,Cross Island Line
+PASIR RIS EAST,CRL,not_open,Cross Island Line
+TAMPINES NORTH,CRL,not_open,Cross Island Line
+DEFU,CRL,not_open,Cross Island Line
+SERANGOON NORTH,CRL,not_open,Cross Island Line
+TAVISTOCK,CRL,not_open,Cross Island Line
+TECK GHEE,CRL,not_open,Cross Island Line
+BUKIT BROWN,CCL,not_open,Shell station; never opened
+MOUNT PLEASANT,TEL,not_open,Shell station; not opened
+FOUNDERS' MEMORIAL,TEL,not_open,Opens with the Founders' Memorial (about 2028)
+BEDOK SOUTH,TEL,not_open,TEL stage 5; opens 2026-12-26 (LTA 2026-11-04); after the 2026-11-02 OSM snapshot
+SUNGEI BEDOK,TEL/DTL,not_open,TEL stage 5 and DTL3 extension; opens 2026-12-26 (LTA 2026-11-04)
+XILIN,DTL,not_open,DTL3 extension; opens 2026-12-26 (LTA 2026-11-04)
+KEPPEL,CCL,open,Circle Line stage 6; opened 2026-07-12 (LTA); before the OSM snapshot
+CANTONMENT,CCL,open,Circle Line stage 6; opened 2026-07-12 (LTA)
+PRINCE EDWARD ROAD,CCL,open,Circle Line stage 6; opened 2026-07-12 (LTA)

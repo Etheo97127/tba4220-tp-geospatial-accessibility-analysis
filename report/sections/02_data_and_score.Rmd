@@ -1,4 +1,83 @@
-<!-- Owner: Qu Haotian -->
+<!-- Owner: Qu Haotian (A9) -->
+
+```{r data-and-score}
+w      <- tab("score_weights.csv")
+summ   <- tab("score_category_summary.csv")
+rob    <- tab("score_robustness.csv")
+resn   <- tab("q2_residential_n.csv")
+rec    <- tab("coverage_recall_by_category.csv")
+recc   <- tab("coverage_recall_corrected.csv")
+prop   <- tab("coverage_prop_test.csv")
+rl     <- tab("coverage_random_labelling.csv")
+logit  <- tab("coverage_logistic.csv")
+lsens  <- tab("coverage_logistic_sensitivity.csv")
+merr   <- tab("coverage_matcher_error.csv")
+qflag  <- proc("subzone_quality_flag.csv")
+score  <- readRDS(file.path(ROOT, "data", "processed", "score_subzone.rds"))
+
+n_res   <- resn$n_residential[resn$cut_off == max(resn$cut_off)]
+res_sh  <- resn$share_of_residents[resn$cut_off == max(resn$cut_off)]
+n_res2  <- resn$n_residential[resn$cut_off == min(resn$cut_off)]
+sc_res  <- score$score[score$residential]
+e_rec   <- rec %>% dplyr::filter(grepl("ECDA", set), variant == "strict")
+e_cor   <- recc %>% dplyr::filter(set == "ecda")
+e_prop  <- prop %>% dplyr::filter(set == "ecda")
+e_rl    <- rl %>% dplyr::filter(set == "ecda")
+c_rl    <- rl %>% dplyr::filter(set == "chas")
+e_or    <- logit %>% dplyr::filter(set == "ecda", term == "maturitynon-mature")
+e_fm    <- merr %>% dplyr::filter(set == "ecda", stratum == "accepted match")
+e_fmiss <- merr %>% dplyr::filter(set == "ecda", stratum != "accepted match")
+e_both  <- lsens %>% dplyr::filter(dropped == "Sengkang and Hougang")
+tag_gap_txt <- if (e_fmiss$n_tag_gap > 0) sprintf(paste0(
+  " Another %d of the %d are in OSM only as a building tagged kindergarten, a tag the score does not read;",
+  " counting such buildings, OSM holds about %s."),
+  e_fmiss$n_tag_gap, e_fmiss$n_checked, pct(e_cor$recall_any_tag, 0)) else ""
+n_better <- sum(qflag$quality_flag == "better", na.rm = TRUE)
+n_worse  <- sum(qflag$quality_flag == "worse", na.rm = TRUE)
+r800    <- rob$spearman[rob$column == "score_r800"]
+r1200   <- rob$spearman[rob$column == "score_r1200"]
+cut_hi  <- max(resn$cut_off); cut_lo <- min(resn$cut_off)
+# Rows still flagged for a Google Maps check; settled rows are set to FALSE.
+verdicts  <- readr::read_csv(file.path(ROOT, "data", "external", "coverage_validation_verdicts.csv"), show_col_types = FALSE)
+maps_left <- sum(verdicts$needs_maps_check)
+prov      <- if (maps_left > 0) ", provisionally" else ""
+req     <- rob$spearman[rob$column == "score_equal"]
+```
 
 # Data and the access score
+
+**Unit and rows.** The unit is the URA Master Plan 2019 subzone [@ura2019mp]. Of the 332 subzones, `r n_res` have at least `r num(cut_hi)` residents in Census 2020 [@singstat2021census], and they hold `r pct(res_sh, 2)` of all residents. These form the residential set used by every analysis (`r n_res2` at a `r num(cut_lo)`-resident cut-off). Airports, reservoirs, ports and industrial estates drop out. All layers use SVY21 (EPSG:3414), so distances are in metres, and spatial operations use R's sf package [@pebesma2018sf].
+
+**Facilities.** Facility locations come from one OpenStreetMap snapshot (2 November 2026, `r num(sum(summ$osm_features))` scored features) [@osm2026]. Each OSM tag maps to one of six categories through a published lookup table, which also generates the download queries. Hospitals, private facilities and alcohol outlets are not scored.
+
+**Where residents live.** A polygon's centroid can fall in a reservoir or outside an L-shaped subzone. Each subzone's centre is therefore the floor-area-weighted mean of its OSM residential buildings (footprint × storeys). Worker dormitories are excluded, because the census counts only residents. Every residential subzone has such a centre.
+
+**The score.** For each centre we count facilities within 1 km in a straight line, per category (a known caveat, see the Discussion). Counts differ in scale: a median of `r num(summ$median_count[summ$category == "food_services"])` food outlets against `r num(summ$median_count[summ$category == "health"])` health facilities (clinics, dentists and pharmacies). Each count is therefore put on one scale as 100 · log(1 + count) / the maximum over residential subzones. The six category scores are combined with weights equal to each category's share of 2023 household spending [@singstat2024hes] (Table 1). Across residential subzones the composite ranges from `r num(min(sc_res), 0)` to `r num(max(sc_res), 0)`, with a median of `r num(median(sc_res), 1)` (Figure 1).
+
+```{r tab-weights}
+knitr::kable(
+  w %>% dplyr::transmute(Category = CAT_LAB[category], `Household spending lines (HES 2023)` = hes_lines,
+                         `S$ / month` = num(sgd_month, 1), Weight = pct(weight)),
+  caption = "Table 1. Category weights from the 2023 Household Expenditure Survey. Retail goods sums two divisions.")
+```
+
+```{r fig-score, fig.cap = "Figure 1. Composite access score for the residential subzones.", out.width = "100%"}
+knitr::include_graphics(fig("score_composite_map.png"))
+```
+
+The weights carry three caveats. First, spending share is not trip frequency. Second, spending says nothing about variety within a category, so variety is counted separately. Third, the weights are national averages: every subzone is scored on the same basket whatever its residents spend. The score is robust to the weights: equal weights rank subzones almost identically (Spearman rank correlation `r num(req, 3)`, which compares the two rankings rather than the scores [@spearman1904]). It is less robust to the radius: 800 m and 1.2 km give `r num(r800, 2)` and `r num(r1200, 2)`, and single subzones move by up to `r num(max(rob$max_rank_shift))` places.
+
+## How complete is OpenStreetMap?
+
+OSM is volunteer-built, so its gaps could bias every later result. We checked one category against a near-complete register: ECDA's licensed preschools [@ecda2026]. Each ECDA centre was matched to an OSM preschool within 50 m that has a similar name (Jaro-Winkler string similarity, which scores near-identical spellings close to 1 [@winkler1990]) or the same postcode. An unnamed OSM preschool within 30 m also counts. Matching was one-to-one, using the Hungarian algorithm, which picks the set of pairs with the best total score [@kuhn1955]. A stratified sample of `r nrow(verdicts)` matched and unmatched pairs was then checked against the OSM database, OpenStreetMap's place search and operators' web pages. `r if (maps_left > 0) sprintf("%d of those rows still await a Google Maps check, so the error rates below are provisional.", maps_left) else "Every row was settled."`
+
+```{r fig-coverage, fig.cap = "Figure 2. Share of ECDA preschools missing from OSM by subzone, empirical-Bayes shrunk; subzones with fewer than five preschools are grey.", out.width = "100%"}
+knitr::include_graphics(fig("coverage_missrate_map.png"))
+```
+
+- **Recall is low.** Only `r pct(e_rec$recall)` of ECDA preschools match an OSM preschool (95% CI `r pct(e_rec$ci_lo)`–`r pct(e_rec$ci_hi)`; a Wilson interval, which stays sensible for proportions near 0 [@wilson1927]). In the checked sample the matcher made no false matches (`r e_fm$n_error`/`r e_fm$n_checked`). Of `r e_fmiss$n_checked` checked unmatched preschools, the matcher had missed `r e_fmiss$n_error` that sat among the OSM features the score reads. Correcting for both puts recall in those features at about `r pct(e_cor$recall_corrected)` (`r pct(e_cor$recall_corrected_lo)`–`r pct(e_cor$recall_corrected_hi)` with both error rates at the ends of their Wilson intervals)`r prov`.`r tag_gap_txt` OSM, not the matcher, accounts for most of the gap.
+- **No gap between town groups.** Mature and non-mature towns miss `r pct(e_prop$p_mature)` and `r pct(e_prop$p_nonmature)` of their preschools (p `r p_fmt(e_prop$p_value)` in a two-proportion test, which compares two shares against their sampling variation [@rice2007]). The arms could have detected a gap of `r num(e_prop$mdd_pp, 1)` points at 80% power [@cohen1988], so this null result is not just low power.
+- **Missed preschools are not clustered.** Random labelling with cross-K [@baddeley2015] finds that missed preschools cluster no more than preschools themselves (p `r p_fmt(e_rl$p_value)`). A logistic regression of the odds that a preschool is missing [@james2021], controlling for distance to the CBD, gives non-mature towns lower odds of a miss (odds ratio `r num(e_or$OR, 2)`). That effect rests on two north-eastern towns, Sengkang and Hougang, which are better mapped than average: without both, the odds ratio is `r num(e_both$OR, 2)` (p = `r num(e_both$p_value, 2)`), no detectable effect.
+
+So OSM counts preschools at a low rate, with no detectable gap between the two town groups. Within them it is uneven: `r n_better` subzones are mapped clearly better than the island rate and `r n_worse` clearly worse (Figure 2). Comparisons between subzones therefore hold only approximately, and absolute counts not at all: the score is a relative measure. CHAS clinics, reported only as a supplementary benchmark, are less even: missed clinics cluster beyond chance (p `r p_fmt(c_rl$p_value)`). The health category should be read with that in mind. The better and worse subzones come from a per-subzone quality flag, which Q1 uses to qualify its hot spots. It uses empirical-Bayes shrinkage, which pulls a subzone's miss rate towards the island rate when it has few preschools [@efron1975].
 

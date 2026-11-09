@@ -1,4 +1,20 @@
 <!-- Owner: Qu Haotian -->
 
+```{r intro}
+resn0 <- tab("q2_residential_n.csv")
+n_res0 <- resn0$n_residential[resn0$cut_off == max(resn0$cut_off)]
+```
+
 # Introduction
 
+Singapore's Land Transport Master Plan aims for "20-minute towns" [@lta2019ltmp], a local version of the 15-minute city idea that daily needs should lie a short walk or ride from home [@moreno2021fifteen]. Testing such a target needs two things: a measure of how much everyday service lies within walking distance, and a view on how much each kind of service is worth. We take the second from the Household Expenditure Survey, weighting six categories of service by what households spend on them.
+
+**Target question.** What kinds of neighbourhood exist in Singapore by walkable access to everyday services, and does the same set appear in towns planned in different eras? HDB's mature and non-mature towns are the eras. HDB retired the classification in 2024 [@hdb2024framework]; we use it as a fixed historical grouping.
+
+Three questions build toward that answer, one per analysis:
+
+- **Q1 (spatial structure).** How is each category structured in space? This governs how Q3 must resample.
+- **Q2 (drivers).** What explains access, and how much of it is simply population density? This decides whether Q3 must remove density first, and supplies residuals for a test of under-service.
+- **Q3 (types).** What kinds of neighbourhood exist, and do mature and non-mature towns have the same ones?
+
+All three rest on an access score built from OpenStreetMap for Singapore's `r n_res0` residential subzones. A check of how completely OpenStreetMap maps Singapore comes first, because every later result depends on it. Methods not covered in the lectures are named, cited and explained briefly where they are used.

@@ -30,6 +30,9 @@ On Windows `Rscript` may not be on PATH: call `"C:/Program Files/R/R-<version>/b
 - Join key `subzone_c`. CRS EPSG:3414; EPSG:4326 only for I/O.
 - Stages read only `data/processed/` and `data/external/` (plus their own
   `data/interim/`) and write outputs prefixed by stage: `coverage_`, `score_`, `q1_` ...
+  One exception: coverage and score also read prep's layers in `data/interim/`
+  (subzones, OSM POIs, reference lists, buildings), which are rebuilt rather than
+  committed; `run_all.R` runs prep first when they are missing.
 - Hand-off columns in each plan are a contract. Renaming or dropping one means
   updating the plan and the README hand-off table in the same PR, and telling the
   stage owners who read it.

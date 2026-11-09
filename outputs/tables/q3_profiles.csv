@@ -1,0 +1,13 @@
+cluster,category,mean_z
+1,education,-0.68
+1,food_retail,-0.76
+1,food_services,-0.76
+1,health,-0.83
+1,recreation,-0.5
+1,retail,-0.75
+2,education,0.57
+2,food_retail,0.65
+2,food_services,0.64
+2,health,0.7
+2,recreation,0.42
+2,retail,0.63

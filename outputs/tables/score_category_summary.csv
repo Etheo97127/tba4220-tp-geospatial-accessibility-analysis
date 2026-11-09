@@ -1,0 +1,7 @@
+category,weight,osm_features,median_count,share_zero,median_score,sd_score
+food_services,0.308,8870,56,0.005,56.7,15.3
+retail,0.161,1987,11,0.035,45.3,22.6
+health,0.151,965,9,0.04,57.5,24.2
+food_retail,0.145,2254,20,0,58.6,15.6
+education,0.129,1296,12,0.005,65.2,16.2
+recreation,0.107,5912,59,0,81.4,11.9

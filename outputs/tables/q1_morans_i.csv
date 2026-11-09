@@ -1,0 +1,8 @@
+variable,I_queen,p_queen,I_knn,p_knn
+score_food_services,0.568,0.001,0.508,0.001
+score_retail,0.5,0.001,0.476,0.001
+score_health,0.473,0.001,0.413,0.001
+score_food_retail,0.535,0.001,0.43,0.001
+score_education,0.487,0.001,0.358,0.001
+score_recreation,0.521,0.001,0.446,0.001
+score,0.548,0.001,0.474,0.001
