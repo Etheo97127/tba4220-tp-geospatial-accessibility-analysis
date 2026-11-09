@@ -111,6 +111,19 @@ cat("\n=== (b) logistic regression: P(facility missing from OSM), odds ratios ==
 print(logit_res %>% mutate(across(where(is.numeric), ~round(.x, 4))) %>% as.data.frame())
 write_csv(logit_res, file.path(DIR_TAB, "coverage_logistic.csv"))
 
+# Which towns carry the ECDA maturity effect? Sengkang and Hougang, two
+# north-eastern non-mature towns, are mapped far better than the rest. Refit
+# without each, then without both. Post hoc, so it qualifies the effect only.
+DROP_TOWNS <- list(Sengkang = "SENGKANG", Hougang = "HOUGANG",
+                   `Sengkang and Hougang` = c("SENGKANG", "HOUGANG"))
+logit_drop <- bind_rows(lapply(names(DROP_TOWNS), function(towns) {
+  fit_one(glm_dat %>% filter(!pln_area_n %in% DROP_TOWNS[[towns]]), "ecda", "headline") %>%
+    filter(term == "maturitynon-mature") %>%
+    mutate(dropped = towns, .after = role)
+}))
+print(logit_drop %>% mutate(across(where(is.numeric), ~round(.x, 4))) %>% as.data.frame())
+write_csv(logit_drop, file.path(DIR_TAB, "coverage_logistic_sensitivity.csv"))
+
 # --- (c) random labelling ----------------------------------------------------
 # Under H0 the missed facilities are a random thinning of the real ones. Permute
 # the matched/missed labels over the fixed point locations and compare the

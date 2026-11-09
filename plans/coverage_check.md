@@ -36,7 +36,8 @@
 >   15.0 km against 8.4 km), though both arms share the 7.0–16.3 km band, which
 >   holds 63% and 62% of them. The effect rests mainly on Sengkang (69% missed):
 >   dropping it gives OR 0.57 (p = 0.03), while dropping Hougang (83%) alone leaves
->   OR 0.37 (p = 0.001); only dropping both removes it, 0.83 (p = 0.56). The
+>   OR 0.37 (p = 0.001); only dropping both leaves no detectable effect, 0.83
+>   (p = 0.56) (`outputs/tables/coverage_logistic_sensitivity.csv`). The
 >   standard errors are not clustered by town (26 towns).
 > - **Quality flag** (ECDA only): island miss rate 90.3%. 141 subzones hold at
 >   least 5 preschools and get a flag: 9 better / 124 typical / 8 worse. The other
