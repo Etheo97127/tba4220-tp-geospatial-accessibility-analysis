@@ -82,6 +82,7 @@ data/
   processed/            hand-off tables between stages            (committed)
   DATA_SOURCES.md       every dataset with a link
 outputs/figures, tables written by scripts, never hand-edited, prefixed by stage
+outputs/slides/         project deck (.pptx), built by report/slides/build_slides.js
 report/                 report.Rmd + one child section per owner (reads outputs/, data/processed/, data/external/)
 docs/                   requirements, download log, proposal versions, critiques
 plans/                  one working plan per workstream
@@ -94,6 +95,8 @@ plans/                  one working plan per workstream
 2. Install packages: `sf dplyr tidyr stringr readr jsonlite ggplot2 scales stringdist clue binom pwr spatstat spdep spatialreg tmap cluster factoextra osmdata rmarkdown knitr`.
 3. `Rscript R/run_all.R` rebuilds `data/interim`, `data/processed` and `outputs/`.
 4. `Rscript report/render.R` writes `report/report.docx` (it finds the pandoc bundled with RStudio; or knit `report/report.Rmd` in RStudio).
+5. `cd report/slides && npm install && npm run build` writes `outputs/slides/group3_project_slides.pptx`
+   (Node.js; its numbers are typed from the rendered report, so recheck them after a rerun).
 
 ## Rules
 

@@ -1,3 +1,7 @@
+# Node (slide builder)
+node_modules/
+package-lock.json
+
 # R / RStudio
 .Rhistory
 .Rapp.history
