@@ -17,22 +17,9 @@ grid      <- read_csv(file.path(DIR_TAB, "coverage_threshold_sensitivity.csv"), 
 mt        <- readRDS(file.path(DIR_INT, "match_tested.rds"))
 prop_test <- read_csv(file.path(DIR_TAB, "coverage_prop_test.csv"), show_col_types = FALSE)
 
-# Sequential blue ramp, light -> dark; ordinal steps 250/450/650 for the three
-# name thresholds. 03_quality_flag.R draws its map from the same ramp.
-SEQ    <- c("#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#2a78d6", "#1c5cab", "#0d366b")
-ORD3   <- c("#86b6ef", "#2a78d6", "#104281")
-INK    <- "#0b0b0b"; INK2 <- "#52514e"
-
-theme_cov <- theme_minimal(base_size = 9) +
-  theme(panel.grid.minor = element_blank(),
-        panel.grid.major = element_line(linewidth = 0.25, colour = "#e8e7e3"),
-        axis.title = element_text(colour = INK2),
-        axis.text  = element_text(colour = INK2),
-        plot.title = element_text(colour = INK, face = "bold", size = 10),
-        plot.subtitle = element_text(colour = INK2, size = 8.5),
-        plot.caption  = element_text(colour = INK2, size = 7, hjust = 0),
-        strip.text = element_text(colour = INK, face = "bold"),
-        legend.title = element_text(colour = INK2, size = 8))
+# Three ordinal steps of the blue ramp, one per name threshold. Colours, ink and
+# theme otherwise come from 00_setup.R, as for every stage.
+ORD3 <- c("#86b6ef", "#2a78d6", "#104281")
 
 n_set   <- grid %>% distinct(set, n_ref) %>% { setNames(.$n_ref, .$set) }
 SET_LAB <- c(ecda = sprintf("ECDA preschools (n = %s)", comma(n_set[["ecda"]])),
@@ -73,9 +60,8 @@ p1 <- grid %>% filter(variant == "strict") %>%
        subtitle = "Share of known Singapore facilities with a matching OpenStreetMap feature. CHAS clinics: supplementary benchmark.",
        x = "distance threshold (m)", y = "recall",
        caption = "Shaded band: Wilson 95% CI. Headline cell is 50 m / 0.80, fixed before recall was computed.") +
-  theme_cov
-ggsave(file.path(DIR_FIG, "coverage_threshold_sensitivity.png"), p1,
-       width = 7.2, height = 3.2, dpi = 300, bg = "white")
+  theme_project()
+save_fig(p1, "coverage_threshold_sensitivity.png", width = 7.2, height = 3.2)
 
 # --- Figure 2: random labelling envelope -------------------------------------
 
@@ -102,9 +88,9 @@ if (file.exists(rl_path)) {
   })) %>%
     mutate(set = factor(set, levels = unique(set)))
   p3 <- ggplot(env_df, aes(r)) +
-    geom_ribbon(aes(ymin = lo, ymax = hi), fill = SEQ[2], alpha = 0.7) +
+    geom_ribbon(aes(ymin = lo, ymax = hi), fill = PAL_SEQ[2], alpha = 0.7) +
     geom_hline(yintercept = 0, colour = INK2, linewidth = 0.3, linetype = "22") +
-    geom_line(aes(y = obs), colour = SEQ[7], linewidth = 0.8) +
+    geom_line(aes(y = obs), colour = PAL_SEQ[6], linewidth = 0.8) +
     facet_wrap(~set, scales = "free_y") +
     scale_y_continuous(labels = label_number(scale = 1e-6, suffix = "M")) +
     labs(title = sprintf("Preschool gaps %s; clinic gaps (supplementary) %s",
@@ -112,9 +98,8 @@ if (file.exists(rl_path)) {
          subtitle = "Observed K of the missed facilities minus the mean over 999 random relabellings.\nBand: the 999 relabellings. A line above the band means the gaps are more clustered than chance.",
          x = "distance r (m)", y = "K(r) - permutation mean",
          caption = "Random labelling permutes matched/missed over fixed facility locations, so it tests clustering of the gaps beyond the clustering of the facilities themselves.\nCo-located facilities stay separate points; facilities outside the simplified coastline are left out.") +
-    theme_cov
-  ggsave(file.path(DIR_FIG, "coverage_random_labelling.png"), p3,
-         width = 7.2, height = 3.2, dpi = 300, bg = "white")
+    theme_project()
+  save_fig(p3, "coverage_random_labelling.png", width = 7.2, height = 3.2)
   log_step("wrote random labelling figure")
 } else {
   log_step("random_labelling.rds not found - skipping figure 3")
@@ -151,8 +136,7 @@ p4 <- pa %>%
                                 "it detects a gap of %.1f pp at 80%% power. CHAS clinics (supplementary) are not shown,\n",
                                 "see outputs/tables/coverage_prop_test.csv."),
                          comma(pt$n_mature), comma(pt$n_nonmature), pt$mdd_pp)) +
-  theme_cov + theme(panel.grid.major.y = element_blank())
-ggsave(file.path(DIR_FIG, "coverage_missrate_by_planning_area.png"), p4,
-       width = 6.6, height = 5.2, dpi = 300, bg = "white")
+  theme_project() + theme(panel.grid.major.y = element_blank())
+save_fig(p4, "coverage_missrate_by_planning_area.png", width = 6.6, height = 5.2)
 
 log_step("figures written to ", DIR_FIG)

@@ -14,11 +14,6 @@ maturity <- read_csv(file.path(DIR_EXT, "town_maturity.csv"), show_col_types = F
 MIN_N  <- 5      # fewer preschools than this: no flag, and grey on the map
 P_FLAG <- 0.90   # posterior probability needed to call a subzone better or worse
 
-# Same blue ramp and greys as 04_outputs.R. Grey is reserved for "too few to
-# rate", never a data value.
-RAMP <- c("#9ec5f4", "#6da7ec", "#3987e5", "#1c5cab", "#0d366b")
-GREY <- "#d9d8d4"; INK <- "#0b0b0b"; INK2 <- "#52514e"
-
 # --- subzone quality flag ----------------------------------------------------
 # Raw subzone miss rates are unstable where there are only a few reference
 # facilities, so shrink them towards the island mean with a beta-binomial
@@ -90,8 +85,9 @@ BRK  <- (top - step * (5:0)) / 100
 
 p_map <- ggplot() +
   geom_sf(data = map_dat, aes(fill = shown), colour = "white", linewidth = 0.1) +
-  scale_fill_stepsn(colours = RAMP, breaks = BRK, limits = range(BRK),
-                    na.value = GREY, labels = percent_format(accuracy = 1),
+  # The darker five steps of the shared ramp; grey only for "too few to rate".
+  scale_fill_stepsn(colours = PAL_SEQ[-1], breaks = BRK, limits = range(BRK),
+                    na.value = GREY_NA, labels = percent_format(accuracy = 1),
                     name = "share of ECDA\npreschools missing\nfrom OSM",
                     guide = guide_coloursteps(barheight = 7, barwidth = 0.8)) +
   coord_sf(xlim = c(bb$xmin - pad, bb$xmax + pad),
@@ -106,18 +102,13 @@ p_map <- ggplot() +
                                 "Per-subzone counts in data/processed/subzone_quality_flag.csv."),
                          percent(mu, accuracy = 0.1),
                          comma(sum(sz$n_missed)), comma(sum(sz$n_ref)))) +
-  theme_void(base_size = 9) +
-  theme(plot.title = element_text(colour = INK, face = "bold", size = 10),
-        plot.subtitle = element_text(colour = INK2, size = 8),
-        plot.caption = element_text(colour = INK2, size = 7, hjust = 0),
-        legend.title = element_text(colour = INK2, size = 8),
-        legend.text = element_text(colour = INK2, size = 7))
+  theme_map() +
+  theme(legend.text = element_text(colour = INK2, size = 7))
 
 # --- outputs -----------------------------------------------------------------
 
 write_csv(sz_all, file.path(DIR_PROC, "subzone_quality_flag.csv"))
-ggsave(file.path(DIR_FIG, "coverage_missrate_map.png"), p_map,
-       width = 7.8, height = 3.6, dpi = 300, bg = "white")
+save_fig(p_map, "coverage_missrate_map.png", width = 7.8, height = 3.6)
 log_step("ECDA island miss rate mu = ", round(mu, 3), ", prior kappa = ", round(kappa, 1))
 flags <- table(sz_all$quality_flag)
 log_step("flagged subzones (>= ", MIN_N, " ECDA preschools): ", sum(flags), " of ", nrow(sz_all),
