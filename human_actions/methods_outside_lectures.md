@@ -16,8 +16,8 @@ pipeline uses against [`docs/course_knowledge.md`](../docs/course_knowledge.md) 
 | Coverage (A) | spatial joins, `st_is_within_distance` (L5) | random labelling with cross-K, envelope, MAD (L7) | record linkage (Jaro-Winkler), Hungarian matching, Wilson interval, two-proportion test and power, logistic regression, empirical-Bayes shrinkage |
 | Score (A) | buffers and distance counts (L4–5), `st_point_on_surface` (L5) | floor-area-weighted centres, log scaling (design choices built from taught operations) | Spearman rank correlation |
 | Q1 (B) | queen weights, `nb2listw`, Moran's I, Moran plot (L8) | Monte Carlo Moran's I, LISA (L8) | kNN weights, Benjamini-Hochberg |
-| Q2 (C) | — (L8's trend-in-mean model is the nearest) | — | OLS, one-sided tests, VIF, residual Moran's I, robust LM tests, spatial lag/error models and impacts |
-| Q3 (D) | — | k-means (L4 used it only to bin map colours), null reference and permutation tests (L7–L8's "compare with a simulated random benchmark") | silhouette and elbow, block bootstrap with Jaccard, chi-square statistic |
+| Q2 (C) | — (L8's trend-in-mean model is the nearest) | — | OLS, one-sided tests, VIF, AIC, residual Moran's I, robust LM tests, spatial lag/error models and impacts |
+| Q3 (D) | — | k-means (L4 used it only to bin map colours), null reference and permutation tests (L7–L8's "compare with a simulated random benchmark") | silhouette and elbow, block bootstrap with Jaccard, chi-square statistic, PCA |
 
 The pattern: Q1 stays close to the course (L8). Coverage and Q3 extend L7–L8's
 simulate-a-null-benchmark logic. Q2 is the one track built almost entirely on methods
@@ -75,6 +75,7 @@ Getis-Ord Gi* was dropped (decision 10): it repeats LISA's clusters and cannot s
 | Moran's I on residuals | Extends L8 | `04_spatial_model.R` | L8's Moran's I applied to what the regression leaves unexplained | Clustered residuals break OLS's independence assumption, L8's own point (I = 0.28, p < 0.001) | Anselin (1988) |
 | Robust Lagrange-multiplier tests | Not taught | `04_spatial_model.R` | Tell a spillover process (lag) from clustered unmeasured causes (error) | Choose the spatial model; they chose lag | Anselin, Bera, Florax & Yoon (1996) |
 | Spatial lag model with impacts | Not taught | `04_spatial_model.R` | A subzone's score depends on its neighbours' scores; effects are read as total impacts (direct plus spillover) | Fits best (AIC 1,468 against 1,485 for error and 1,525 for OLS) | LeSage & Pace (2009) |
+| Akaike information criterion (AIC) | Not taught | `04_spatial_model.R` | Compares models by fit, penalised for the number of parameters; lower is better | Picks between OLS, the error and the lag model alongside the LM tests | Akaike (1974) |
 | Spatial error model | Not taught | `04_spatial_model.R` | Regression whose errors may correlate between neighbours | The plan's original choice; reported to show the conclusion holds | Anselin (1988) |
 | R² share for density; reduced-form residual | Not taught | `05_handoff.R` | Density's share of explained variance decides raw vs adjusted scores for Q3 (decision 1). The residual is the score minus what the predictors alone imply | Hand-offs to Q3 | LeSage & Pace (2009) |
 
@@ -83,6 +84,7 @@ Getis-Ord Gi* was dropped (decision 10): it repeats LISA's clusters and cannot s
 | Method | Scope | Where | What it means | Why we use it | Cite |
 |---|---|---|---|---|---|
 | k-means on z-scores | Extends L4 | `R/06_q3_typology/02_choose_k.R` | L4 used k-means only to bin map colours (`style = "kmeans"`). Here it groups subzones by their six-category profile; z-scores give each category equal weight | The proposal's clustering method | Hartigan & Wong (1979) |
+| Principal component analysis (report only) | Not taught | `report/sections/05_q3_typology.Rmd` | Finds the single direction along which the six scores vary most | Shows the scores lie on one access axis (70% of the variance), which explains the no-cluster result | James et al. (2021) |
 | Elbow and silhouette | Not taught | `02_choose_k.R` | Elbow: where more groups stop reducing within-group spread. Silhouette: how much better each subzone fits its own group than the next | Chooses k by a fixed rule | Rousseeuw (1987) |
 | No-cluster null (parametric bootstrap) | Extends L7–L8 | `02_choose_k.R` | The same logic as L7's CSR envelope or L8's shuffled maps: rerun the k choice on 200 simulated single clouds with no groups and see whether the real data separate better | Silhouette always picks some k ≥ 2. Here p = 0.47: one gradient, not discrete types | Tibshirani, Walther & Hastie (2001) |
 | Spatial block bootstrap + Jaccard | Not taught | `03_stability.R` | Resample whole planning-area blocks, re-cluster, measure each group's overlap with the original (≥ 0.75 stable) | Neighbours are near-duplicates (Q1), so resampling single subzones would overstate stability | Künsch (1989); Hennig (2007) |
@@ -106,6 +108,7 @@ base R. The pipeline adds:
 
 ## References
 
+- Akaike, H. (1974). A new look at the statistical model identification. *IEEE Transactions on Automatic Control*, 19(6), 716–723.
 - Anselin, L. (1988). *Spatial Econometrics: Methods and Models*. Kluwer.
 - Anselin, L. (1995). Local indicators of spatial association — LISA. *Geographical Analysis*, 27(2), 93–115.
 - Anselin, L., Bera, A. K., Florax, R., & Yoon, M. J. (1996). Simple diagnostic tests for spatial dependence. *Regional Science and Urban Economics*, 26(1), 77–104.
