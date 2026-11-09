@@ -13,7 +13,6 @@ library(spatialreg)
 mod   <- readRDS(file.path(DIR_INT, "q2_model.rds"))
 nbobj <- readRDS(file.path(DIR_PROC, "q1_neighbours.rds"))
 
-ALPHA     <- 0.05
 N_IMPACTS <- 2000   # simulations for impact p-values
 
 dat <- mod$data
@@ -21,8 +20,9 @@ ols <- mod$ols
 lw  <- nbobj$lw_queen
 stopifnot(identical(dat$subzone_c, nbobj$subzone_c))
 
-one_sided <- function(term, estimate, p_two) {
-  alt <- coalesce(mod$tested[term], "two.sided")
+# `tested` names the pre-specified one-sided terms (03_ols.R); others get NA.
+one_sided <- function(term, estimate, p_two, tested) {
+  alt <- coalesce(tested[term], "two.sided")
   if_else(alt == "less", if_else(estimate < 0, p_two / 2, 1 - p_two / 2), NA_real_)
 }
 
@@ -47,9 +47,9 @@ final <- case_when(rob[["adjRSerr"]] < ALPHA & rob[["adjRSlag"]] < ALPHA ~
 sem <- errorsarlm(formula(ols), data = dat, listw = lw)
 slm <- lagsarlm(formula(ols), data = dat, listw = lw)
 
-coef_table <- function(co, model) {
+coef_table <- function(co, model, tested) {
   tibble(model = model, term = rownames(co), estimate = co[, 1], se = co[, 2], p_two_sided = co[, 4]) %>%
-    mutate(p_one_sided = one_sided(term, estimate, p_two_sided))
+    mutate(p_one_sided = one_sided(term, estimate, p_two_sided, tested))
 }
 
 # Lag model: total impact of each predictor, with simulated standard errors.
@@ -59,14 +59,14 @@ lag_total <- tibble(model = "spatial lag (total impact)", term = sub(" dy/dx$", 
                     estimate = as.numeric(imp$res$total),
                     se = as.numeric(imp$semat[, "Total"]),
                     p_two_sided = as.numeric(imp$pzmat[, "Total"])) %>%
-  mutate(p_one_sided = one_sided(term, estimate, p_two_sided))
+  mutate(p_one_sided = one_sided(term, estimate, p_two_sided, mod$tested))
 
-coefs <- bind_rows(coef_table(summary(ols)$coefficients, "OLS"),
-                   coef_table(summary(sem)$Coef, "spatial error"),
-                   coef_table(summary(slm)$Coef, "spatial lag (coefficient)"),
+coefs <- bind_rows(coef_table(summary(ols)$coefficients, "OLS", mod$tested),
+                   coef_table(summary(sem)$Coef, "spatial error", mod$tested),
+                   coef_table(summary(slm)$Coef, "spatial lag (coefficient)", mod$tested),
                    lag_total)
 
-diag <- tibble(
+diag_tab <- tibble(
   residual_moran_I = as.numeric(mi$estimate[1]), residual_moran_p = as.numeric(mi$p.value),
   robust_lm_error_p = rob[["adjRSerr"]], robust_lm_lag_p = rob[["adjRSlag"]],
   lambda_error = as.numeric(sem$lambda), rho_lag = as.numeric(slm$rho),
@@ -78,8 +78,8 @@ mod$sem <- sem; mod$slm <- slm; mod$final <- final
 saveRDS(mod, file.path(DIR_INT, "q2_model.rds"))
 write_csv(lm_tab %>% mutate(across(where(is.numeric), ~ signif(.x, 4))), file.path(DIR_TAB, "q2_lm_tests.csv"))
 write_csv(coefs %>% mutate(across(where(is.numeric), ~ signif(.x, 4))), file.path(DIR_TAB, "q2_models.csv"))
-write_csv(diag %>% mutate(across(where(is.numeric), ~ signif(.x, 4))), file.path(DIR_TAB, "q2_spatial_diagnostics.csv"))
-log_step("residual Moran's I ", round(diag$residual_moran_I, 3), " (p = ", signif(diag$residual_moran_p, 2),
+write_csv(diag_tab %>% mutate(across(where(is.numeric), ~ signif(.x, 4))), file.path(DIR_TAB, "q2_spatial_diagnostics.csv"))
+log_step("residual Moran's I ", round(diag_tab$residual_moran_I, 3), " (p = ", signif(diag_tab$residual_moran_p, 2),
          "); robust LM error p = ", signif(rob[["adjRSerr"]], 2), ", lag p = ", signif(rob[["adjRSlag"]], 2),
-         "; final model: ", final, " (AIC OLS ", round(diag$aic_ols, 1), ", error ", round(diag$aic_error, 1),
-         ", lag ", round(diag$aic_lag, 1), ")")
+         "; final model: ", final, " (AIC OLS ", round(diag_tab$aic_ols, 1), ", error ", round(diag_tab$aic_error, 1),
+         ", lag ", round(diag_tab$aic_lag, 1), ")")

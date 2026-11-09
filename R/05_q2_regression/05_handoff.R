@@ -20,7 +20,7 @@ dat <- mod$data
 r2_full    <- summary(mod$ols)$r.squared
 r2_density <- summary(lm(score ~ log_density, data = dat))$r.squared
 share      <- r2_density / r2_full
-call       <- if (share > DENSITY_SHARE_MAX) "adjusted" else "raw"
+cluster_on <- if (share > DENSITY_SHARE_MAX) "adjusted" else "raw"
 
 adjusted <- dat %>% select(subzone_c)
 for (k in CATEGORIES) {
@@ -46,11 +46,11 @@ resid <- tibble(subzone_c = dat$subzone_c,
                 model = mod$final)
 
 write_csv(tibble(r2_density = r2_density, r2_full = r2_full, density_share = share,
-                 threshold = DENSITY_SHARE_MAX, q3_clusters_on = call) %>%
+                 threshold = DENSITY_SHARE_MAX, q3_clusters_on = cluster_on) %>%
             mutate(across(where(is.numeric), ~ round(.x, 4))),
           file.path(DIR_TAB, "q2_density_share.csv"))
 write_csv(adjusted %>% mutate(across(-subzone_c, ~ round(.x, 4))), file.path(DIR_PROC, "q2_adjusted_scores.csv"))
 write_csv(resid %>% mutate(residual = round(residual, 4)), file.path(DIR_PROC, "q2_residuals.csv"))
 log_step("density alone explains R2 ", round(r2_density, 3), " of ", round(r2_full, 3), " (share ",
-         round(share, 2), ", threshold ", DENSITY_SHARE_MAX, "): Q3 clusters on ", call,
+         round(share, 2), ", threshold ", DENSITY_SHARE_MAX, "): Q3 clusters on ", cluster_on,
          " scores; residuals from the ", mod$final, " model")
