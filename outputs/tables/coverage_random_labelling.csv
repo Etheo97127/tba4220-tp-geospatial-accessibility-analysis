@@ -1,3 +1,3 @@
 set,role,n_points,n_missed,statistic,direction,p_value,p_holm
-ecda,headline,1809,1617,105921.0421890486,clustered,0.509,0.509
-chas,supplementary,943,713,1047330.8281884864,clustered,0.003,0.003
+ecda,headline,1974,1782,135740.17480882443,clustered,0.318,0.318
+chas,supplementary,1192,927,1277765.3731859215,clustered,0.001,0.001

@@ -94,7 +94,7 @@ if (file.exists(rl_path)) {
   env_df <- bind_rows(lapply(rl[c("ecda", "chas")], function(z) {
     e <- z$env
     st <- rl_stats %>% filter(set == z$set)
-    lab <- sprintf("%s\n%s distinct locations, %s missed  |  %s",
+    lab <- sprintf("%s\n%s facilities, %s missed  |  %s",
                    ifelse(z$set == "chas", "CHAS clinics (supplementary)", "ECDA preschools"),
                    comma(z$n), comma(z$n_missed), fmt_p(st$p_value))
     tibble(set = lab, r = e$r,
@@ -111,7 +111,7 @@ if (file.exists(rl_path)) {
                          rl_stats$claim[rl_stats$set == "ecda"], rl_stats$claim[rl_stats$set == "chas"]),
          subtitle = "Observed K of the missed facilities minus the mean over 999 random relabellings.\nBand: the 999 relabellings. A line above the band means the gaps are more clustered than chance.",
          x = "distance r (m)", y = "K(r) - permutation mean",
-         caption = "Random labelling permutes matched/missed over fixed facility locations, so it tests clustering of the gaps beyond the clustering of the facilities themselves.\nCo-located facilities are collapsed to one point, which is why the counts are below the full reference totals.") +
+         caption = "Random labelling permutes matched/missed over fixed facility locations, so it tests clustering of the gaps beyond the clustering of the facilities themselves.\nCo-located facilities stay separate points; facilities outside the simplified coastline are left out.") +
     theme_cov
   ggsave(file.path(DIR_FIG, "coverage_random_labelling.png"), p3,
          width = 7.2, height = 3.2, dpi = 300, bg = "white")

@@ -25,8 +25,9 @@
 >   difference +0.8 pp, 95% CI −2.0 to +3.6 pp, **p = 0.61**. The arms detect a gap
 >   of **3.8 pp** at 80% power and alpha 0.05, so this null result does not come
 >   from low power.
-> - **Random labelling p = 0.51**: missed preschools cluster no more than the
->   preschools themselves.
+> - **Random labelling p = 0.32** (1,974 preschools, co-located ones kept as
+>   separate points): missed preschools cluster no more than the preschools
+>   themselves.
 > - **Logistic** `missed ~ maturity + dist_cbd_km`: non-mature **OR 0.36**
 >   (0.22–0.58, p < 0.001), distance OR 1.15 per km. The maturity effect from the
 >   old pooled fit survives on ECDA alone, but read it as supporting evidence
@@ -43,7 +44,7 @@
 >   prior sample size is kappa = 17.5.
 > - CHAS, supplementary: recall 22.2% (19.9–24.7%). Miss rate 78.6% mature vs
 >   73.4% non-mature, p = 0.06, MDD 7.4 pp. Logistic OR 0.53 (0.34–0.81).
->   Random labelling p = 0.003.
+>   Random labelling p = 0.001.
 >
 > - **Matcher error** (`06_matcher_error.R`, verdicts in
 >   `data/external/coverage_validation_verdicts.csv`, unsure rows excluded): ECDA

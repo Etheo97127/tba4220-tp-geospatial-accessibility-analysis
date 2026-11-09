@@ -127,9 +127,11 @@ random_label_test <- function(set_name, nsim = 999) {
   pts <- reference %>%
     inner_join(mt %>% filter(set == set_name) %>% select(ref_id, missed), by = "ref_id")
   xy <- st_coordinates(pts)
+  # Co-located facilities (two preschools in one block) stay separate points.
+  # unique.ppp() would drop a duplicate only when its label matches too, so it
+  # thinned same-label pairs alone and removed the very co-location under test.
   X <- ppp(xy[, 1], xy[, 2], window = win,
            marks = factor(ifelse(pts$missed, "missed", "found")))
-  X <- unique.ppp(X)                       # duplicated points break Kcross
   # One set of simulations, reused for both the envelope and the test statistic.
   # Border correction: the window is a union of 332 polygons, and the analytic
   # edge corrections on it are what make this intractable.
