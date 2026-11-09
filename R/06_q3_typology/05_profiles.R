@@ -5,7 +5,8 @@
 # not "under-served", which the plan reserves for a negative Q2 residual)
 # plus any category standing more than 0.5 SD above or below the type's own
 # mean. Unstable types are reported as unstable, not named. When 02's null test
-# finds no discrete structure, the groups are named as halves of one gradient.
+# finds no discrete structure, the groups are named as ends or bands of one
+# gradient.
 
 source("R/00_setup.R")
 library(ggplot2)
