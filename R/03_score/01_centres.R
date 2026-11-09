@@ -62,14 +62,12 @@ saveRDS(centres %>% select(subzone_c, centre_method, n_buildings), file.path(DIR
 
 # Check by eye, as the plan asks: centres over subzones, fallbacks highlighted.
 p <- ggplot() +
-  geom_sf(data = subzones, fill = "#f2f1ee", colour = "white", linewidth = 0.15) +
+  geom_sf(data = subzones, fill = PAL_DIV[["mid"]], colour = "white", linewidth = 0.15) +
   geom_sf(data = centres, aes(colour = centre_method), size = 0.7) +
-  scale_colour_manual(values = c(buildings = "#1c5cab", point_on_surface = "#c2410c"), name = NULL) +
+  scale_colour_manual(values = c(buildings = PAL_CAT[1], point_on_surface = PAL_CAT[2]), name = NULL) +
   labs(title = paste0("Subzone centres used for the ", RADIUS_M / 1000, " km access count"),
        subtitle = "Blue: floor-area-weighted mean of residential buildings. Orange: no residential buildings mapped, polygon point used.",
        caption = "Source: OSM residential building footprints; MP19 subzones.") +
-  theme_void(base_size = 9) +
-  theme(plot.title = element_text(face = "bold", size = 10),
-        plot.subtitle = element_text(size = 8), plot.caption = element_text(size = 7, hjust = 0),
-        legend.position = "bottom")
-ggsave(file.path(DIR_FIG, "score_centres_map.png"), p, width = 7.8, height = 4.6, dpi = 300, bg = "white")
+  theme_map() +
+  theme(legend.position = "bottom")
+save_fig(p, "score_centres_map.png")
