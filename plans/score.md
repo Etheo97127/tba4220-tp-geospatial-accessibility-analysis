@@ -23,7 +23,8 @@ Owner: Qu Haotian. Code: `R/01_prep/`, `R/03_score/`. On the critical path: Q1-Q
 - [x] Score v0 (A5): weighted composite + equal-weight variant + variety count, `R/03_score/02_score.R`
 - [x] Radius variants (A8, part): 800 m and 1.2 km composites with rank agreement in `outputs/tables/score_robustness.csv`
 - [x] Freeze v1 (A8): decisions agreed 2026-11-09 and H2 published; score reruns unchanged; tagged `score-v1`. From here a change to `score_subzone.rds` needs a dated note in `docs/decisions.md` and a rerun of Q1–Q3
-- [ ] Coverage check write-up (code done in `R/02_coverage/`, ECDA headline with CHAS supplementary; status and numbers in `plans/coverage_check.md`)
+- [x] Coverage check write-up, in the data and score section (A9)
+- [x] A9 data and score section: `report/sections/02_data_and_score.Rmd`; every number read from `outputs/tables` and `data/processed`
 
 Next:
 - A6: pull the footway network (`highway` = footway, path, pedestrian, steps, residential,

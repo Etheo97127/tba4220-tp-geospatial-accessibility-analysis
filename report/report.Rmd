@@ -16,6 +16,7 @@ link-citations: true
 # then render with `Rscript report/render.R`. Every number in the text comes from
 # those files, so the report cannot drift from the pipeline.
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, dpi = 300)
+suppressPackageStartupMessages({ library(dplyr); library(sf) })
 ROOT <- normalizePath("..", winslash = "/")
 fig  <- function(name) file.path(ROOT, "outputs", "figures", name)
 tab  <- function(name) readr::read_csv(file.path(ROOT, "outputs", "tables", name), show_col_types = FALSE)
