@@ -18,11 +18,23 @@ high  <- types$cluster[grepl("^High", types$name)]
 sc    <- readRDS(file.path(ROOT, "data", "processed", "score_subzone.rds")) %>% st_drop_geometry() %>% filter(residential)
 pc1   <- summary(prcomp(scale(sc[paste0("score_", names(CAT_LAB))])))$importance[2, 1]
 prof  <- tab("q3_profiles.csv") %>% filter(cluster == low)
+mat_ext <- readr::read_csv(file.path(ROOT, "data", "external", "town_maturity.csv"), show_col_types = FALSE)
 # Blocks that carry a town label are the units H0(a) permutes.
 n_lab_blocks <- proc("q1_blocks.csv") %>%
   left_join(proc("census2020_subzone.csv") %>% select(subzone_c, pln_area_n), by = "subzone_c") %>%
-  left_join(readr::read_csv(file.path(ROOT, "data", "external", "town_maturity.csv"), show_col_types = FALSE) %>% select(pln_area_n, maturity), by = "pln_area_n") %>%
+  left_join(mat_ext %>% select(pln_area_n, maturity), by = "pln_area_n") %>%
   filter(maturity %in% c("mature", "non-mature")) %>% distinct(block_id) %>% nrow()
+# What H0(a) leaves out: the Central Area (mature in HDB's list, excluded by
+# design), private Tanglin and non-town areas.
+res_pa <- proc("residential_set.csv") %>% filter(residential) %>% select(subzone_c) %>%
+  left_join(proc("census2020_subzone.csv") %>% select(subzone_c, pln_area_n, pop, dw_hdb, dw_total), by = "subzone_c") %>%
+  left_join(mat_ext %>% select(pln_area_n, maturity, note), by = "pln_area_n") %>%
+  mutate(central = maturity == "excluded" & grepl("Central Area", note))
+excl <- res_pa %>% filter(maturity == "excluded")
+hdb_central <- res_pa %>% filter(central) %>% group_by(pln_area_n) %>%
+  summarise(hdb = sum(dw_hdb) / sum(dw_total), .groups = "drop") %>% filter(hdb > 0.5) %>%
+  pull(pln_area_n) %>% tolower() %>% tools::toTitleCase()
+hh_comp <- proc("q1_lisa.csv") %>% filter(variable == "score", cluster == "High-High")
 ```
 
 # Q3: What kinds of neighbourhood exist?
@@ -51,6 +63,6 @@ knitr::include_graphics(fig("q3_profiles.png"))
 knitr::include_graphics(fig("q3_types_map.png"))
 ```
 
-**H₀(a): not rejected.** The low-access end holds `r pct(share("mature", low), 0)` of mature-town subzones and `r pct(share("non-mature", low), 0)` of non-mature ones, a gap of `r num(100 * abs(share("mature", low) - share("non-mature", low)), 0)` points. Neighbouring subzones are not independent, so the textbook χ² p-value would be too small. Instead, town labels were permuted between whole blocks (the label is set by planning area, so shuffling within a block would change nothing). The gap is within chance (χ² = `r num(ta$observed, 2)`, p = `r num(ta$p_value, 2)`) [@good2005]. But only `r n_lab_blocks` labelled blocks can be exchanged, so the test has little power: this is no evidence of a difference, not evidence of equal mixes. Central and largely private planning areas, which belong to neither group, are left out.
+**H₀(a): not rejected.** The low-access end holds `r pct(share("mature", low), 0)` of mature-town subzones and `r pct(share("non-mature", low), 0)` of non-mature ones, a gap of `r num(100 * abs(share("mature", low) - share("non-mature", low)), 0)` points. Neighbouring subzones are not independent, so the textbook χ² p-value would be too small. Instead, town labels were permuted between whole blocks (the label is set by planning area, so shuffling within a block would change nothing). The gap is within chance (χ² = `r num(ta$observed, 2)`, p = `r num(ta$p_value, 2)`) [@good2005]. But only `r n_lab_blocks` labelled blocks can be exchanged, so the test has little power: this is no evidence of a difference, not evidence of equal mixes. HDB counts the Central Area as a mature estate, but we leave its planning areas out by design, as we do largely private Tanglin and a few non-town areas: `r nrow(excl)` residential subzones with `r pct(sum(excl$pop) / sum(res_pa$pop), 0)` of residents. Most Central Area subzones are private or commercial, though `r paste(hdb_central, collapse = " and ")` hold HDB estates. The exclusion matters for reading the result: the Central Area holds `r sum(hh_comp$subzone_c %in% res_pa$subzone_c[res_pa$central])` of the composite's `r nrow(hh_comp)` hot-spot subzones from Q1, so H₀(a) compares the heartland towns, not the city centre with the rest.
 
 **H₀(b): rejected, but the test cannot discriminate.** Q2's residuals were permuted within blocks. The low-access end averages `r num(abs(rbt$mean_residual[rbt$cluster == low]), 1)` points below what the five Q2 predictors imply, and the high-access end `r num(rbt$mean_residual[rbt$cluster == high], 1)` above (F = `r num(tb$observed, 1)`, p ≤ 0.001, the permutation floor). But the groups are cut by score level, and the residual is the score minus its prediction. Whenever the model leaves anything unexplained, the low group must get negative residuals, so this test rejects by construction. We report the residual means as a description only.
