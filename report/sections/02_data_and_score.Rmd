@@ -36,7 +36,10 @@ n_worse  <- sum(qflag$quality_flag == "worse", na.rm = TRUE)
 r800    <- rob$spearman[rob$column == "score_r800"]
 r1200   <- rob$spearman[rob$column == "score_r1200"]
 cut_hi  <- max(resn$cut_off); cut_lo <- min(resn$cut_off)
-maps_left <- nrow(read.csv(file.path(ROOT, "human_actions", "maps_check_rows.csv")))
+# Rows still flagged for a Google Maps check; settled rows are set to FALSE.
+verdicts  <- readr::read_csv(file.path(ROOT, "data", "external", "coverage_validation_verdicts.csv"), show_col_types = FALSE)
+maps_left <- sum(verdicts$needs_maps_check)
+prov      <- if (maps_left > 0) ", provisionally" else ""
 req     <- rob$spearman[rob$column == "score_equal"]
 ```
 
@@ -65,13 +68,13 @@ The weights carry three caveats. First, spending share is not trip frequency. Se
 
 ## How complete is OpenStreetMap?
 
-OSM is volunteer-built, so its gaps could bias every later result. We checked one category against a near-complete register: ECDA's licensed preschools [@ecda2026]. Each ECDA centre was matched to an OSM preschool within 50 m that has a similar name (Jaro-Winkler string similarity, which scores near-identical spellings close to 1 [@winkler1990]) or the same postcode. An unnamed OSM preschool within 30 m also counts. Matching was one-to-one, using the Hungarian algorithm, which picks the set of pairs with the best total score [@kuhn1955]. A stratified sample of 160 matched and unmatched pairs was then checked against the OSM database, OpenStreetMap's place search and operators' web pages. `r maps_left` of those rows still await a Google Maps check, so the error rates below are provisional.
+OSM is volunteer-built, so its gaps could bias every later result. We checked one category against a near-complete register: ECDA's licensed preschools [@ecda2026]. Each ECDA centre was matched to an OSM preschool within 50 m that has a similar name (Jaro-Winkler string similarity, which scores near-identical spellings close to 1 [@winkler1990]) or the same postcode. An unnamed OSM preschool within 30 m also counts. Matching was one-to-one, using the Hungarian algorithm, which picks the set of pairs with the best total score [@kuhn1955]. A stratified sample of `r nrow(verdicts)` matched and unmatched pairs was then checked against the OSM database, OpenStreetMap's place search and operators' web pages. `r if (maps_left > 0) sprintf("%d of those rows still await a Google Maps check, so the error rates below are provisional.", maps_left) else "Every row was settled."`
 
 ```{r fig-coverage, fig.cap = "Figure 2. Share of ECDA preschools missing from OSM by subzone, empirical-Bayes shrunk; subzones with fewer than five preschools are grey.", out.width = "100%"}
 knitr::include_graphics(fig("coverage_missrate_map.png"))
 ```
 
-- **Recall is low.** Only `r pct(e_rec$recall)` of ECDA preschools are in OSM (95% CI `r pct(e_rec$ci_lo)`–`r pct(e_rec$ci_hi)`; a Wilson interval, which stays sensible for proportions near 0 [@wilson1927]). In the checked sample the matcher made no false matches (`r e_fm$n_error`/`r e_fm$n_checked`) and missed `r e_fmiss$n_error` of `r e_fmiss$n_checked` preschools that OSM did hold. Correcting for both puts true recall at about `r pct(e_cor$recall_corrected)` (`r pct(e_cor$recall_corrected_lo)`–`r pct(e_cor$recall_corrected_hi)` with both error rates at the ends of their Wilson intervals), provisionally.`r tag_gap_txt` OSM, not the matcher, accounts for most of the gap.
+- **Recall is low.** Only `r pct(e_rec$recall)` of ECDA preschools are in OSM (95% CI `r pct(e_rec$ci_lo)`–`r pct(e_rec$ci_hi)`; a Wilson interval, which stays sensible for proportions near 0 [@wilson1927]). In the checked sample the matcher made no false matches (`r e_fm$n_error`/`r e_fm$n_checked`) and missed `r e_fmiss$n_error` of `r e_fmiss$n_checked` preschools that OSM did hold. Correcting for both puts true recall at about `r pct(e_cor$recall_corrected)` (`r pct(e_cor$recall_corrected_lo)`–`r pct(e_cor$recall_corrected_hi)` with both error rates at the ends of their Wilson intervals)`r prov`.`r tag_gap_txt` OSM, not the matcher, accounts for most of the gap.
 - **No gap between town groups.** Mature and non-mature towns miss `r pct(e_prop$p_mature)` and `r pct(e_prop$p_nonmature)` of their preschools (two-proportion test, p `r p_fmt(e_prop$p_value)`). The arms could have detected a gap of `r num(e_prop$mdd_pp, 1)` points at 80% power [@cohen1988], so this null result is not just low power.
 - **Missed preschools are not clustered.** Random labelling with cross-K [@baddeley2015] finds that missed preschools cluster no more than preschools themselves (p `r p_fmt(e_rl$p_value)`). A logistic regression of the odds that a preschool is missing [@james2021], controlling for distance to the CBD, gives non-mature towns lower odds of a miss (odds ratio `r num(e_or$OR, 2)`). That effect rests on two north-eastern towns, Sengkang and Hougang, which are better mapped than average: without both, the odds ratio is `r num(e_both$OR, 2)` (p = `r num(e_both$p_value, 2)`), no detectable effect.
 

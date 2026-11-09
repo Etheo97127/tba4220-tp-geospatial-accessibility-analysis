@@ -35,6 +35,10 @@ in the same file, then hand it back. How results are applied:
   exists and OSM lacks it).
 - **not found**: stays `unsure`.
 
+Each row applied gets `needs_maps_check` set to `FALSE` in
+`data/external/coverage_validation_verdicts.csv`. The report counts the rows still
+`TRUE`, and stops calling the error rates provisional once none are left.
+
 The false-match and false-miss rates in `outputs/tables/coverage_matcher_error.csv`
 then tighten. The sample (40 per group) is large enough; it does not need to grow.
 
