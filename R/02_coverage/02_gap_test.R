@@ -54,7 +54,7 @@ prop_one <- function(df, set_name, label, role) {
   # Cohen's h, then turn h back into a gap in miss rate centred on the observed
   # overall miss rate. h is on the arcsine scale, so near 0 or 1 the same h is
   # a smaller gap in percentage points than near 50%.
-  h_mdd <- pwr.2p2n.test(n1 = m$n, n2 = nm$n, sig.level = 0.05, power = 0.80)$h
+  h_mdd <- pwr.2p2n.test(n1 = m$n, n2 = nm$n, sig.level = ALPHA, power = 0.80)$h
   p0 <- (m$missed + nm$missed) / (m$n + nm$n)
   gap <- uniroot(function(g) ES.h(p0 + g / 2, p0 - g / 2) - h_mdd,
                  c(0, 2 * min(p0, 1 - p0)))$root

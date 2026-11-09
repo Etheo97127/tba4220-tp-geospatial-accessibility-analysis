@@ -68,10 +68,10 @@ save_fig(p1, "coverage_threshold_sensitivity.png", width = 7.2, height = 3.2)
 rl_path <- file.path(DIR_INT, "random_labelling.rds")
 if (file.exists(rl_path)) {
   rl <- readRDS(rl_path)
-  # The MAD test is two-sided: "beyond chance" needs p < 0.05 and the observed
+  # The MAD test is two-sided: "beyond chance" needs p < ALPHA and the observed
   # K above the permutation mean at its largest departure.
   rl_stats <- read_csv(file.path(DIR_TAB, "coverage_random_labelling.csv"), show_col_types = FALSE) %>%
-    mutate(claim = case_when(p_value >= 0.05          ~ "cluster no more than chance",
+    mutate(claim = case_when(p_value >= ALPHA         ~ "cluster no more than chance",
                              direction == "clustered" ~ "cluster beyond chance",
                              TRUE                     ~ "are more dispersed than chance"))
   # K(r) grows like r^2, which swamps the departure we care about. Centre each
@@ -110,7 +110,7 @@ if (file.exists(rl_path)) {
 # the mature / non-mature axis, so a CHAS split would confound the two.
 
 pt <- prop_test %>% filter(set == "ecda")
-split_claim <- ifelse(pt$p_value < 0.05, "Preschool gaps differ by town maturity",
+split_claim <- ifelse(pt$p_value < ALPHA, "Preschool gaps differ by town maturity",
                       "No mature / non-mature split in preschool gaps")
 
 pa <- mt %>% filter(set == "ecda", maturity %in% c("mature", "non-mature")) %>%
