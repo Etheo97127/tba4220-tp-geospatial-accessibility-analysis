@@ -17,6 +17,11 @@ Proposal: [`docs/proposal/proposal_submitted.docx`](docs/proposal/proposal_submi
 | Q2 | Zachary Chng Yao Wei | What explains access, and how much is just density? (OLS / spatial error) | `R/05_q2_regression/` | [q2](plans/q2_regression.md) |
 | Q3 | Coltrane Yao Zhiming | What kinds of neighbourhood exist? (k-means, block bootstrap) | `R/06_q3_typology/` | [q3](plans/q3_typology.md) |
 
+**Bonus track (outside the project).** How far do people really walk compared with the
+1 km straight line? Answered after the project, with GenAI assistance, on branch
+`claude/score-a6-calibration-3fcbb3`. It is never merged into `master`; the project keeps
+straight-line distance and the report lists it as a known caveat.
+
 ```
 prep ──> coverage
   └────> score ──> Q1 ──> Q2 ──> Q3

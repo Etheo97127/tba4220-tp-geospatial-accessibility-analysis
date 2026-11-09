@@ -19,7 +19,10 @@ Owner: Qu Haotian. Code: `R/01_prep/`, `R/03_score/`. On the critical path: Q1-Q
 - [x] OSM extraction for all six categories: one scripted snapshot, `R/01_prep/00_fetch_osm.R` → `data/raw/sg/osm/`
 - [x] Tag -> category lookup: `data/external/osm_crosswalk.csv`, which also generates the Overpass queries
 - [x] Population-weighted centre per subzone: `R/03_score/01_centres.R` (OSM residential footprints × storeys)
-- [ ] Distance calibration (A6): route ~200 sample journeys on the footway network, compare to straight line. Needs a footway pull; off the critical path
+- [x] Distance calibration (A6): **bonus track, never merged into `master`.** The project uses
+  straight-line distance and reports it as a known caveat (Discussion). Routed walks were
+  measured after the project on branch `claude/score-a6-calibration-3fcbb3`, with GenAI
+  assistance; their numbers do not enter the report
 - [x] Score v0 (A5): weighted composite + equal-weight variant + variety count, `R/03_score/02_score.R`
 - [x] Radius variants (A8, part): 800 m and 1.2 km composites with rank agreement in `outputs/tables/score_robustness.csv`
 - [x] Freeze v1 (A8): decisions agreed 2026-11-09 and H2 published; score reruns unchanged; tagged `score-v1`. From here a change to `score_subzone.rds` needs a dated note in `docs/decisions.md` and a rerun of Q1–Q3
@@ -27,8 +30,6 @@ Owner: Qu Haotian. Code: `R/01_prep/`, `R/03_score/`. On the critical path: Q1-Q
 - [x] A9 data and score section: `report/sections/02_data_and_score.Rmd`; every number read from `outputs/tables` and `data/processed`
 
 Next:
-- A6: pull the footway network (`highway` = footway, path, pedestrian, steps, residential,
-  service) through `00_fetch_osm.R` (tile it like the buildings), then route ~200 pairs.
 - Tell Q3: food services, retail and food retail correlate 0.84–0.88 across the 201
   residential subzones (`outputs/tables/score_category_correlation.csv`). Unless k-means
   allows for that, it will mostly see one general-access axis. Recreation correlates
