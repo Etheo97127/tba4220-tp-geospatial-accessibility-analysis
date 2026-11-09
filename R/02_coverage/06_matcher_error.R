@@ -22,12 +22,14 @@ MATCHER_MISS <- c("in_osm_far", "in_osm_other_name")   # in the POI layer: the m
 TAG_GAP      <- "in_osm_other_tag"                      # in OSM, but outside the POI layer
 
 # A verdict applies only to the pair it was given for; a changed match is unchecked.
+# Any change upstream (OSM, matcher, seed) redraws the sample, and rates computed
+# on the rows that still have verdicts would come from a non-random subset.
 checked <- samp %>% select(set, stratum, ref_id, osm_id) %>%
   mutate(osm_id = coalesce(osm_id, "")) %>%
   left_join(verdicts %>% mutate(sample_osm_id = coalesce(sample_osm_id, "")),
             by = c("set", "stratum", "ref_id", "osm_id" = "sample_osm_id"))
 n_unchecked <- sum(is.na(checked$verdict))
-if (n_unchecked) log_step("WARNING: ", n_unchecked, " sample rows have no verdict for their current pair")
+if (n_unchecked) stop(n_unchecked, " validation rows have no verdict for their current pair: check them first")
 
 error_rate <- function(d, stratum) {
   d <- d %>% filter(verdict %in% c("correct", "incorrect"))
@@ -38,7 +40,7 @@ error_rate <- function(d, stratum) {
          n_tag_gap = sum(wrong & d$reason %in% TAG_GAP))
 }
 
-err <- checked %>% filter(!is.na(verdict)) %>%
+err <- checked %>%
   group_by(set, stratum) %>%
   group_modify(~ error_rate(.x, .y$stratum) %>% mutate(n_unsure = sum(.x$verdict == "unsure"))) %>%
   ungroup()
