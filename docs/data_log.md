@@ -1,6 +1,13 @@
-# Download log
+# Data log
 
-One row per raw file. All Singapore; Q1 is Singapore-only.
+Every dataset the project uses: §1 logs each raw file (source, date, md5,
+licence), §2 says what to know before trusting each source, §3 lists links
+kept for later. A new raw file needs a `00_fetch_*.R` script and a row in §1.
+
+## 1. Download log
+
+One row per raw file, all Singapore. The Source column is the human page; open
+it to eyeball the dataset.
 
 | File (under `data/raw/sg/`) | Dataset | Source | Downloaded | Licence | md5 | Notes |
 |---|---|---|---|---|---|---|
@@ -28,3 +35,62 @@ One row per raw file. All Singapore; Q1 is Singapore-only.
 | `osm/osm_residential_buildings_nw2.json` | OSM residential building footprints, tile `nw2` | https://overpass-api.de/api/interpreter (area 3600536780) | 2026-11-02 | ODbL 1.0 | `b6337dec87ce9ea6f95bdebb28d7d20b` | 16,571,205 B, 11,898 ways with geometry, OSM base 2026-11-02T15:39:27Z. Tile extents in `TILES`, `R/01_prep/00_fetch_osm.R`; query saved as `.overpassql` |
 | `osm/osm_residential_buildings_se.json` | OSM residential building footprints, tile `se` | https://overpass-api.de/api/interpreter (area 3600536780) | 2026-11-02 | ODbL 1.0 | `f553cf8ff541c521c91224880501d037` | 10,859,917 B, 9,652 ways with geometry, OSM base 2026-11-02T15:26:05Z. Tile extents in `TILES`, `R/01_prep/00_fetch_osm.R`; query saved as `.overpassql` |
 | `osm/osm_residential_buildings_sw.json` | OSM residential building footprints, tile `sw` | https://overpass-api.de/api/interpreter (area 3600536780) | 2026-11-02 | ODbL 1.0 | `f8bff5d1b5d1e01d308f32d74e5ce995` | 14,532,679 B, 13,262 ways with geometry, OSM base 2026-11-02T15:20:02Z. Tile extents in `TILES`, `R/01_prep/00_fetch_osm.R`; query saved as `.overpassql` |
+
+## 2. Reading the sources
+
+Singapore links were resolved through the data.gov.sg v2 API on 2026-09-16, so
+IDs, names and last-updated dates are what the portal returned. The fetch
+scripts call `https://api-open.data.gov.sg/v1/public/api/datasets/<id>/poll-download`,
+which returns a JSON envelope with a short-lived signed URL, not the file.
+
+- **Pre-Schools Location is a cross-check only.** It is the combined ECDA file but
+  has no postal codes and was last refreshed 2024-06. Child Care Services +
+  Kindergartens are used instead: they have postal codes (needed for the
+  postcode-match rule) and were refreshed 2026-04. The two overlap: 2,373 rows
+  collapse to **1,975 distinct centres**, the same centre listed twice at
+  identical coordinates.
+- **Health Facilities is aggregate counts by year, not a facility list.** It is
+  only an independent denominator: it puts national GP clinics near ~1,800, which
+  is how we know CHAS (1,193) is a subset (`docs/consideration.md` §2).
+- **CHAS was last updated 2024-06**, about two years behind the OSM snapshot, so
+  some "missed" clinics have closed.
+- **HES weights come from the Quinquennial file, not a "HES 2023" table.** The
+  detailed HES tables (by goods and services *and* income quintile) stop at
+  2017/18; the Quinquennial series (1993–2023) is the only file with 2023
+  figures and has no income breakdown. The proposal's weights reconcile with it
+  exactly:
+
+  | Category | S$/month | Line in the Quinquennial file |
+  |---|---|---|
+  | Food services | 965.7 | Food And Beverage Serving Services |
+  | Retail goods | 504.2 | Clothing And Footwear (119.6) + Furnishing, Household Equipment and Routine Household Maintenance (384.6) |
+  | Health | 473.5 | Health |
+  | Food retail | 455.9 | Food And Non-Alcoholic Beverages |
+  | Education | 404.2 | Education |
+  | Recreation, sport and culture | 334.7 | Recreation, Sport And Culture |
+  | **Total** | **3,138.2** | sums exactly |
+
+  "Retail goods" is a derived sum of two COICOP divisions, not a published line;
+  the report says so. Income-varying weights would need SingStat Table Builder
+  (<https://tablebuilder.singstat.gov.sg/>, 403 to scripts, works in a browser).
+- **OSM** is pulled through Overpass with area `3600536780` (relation 536780),
+  which clips to the national boundary instead of a bounding box that would take
+  in Johor Bahru. `R/01_prep/00_fetch_osm.R` builds each query from
+  `data/external/osm_crosswalk.csv` and saves it beside its result as
+  `data/raw/sg/osm/*.overpassql`. The 2026-11-02 pull is the snapshot every stage
+  uses; the September `osm_health.json` and `osm_education.json` are history.
+  Opening the Overpass URL in a browser gives a 406 (it needs a descriptive
+  User-Agent); paste a saved query into Overpass Turbo instead.
+
+Licences: data.gov.sg files are under the Singapore Open Data Licence 1.0
+(<https://data.gov.sg/open-data-licence>); OSM is ODbL 1.0, attribution required
+and share-alike on derived databases (<https://www.openstreetmap.org/copyright>).
+
+## 3. Not downloaded, kept for later
+
+| Source | Link | Why it might be needed |
+|---|---|---|
+| Hawker Centres (NEA, GeoJSON, updated 2026-09-16) | [view](https://data.gov.sg/datasets/d_4a086da0a5553be1d89383cd90d07ecd/view) | a third coverage benchmark, for food services |
+| Overpass Turbo | <https://overpass-turbo.eu/> | run a saved query visually |
+| Geofabrik Malaysia/Singapore/Brunei extract | <https://download.geofabrik.de/asia/malaysia-singapore-brunei.html> | full OSM extract; Singapore is not a standalone file |
+| OneMap Search API | <https://www.onemap.gov.sg/apidocs/> | address/postcode → SVY21 geocoding, if a reference list arrives as addresses only |

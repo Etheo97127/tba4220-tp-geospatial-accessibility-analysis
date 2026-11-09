@@ -80,7 +80,6 @@ data/
   external/             hand-built lookups, e.g. town_maturity    (committed)
   interim/              intermediate objects                      (ignored, regenerated)
   processed/            hand-off tables between stages            (committed)
-  DATA_SOURCES.md       every dataset with a link
 outputs/figures, tables written by scripts, never hand-edited, prefixed by stage
 outputs/slides/         project deck (.pptx), built by report/slides/build_slides.js
 report/                 report.Rmd + one child section per owner (reads outputs/, data/processed/, data/external/)

@@ -92,8 +92,8 @@ Small commits, each reviewable in a few minutes.
 - Branch per task, prefixed by workstream: `score/`, `coverage/`, `q1/`, `q2/`, `q3/`,
   `docs/`. PR to `master`; never commit to `master` directly.
 - Before committing, run the stage you touched and update whatever the change makes
-  stale, in the same commit: plan checkbox, `docs/data_log.md`,
-  `data/DATA_SOURCES.md`, README hand-off table, `docs/consideration.md`.
+  stale, in the same commit: plan checkbox, `docs/data_log.md`, README hand-off
+  table, `docs/consideration.md`.
 - Never commit `data/interim/`, `*.osm.pbf`, `.Renviron`, credentials or
   `.claude/worktrees/`.
 
