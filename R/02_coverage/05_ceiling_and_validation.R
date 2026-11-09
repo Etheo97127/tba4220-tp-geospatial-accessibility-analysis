@@ -6,8 +6,8 @@
 #     reference facilities have ANY OSM feature of the right category nearby.
 #     No name-based matcher can beat this. If measured recall sits close to the
 #     ceiling, the matcher is not the binding constraint.
-# (2) A stratified sample for manual verification, written out with blank
-#     verdict columns. Someone has to open these and look.
+# (2) A stratified sample for verification. Verdicts live in
+#     data/external/coverage_validation_verdicts.csv; 06 turns them into error rates.
 
 source("R/00_setup.R")
 library(binom)
@@ -75,6 +75,3 @@ write_csv(samp, file.path(DIR_TAB, "coverage_validation_sample.csv"))
 log_step("validation sample written: ", nrow(samp), " rows, ",
          sum(samp$stratum == "accepted match"), " accepted / ",
          sum(samp$stratum != "accepted match"), " rejected")
-cat("\nFill in the `verdict` column (correct / incorrect / unsure) by hand, then\n",
-    "false-match rate = incorrect among 'accepted match';\n",
-    "false-miss rate  = incorrect among 'rejected'.\n", sep = "")

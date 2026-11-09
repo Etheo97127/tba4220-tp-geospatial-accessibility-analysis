@@ -45,6 +45,14 @@
 >   73.4% non-mature, p = 0.06, MDD 7.4 pp. Logistic OR 0.53 (0.34–0.81).
 >   Random labelling p = 0.003.
 >
+> - **Matcher error** (`06_matcher_error.R`, verdicts in
+>   `data/external/coverage_validation_verdicts.csv`, unsure rows excluded): ECDA
+>   false-match 0/40, false-miss 3/38 (7.9%); CHAS false-match 3/40 (7.5%), all
+>   from the postcode rule in multi-tenant buildings, false-miss 3/37 (8.1%), all
+>   clinics in OSM just beyond 50 m. Corrected recall: **ECDA 9.7% → 16.8%**,
+>   CHAS 22.2% → 26.9%. OSM is still missing about four in five preschools; the
+>   matcher accounts for under half of the measured gap.
+>
 > For section 6, the result points to the "recall low but uniform" case, with
 > the north-east caveat from the logistic fit.
 
@@ -289,3 +297,14 @@ Not part of Q1's question, but it is what the other three are waiting on.
 - **A null result is a real outcome.** If the gaps are spread evenly, that is a
   clean answer that strengthens Q2–Q4, and the report should say so plainly rather
   than hunting for a split that yields a significant p.
+
+Next (from the validation check, 2026-11-09):
+- The headline thresholds are **not** re-tuned on these verdicts (section 9, threshold
+  fishing). Candidate fixes for a future, pre-declared matcher version: require name
+  similarity with the postcode rule for clinics; allow 75–100 m when name similarity is
+  near 1; pull `building=kindergarten` (two of the ECDA false misses are mapped only that
+  way); strip spaces inside brand names ("Sparkle Tots").
+- 29 sample rows are flagged `needs_maps_check` (possible closures, generic names, church
+  preschools). A Google Maps pass on them would firm up the rates.
+- Every ECDA childcare record carries `FMEL_UPD_D` 2021-12-01, though the portal says the
+  dataset was updated 2026-04. Some "missing" centres may have closed or renamed since 2021.
