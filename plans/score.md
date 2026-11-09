@@ -48,7 +48,7 @@ then frozen as v1 (H5).
 |---|---|
 | `subzone_c` | join key |
 | `pop` | Census 2020 residents |
-| `residential` | `pop >= RES_MIN_POP` (`R/00_setup.R`); provisional until C1 publishes H2 |
+| `residential` | from H2 `residential_set.csv`: `pop >= RES_MIN_POP` (`R/00_setup.R`, decision 2) |
 | `centre_method` | `buildings` (population-weighted) or `point_on_surface` (fallback) |
 | `n_food_services` … `n_recreation` | raw facility counts within 1 km of the centre |
 | `score_food_services`, `score_retail`, `score_health`, `score_food_retail`, `score_education`, `score_recreation` | 0–100: `100 * log1p(n) / max(log1p(n))` over the residential set (decision 11) |
@@ -84,6 +84,6 @@ dwellings. Housing mix (decision 4) is `(dw_hdb_1_2room + dw_hdb_3room) / dw_tot
 `data/processed/hes_weights.csv`, six rows in `CATEGORIES` order: `category`,
 `hes_lines` (the HES lines summed), `sgd_month` (2023 S$ per month), `weight` (sums to 1).
 
-Inputs the score expects from other tracks: `residential_set.csv` (H2, from C1) with all
-332 subzones, `subzone_c` and a logical `residential`. `02_score.R` coerces 0/1 and stops
-on anything else. Until H2 exists, the score uses `pop >= RES_MIN_POP`.
+Inputs the score expects from other tracks: `residential_set.csv` (H2, from C1, run in
+prep) with all 332 subzones, `subzone_c` and a logical `residential`. `02_score.R` coerces
+0/1, stops on anything else, and stops if the file is missing.

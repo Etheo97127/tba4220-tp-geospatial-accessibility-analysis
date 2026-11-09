@@ -25,21 +25,15 @@ stopifnot(setequal(names(W), CATEGORIES), abs(sum(W) - 1) < 1e-9)
 write_csv(weights %>% mutate(weight = round(weight, 4)), file.path(DIR_TAB, "score_weights.csv"))
 
 # --- residential set ---------------------------------------------------------
-# C1 publishes the agreed set as H2. Until it exists, apply the proposed cut-off.
-# The flag indexes the normalisation below, so a 0/1 column read as numbers
-# would silently pick the wrong rows: coerce it, and insist on all 332 subzones.
+# H2, which prep writes before the score runs. The flag indexes the normalisation
+# below, so a 0/1 column read as numbers would silently pick the wrong rows:
+# coerce it, and insist on all 332 subzones.
 
-h2 <- file.path(DIR_PROC, "residential_set.csv")
-if (file.exists(h2)) {
-  res <- read_csv(h2, show_col_types = FALSE) %>% select(subzone_c, residential)
-  # as.logical() turns any non-zero number into TRUE, so accept only TRUE/FALSE or 0/1.
-  stopifnot(is.logical(res$residential) || all(res$residential %in% c(0, 1)))
-  res <- res %>% mutate(residential = as.logical(residential))
-  log_step("residential set: from ", basename(h2))
-} else {
-  res <- census %>% transmute(subzone_c, residential = pop >= RES_MIN_POP)
-  log_step("residential set: provisional, pop >= ", RES_MIN_POP, " (no residential_set.csv yet)")
-}
+res <- read_csv(file.path(DIR_PROC, "residential_set.csv"), show_col_types = FALSE) %>%
+  select(subzone_c, residential)
+# as.logical() turns any non-zero number into TRUE, so accept only TRUE/FALSE or 0/1.
+stopifnot(is.logical(res$residential) || all(res$residential %in% c(0, 1)))
+res <- res %>% mutate(residential = as.logical(residential))
 stopifnot(setequal(res$subzone_c, subzones$subzone_c), !anyDuplicated(res$subzone_c),
           !anyNA(res$residential))
 
