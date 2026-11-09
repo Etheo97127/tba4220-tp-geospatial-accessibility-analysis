@@ -55,8 +55,9 @@
 >   the postcode rule in multi-tenant buildings, false-miss 3/37 (8.1%), all
 >   clinics in OSM just beyond 50 m. Corrected recall: **ECDA 9.7% → 12.1%**
 >   (9.3–21.9% with both error rates at their Wilson bounds; 16.8% counting the
->   tagging gaps), CHAS 22.2% → 26.9% (20.0–38.2%). OSM still misses close to nine
->   in ten preschools; matcher error accounts for 2.4 points of that gap.
+>   tagging gaps), CHAS 22.2% → 26.9% (20.0–38.2%). The OSM features the score
+>   reads still miss close to nine in ten preschools (about five in six counting
+>   building-only kindergartens); matcher error accounts for 2.4 points of that gap.
 >
 > For section 6, the result points to the "recall low but uniform" case, with
 > the north-east caveat from the logistic fit.
@@ -307,8 +308,8 @@ Next (from the validation check, 2026-11-09):
 - The headline thresholds are **not** re-tuned on these verdicts (section 9, threshold
   fishing). Candidate fixes for a future, pre-declared matcher version: require name
   similarity with the postcode rule for clinics; allow 75–100 m when name similarity is
-  near 1; pull `building=kindergarten` (two of the ECDA false misses are mapped only that
-  way); strip spaces inside brand names ("Sparkle Tots").
+  near 1; pull `building=kindergarten` (two checked unmatched ECDA preschools are mapped only
+  that way: tagging gaps, not matcher misses); strip spaces inside brand names ("Sparkle Tots").
 - 29 sample rows are flagged `needs_maps_check` (possible closures, generic names, church
   preschools). A Google Maps pass on them would firm up the rates.
 - Every ECDA childcare record carries `FMEL_UPD_D` 2021-12-01, though the portal says the

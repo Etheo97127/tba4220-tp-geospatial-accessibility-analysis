@@ -75,8 +75,8 @@ benchmark (amended 2026-11-08, below).
 > next to ECDA. It is never pooled with ECDA, never a headline result, and never
 > enters the subzone quality flag. It is kept for transparency, not as evidence
 > of coverage. CHAS shows the bias this decision warned about: its missed clinics
-> cluster beyond chance where ECDA's do not (random labelling p = 0.003 against
-> 0.51), and its mature / non-mature gap (78.6% vs 73.4% missed, p = 0.06) runs
+> cluster beyond chance where ECDA's do not (random labelling p = 0.001 against
+> 0.32), and its mature / non-mature gap (78.6% vs 73.4% missed, p = 0.06) runs
 > along the heartland / central axis. Reporting it shows why it was not used.
 
 Rationale:
