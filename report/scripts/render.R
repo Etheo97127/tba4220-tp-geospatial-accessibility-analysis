@@ -1,6 +1,6 @@
-# report/render.R ---------------------------------------------------------------
+# report/scripts/render.R -------------------------------------------------------
 # Knit report/report.Rmd to Word. Run from the repo root after R/run_all.R:
-#   Rscript report/render.R
+#   Rscript report/scripts/render.R
 # Rscript does not see the pandoc that RStudio bundles, so point rmarkdown at it
 # when no system pandoc is on PATH. Word, not PDF: no LaTeX is needed, and the
 # proposal was submitted as .docx.

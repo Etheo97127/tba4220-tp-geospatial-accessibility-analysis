@@ -1,0 +1,57 @@
+# Data
+
+All data are open. Table 1 lists the sources. Every raw file is stored in the repository byte for byte and logged with its URL, download date, licence and md5 checksum in `docs/data_log.md`, so the analysis does not depend on a fresh download. All layers are projected to SVY21 (EPSG:3414), so distances are in metres, and spatial operations use R's sf package [@pebesma2018sf].
+
+```{r tab-sources}
+kable_w(tibble::tribble(
+  ~Dataset, ~`Provider and version`, ~`Used for`,
+  "Subzone boundaries", "URA Master Plan 2019, no sea [@ura2019mp]", "Unit of analysis (332 subzones)",
+  "Residents by age and dwelling type", "SingStat Census of Population 2020 [@singstat2021census]", "Residential set; elderly share, housing mix and density (Q2)",
+  "Points of interest", "OpenStreetMap, snapshot of 2 November 2026 via Overpass [@osm2026]", "Facility counts for the score; mapping effort (Q2)",
+  "Residential buildings", "OpenStreetMap, same snapshot", "Where residents live in each subzone",
+  "Household spending", "SingStat Household Expenditure Survey 2023 [@singstat2024hes]", "Category weights",
+  "Licensed preschools", "ECDA child care and kindergarten listings [@ecda2026]", "Completeness benchmark for OSM",
+  "CHAS clinics", "Ministry of Health via data.gov.sg", "Supplementary completeness benchmark",
+  "Rail stations", "URA Master Plan 2019 rail station layer [@ura2019mp]", "Distance to rail (Q2)",
+  "Town maturity", "Hand-built from HDB's mature/non-mature list [@hdb2024framework]", "Town groups (Q3, coverage test)"
+), widths = c(2.2, 4, 3.3), caption = "Table 1. Data sources. Government data are under the Singapore Open Data Licence; OSM under the Open Database Licence.")
+```
+
+## Unit of analysis and residential set
+
+The unit is the URA Master Plan 2019 subzone, the smallest unit for which the census publishes residents. Of the 332 subzones, `r n_res` have at least `r num(cut_hi)` residents in Census 2020, and they hold `r pct(res_sh, 2)` of all residents. These form the residential set used by every analysis; airports, reservoirs, ports and industrial estates drop out. A `r num(cut_lo)`-resident cut-off would keep `r n_res2`, so the choice moves few subzones.
+
+## Facilities
+
+Facilities come from one OSM snapshot, downloaded on 2 November 2026 and holding `r num(sum(summ$osm_features))` scored features. A published lookup table (`data/input/external/osm_crosswalk.csv`) assigns each OSM tag to one of six categories and also generates the download queries, so the categories are defined in one place. Table 2 lists the categories with typical tags. Hospitals, private facilities and alcohol outlets are not scored. Counts differ widely between categories: residential subzones have a median of `r num(summ$median_count[summ$category == "food_services"])` food outlets within 1 km against `r num(summ$median_count[summ$category == "health"])` health facilities.
+
+```{r tab-categories}
+TAGS <- c(food_services = "restaurant, fast_food, cafe, food_court",
+          retail = "shop = clothes, furniture, electronics, mall",
+          health = "clinic, doctors, dentist, pharmacy",
+          food_retail = "supermarket, convenience, bakery, marketplace",
+          education = "school, kindergarten, childcare, library",
+          recreation = "park, playground, sports_centre, community_centre")
+kable_w(
+  w %>% left_join(summ %>% select(category, osm_features, median_count), by = "category") %>%
+    transmute(Category = CAT_LAB[category], `Typical OSM tags` = TAGS[category],
+              `OSM features` = num(osm_features), `Median in 1 km` = num(median_count),
+              `Monthly S$` = num(sgd_month, 1), Weight = pct(weight)),
+  widths = c(1.5, 3.2, 1.3, 1.3, 1.2, 1.1), caption = "Table 2. The six categories: example tags, feature counts, and weights from the 2023 Household Expenditure Survey. Retail goods sums two spending divisions.")
+```
+
+## Where residents live
+
+A polygon's centroid can fall in a reservoir or outside an L-shaped subzone, and access measured from there says little about residents. Each subzone's centre is therefore the floor-area-weighted mean of its OSM residential buildings, weighted by footprint × storeys. Worker dormitories are excluded, because the census counts only residents. Every residential subzone has such a centre (Figure 1).
+
+```{r fig-centres, fig.cap = "Figure 1. Subzone centres used for the 1 km count: floor-area-weighted means of residential buildings (blue), or a point inside the polygon where no residential building is mapped (orange; only non-residential subzones).", out.width = "85%"}
+knitr::include_graphics(fig("score_centres_map.png"))
+```
+
+## Population, housing and town variables
+
+Census 2020 gives each subzone's residents by age and by dwelling type. Elderly share is the share of residents aged 65 and over. Housing mix, the share of residents in HDB 1–3 room flats, stands in for income, which is not published by subzone. Distance to rail is measured from each centre to the nearest station in service; stations still under construction are listed by hand (`rail_not_open.csv`) and dropped. Mapping effort is the number of distinct OSM users who last edited a scored feature in the subzone, per km². The snapshot keeps only each feature's last editor, so this is a relative measure of effort, not a count of mappers. Town maturity follows HDB's list as last in force before October 2024, mapped to URA planning areas by hand. The Central Area, largely private Tanglin and a few non-town areas are excluded from the town comparison by design.
+
+## Completeness benchmark
+
+The ECDA listings of child care centres and kindergartens hold `r num(e_rec$n_reference)` licensed preschools, with names, postcodes and coordinates. Preschools are the only category with a near-complete official register, which makes them the benchmark for OSM's completeness. The `r num(rec$n_reference[grepl("CHAS", rec$set) & rec$variant == "strict"])` CHAS clinics are a second, supplementary benchmark; the register was last updated in June 2024 and covers only clinics in the subsidy scheme.

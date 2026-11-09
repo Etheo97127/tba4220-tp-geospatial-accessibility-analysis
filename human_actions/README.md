@@ -62,11 +62,12 @@ The plan's weeks are relative. Everything assumes W1 = week of 26 Oct 2026, so t
 report is due around the end of W6 (about 6 Dec 2026). Check the real submission date
 and correct the calendar line in `docs/consideration.md`.
 
-The draft report (`Rscript report/render.R` → `report/report.docx`) runs to about
-3,800 words before the references (4,400 with them), with seven figures and two tables. The proposal's limit was 5 pages; the
-final report's brief may differ. Confirm the page limit and required format. Word is
-used because no LaTeX is installed. For PDF, run `tinytex::install_tinytex()` once in R
-and change `word_document` to `pdf_document` in `report/report.Rmd`.
+The report format is now known (30-page limit; Introduction, Background, Data, Methods,
+Analysis, Conclusions, Extra mile) and the report follows it, with an extra section on
+reproducing the results. `Rscript report/scripts/render.R` writes `report/report.docx`:
+28 pages in Word, nine figures and six tables. Word is used because no LaTeX is
+installed; for PDF, open the .docx in Word and save as PDF. Still to confirm: the
+submission date and whether the course wants .docx or PDF.
 
 ## 4. ECDA childcare timestamp
 

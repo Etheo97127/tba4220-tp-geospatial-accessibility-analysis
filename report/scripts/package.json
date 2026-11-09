@@ -1,7 +1,7 @@
 {
   "name": "tba4220-group3-slides",
   "private": true,
-  "description": "Builds report/slides/group3_project_slides.pptx",
+  "description": "Builds report/group3_project_slides.pptx",
   "scripts": { "build": "node build_slides.js" },
   "dependencies": { "pptxgenjs": "3.12.0" }
 }

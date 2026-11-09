@@ -1,0 +1,31 @@
+# Background
+
+## Measuring accessibility
+
+Accessibility has been defined since @hansen1959 as the potential for reaching opportunities from a place. @geurs2004 separate its measures into infrastructure-, location-, person- and utility-based families. The simplest location-based measure, the cumulative-opportunity count, adds up the opportunities within a travel threshold. It is the measure the 15-minute city implies: everyday needs should lie within a fixed walk or ride from home [@moreno2021fifteen].
+
+Studies that measure the 15-minute city at scale show what such counts can and cannot say. @logan2022xminute compared measurement approaches across the 500 largest US cities and 43 New Zealand urban areas. They concluded that the concept is useful but that a single travel time is too simple a target. @bruno2024universal computed walking times to everyday services for cities worldwide and found large differences within cities, driven largely by local population density. @weng2019 measured 15-minute walkability across Shanghai and linked low walkability to the social make-up of neighbourhoods. @willberg2023 showed that the answer depends on who walks and when: in Helsinki, 15-minute walking access to the nearest grocery store fell from 93% of older residents to 34% under slow winter walking speeds and limited opening hours.
+
+## Accessibility and equity
+
+Accessibility measures are often used to judge whether services are fairly distributed. @talen1998 showed that conclusions about spatial equity depend on the accessibility measure chosen, so an equity test must state its measure and check its sensitivity. @neutens2015 reviewed the same question for health care and argued that accessibility and equity should be assessed for specific population groups, not only on average. In Singapore, focus groups in Tampines found that residents of public housing walk with a destination in mind, so the amenities within reach shape how walkable a neighbourhood feels [@yuen2024].
+
+## Volunteered map data
+
+OpenStreetMap (OSM) is volunteered geographic information: its completeness depends on who maps where. @haklay2010 compared OSM with Ordnance Survey data for England and found good positional accuracy but uneven coverage, weaker in poorer areas. Road networks are now largely complete worldwide [@barringtonleigh2017], but other features are not: @herfort2023 estimated that OSM building data are less than 20% complete for cities holding 48% of the world's urban population, with a persistent spatial bias. Points of interest, the features an access score counts, have no global completeness estimate, so a study that scores them must check them locally.
+
+## Neighbourhood typologies
+
+Neighbourhood typologies are commonly built by clustering areas on several indicators at once, for example the k-means classification of US census tracts by @spielman2015. A clustering algorithm always returns groups, however, so a typology needs evidence that the groups are more than a cut through continuous variation. When the areas are spatially dependent, that evidence must come from resampling methods that respect the dependence [@kunsch1989].
+
+## Conceptual framework
+
+The project combines these strands into five expectations, each tested by one part of the analysis.
+
+1. **Access is a count, weighted by importance.** We use a cumulative-opportunity measure, because the hypotheses concern places, and a straight-line threshold, because it is transparent and needs no network model. Categories are weighted by household spending, which reveals how much households value each kind of service.
+2. **Services cluster in space.** Central place theory expects services to gather at centres, with the rarer services at fewer, larger centres that need a larger population to support them [@christaller1966]. Q1 tests whether each category clusters, and where.
+3. **Access follows people, but should not follow disadvantage.** Central place theory and @bruno2024universal both predict that access rises with population density. The equity literature asks whether it is also lower for groups who rely most on walking. Q2 tests both, with elderly share and a housing-type proxy for income as the equity variables.
+4. **Town era may matter.** Older HDB towns have had decades longer to gain services. If era matters, mature and non-mature towns should hold different mixes of neighbourhood types, which Q3 tests.
+5. **The data must be checked first.** OSM completeness is uneven [@haklay2010; @herfort2023], so we measure it against an official register before any analysis, and test whether it differs between the town groups we compare.
+
+The studies above mostly summarise access in a single index and relate it to population groups. This project adds two things to that work for Singapore: a test of whether neighbourhoods fall into distinct types at all, and a check of the source map against an official register before any result is read.

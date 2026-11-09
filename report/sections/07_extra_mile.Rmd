@@ -1,0 +1,31 @@
+# Extra mile: methods and tools beyond the course
+
+The course (Lectures 1–8) taught spatial joins and buffers, point-pattern analysis with K-functions and simulation envelopes, and spatial autocorrelation with Moran's I and the Moran plot. Table 5 lists what the project adds, where it is used and why it was needed. Every method is cited where it is used in Section 4. Four of them carry the main results, and each was checked before its result was read.
+
+```{r tab-extra}
+kable_w(tibble::tribble(
+  ~Method, ~Where, ~`Why it was needed`,
+  "Record linkage: Jaro-Winkler similarity, Hungarian one-to-one assignment", "Coverage", "Distance alone pairs the wrong tenant in a shared building; names alone pair the wrong branch of a chain",
+  "Hand-checked validation sample and corrected recall", "Coverage", "Separates OSM's gaps from the matcher's errors",
+  "Wilson interval, two-proportion test with power, logistic regression", "Coverage", "Proportions near 10%; a null result must be shown to have had power",
+  "Random labelling with cross-K", "Coverage", "Extends Lecture 7: asks whether missed preschools cluster beyond preschools themselves, which a test against CSR cannot",
+  "Empirical-Bayes shrinkage", "Coverage", "Subzones with few preschools would otherwise show 0% or 100% missing",
+  "LISA with Benjamini-Hochberg false discovery rate", "Q1", "Extends Lecture 8 to local tests; 201 tests would give about 10 false hot spots",
+  "OLS with one-sided tests, VIF and Holm correction", "Q2", "Directional hypotheses tested with several predictors and 12 category models",
+  "Robust LM tests, spatial lag and error models, total impacts, AIC", "Q2", "Residuals are spatially autocorrelated, which breaks OLS",
+  "k-means with silhouette, a no-cluster null and PCA", "Q3", "k-means always returns groups; the null asks whether they are real",
+  "Spatial block bootstrap with Jaccard stability", "Q3", "Neighbours are near-duplicates (Q1), so ordinary resampling overstates stability",
+  "Block permutation tests (χ², F)", "Q3", "Extends Lectures 7–8's simulated benchmarks to tests between groups of dependent areas",
+  "Reproducible pipeline: numbered scripts, logged raw data, R Markdown report", "All", "Every number in this report is regenerated from the raw data by two commands"
+), widths = c(3.3, 1.5, 4.2), caption = "Table 5. Methods and tools used beyond the course.")
+```
+
+**Record linkage with validation.** A completeness check is only as good as its matcher. We combined a distance limit with name similarity and postcodes, assigned pairs one to one so that no OSM feature is counted twice, and then checked a stratified sample of `r nrow(verdicts)` pairs by hand. The checked sample showed `r e_fm$n_error` false matches in `r e_fm$n_checked`, and the matcher had missed `r e_fmiss$n_error` of `r e_fmiss$n_checked` unmatched preschools. The low recall is therefore a property of OSM, not of the matcher, and the correction moves it only from `r pct(e_rec$recall)` to `r pct(e_cor$recall_corrected)`.
+
+**Spatial econometrics.** Q2 needs several predictors at once, which the course's single-variable tools do not offer. We first tested the OLS residuals for spatial autocorrelation, as Lecture 8 recommends for any model of spatial data, then let the robust Lagrange-multiplier tests choose between a lag and an error model rather than assuming one. Coefficients of a lag model are not marginal effects, so we report total impacts, and we show that the error model the proposal planned leads to the same conclusion.
+
+**Testing whether clusters exist.** Clustering methods return groups even from structureless data, and the silhouette rule always chooses some k ≥ 2. We applied the course's logic of comparing an observed statistic with a simulated benchmark to clustering: the same rule run on data with the real correlations but no groups. The procedure was validated on data with three planted groups, which it recovers. Without this null, the report would have presented two "types" of neighbourhood that are only a cut through one gradient.
+
+**Inference that respects spatial dependence.** Q1 showed that neighbouring subzones are strongly alike, so tests that treat subzones as independent overstate certainty. Stability is judged by resampling whole planning-area blocks, and both Q3 tests permute labels or residuals at the block level. The multiple local and category tests are corrected for multiplicity (Benjamini-Hochberg for LISA, Holm for the category models).
+
+**Tools.** Beyond the course's packages (sf, spdep, spatstat, ggplot2, tmap, dplyr), the pipeline uses stringdist (name similarity), clue (Hungarian assignment), binom (Wilson intervals), pwr (power), spatialreg (spatial models and impacts) and cluster (silhouette), all in R [@rcore2026]. The report is written in R Markdown [@xie2018rmarkdown], so its numbers are read from the pipeline's outputs when it is built rather than typed.
