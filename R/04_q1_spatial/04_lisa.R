@@ -1,9 +1,9 @@
 # 04_q1_spatial/04_lisa.R -------------------------------------------------------
 # B5: local Moran's I (LISA) for each category and the composite, on queen
-# weights. Conditional-permutation p-values (999 draws) are corrected with
-# Benjamini-Hochberg across the subzones of each map (decision 8); Gi* is not
-# run (decision 10) because it repeats LISA's clusters and cannot show the
-# High-Low / Low-High outliers Q3 needs. Labels follow the Moran-scatterplot
+# weights. Conditional-permutation p-values (LISA_NSIM = 9,999 draws) are
+# corrected with Benjamini-Hochberg across the subzones of each map (decision 8);
+# Gi* is not run (decision 10) because it repeats LISA's clusters and cannot show
+# the High-Low / Low-High outliers Q3 needs. Labels follow the Moran-scatterplot
 # quadrant of each significant subzone.
 
 source("R/00_setup.R")
@@ -13,11 +13,6 @@ library(ggplot2)
 score <- readRDS(file.path(DIR_PROC, "score_subzone.rds"))
 nbobj <- readRDS(file.path(DIR_PROC, "q1_neighbours.rds"))
 
-# 9,999 draws, not 999: the smallest two-sided permutation p is 2 / (NSIM + 1), and
-# at 0.002 Benjamini-Hochberg over ~200 subzones cannot pass anything unless nine
-# subzones all sit at that floor.
-NSIM  <- 9999
-ALPHA <- 0.05
 VARS  <- c(paste0("score_", CATEGORIES), "score")
 LAB   <- c(score_food_services = "Food services", score_retail = "Retail goods", score_health = "Health",
            score_food_retail = "Food retail", score_education = "Education", score_recreation = "Recreation",
@@ -30,12 +25,12 @@ stopifnot(identical(sz$subzone_c, nbobj$subzone_c))
 
 lisa_one <- function(x, lw, var) {
   set.seed(SEED)
-  loc <- localmoran_perm(x, lw, nsim = NSIM, alternative = "two.sided")
+  loc <- localmoran_perm(x, lw, nsim = LISA_NSIM, alternative = "two.sided")
   quad <- as.character(attr(loc, "quadr")$mean)          # "High-High", "Low-Low", ...
   p <- loc[, "Pr(z != E(Ii)) Sim"]
   p_bh <- p.adjust(p, method = "BH")
   tibble(subzone_c = nbobj$subzone_c, variable = var, Ii = loc[, "Ii"], p_sim = p, p_bh = p_bh,
-         quadrant = quad, cluster = if_else(p_bh < ALPHA, quad, "not significant"))
+         quadrant = quad, cluster = if_else(p_bh < FDR_Q, quad, "not significant"))
 }
 
 lisa <- bind_rows(lapply(VARS, function(v) lisa_one(sz[[v]], nbobj$lw_queen, v)))
@@ -60,7 +55,7 @@ p <- ggplot() +
                  "Where access clusters, and the subzones that break the pattern" else
                  "Access clusters in a few hot spots; no subzone breaks its neighbours' pattern",
        subtitle = sprintf("LISA on queen weights, %d permutations, Benjamini-Hochberg q < %.2f. Grey: non-residential.",
-                          NSIM, ALPHA)) +
+                          LISA_NSIM, FDR_Q)) +
   theme_map() + theme(legend.position = "bottom")
 save_fig(p, "q1_lisa_maps.png", width = 7.8, height = 4.6)
 

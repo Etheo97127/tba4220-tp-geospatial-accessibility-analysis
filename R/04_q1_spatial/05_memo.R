@@ -13,8 +13,6 @@ source("R/00_setup.R")
 morans <- read_csv(file.path(DIR_TAB, "q1_morans_i.csv"), show_col_types = FALSE)
 lisa   <- read_csv(file.path(DIR_PROC, "q1_lisa.csv"), show_col_types = FALSE)
 
-ALPHA <- 0.05
-
 counts <- lisa %>%
   group_by(variable) %>%
   summarise(n_high_high = sum(cluster == "High-High"), n_low_low = sum(cluster == "Low-Low"),

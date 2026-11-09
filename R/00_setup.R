@@ -31,12 +31,17 @@ set.seed(SEED)
 # data/external/osm_crosswalk.csv.
 CATEGORIES <- c("food_services", "retail", "health", "food_retail", "education", "recreation")
 
-# Proposed P0 decisions (docs/decisions.md); change here, not in the scripts.
+# Agreed P0 decisions (docs/decisions.md); change here, not in the scripts.
 RES_MIN_POP <- 1000          # item 2: residents needed for a subzone to count as residential
 RES_MIN_POP_ALT <- 500       # item 2: second cut-off, reported so the choice is visible
 RADIUS_M    <- 1000          # item 7: walking radius for the main score ...
 RADII_ALT   <- c(800, 1200)  # ... and the robustness variants
 DENSITY_SHARE_MAX <- 0.5     # item 1: above this share of R2, Q3 clusters on density-adjusted scores
+LISA_NSIM   <- 9999          # item 8: at 999 the smallest two-sided p is 0.002, too coarse for BH over ~200 tests
+FDR_Q       <- 0.05          # item 8: Benjamini-Hochberg false discovery rate for LISA
+
+# Significance level for every test (each script says whether one- or two-sided).
+ALPHA <- 0.05
 
 # --- helpers -----------------------------------------------------------------
 

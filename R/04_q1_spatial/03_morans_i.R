@@ -43,7 +43,7 @@ p <- ggplot(plot_dat, aes(I, variable, colour = weights)) +
   geom_point(size = 2.2) +
   scale_colour_manual(values = c(queen = PAL_CAT[1], knn = PAL_CAT[2]),
                       labels = c(queen = "queen contiguity", knn = paste0("k = 6 nearest")), name = NULL) +
-  labs(title = if (all(res$p_queen < 0.05))
+  labs(title = if (all(res$p_queen < ALPHA))
                  "Every category's access score clusters in space" else
                  "Not every category's access score clusters in space",
        subtitle = sprintf("Global Moran's I over %d residential subzones, %d permutations; largest p = %.3f.",
