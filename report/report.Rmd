@@ -26,6 +26,7 @@ proc <- function(name) readr::read_csv(file.path(ROOT, "data", "processed", name
 pct   <- function(x, d = 1) paste0(formatC(100 * x, format = "f", digits = d), "%")
 num   <- function(x, d = 0) formatC(x, format = "f", digits = d, big.mark = ",")
 p_fmt <- function(p) ifelse(p < 0.001, "< 0.001", paste("=", formatC(p, format = "f", digits = 3)))
+p_cell <- function(p) ifelse(p < 0.001, "< 0.001", formatC(p, format = "f", digits = 3))  # for table cells
 CAT_LAB <- c(food_services = "Food services", retail = "Retail goods", health = "Health",
              food_retail = "Food retail", education = "Education", recreation = "Recreation")
 ```
