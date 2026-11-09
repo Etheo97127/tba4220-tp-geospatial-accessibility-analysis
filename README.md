@@ -14,7 +14,7 @@ Proposal: [`docs/proposal/proposal_submitted.docx`](docs/proposal/proposal_submi
 |---|---|---|---|---|
 | Score + coverage check | Qu Haotian | Build the access score; how uniformly does OSM cover preschools vs ECDA? | `R/01_prep/`, `R/02_coverage/`, `R/03_score/` | [score](plans/score.md), [coverage](plans/coverage_check.md) |
 | Q1 | Hew Xing Yi | How is each category structured in space? (Moran's I per category) | `R/04_q1_spatial/` | [q1](plans/q1_spatial.md) |
-| Q2 | Zachary Chng Yao Wei | What explains access, and how much is just density? (OLS / spatial error) | `R/05_q2_regression/` | [q2](plans/q2_regression.md) |
+| Q2 | Zachary Chng Yao Wei | What explains access, and how much is just density? (OLS / spatial lag) | `R/05_q2_regression/` | [q2](plans/q2_regression.md) |
 | Q3 | Coltrane Yao Zhiming | What kinds of neighbourhood exist? (k-means, block bootstrap) | `R/06_q3_typology/` | [q3](plans/q3_typology.md) |
 
 **Bonus track (outside the project).** How far do people really walk compared with the
@@ -41,22 +41,25 @@ CRS is EPSG:3414. Column contracts are in each plan; H1–H8 are the hand-off ID
 |---|---|---|---|
 | `external/town_maturity.csv` | H1 | Q3 (D1) | coverage, Q3 |
 | `external/osm_crosswalk.csv` | | score (A3) | anyone auditing the categories |
-| `processed/census2020_subzone.csv` | | prep | score, Q2 |
-| `processed/hes_weights.csv` | | prep | score, Q2, report |
+| `external/coverage_validation_verdicts.csv` | | coverage (checked sample) | coverage, report |
+| `processed/census2020_subzone.csv` | | prep | score, Q1, Q2, Q3, report |
+| `processed/hes_weights.csv` | | prep | score |
 | `processed/rail_stations.rds` | | prep | Q2 (distance to rail) |
 | `external/rail_not_open.csv` | | prep | station opening status at the OSM snapshot; `not_open` rows are dropped |
 | `processed/osm_contributors.csv` | | prep | Q2 (mapping-effort control) |
 | `processed/residential_set.csv` | H2 | Q2 (C1) | all |
-| `processed/subzone_quality_flag.csv` | | coverage | Q2, Q3 (robustness) |
+| `processed/subzone_quality_flag.csv` | | coverage | report (data and Q1 sections) |
 | `processed/score_subzone.rds` | H4, H5 | score | Q1, Q2, Q3 |
 | `processed/score_centres.rds` | | score (A4) | Q2 (distance to rail) |
-| `processed/subzone_covariates.rds` | | Q2 (C2) | Q2, Q3 |
+| `processed/subzone_covariates.rds` | | Q2 (C2) | Q2 |
 | `processed/q1_neighbours.rds`, `q1_blocks.csv` | H3 | Q1 | Q2, Q3 |
+| `processed/q1_lisa.csv` | | Q1 | Q1 memo, report |
+| `processed/q1_outliers.csv` | H6 | Q1 | Q3 (stops if it lists any subzone) |
 | `processed/q2_residuals.csv`, `q2_adjusted_scores.csv` | H7 | Q2 | Q3 |
-| `processed/q3_clusters.csv` | H8 | Q3 | report |
+| `processed/q3_clusters.csv` | H8 | Q3 | Q3 (tests, profiles) |
 
-H6 (Q1 memo) and the rest of H7 (density share, raw-or-adjusted call) are
-`outputs/tables/q1_*` and `outputs/tables/q2_density_share.csv`.
+The rest of H6 (the Q1 memo) and of H7 (density share, raw-or-adjusted call) are
+`outputs/tables/q1_memo.csv` and `outputs/tables/q2_density_share.csv`.
 
 H2 `residential_set.csv` must hold all 332 subzones with `subzone_c` and a
 `residential` column of `TRUE`/`FALSE` (0/1 is coerced; anything else stops the
@@ -79,7 +82,7 @@ data/
   processed/            hand-off tables between stages            (committed)
   DATA_SOURCES.md       every dataset with a link
 outputs/figures, tables written by scripts, never hand-edited, prefixed by stage
-report/                 report.Rmd + one child section per owner (reads outputs only)
+report/                 report.Rmd + one child section per owner (reads outputs/, data/processed/, data/external/)
 docs/                   requirements, download log, proposal versions, critiques
 plans/                  one working plan per workstream
 ```
@@ -88,7 +91,7 @@ plans/                  one working plan per workstream
 
 1. Clone, then open `tba4220-tp-sg-geospatial-accessibility-analysis.Rproj` in RStudio
    (the working directory must be the repo root).
-2. Install packages: `sf dplyr tidyr stringr readr jsonlite ggplot2 scales stringdist clue binom pwr spatstat spdep spatialreg tmap cluster factoextra osmdata`.
+2. Install packages: `sf dplyr tidyr stringr readr jsonlite ggplot2 scales stringdist clue binom pwr spatstat spdep spatialreg tmap cluster factoextra osmdata rmarkdown knitr`.
 3. `Rscript R/run_all.R` rebuilds `data/interim`, `data/processed` and `outputs/`.
 4. `Rscript report/render.R` writes `report/report.docx` (it finds the pandoc bundled with RStudio; or knit `report/report.Rmd` in RStudio).
 
