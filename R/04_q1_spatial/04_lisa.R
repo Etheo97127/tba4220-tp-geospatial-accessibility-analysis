@@ -23,17 +23,20 @@ CLUSTER_COL <- c("High-High" = PAL_DIV[["high"]], "Low-Low" = PAL_DIV[["low"]],
 sz <- tibble(subzone_c = nbobj$subzone_c) %>% left_join(st_drop_geometry(score), by = "subzone_c")
 stopifnot(identical(sz$subzone_c, nbobj$subzone_c))
 
-lisa_one <- function(x, lw, var) {
+lisa_one <- function(x, lw, ids, var) {
   set.seed(SEED)
   loc <- localmoran_perm(x, lw, nsim = LISA_NSIM, alternative = "two.sided")
-  quad <- as.character(attr(loc, "quadr")$mean)          # "High-High", "Low-Low", ...
+  # Quadrant from the signs of z and its spatial lag, the same terms Ii multiplies.
+  # spdep's "mean" labels compare the lag with the lag's own mean instead, and can
+  # call a subzone with Ii > 0 High-Low.
+  quad <- as.character(attr(loc, "quadr")$pysal)         # "High-High", "Low-Low", ...
   p <- loc[, "Pr(z != E(Ii)) Sim"]
   p_bh <- p.adjust(p, method = "BH")
-  tibble(subzone_c = nbobj$subzone_c, variable = var, Ii = loc[, "Ii"], p_sim = p, p_bh = p_bh,
+  tibble(subzone_c = ids, variable = var, Ii = loc[, "Ii"], p_sim = p, p_bh = p_bh,
          quadrant = quad, cluster = if_else(p_bh < FDR_Q, quad, "not significant"))
 }
 
-lisa <- bind_rows(lapply(VARS, function(v) lisa_one(sz[[v]], nbobj$lw_queen, v)))
+lisa <- bind_rows(lapply(VARS, function(v) lisa_one(sz[[v]], nbobj$lw_queen, nbobj$subzone_c, v)))
 
 counts <- lisa %>% count(variable, cluster) %>%
   pivot_wider(names_from = cluster, values_from = n, values_fill = 0)

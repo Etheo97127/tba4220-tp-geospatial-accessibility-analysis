@@ -1,9 +1,9 @@
 subzone_c,variable,Ii,p_sim,p_bh,quadrant,cluster
 AMSZ01,score_food_services,-0.2613,0.0488,0.3204,High-Low,not significant
 AMSZ02,score_food_services,-0.3132,0.06,0.3547,High-Low,not significant
-AMSZ03,score_food_services,0.004,0.9416,0.9844,High-Low,not significant
-AMSZ04,score_food_services,0.0095,0.9246,0.9844,High-Low,not significant
-AMSZ05,score_food_services,-0.0178,0.9556,0.9848,Low-Low,not significant
+AMSZ03,score_food_services,0.004,0.9416,0.9844,High-High,not significant
+AMSZ04,score_food_services,0.0095,0.9246,0.9844,High-High,not significant
+AMSZ05,score_food_services,-0.0178,0.9556,0.9848,Low-High,not significant
 AMSZ06,score_food_services,0.1653,0.3464,0.8491,Low-Low,not significant
 AMSZ07,score_food_services,0.5482,0.0804,0.4253,Low-Low,not significant
 AMSZ08,score_food_services,1.7815,0.0448,0.3188,Low-Low,not significant
@@ -13,7 +13,7 @@ BDSZ01,score_food_services,0.1306,0.656,0.9651,Low-Low,not significant
 BDSZ02,score_food_services,0.1123,0.6958,0.9688,Low-Low,not significant
 BDSZ03,score_food_services,0.0156,0.8066,0.9688,Low-Low,not significant
 BDSZ04,score_food_services,-0.033,0.157,0.6714,High-Low,not significant
-BDSZ05,score_food_services,0.0012,0.8986,0.9825,High-Low,not significant
+BDSZ05,score_food_services,0.0012,0.8986,0.9825,High-High,not significant
 BDSZ06,score_food_services,0.8087,0.2454,0.8086,Low-Low,not significant
 BDSZ07,score_food_services,0.0161,0.8304,0.9761,Low-Low,not significant
 BDSZ08,score_food_services,0.9635,0.1796,0.6717,Low-Low,not significant
@@ -23,7 +23,7 @@ BKSZ03,score_food_services,0.1745,0.4484,0.8491,High-High,not significant
 BKSZ04,score_food_services,0.1104,0.6578,0.9651,High-High,not significant
 BKSZ05,score_food_services,0.0572,0.5376,0.8857,Low-Low,not significant
 BKSZ06,score_food_services,-0.0237,0.8146,0.9688,High-Low,not significant
-BKSZ07,score_food_services,-0.0145,0.9032,0.9825,Low-Low,not significant
+BKSZ07,score_food_services,-0.0145,0.9032,0.9825,Low-High,not significant
 BKSZ08,score_food_services,0.0763,0.7868,0.9688,Low-Low,not significant
 BKSZ09,score_food_services,0.0537,0.8138,0.9688,Low-Low,not significant
 BMSZ01,score_food_services,0.3472,0.2928,0.8475,Low-Low,not significant
@@ -36,7 +36,7 @@ BMSZ08,score_food_services,0.1909,0.4414,0.8491,High-High,not significant
 BMSZ09,score_food_services,0.539,0.0514,0.3204,High-High,not significant
 BMSZ10,score_food_services,0.6167,0.0526,0.3204,High-High,not significant
 BMSZ11,score_food_services,0.0668,0.2,0.7053,High-High,not significant
-BMSZ12,score_food_services,0.0066,0.9092,0.9825,High-Low,not significant
+BMSZ12,score_food_services,0.0066,0.9092,0.9825,High-High,not significant
 BMSZ13,score_food_services,0.0727,0.6886,0.9688,Low-Low,not significant
 BMSZ14,score_food_services,0.0432,0.7162,0.9688,Low-Low,not significant
 BMSZ15,score_food_services,-0.0995,0.5726,0.9189,Low-High,not significant
@@ -49,7 +49,7 @@ BPSZ05,score_food_services,-0.0827,0.4016,0.8491,High-Low,not significant
 BPSZ06,score_food_services,0.4087,0.4324,0.8491,Low-Low,not significant
 BPSZ07,score_food_services,0.4369,0.4302,0.8491,Low-Low,not significant
 BSSZ01,score_food_services,-0.1063,0.6072,0.9189,High-Low,not significant
-BSSZ02,score_food_services,8e-4,0.9704,0.9848,High-Low,not significant
+BSSZ02,score_food_services,8e-4,0.9704,0.9848,High-High,not significant
 BSSZ03,score_food_services,0.0072,0.8036,0.9688,Low-Low,not significant
 BTSZ01,score_food_services,-0.2939,0.07,0.3908,High-Low,not significant
 BTSZ02,score_food_services,0.2152,0.312,0.8475,Low-Low,not significant
@@ -60,7 +60,7 @@ BTSZ06,score_food_services,0.0845,0.096,0.4795,Low-Low,not significant
 BTSZ07,score_food_services,-0.1905,0.3384,0.8491,High-Low,not significant
 BTSZ08,score_food_services,0.4135,0.5262,0.8814,Low-Low,not significant
 CHSZ02,score_food_services,2.6086,0.0404,0.3139,Low-Low,not significant
-CKSZ01,score_food_services,-0.0249,0.9452,0.9844,Low-Low,not significant
+CKSZ01,score_food_services,-0.0249,0.9452,0.9844,Low-High,not significant
 CKSZ02,score_food_services,0.0823,0.7542,0.9688,Low-Low,not significant
 CKSZ03,score_food_services,0.346,0.1716,0.6717,Low-Low,not significant
 CKSZ04,score_food_services,0.3529,0.4414,0.8491,Low-Low,not significant
@@ -71,7 +71,7 @@ CLSZ03,score_food_services,0.0108,0.3696,0.8491,Low-Low,not significant
 CLSZ04,score_food_services,-0.0279,0.761,0.9688,High-Low,not significant
 CLSZ05,score_food_services,0.1762,0.2772,0.8365,Low-Low,not significant
 CLSZ06,score_food_services,-0.0158,0.859,0.9763,High-Low,not significant
-CLSZ07,score_food_services,0.0093,0.9072,0.9825,High-Low,not significant
+CLSZ07,score_food_services,0.0093,0.9072,0.9825,High-High,not significant
 CLSZ08,score_food_services,1e-4,0.9808,0.9848,Low-Low,not significant
 GLSZ02,score_food_services,0.1009,0.4216,0.8491,High-High,not significant
 GLSZ03,score_food_services,-0.1141,0.5916,0.9189,Low-High,not significant
@@ -84,7 +84,7 @@ HGSZ04,score_food_services,-0.0428,0.7816,0.9688,High-Low,not significant
 HGSZ05,score_food_services,0.0773,0.5058,0.8689,Low-Low,not significant
 HGSZ06,score_food_services,0.0039,0.9374,0.9844,Low-Low,not significant
 HGSZ07,score_food_services,-0.0017,0.93,0.9844,High-Low,not significant
-HGSZ08,score_food_services,-0.0178,0.9584,0.9848,Low-Low,not significant
+HGSZ08,score_food_services,-0.0178,0.9584,0.9848,Low-High,not significant
 JESZ01,score_food_services,0.1915,0.593,0.9189,Low-Low,not significant
 JESZ02,score_food_services,-0.0651,0.4358,0.8491,High-Low,not significant
 JESZ03,score_food_services,-0.0249,0.945,0.9844,High-Low,not significant
@@ -171,13 +171,13 @@ TMSZ02,score_food_services,-0.2375,0.0112,0.1608,High-Low,not significant
 TMSZ03,score_food_services,-0.0916,0.2778,0.8365,High-Low,not significant
 TMSZ04,score_food_services,0.1116,0.3002,0.8475,Low-Low,not significant
 TMSZ05,score_food_services,0.7629,0.0172,0.2176,Low-Low,not significant
-TNSZ01,score_food_services,-0.0016,0.9822,0.9848,Low-Low,not significant
+TNSZ01,score_food_services,-0.0016,0.9822,0.9848,Low-High,not significant
 TNSZ02,score_food_services,-0.0856,0.1332,0.5994,Low-High,not significant
 TNSZ03,score_food_services,0.1274,0.216,0.7359,Low-Low,not significant
 TNSZ04,score_food_services,0.4718,0.3694,0.8491,Low-Low,not significant
 TPSZ01,score_food_services,-0.0175,0.4856,0.8491,Low-High,not significant
 TPSZ02,score_food_services,0.2345,0.347,0.8491,High-High,not significant
-TPSZ03,score_food_services,0.0165,0.8962,0.9825,High-Low,not significant
+TPSZ03,score_food_services,0.0165,0.8962,0.9825,High-High,not significant
 TPSZ04,score_food_services,-0.0371,0.8194,0.9688,High-Low,not significant
 TPSZ05,score_food_services,0.0424,0.8922,0.9825,Low-Low,not significant
 TPSZ06,score_food_services,0.057,0.8424,0.9763,Low-Low,not significant
@@ -264,7 +264,7 @@ CHSZ02,score_retail,0.9072,0.1894,0.615,Low-Low,not significant
 CKSZ01,score_retail,-0.0365,0.663,0.9191,Low-High,not significant
 CKSZ02,score_retail,-4e-4,0.983,0.9974,High-Low,not significant
 CKSZ03,score_retail,-0.003,0.8498,0.9843,High-Low,not significant
-CKSZ04,score_retail,-0,0.9748,0.9974,Low-Low,not significant
+CKSZ04,score_retail,-0,0.9748,0.9974,Low-High,not significant
 CKSZ05,score_retail,0.0106,0.8812,0.9843,Low-Low,not significant
 CKSZ06,score_retail,-0.0033,0.9062,0.9843,High-Low,not significant
 CLSZ02,score_retail,0.7256,0.2386,0.6579,Low-Low,not significant
@@ -384,7 +384,7 @@ TPSZ05,score_retail,0.1417,0.7486,0.9749,Low-Low,not significant
 TPSZ06,score_retail,0.1861,0.5214,0.8281,Low-Low,not significant
 TPSZ07,score_retail,-0.0165,0.3368,0.7763,Low-High,not significant
 TPSZ08,score_retail,0.037,0.655,0.9176,Low-Low,not significant
-TPSZ09,score_retail,-0.0022,0.9498,0.9974,Low-Low,not significant
+TPSZ09,score_retail,-0.0022,0.9498,0.9974,Low-High,not significant
 TPSZ11,score_retail,0.0793,0.459,0.8281,High-High,not significant
 TPSZ12,score_retail,0.1854,0.474,0.8281,High-High,not significant
 WDSZ02,score_retail,-0.1087,0.809,0.9843,High-Low,not significant
@@ -394,7 +394,7 @@ WDSZ05,score_retail,0.1084,0.7614,0.9763,High-High,not significant
 WDSZ06,score_retail,-0.06,0.3666,0.8097,High-Low,not significant
 WDSZ09,score_retail,-0.1831,0.9072,0.9843,Low-High,not significant
 YSSZ01,score_retail,-0.1116,0.2326,0.6579,High-Low,not significant
-YSSZ02,score_retail,0.0032,0.9466,0.9974,High-Low,not significant
+YSSZ02,score_retail,0.0032,0.9466,0.9974,High-High,not significant
 YSSZ03,score_retail,0.5338,0.2038,0.615,Low-Low,not significant
 YSSZ04,score_retail,0.7826,0.1654,0.615,Low-Low,not significant
 YSSZ05,score_retail,1.4899,0.0134,0.1496,Low-Low,not significant
@@ -402,7 +402,7 @@ YSSZ06,score_retail,0.8711,0.0066,0.1105,Low-Low,not significant
 YSSZ08,score_retail,0.4395,0.4326,0.8281,Low-Low,not significant
 YSSZ09,score_retail,-0.2492,0.4694,0.8281,High-Low,not significant
 AMSZ01,score_health,-0.1497,0.6706,0.8363,High-Low,not significant
-AMSZ02,score_health,0.0156,0.97,0.9834,High-Low,not significant
+AMSZ02,score_health,0.0156,0.97,0.9834,High-High,not significant
 AMSZ03,score_health,0.3742,0.2186,0.4855,High-High,not significant
 AMSZ04,score_health,0.3749,0.2482,0.5213,High-High,not significant
 AMSZ05,score_health,-0.5009,0.435,0.6853,Low-High,not significant
@@ -425,8 +425,8 @@ BKSZ03,score_health,-0.0202,0.6154,0.8178,Low-High,not significant
 BKSZ04,score_health,0.0549,0.8828,0.9194,High-High,not significant
 BKSZ05,score_health,0.094,0.6276,0.8178,Low-Low,not significant
 BKSZ06,score_health,0.2282,0.147,0.3961,Low-Low,not significant
-BKSZ07,score_health,4e-4,0.9954,0.998,High-Low,not significant
-BKSZ08,score_health,-8e-4,0.9736,0.9834,Low-Low,not significant
+BKSZ07,score_health,4e-4,0.9954,0.998,High-High,not significant
+BKSZ08,score_health,-8e-4,0.9736,0.9834,Low-High,not significant
 BKSZ09,score_health,0.2229,0.0888,0.3131,Low-Low,not significant
 BMSZ01,score_health,0.8782,0.0172,0.1383,Low-Low,not significant
 BMSZ02,score_health,0.713,0.0296,0.1673,High-High,not significant
@@ -462,7 +462,7 @@ BTSZ06,score_health,0.267,0.088,0.3131,Low-Low,not significant
 BTSZ07,score_health,-0.33,0.1656,0.4161,High-Low,not significant
 BTSZ08,score_health,0.4459,0.278,0.5557,Low-Low,not significant
 CHSZ02,score_health,2.0873,0.063,0.2694,Low-Low,not significant
-CKSZ01,score_health,-0.0203,0.9544,0.9738,Low-Low,not significant
+CKSZ01,score_health,-0.0203,0.9544,0.9738,Low-High,not significant
 CKSZ02,score_health,0.0201,0.8168,0.8947,Low-Low,not significant
 CKSZ03,score_health,0.1427,0.4368,0.6853,Low-Low,not significant
 CKSZ04,score_health,0.1477,0.6362,0.8178,Low-Low,not significant
@@ -470,9 +470,9 @@ CKSZ05,score_health,0.1959,0.0762,0.3003,Low-Low,not significant
 CKSZ06,score_health,0.4693,0.8072,0.8939,Low-Low,not significant
 CLSZ02,score_health,0.0774,0.7344,0.8611,Low-Low,not significant
 CLSZ03,score_health,0.0771,0.7512,0.8611,High-High,not significant
-CLSZ04,score_health,0.0272,0.9332,0.957,High-Low,not significant
+CLSZ04,score_health,0.0272,0.9332,0.957,High-High,not significant
 CLSZ05,score_health,0.0104,0.7768,0.8743,Low-Low,not significant
-CLSZ06,score_health,0.0032,0.998,0.998,High-Low,not significant
+CLSZ06,score_health,0.0032,0.998,0.998,High-High,not significant
 CLSZ07,score_health,-0.0129,0.5556,0.8034,High-Low,not significant
 CLSZ08,score_health,0.2411,0.6388,0.8178,Low-Low,not significant
 GLSZ02,score_health,0.2375,0.249,0.5213,High-High,not significant
@@ -625,8 +625,8 @@ BKSZ02,score_food_retail,0.1608,0.5806,0.8874,High-High,not significant
 BKSZ03,score_food_retail,-0.0168,0.4966,0.8729,Low-High,not significant
 BKSZ04,score_food_retail,-0.0355,0.9068,0.9868,High-Low,not significant
 BKSZ05,score_food_retail,0.4421,0.3044,0.8246,Low-Low,not significant
-BKSZ06,score_food_retail,2e-4,0.9474,0.987,High-Low,not significant
-BKSZ07,score_food_retail,2e-4,0.9472,0.987,High-Low,not significant
+BKSZ06,score_food_retail,2e-4,0.9474,0.987,High-High,not significant
+BKSZ07,score_food_retail,2e-4,0.9472,0.987,High-High,not significant
 BKSZ08,score_food_retail,0.0378,0.6624,0.9246,Low-Low,not significant
 BKSZ09,score_food_retail,0.0371,0.762,0.9496,Low-Low,not significant
 BMSZ01,score_food_retail,0.8057,0.0494,0.3678,Low-Low,not significant
@@ -642,13 +642,13 @@ BMSZ11,score_food_retail,0.0836,0.3156,0.8246,High-High,not significant
 BMSZ12,score_food_retail,0.039,0.8454,0.9742,High-High,not significant
 BMSZ13,score_food_retail,0.3985,0.3748,0.8729,Low-Low,not significant
 BMSZ14,score_food_retail,0.0336,0.748,0.9496,Low-Low,not significant
-BMSZ15,score_food_retail,-0.0019,0.9832,0.9929,Low-Low,not significant
+BMSZ15,score_food_retail,-0.0019,0.9832,0.9929,Low-High,not significant
 BMSZ16,score_food_retail,0.6264,0.259,0.8246,High-High,not significant
 BPSZ01,score_food_retail,0.1398,0.426,0.8729,High-High,not significant
 BPSZ02,score_food_retail,0.3182,0.3842,0.8729,High-High,not significant
 BPSZ03,score_food_retail,0.1215,0.432,0.8729,High-High,not significant
 BPSZ04,score_food_retail,0.0053,0.9164,0.9868,Low-Low,not significant
-BPSZ05,score_food_retail,0.0106,0.9656,0.9929,High-Low,not significant
+BPSZ05,score_food_retail,0.0106,0.9656,0.9929,High-High,not significant
 BPSZ06,score_food_retail,0.5776,0.2728,0.8246,Low-Low,not significant
 BPSZ07,score_food_retail,1.582,0.1762,0.6559,Low-Low,not significant
 BSSZ01,score_food_retail,0.0767,0.6004,0.8874,Low-Low,not significant
@@ -669,7 +669,7 @@ CKSZ03,score_food_retail,0.1318,0.294,0.8246,Low-Low,not significant
 CKSZ04,score_food_retail,0.3084,0.5812,0.8874,Low-Low,not significant
 CKSZ05,score_food_retail,0.5072,0.0868,0.4877,Low-Low,not significant
 CKSZ06,score_food_retail,1.0339,0.5078,0.8729,Low-Low,not significant
-CLSZ02,score_food_retail,-0.0033,0.9984,0.9984,Low-Low,not significant
+CLSZ02,score_food_retail,-0.0033,0.9984,0.9984,Low-High,not significant
 CLSZ03,score_food_retail,0.0068,0.9216,0.9868,High-High,not significant
 CLSZ04,score_food_retail,-0.0358,0.9184,0.9868,High-Low,not significant
 CLSZ05,score_food_retail,0.0591,0.5096,0.8729,Low-Low,not significant
@@ -683,7 +683,7 @@ GLSZ05,score_food_retail,0.269,0.5694,0.8874,High-High,not significant
 HGSZ01,score_food_retail,0.0845,0.7198,0.9496,High-High,not significant
 HGSZ02,score_food_retail,-0.0054,0.8332,0.9742,Low-High,not significant
 HGSZ03,score_food_retail,0.109,0.588,0.8874,High-High,not significant
-HGSZ04,score_food_retail,0.0183,0.914,0.9868,High-Low,not significant
+HGSZ04,score_food_retail,0.0183,0.914,0.9868,High-High,not significant
 HGSZ05,score_food_retail,0.0094,0.8642,0.9825,Low-Low,not significant
 HGSZ06,score_food_retail,9e-4,0.988,0.9929,Low-Low,not significant
 HGSZ07,score_food_retail,-0.0152,0.7408,0.9496,High-Low,not significant
@@ -693,7 +693,7 @@ JESZ02,score_food_retail,-0.1647,0.4516,0.8729,High-Low,not significant
 JESZ03,score_food_retail,0.0183,0.891,0.9868,High-High,not significant
 JESZ04,score_food_retail,0.4629,0.4564,0.8729,Low-Low,not significant
 JESZ09,score_food_retail,0.0208,0.9526,0.987,Low-Low,not significant
-JWSZ01,score_food_retail,-0.0108,0.983,0.9929,Low-Low,not significant
+JWSZ01,score_food_retail,-0.0108,0.983,0.9929,Low-High,not significant
 JWSZ02,score_food_retail,0.1841,0.3874,0.8729,Low-Low,not significant
 JWSZ03,score_food_retail,0.4501,0.043,0.3494,Low-Low,not significant
 JWSZ04,score_food_retail,0.8104,0.1668,0.6402,Low-Low,not significant
@@ -735,7 +735,7 @@ QTSZ01,score_food_retail,0.1288,0.7256,0.9496,High-High,not significant
 QTSZ02,score_food_retail,0.1276,0.702,0.9496,High-High,not significant
 QTSZ03,score_food_retail,0.0834,0.7082,0.9496,High-High,not significant
 QTSZ04,score_food_retail,-0.3202,0.4164,0.8729,Low-High,not significant
-QTSZ05,score_food_retail,-5e-4,0.9706,0.9929,Low-Low,not significant
+QTSZ05,score_food_retail,-5e-4,0.9706,0.9929,Low-High,not significant
 QTSZ06,score_food_retail,0.0607,0.7392,0.9496,High-High,not significant
 QTSZ10,score_food_retail,-0.0379,0.6002,0.8874,Low-High,not significant
 QTSZ13,score_food_retail,0.9003,0.1918,0.6884,Low-Low,not significant
@@ -790,7 +790,7 @@ TPSZ09,score_food_retail,0.0548,0.3686,0.8729,High-High,not significant
 TPSZ11,score_food_retail,0.0922,0.613,0.8896,High-High,not significant
 TPSZ12,score_food_retail,-0.0216,0.8368,0.9742,High-Low,not significant
 WDSZ02,score_food_retail,-0.0284,0.94,0.987,High-Low,not significant
-WDSZ03,score_food_retail,-0.006,0.9486,0.987,Low-Low,not significant
+WDSZ03,score_food_retail,-0.006,0.9486,0.987,Low-High,not significant
 WDSZ04,score_food_retail,-0.2212,0.4886,0.8729,Low-High,not significant
 WDSZ05,score_food_retail,0.0674,0.8356,0.9742,High-High,not significant
 WDSZ06,score_food_retail,-0.1011,0.5068,0.8729,High-Low,not significant
@@ -918,7 +918,7 @@ NTSZ05,score_education,0.5303,0.2368,0.56,High-High,not significant
 NVSZ01,score_education,0.6488,0.1142,0.4331,High-High,not significant
 NVSZ02,score_education,0.7525,0.0806,0.3645,High-High,not significant
 NVSZ03,score_education,0.4276,0.1274,0.4491,High-High,not significant
-NVSZ04,score_education,-0.0037,0.9906,0.9928,Low-Low,not significant
+NVSZ04,score_education,-0.0037,0.9906,0.9928,Low-High,not significant
 OTSZ01,score_education,0.105,0.6162,0.8483,High-High,not significant
 OTSZ03,score_education,0.0567,0.8164,0.935,Low-Low,not significant
 OTSZ04,score_education,-0.0336,0.9186,0.9691,High-Low,not significant
@@ -932,11 +932,11 @@ PRSZ04,score_education,-0.079,0.762,0.9279,Low-High,not significant
 PRSZ05,score_education,-0.0823,0.1848,0.5088,High-Low,not significant
 PRSZ07,score_education,2.1526,0.0192,0.1914,Low-Low,not significant
 PRSZ08,score_education,0.7067,0.0192,0.1914,Low-Low,not significant
-QTSZ01,score_education,0.0012,0.9584,0.9729,High-Low,not significant
+QTSZ01,score_education,0.0012,0.9584,0.9729,High-High,not significant
 QTSZ02,score_education,0.2907,0.3654,0.6929,Low-Low,not significant
 QTSZ03,score_education,0.138,0.4154,0.7386,Low-Low,not significant
 QTSZ04,score_education,0.0324,0.8516,0.9457,Low-Low,not significant
-QTSZ05,score_education,0.0149,0.9364,0.9691,High-Low,not significant
+QTSZ05,score_education,0.0149,0.9364,0.9691,High-High,not significant
 QTSZ06,score_education,0.0149,0.8824,0.9536,High-High,not significant
 QTSZ10,score_education,1.2366,0.0936,0.392,High-High,not significant
 QTSZ13,score_education,-0.2081,0.6472,0.879,Low-High,not significant
@@ -963,7 +963,7 @@ SESZ04,score_education,3.2805,6e-4,0.0121,High-High,High-High
 SESZ05,score_education,2.1097,4e-4,0.0121,High-High,High-High
 SESZ06,score_education,0.5643,0.0876,0.3828,High-High,not significant
 SGSZ01,score_education,0.1686,0.7284,0.9139,Low-Low,not significant
-SGSZ03,score_education,-0.0032,0.9928,0.9928,Low-Low,not significant
+SGSZ03,score_education,-0.0032,0.9928,0.9928,Low-High,not significant
 SGSZ04,score_education,-0.4222,0.0904,0.3866,Low-High,not significant
 SGSZ05,score_education,-0.0509,0.5768,0.8341,Low-High,not significant
 SGSZ06,score_education,0.2361,0.3344,0.6594,High-High,not significant
@@ -989,7 +989,7 @@ TPSZ07,score_education,0.2678,0.211,0.538,High-High,not significant
 TPSZ08,score_education,-0.0238,0.509,0.7815,Low-High,not significant
 TPSZ09,score_education,0.0118,0.2718,0.6065,High-High,not significant
 TPSZ11,score_education,-0.0117,0.9112,0.9691,High-Low,not significant
-TPSZ12,score_education,-0.0145,0.9502,0.9726,Low-Low,not significant
+TPSZ12,score_education,-0.0145,0.9502,0.9726,Low-High,not significant
 WDSZ02,score_education,0.0318,0.7212,0.9117,High-High,not significant
 WDSZ03,score_education,0.006,0.9818,0.9917,High-High,not significant
 WDSZ04,score_education,0.0523,0.8092,0.9348,High-High,not significant
@@ -1041,7 +1041,7 @@ BMSZ08,score_recreation,0.2071,0.538,0.8318,High-High,not significant
 BMSZ09,score_recreation,0.074,0.693,0.9112,High-High,not significant
 BMSZ10,score_recreation,0.04,0.8164,0.9599,High-High,not significant
 BMSZ11,score_recreation,0.0131,0.8812,0.9599,Low-Low,not significant
-BMSZ12,score_recreation,-0.0094,0.9776,0.9908,Low-Low,not significant
+BMSZ12,score_recreation,-0.0094,0.9776,0.9908,Low-High,not significant
 BMSZ13,score_recreation,0.101,0.3446,0.7333,Low-Low,not significant
 BMSZ14,score_recreation,0.1203,0.2988,0.6926,Low-Low,not significant
 BMSZ15,score_recreation,0.5728,0.2832,0.6926,Low-Low,not significant
@@ -1080,7 +1080,7 @@ CLSZ07,score_recreation,0.0373,0.9412,0.965,High-High,not significant
 CLSZ08,score_recreation,3e-4,0.893,0.9599,Low-Low,not significant
 GLSZ02,score_recreation,-0.0045,0.3658,0.7425,Low-High,not significant
 GLSZ03,score_recreation,0.0249,0.4092,0.7616,High-High,not significant
-GLSZ04,score_recreation,9e-4,0.9838,0.9908,High-Low,not significant
+GLSZ04,score_recreation,9e-4,0.9838,0.9908,High-High,not significant
 GLSZ05,score_recreation,-0.0016,0.9146,0.9644,High-Low,not significant
 HGSZ01,score_recreation,0.0822,0.7666,0.9365,High-High,not significant
 HGSZ02,score_recreation,-0.1544,0.3356,0.7333,Low-High,not significant
@@ -1109,7 +1109,7 @@ KLSZ06,score_recreation,1.4565,6e-4,0.0134,High-High,High-High
 KLSZ07,score_recreation,0.588,0.0712,0.3111,High-High,not significant
 KLSZ09,score_recreation,0.8137,0.0938,0.3928,High-High,not significant
 MDSZ03,score_recreation,-0.0428,0.9374,0.965,Low-High,not significant
-MPSZ01,score_recreation,-0.0448,0.9908,0.9908,Low-Low,not significant
+MPSZ01,score_recreation,-0.0448,0.9908,0.9908,Low-High,not significant
 MPSZ02,score_recreation,-0.0499,0.4366,0.7836,High-Low,not significant
 MPSZ03,score_recreation,0.1181,0.1984,0.6042,Low-Low,not significant
 NTSZ01,score_recreation,3.0933,0.0432,0.2067,Low-Low,not significant
@@ -1140,7 +1140,7 @@ QTSZ04,score_recreation,0.0192,0.7196,0.9332,Low-Low,not significant
 QTSZ05,score_recreation,0.0609,0.442,0.7836,Low-Low,not significant
 QTSZ06,score_recreation,0.023,0.6646,0.907,Low-Low,not significant
 QTSZ10,score_recreation,0.1886,0.2974,0.6926,High-High,not significant
-QTSZ13,score_recreation,-0.0725,0.9458,0.965,Low-Low,not significant
+QTSZ13,score_recreation,-0.0725,0.9458,0.965,Low-High,not significant
 QTSZ14,score_recreation,0.4481,0.127,0.4861,Low-Low,not significant
 RCSZ01,score_recreation,1.1094,0.0036,0.0329,High-High,High-High
 RCSZ02,score_recreation,1.5353,8e-4,0.0134,High-High,High-High
@@ -1216,7 +1216,7 @@ AMSZ08,score,2.362,0.0134,0.1796,Low-Low,not significant
 AMSZ09,score,0.6483,0.2832,0.6505,Low-Low,not significant
 AMSZ12,score,0.0146,0.9828,0.9927,Low-Low,not significant
 BDSZ01,score,-0.0169,0.7928,0.9182,Low-High,not significant
-BDSZ02,score,-0.0311,0.9424,0.9664,Low-Low,not significant
+BDSZ02,score,-0.0311,0.9424,0.9664,Low-High,not significant
 BDSZ03,score,0.037,0.8348,0.9314,High-High,not significant
 BDSZ04,score,-0.1034,0.2134,0.5851,High-Low,not significant
 BDSZ05,score,-0.0988,0.487,0.7831,Low-High,not significant
@@ -1256,7 +1256,7 @@ BPSZ06,score,0.5798,0.2484,0.6089,Low-Low,not significant
 BPSZ07,score,1.0716,0.2096,0.5851,Low-Low,not significant
 BSSZ01,score,-0.0745,0.692,0.8974,High-Low,not significant
 BSSZ02,score,0.0362,0.7468,0.917,High-High,not significant
-BSSZ03,score,0.0083,0.9504,0.9697,High-Low,not significant
+BSSZ03,score,0.0083,0.9504,0.9697,High-High,not significant
 BTSZ01,score,-0.3797,0.0118,0.1796,High-Low,not significant
 BTSZ02,score,0.6915,0.12,0.4385,Low-Low,not significant
 BTSZ03,score,0.5013,0.3316,0.676,Low-Low,not significant
@@ -1368,7 +1368,7 @@ SGSZ01,score,0.5336,0.3904,0.7021,Low-Low,not significant
 SGSZ03,score,0.0369,0.8636,0.9342,Low-Low,not significant
 SGSZ04,score,-0.0813,0.5494,0.8303,Low-High,not significant
 SGSZ05,score,-0.0542,0.8844,0.9342,Low-High,not significant
-SGSZ06,score,0.0024,0.995,0.995,High-Low,not significant
+SGSZ06,score,0.0024,0.995,0.995,High-High,not significant
 SGSZ07,score,-0.0291,0.8614,0.9342,High-Low,not significant
 SISZ01,score,2.6108,0.1812,0.5691,Low-Low,not significant
 SRSZ01,score,0.6606,0.023,0.2312,High-High,not significant
@@ -1394,7 +1394,7 @@ TPSZ11,score,0.1989,0.3558,0.6877,High-High,not significant
 TPSZ12,score,0.0519,0.8132,0.9235,High-High,not significant
 WDSZ02,score,-0.0868,0.5856,0.8494,High-Low,not significant
 WDSZ03,score,0.1067,0.7332,0.917,Low-Low,not significant
-WDSZ04,score,-0.0062,0.993,0.995,Low-Low,not significant
+WDSZ04,score,-0.0062,0.993,0.995,Low-High,not significant
 WDSZ05,score,-0.0596,0.7268,0.917,High-Low,not significant
 WDSZ06,score,0.1489,0.1958,0.5797,Low-Low,not significant
 WDSZ09,score,0.346,0.8406,0.9314,Low-Low,not significant
