@@ -16,6 +16,12 @@ call     <- read_csv(file.path(DIR_TAB, "q2_density_share.csv"), show_col_types 
 maturity <- read_csv(file.path(DIR_EXT, "town_maturity.csv"), show_col_types = FALSE)
 pa       <- read_csv(file.path(DIR_PROC, "census2020_subzone.csv"), show_col_types = FALSE) %>%
   select(subzone_c, pln_area_n)
+outliers <- read_csv(file.path(DIR_PROC, "q1_outliers.csv"), show_col_types = FALSE)
+
+# H6: subzones Q1 finds as High-Low / Low-High outliers are single extreme
+# subzones, not a kind of neighbourhood, and must not seed a type. Q1 finds none;
+# if it ever does, decide how Q3 sets them aside before clustering.
+if (nrow(outliers)) stop(nrow(outliers), " Q1 outlier subzones in q1_outliers.csv: decide how Q3 treats them first")
 
 raw_cols <- paste0("score_", CATEGORIES)
 scores <- if (call == "adjusted") {
