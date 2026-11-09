@@ -83,8 +83,9 @@ data/
     interim/            intermediate objects                             (ignored, regenerated)
     processed/          hand-off tables between stages                   (committed)
     tables/  figures/   report tables and figures                        (committed)
-report/                 report.Rmd + one child section per owner (reads data/output/, data/input/external/)
-  slides/               build_slides.js and the deck it builds (group3_project_slides.pptx)
+report/                 report.Rmd and references.bib; built outputs (report.docx, the slide deck) land here
+  sections/             one child .Rmd per report section (Introduction ... Reproducing the results)
+  scripts/              render.R, the results loaders the sections read, and the slide builder
 docs/                   proposal, consideration (brief + decisions), course knowledge, data log
   plans/                one working plan per workstream
   archive/              team_plan.html, the original schedule (not kept current)
@@ -96,8 +97,8 @@ docs/                   proposal, consideration (brief + decisions), course know
    (the working directory must be the repo root).
 2. Install packages: `sf dplyr tidyr stringr readr jsonlite ggplot2 scales stringdist clue binom pwr spatstat spdep spatialreg tmap cluster factoextra osmdata rmarkdown knitr`.
 3. `Rscript R/run_all.R` rebuilds everything under `data/output/`.
-4. `Rscript report/render.R` writes `report/report.docx` (it finds the pandoc bundled with RStudio; or knit `report/report.Rmd` in RStudio).
-5. `cd report/slides && npm install && npm run build` writes `report/slides/group3_project_slides.pptx`
+4. `Rscript report/scripts/render.R` writes `report/report.docx` (it finds the pandoc bundled with RStudio; or knit `report/report.Rmd` in RStudio).
+5. `cd report/scripts && npm install && npm run build` writes `report/group3_project_slides.pptx`
    (Node.js; its numbers are typed from the rendered report, so recheck them after a rerun).
 
 ## Rules
