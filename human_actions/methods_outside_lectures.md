@@ -16,7 +16,7 @@ pipeline uses against [`docs/course_knowledge.md`](../docs/course_knowledge.md) 
 | Coverage (A) | spatial joins, `st_is_within_distance` (L5) | random labelling with cross-K, envelope, MAD (L7) | record linkage (Jaro-Winkler), Hungarian matching, Wilson interval, two-proportion test and power, logistic regression, empirical-Bayes shrinkage |
 | Score (A) | buffers and distance counts (L4–5), `st_point_on_surface` (L5) | floor-area-weighted centres, log scaling (design choices built from taught operations) | Spearman rank correlation |
 | Q1 (B) | queen weights, `nb2listw`, Moran's I, Moran plot (L8) | Monte Carlo Moran's I, LISA (L8) | kNN weights, Benjamini-Hochberg |
-| Q2 (C) | — (L8's trend-in-mean model is the nearest) | — | OLS, one-sided tests, VIF, AIC, residual Moran's I, robust LM tests, spatial lag/error models and impacts |
+| Q2 (C) | — (L8's trend-in-mean model is the nearest) | — | OLS, one-sided tests, Holm correction, VIF, AIC, residual Moran's I, robust LM tests, spatial lag/error models and impacts |
 | Q3 (D) | — | k-means (L4 used it only to bin map colours), null reference and permutation tests (L7–L8's "compare with a simulated random benchmark") | silhouette and elbow, block bootstrap with Jaccard, chi-square statistic, PCA |
 
 The pattern: Q1 stays close to the course (L8). Coverage and Q3 extend L7–L8's
@@ -37,11 +37,11 @@ report.
 | Record linkage, Jaro-Winkler + token-set similarity | Not taught | `01_match.R` | A pair counts as the same facility only if it is close (≤ 50 m) *and* similarly named. Jaro-Winkler scores typos; token overlap scores reordered words | Distance alone pairs the wrong tenant in a multi-clinic building; name alone pairs the wrong branch of a chain | Winkler (1990) |
 | One-to-one assignment (Hungarian algorithm) | Not taught | `01_match.R`, `R/06_q3_typology/03_stability.R` | Chooses the set of pairs with the best total score so no OSM feature is claimed twice | Greedy matching double-counts shared buildings. In Q3 it matches bootstrap clusters to the original ones | Kuhn (1955) |
 | Wilson score interval | Not taught | `01_match.R`, `06_matcher_error.R` | A confidence interval for a proportion that stays inside 0–1 | Recall is near 10%, where the textbook ±1.96·SE interval is poor | Wilson (1927) |
-| Two-proportion test + minimum detectable difference | Not taught | `02_gap_test.R` | Tests whether the miss rate differs between mature and non-mature towns, and gives the smallest gap the sample could detect at 80% power | A null result means something only if a real gap could have been found (3.8 points here) | Cohen (1988) |
+| Two-proportion test + minimum detectable difference | Not taught | `02_gap_test.R` | Tests whether the miss rate differs between mature and non-mature towns, and gives the smallest gap the sample could detect at 80% power | A null result means something only if a real gap could have been found (3.8 points here) | Rice (2007); Cohen (1988) |
 | Logistic regression | Not taught | `02_gap_test.R` | Models the probability a facility is missing from OSM given town maturity and distance to the CBD | Separates maturity from distance to the centre, which it is tangled with (r = 0.72) | James et al. (2021) |
 | Random labelling with cross-K, envelope and MAD test | Extends L7 | `02_gap_test.R` | L7 taught cross-K for marked points, envelopes and the MAD test against CSR. Here the null is a different one: shuffle the "found/missed" marks over the fixed facility locations (`rlabel`) instead of scattering points randomly | Asks whether *missed* facilities cluster beyond the clustering of facilities themselves, which CSR cannot answer | Baddeley, Rubak & Turner (2015) |
 | Empirical-Bayes (beta-binomial) shrinkage | Not taught | `03_quality_flag.R` | Pulls each subzone's miss rate towards the island rate, more strongly when it has few facilities | A subzone with 1 preschool would otherwise show 0% or 100% missing | Efron & Morris (1975) |
-| Matcher error and corrected recall | Not taught (arithmetic on a checked sample) | `06_matcher_error.R` | False-match and false-miss rates from 160 checked pairs, then recall adjusted for both | Shows how much of the low recall is OSM's and how much the matcher's (ECDA 9.7% measured, 16.8% corrected) | — |
+| Matcher error and corrected recall | Not taught (arithmetic on a checked sample) | `06_matcher_error.R` | False-match and false-miss rates from 160 checked pairs, then recall adjusted for both | Shows how much of the low recall is OSM's and how much the matcher's (ECDA 9.7% measured, 12.1% corrected; two more misses are tagging gaps, not matcher error) | — |
 
 ### Access score (Track A)
 
@@ -51,7 +51,7 @@ report.
 | `st_point_on_surface` fallback centre | Taught (L5) | `01_centres.R` | A point guaranteed inside the polygon, unlike `st_centroid` | Subzones with no mapped homes | — |
 | Floor-area-weighted centre | Extends L5 (design choice) | `01_centres.R` | The centre is the weighted mean of residential building points, weight = footprint × storeys | Measures access from where people live, not the polygon's middle (decision 3) | — |
 | log1p scaling to the residential maximum | Design choice | `02_score.R` | Category score = 100·log(1 + count) / maximum over residential subzones | Puts hundreds of eateries and tens of clinics on one scale before the spending weights (decision 11) | — |
-| Spearman rank correlation | Not taught | `02_score.R` | Agreement between two rankings | Checks that subzones keep their order under other radii and weights | James et al. (2021) |
+| Spearman rank correlation | Not taught | `02_score.R` | Agreement between two rankings | Checks that subzones keep their order under other radii and weights | Spearman (1904) |
 
 ### Q1: spatial structure (Track B)
 
@@ -71,6 +71,7 @@ Getis-Ord Gi* was dropped (decision 10): it repeats LISA's clusters and cannot s
 |---|---|---|---|---|---|
 | OLS with standardised predictors | Not taught (L8's trend-in-mean model is the nearest) | `R/05_q2_regression/03_ols.R` | Linear regression; each coefficient reads "score points per SD of the predictor" | Compares the tested variables and controls on one scale | James et al. (2021) |
 | One-sided t-test | Not taught | `03_ols.R`, `04_spatial_model.R` | Tests only the stated direction (elderly share and housing mix lower the score) | The hypotheses are directional (decision 4) | James et al. (2021) |
+| Holm correction | Not taught | report (Q2 section) | Multiplies the smallest of m p-values by m, the next by m − 1, and so on, keeping the chance of any false rejection at 5% | The two tested terms are tested again in six category models: 12 tests | Holm (1979) |
 | Variance inflation factor (VIF) | Not taught | `03_ols.R` | How much a coefficient's variance grows because predictors overlap; above about 5 is a warning | Elderly share and housing mix are related (max VIF 2.2: fine) | James et al. (2021) |
 | Moran's I on residuals | Extends L8 | `04_spatial_model.R` | L8's Moran's I applied to what the regression leaves unexplained | Clustered residuals break OLS's independence assumption, L8's own point (I = 0.28, p < 0.001) | Anselin (1988) |
 | Robust Lagrange-multiplier tests | Not taught | `04_spatial_model.R` | Tell a spillover process (lag) from clustered unmeasured causes (error) | Choose the spatial model; they chose lag | Anselin, Bera, Florax & Yoon (1996) |
@@ -88,7 +89,7 @@ Getis-Ord Gi* was dropped (decision 10): it repeats LISA's clusters and cannot s
 | Elbow and silhouette | Not taught | `02_choose_k.R` | Elbow: where more groups stop reducing within-group spread. Silhouette: how much better each subzone fits its own group than the next | Chooses k by a fixed rule | Rousseeuw (1987) |
 | No-cluster null (parametric bootstrap) | Extends L7–L8 | `02_choose_k.R` | The same logic as L7's CSR envelope or L8's shuffled maps: rerun the k choice on 200 simulated single clouds with no groups and see whether the real data separate better | Silhouette always picks some k ≥ 2. Here p = 0.47: one gradient, not discrete types | Tibshirani, Walther & Hastie (2001) |
 | Spatial block bootstrap + Jaccard | Not taught | `03_stability.R` | Resample whole planning-area blocks, re-cluster, measure each group's overlap with the original (≥ 0.75 stable) | Neighbours are near-duplicates (Q1), so resampling single subzones would overstate stability | Künsch (1989); Hennig (2007) |
-| Block permutation tests (χ² and F statistics) | Extends L8 | `04_tests.R` | L8's permutation idea, with whole blocks shuffled (H₀(a)) or values shuffled within blocks (H₀(b)) | Neighbours are not independent, so textbook χ² and F p-values would be too small (decisions 5 and 12) | Good (2005) |
+| Block permutation tests (χ² and F statistics) | Extends L8 | `04_tests.R` | L8's permutation idea, with whole blocks shuffled (H₀(a)) or values shuffled within blocks (H₀(b)) | Neighbours are not independent, so textbook χ² and F p-values would be too small (decisions 5 and 12) | Rice (2007) for the statistics; Good (2005) for the permutation |
 
 ## Packages outside the course list
 
@@ -119,12 +120,15 @@ base R. The pipeline adds:
 - Efron, B., & Morris, C. (1975). Data analysis using Stein's estimator and its generalizations. *Journal of the American Statistical Association*, 70(350), 311–319.
 - Good, P. (2005). *Permutation, Parametric and Bootstrap Tests of Hypotheses* (3rd ed.). Springer.
 - Hartigan, J. A., & Wong, M. A. (1979). A k-means clustering algorithm. *Applied Statistics*, 28(1), 100–108.
+- Holm, S. (1979). A simple sequentially rejective multiple test procedure. *Scandinavian Journal of Statistics*, 6(2), 65–70.
 - Hennig, C. (2007). Cluster-wise assessment of cluster stability. *Computational Statistics & Data Analysis*, 52(1), 258–271.
 - James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning* (2nd ed.). Springer.
 - Kuhn, H. W. (1955). The Hungarian method for the assignment problem. *Naval Research Logistics Quarterly*, 2, 83–97.
 - Künsch, H. R. (1989). The jackknife and the bootstrap for general stationary observations. *Annals of Statistics*, 17(3), 1217–1241.
 - LeSage, J., & Pace, R. K. (2009). *Introduction to Spatial Econometrics*. CRC Press.
+- Rice, J. A. (2007). *Mathematical Statistics and Data Analysis* (3rd ed.). Duxbury.
 - Rousseeuw, P. J. (1987). Silhouettes: a graphical aid to the interpretation and validation of cluster analysis. *Journal of Computational and Applied Mathematics*, 20, 53–65.
+- Spearman, C. (1904). The proof and measurement of association between two things. *The American Journal of Psychology*, 15(1), 72–101.
 - Tibshirani, R., Walther, G., & Hastie, T. (2001). Estimating the number of clusters in a data set via the gap statistic. *Journal of the Royal Statistical Society B*, 63(2), 411–423.
 - Wilson, E. B. (1927). Probable inference, the law of succession, and statistical inference. *Journal of the American Statistical Association*, 22(158), 209–212.
 - Winkler, W. E. (1990). String comparator metrics and enhanced decision rules in the Fellegi-Sunter model of record linkage. *Proceedings of the Section on Survey Research Methods*, American Statistical Association, 354–359.
