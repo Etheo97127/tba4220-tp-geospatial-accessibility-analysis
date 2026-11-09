@@ -9,7 +9,7 @@ says, and tick it here.
 |---|---|---|---|
 | 1 | [Google Maps check of 29 coverage rows](#1-google-maps-check-of-29-coverage-rows) | open | results into `data/external/coverage_validation_verdicts.csv`; rerun `coverage` |
 | 2 | [Review the 12 agreed decisions](#2-review-the-12-agreed-decisions) | open (optional) | edit `docs/decisions.md` and the constant in `R/00_setup.R`; rerun all |
-| 3 | [Confirm the calendar and deadlines](#3-confirm-the-calendar-and-deadlines) | open | fix the calendar line in `docs/decisions.md` |
+| 3 | [Confirm the calendar, deadlines and report format](#3-confirm-the-calendar-deadlines-and-report-format) | open | fix the calendar line in `docs/decisions.md`; tell the agent the format and page limit |
 | 4 | [ECDA childcare timestamp](#4-ecda-childcare-timestamp) | open | note in `plans/coverage_check.md`, or re-download |
 | 5 | [Read the methods outside the lectures](#5-read-the-methods-outside-the-lectures) | open | use it when reviewing the report |
 | 6 | [Push and open the pull request](#6-push-and-open-the-pull-request) | open | after the report is assembled and reviewed |
@@ -52,11 +52,17 @@ delegation. The ones that most shape results:
 To change one, edit its row with a dated note, change the constant in `R/00_setup.R`
 if it has one, and rerun `Rscript R/run_all.R`.
 
-## 3. Confirm the calendar and deadlines
+## 3. Confirm the calendar, deadlines and report format
 
 The plan's weeks are relative. Everything assumes W1 = week of 26 Oct 2026, so the
 report is due around the end of W6 (about 6 Dec 2026). Check the real submission date
 and correct the calendar line in `docs/decisions.md`.
+
+The draft report (`Rscript report/render.R` → `report/report.docx`) runs to about
+3,400 words with seven figures and two tables. The proposal's limit was 5 pages; the
+final report's brief may differ. Confirm the page limit and required format. Word is
+used because no LaTeX is installed. For PDF, run `tinytex::install_tinytex()` once in R
+and change `word_document` to `pdf_document` in `report/report.Rmd`.
 
 ## 4. ECDA childcare timestamp
 
