@@ -1,9 +1,10 @@
 # 01_prep/06_rail_stations.R ----------------------------------------------------
 # Rail stations in service, for Q2's distance-to-transit covariate. The MP19 layer
 # is a master plan, so it also draws lines that were not running at the OSM
-# snapshot (Jurong Region and Cross Island Lines, shell stations). Those are
-# listed in data/external/rail_not_open.csv and dropped; stations marked
-# "uncertain" there (2026 openings) are kept until someone confirms them.
+# snapshot (2026-11-02): Jurong Region and Cross Island Lines, shell stations,
+# TEL5/DTL3e (opens 2026-12-26). Those are listed in
+# data/external/rail_not_open.csv as "not_open" and dropped. Rows marked "open"
+# there record checked 2026 openings (Circle Line stage 6, 2026-07-12).
 # Nine polygons carry no name (e.g. Orchard Boulevard, a Sentosa Express stop,
 # platforms inside Chinatown and Newton); they are kept as "unnamed" and open,
 # since dropping them overstated distance to rail for central subzones.

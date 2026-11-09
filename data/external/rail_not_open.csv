@@ -31,9 +31,9 @@ TECK GHEE,CRL,not_open,Cross Island Line
 BUKIT BROWN,CCL,not_open,Shell station; never opened
 MOUNT PLEASANT,TEL,not_open,Shell station; not opened
 FOUNDERS' MEMORIAL,TEL,not_open,Opens with the Founders' Memorial (about 2028)
-BEDOK SOUTH,TEL,uncertain,TEL stage 5; targeted 2026; verify opening before v1
-SUNGEI BEDOK,TEL/DTL,uncertain,TEL stage 5 and DTL3 extension; targeted 2026; verify
-XILIN,DTL,uncertain,DTL3 extension; targeted 2026; verify
-KEPPEL,CCL,uncertain,Circle Line stage 6; targeted 2026; verify
-CANTONMENT,CCL,uncertain,Circle Line stage 6; targeted 2026; verify
-PRINCE EDWARD ROAD,CCL,uncertain,Circle Line stage 6; targeted 2026; verify
+BEDOK SOUTH,TEL,not_open,TEL stage 5; opens 2026-12-26 (LTA 2026-11-04); after the 2026-11-02 OSM snapshot
+SUNGEI BEDOK,TEL/DTL,not_open,TEL stage 5 and DTL3 extension; opens 2026-12-26 (LTA 2026-11-04)
+XILIN,DTL,not_open,DTL3 extension; opens 2026-12-26 (LTA 2026-11-04)
+KEPPEL,CCL,open,Circle Line stage 6; opened 2026-07-12 (LTA); before the OSM snapshot
+CANTONMENT,CCL,open,Circle Line stage 6; opened 2026-07-12 (LTA)
+PRINCE EDWARD ROAD,CCL,open,Circle Line stage 6; opened 2026-07-12 (LTA)

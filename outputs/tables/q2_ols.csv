@@ -1,7 +1,7 @@
 outcome,term,estimate,se,t,p_two_sided,alternative,p_one_sided
-score,(Intercept),58.15,0.7442,78.14,3.985999999999999e-149,two.sided,NA
-score,elderly_share,0.2507,1.049,0.239,0.8114,less,0.5943
-score,housing_mix,0.1184,1.11,0.1067,0.9151,less,0.5424
-score,log_density,2.286,0.905,2.526,0.01232,two.sided,NA
-score,dist_rail_m,-4.089,0.8162,-5.011,1.213e-6,two.sided,NA
-score,log_contrib,7.581,0.9397,8.068,7.162e-14,two.sided,NA
+score,(Intercept),58.15,0.7441,78.15,3.9249999999999985e-149,two.sided,NA
+score,elderly_share,0.2522,1.049,0.2405,0.8102,less,0.5949
+score,housing_mix,0.118,1.11,0.1064,0.9154,less,0.5423
+score,log_density,2.287,0.9049,2.527,0.0123,two.sided,NA
+score,dist_rail_m,-4.092,0.8161,-5.014,1.193e-6,two.sided,NA
+score,log_contrib,7.579,0.9397,8.066,7.243e-14,two.sided,NA

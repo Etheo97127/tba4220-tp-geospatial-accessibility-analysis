@@ -37,7 +37,7 @@ CRS is EPSG:3414. Column contracts are in each plan; H1–H8 are the hand-off ID
 | `processed/census2020_subzone.csv` | | prep | score, Q2 |
 | `processed/hes_weights.csv` | | prep | score, Q2, report |
 | `processed/rail_stations.rds` | | prep | Q2 (distance to rail) |
-| `external/rail_not_open.csv` | | prep | stations dropped as not yet open |
+| `external/rail_not_open.csv` | | prep | station opening status at the OSM snapshot; `not_open` rows are dropped |
 | `processed/osm_contributors.csv` | | prep | Q2 (mapping-effort control) |
 | `processed/residential_set.csv` | H2 | Q2 (C1) | all |
 | `processed/subzone_quality_flag.csv` | | coverage | Q2, Q3 (robustness) |
