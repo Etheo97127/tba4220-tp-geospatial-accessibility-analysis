@@ -13,8 +13,6 @@ source("R/00_setup.R")
 inp <- readRDS(file.path(DIR_INT, "q3_inputs.rds"))
 cl  <- read_csv(file.path(DIR_PROC, "q3_clusters.csv"), show_col_types = FALSE)
 
-N_PERM <- 999
-
 dat <- inp$data %>% select(subzone_c, block_id, maturity, residual) %>%
   left_join(cl %>% select(subzone_c, cluster), by = "subzone_c") %>%
   mutate(cluster = factor(cluster))
@@ -31,7 +29,7 @@ chisq_stat <- function(type, group) suppressWarnings(unname(chisq.test(table(typ
 
 obs_a <- chisq_stat(grp$cluster, grp$maturity)
 set.seed(SEED)
-perm_a <- replicate(N_PERM, {
+perm_a <- replicate(N_PERM_BLOCK, {
   shuffled <- setNames(sample(block_label$maturity), block_label$block_id)
   chisq_stat(grp$cluster, shuffled[grp$block_id])
 })
@@ -45,7 +43,7 @@ f_stat <- function(resid, type) anova(lm(resid ~ type))$`F value`[1]
 
 obs_b <- f_stat(dat$residual, dat$cluster)
 set.seed(SEED)
-perm_b <- replicate(N_PERM, {
+perm_b <- replicate(N_PERM_BLOCK, {
   r <- dat$residual
   for (b in unique(dat$block_id)) {
     i <- which(dat$block_id == b)
@@ -62,7 +60,7 @@ tests <- tibble(
                  "H0(b): type unrelated to Q2 residual"),
   statistic = c("chi-square", "F"), observed = c(obs_a, obs_b),
   permutation = c("town labels between whole blocks", "residuals within blocks"),
-  n_perm = N_PERM, n_subzones = c(nrow(grp), nrow(dat)),
+  n_perm = N_PERM_BLOCK, n_subzones = c(nrow(grp), nrow(dat)),
   p_value = c(perm_p(obs_a, perm_a), perm_p(obs_b, perm_b))
 )
 

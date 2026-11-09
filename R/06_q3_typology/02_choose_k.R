@@ -64,7 +64,7 @@ k_best <- grid$k[which.max(grid$silhouette)]
 null_max <- null_silhouettes(inp$X, N_NULL)
 obs_max <- max(grid$silhouette)
 p_null  <- (1 + sum(null_max >= obs_max)) / (1 + N_NULL)
-structure <- if (p_null < 0.05) "discrete types" else "one gradient"
+structure <- if (p_null < ALPHA) "discrete types" else "one gradient"
 null_tab <- tibble(k_chosen = k_best, observed_max_silhouette = obs_max,
                    null_mean = mean(null_max), null_q95 = unname(quantile(null_max, 0.95)),
                    n_null = N_NULL, p_value = p_null, structure = structure)

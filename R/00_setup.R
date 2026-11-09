@@ -39,6 +39,7 @@ RADII_ALT   <- c(800, 1200)  # ... and the robustness variants
 DENSITY_SHARE_MAX <- 0.5     # item 1: above this share of R2, Q3 clusters on density-adjusted scores
 LISA_NSIM   <- 9999          # item 8: at 999 the smallest two-sided p is 0.002, too coarse for BH over ~200 tests
 FDR_Q       <- 0.05          # item 8: Benjamini-Hochberg false discovery rate for LISA
+N_PERM_BLOCK <- 999          # items 5 and 12: block permutations for Q3's H0(b) and H0(a)
 
 # Significance level for every test (each script says whether one- or two-sided).
 ALPHA <- 0.05
