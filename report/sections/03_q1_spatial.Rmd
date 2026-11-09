@@ -5,8 +5,10 @@ mi    <- tab("q1_morans_i.csv")
 memo  <- tab("q1_memo.csv")
 wsum  <- tab("q1_weights_summary.csv")
 bsz   <- tab("q1_block_sizes.csv")
-lab7  <- c(CAT_LAB, score = "Composite")
-lab_v <- lab7[sub("^score_", "", mi$variable)]
+qf    <- proc("subzone_quality_flag.csv")
+miss_rate <- function(d) sum(d$n_missed) / sum(d$n_ref)
+ne_miss <- miss_rate(qf %>% filter(pln_area_n %in% c("SENGKANG", "PUNGGOL", "HOUGANG")))
+all_miss <- miss_rate(qf)
 comp  <- memo %>% filter(variable == "score")
 ```
 
@@ -22,10 +24,10 @@ comp  <- memo %>% filter(variable == "score")
 knitr::include_graphics(fig("q1_morans_i.png"))
 ```
 
-**Local result.** Local Moran's I (LISA) [@anselin1995lisa] tests each subzone's quadrant on the Moran plot. With 201 local tests, about 10 would look significant at p < 0.05 by chance alone. We therefore used 9,999 conditional permutations and the Benjamini-Hochberg false discovery rate [@benjamini1995]. After correction, the significant subzones are almost all High-High clusters (Figure 4). For the composite they are `r comp$n_high_high` central subzones; education and recreation also have hot spots in the north-east. Recreation has `r memo$n_low_low[memo$variable == "score_recreation"]` Low-Low subzones, the only cold spots of any size. No category has a significant High-Low or Low-High outlier. Getis-Ord Gi* was not run: it repeats LISA's clusters and cannot show outliers.
+**Local result.** Local Moran's I (LISA) [@anselin1995lisa] tests each subzone's quadrant on the Moran plot. With 201 local tests, about 10 would look significant at p < 0.05 by chance alone. We therefore used 9,999 conditional permutations and the Benjamini-Hochberg false discovery rate [@benjamini1995]. After correction, the significant subzones are almost all High-High clusters (Figure 4). For the composite, and for four of the six categories, they are central subzones (`r comp$n_high_high` for the composite). Only education and recreation also have hot spots in the north-east, in Sengkang, Punggol and Hougang. That is also where OSM maps preschools best: those towns miss `r pct(ne_miss, 0)` of ECDA preschools against `r pct(all_miss, 0)` island-wide. The education hot spot may therefore partly reflect mapping quality rather than provision. Recreation has `r memo$n_low_low[memo$variable == "score_recreation"]` Low-Low subzones, the only cold spots of any size. No category has a significant High-Low or Low-High outlier. Getis-Ord Gi* was not run: it repeats LISA's clusters and cannot show outliers.
 
 ```{r fig-lisa, fig.cap = "Figure 4. LISA clusters by category after Benjamini-Hochberg correction; grey subzones are non-residential.", out.width = "100%"}
 knitr::include_graphics(fig("q1_lisa_maps.png"))
 ```
 
-**What this means for Q3.** By the rule fixed before Q3 ran, all six categories are *contiguous*, and none is *concentrated below subzone scale*. Any neighbourhood types should therefore be spatially coherent. That has two consequences. Stability must be judged by resampling whole blocks, because random resampling would treat near-duplicate neighbours as independent and overstate it. And since there are no outlier subzones, a small Q3 cluster cannot be explained away as a few extreme subzones.
+**What this means for Q3.** By the rule fixed before Q3 ran, all six categories are *contiguous*, and none is *concentrated below subzone scale*. Any neighbourhood types should therefore be spatially coherent. That has two consequences. Stability must be judged by resampling whole blocks, because random resampling would treat near-duplicate neighbours as independent and overstate it. And since no subzone is a significant spatial outlier (high among low neighbours, or the reverse), a small Q3 cluster cannot be dismissed as a scatter of isolated subzones.
