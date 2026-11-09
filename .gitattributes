@@ -1,0 +1,7 @@
+# Tables the pipeline writes have LF line endings (readr), so check every CSV out
+# with LF: otherwise a fresh run on Windows shows each table as modified.
+*.csv text eol=lf
+
+# Raw downloads stay byte-for-byte what the source served, because their md5s are
+# logged in docs/data_log.md. Never convert their line endings.
+data/raw/** -text
