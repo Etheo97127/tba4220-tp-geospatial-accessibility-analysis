@@ -64,15 +64,15 @@ k_best <- grid$k[which.max(grid$silhouette)]
 null_max <- null_silhouettes(inp$X, N_NULL)
 obs_max <- max(grid$silhouette)
 p_null  <- (1 + sum(null_max >= obs_max)) / (1 + N_NULL)
-structure <- if (p_null < ALPHA) "discrete types" else "one gradient"
+structure_verdict <- if (p_null < ALPHA) "discrete types" else "one gradient"
 null_tab <- tibble(k_chosen = k_best, observed_max_silhouette = obs_max,
                    null_mean = mean(null_max), null_q95 = unname(quantile(null_max, 0.95)),
-                   n_null = N_NULL, p_value = p_null, structure = structure)
+                   n_null = N_NULL, p_value = p_null, structure = structure_verdict)
 
 write_csv(grid %>% mutate(wss = round(wss, 1), silhouette = round(silhouette, 3)),
           file.path(DIR_TAB, "q3_choose_k.csv"))
 write_csv(null_tab %>% mutate(across(where(is.numeric), ~ round(.x, 3))), file.path(DIR_TAB, "q3_null_test.csv"))
-saveRDS(list(k = k_best, grid = grid, structure = structure, p_null = p_null), file.path(DIR_INT, "q3_k.rds"))
+saveRDS(list(k = k_best, grid = grid, structure = structure_verdict, p_null = p_null), file.path(DIR_INT, "q3_k.rds"))
 
 plot_dat <- grid %>% pivot_longer(c(wss, silhouette), names_to = "measure") %>%
   mutate(measure = factor(measure, c("wss", "silhouette"),
@@ -82,7 +82,7 @@ p <- ggplot(plot_dat, aes(k, value)) +
   geom_vline(xintercept = k_best, colour = PAL_CAT[2], linetype = "22") +
   facet_wrap(~measure, scales = "free_y") +
   scale_x_continuous(breaks = K_RANGE) +
-  labs(title = if (structure == "discrete types")
+  labs(title = if (structure_verdict == "discrete types")
                  sprintf("k = %d neighbourhood types, more distinct than chance (p = %.3f)", k_best, p_null) else
                  sprintf("No evidence of discrete types: k = %d is a cut through one gradient (p = %.2f)", k_best, p_null),
        subtitle = sprintf("k-means on %d residential subzones, six z-scored category scores (%s), nstart = %d.",
@@ -92,4 +92,4 @@ p <- ggplot(plot_dat, aes(k, value)) +
 save_fig(p, "q3_choose_k.png", width = 7.2, height = 3.2)
 log_step("k chosen: ", k_best, " (silhouette ", round(obs_max, 3), "); null max silhouette mean ",
          round(mean(null_max), 3), ", 95th pct ", round(null_tab$null_q95, 3), "; p = ", round(p_null, 3),
-         " -> ", structure)
+         " -> ", structure_verdict)

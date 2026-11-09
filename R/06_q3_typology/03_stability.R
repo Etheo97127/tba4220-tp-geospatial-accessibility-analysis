@@ -25,7 +25,8 @@ km0 <- kmeans(X, centers = k, nstart = NSTART, iter.max = 100)
 
 jaccard <- function(a, b) length(intersect(a, b)) / length(union(a, b))
 
-boot_once <- function() {
+# One block-bootstrap draw: each reference cluster's best Jaccard match.
+boot_once <- function(X, blocks, k, ref) {
   drawn <- sample(unique(blocks), replace = TRUE)
   rows <- unlist(lapply(drawn, function(b) which(blocks == b)))
   km <- kmeans(X[rows, , drop = FALSE], centers = k, nstart = NSTART, iter.max = 100)
@@ -33,13 +34,13 @@ boot_once <- function() {
   first <- !duplicated(rows)
   ids <- rows[first]; lab <- km$cluster[first]
   J <- outer(seq_len(k), seq_len(k), Vectorize(function(i, j)
-    jaccard(intersect(which(km0$cluster == i), ids), ids[lab == j])))
+    jaccard(intersect(which(ref == i), ids), ids[lab == j])))
   match <- solve_LSAP(J, maximum = TRUE)
   J[cbind(seq_len(k), as.integer(match))]
 }
 
 set.seed(SEED)
-boot <- t(replicate(N_BOOT, boot_once()))
+boot <- t(replicate(N_BOOT, boot_once(X, blocks, k, km0$cluster)))
 
 stab <- tibble(cluster = seq_len(k), n_subzones = as.integer(table(km0$cluster)),
                mean_jaccard = colMeans(boot), sd_jaccard = apply(boot, 2, sd)) %>%

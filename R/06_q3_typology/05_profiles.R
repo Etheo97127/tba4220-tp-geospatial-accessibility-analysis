@@ -25,7 +25,7 @@ profile <- as_tibble(inp$X) %>% mutate(cluster = cl$cluster[match(inp$data$subzo
   pivot_longer(-cluster, names_to = "category", values_to = "z") %>%
   group_by(cluster, category) %>% summarise(mean_z = mean(z), .groups = "drop")
 
-name_type <- function(p) {
+name_type <- function(p, gradient) {
   level <- mean(p$mean_z)
   head <- if (level > LEVEL_CUT) "High-access" else if (level < -LEVEL_CUT) "Low-access" else "Mid-access"
   dev <- p$mean_z - level
@@ -40,7 +40,7 @@ name_type <- function(p) {
 types <- cl %>% count(cluster, stable, name = "n_subzones") %>%
   rowwise() %>%
   mutate(mean_z = mean(profile$mean_z[profile$cluster == cluster]),
-         name = if (stable) name_type(profile %>% filter(cluster == .env$cluster)) else "unstable (not named)") %>%
+         name = if (stable) name_type(profile %>% filter(cluster == .env$cluster), gradient) else "unstable (not named)") %>%
   ungroup() %>%
   mutate(structure = kobj$structure)
 
