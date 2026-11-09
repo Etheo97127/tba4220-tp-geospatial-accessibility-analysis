@@ -2,7 +2,7 @@
 
 Decision 10 requires every method the lectures did not teach to carry a citation and
 a one-sentence explanation in the report. This file classifies every method the
-pipeline uses against [`course_knowledge.md`](course_knowledge.md) (TBA4220 L1–L8):
+pipeline uses against [`docs/course_knowledge.md`](../docs/course_knowledge.md) (TBA4220 L1–L8):
 
 - **Taught**: used as the lectures showed.
 - **Extends L#**: builds directly on a taught idea; one step beyond it.
