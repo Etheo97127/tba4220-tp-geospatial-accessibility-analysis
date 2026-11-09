@@ -21,12 +21,12 @@ n_res <- sum(score$residential)
 p1 <- ggplot(map_dat) +
   geom_sf(aes(fill = shown), colour = "white", linewidth = 0.1) +
   fill_score +
-  labs(title = paste0("Access score v0: everyday services within ", RADIUS_M / 1000,
-                     " km of where residents live"),
+  labs(title = paste0("Access score: everyday services within ", RADIUS_M / 1000,
+                     " km (straight line) of where residents live"),
        subtitle = paste0("Composite of six categories weighted by HES 2023 spending shares; ",
                          n_res, " residential subzones.\nGrey: non-residential subzones, ",
                          "outside every analysis."),
-       caption = "Source: OpenStreetMap (ODbL), Census 2020, HES 2023, URA MP19. Score v0 - provisional.") +
+       caption = "Source: OpenStreetMap (ODbL), Census 2020, HES 2023, URA MP19. Score v1.") +
   theme_map()
 save_fig(p1, "score_composite_map.png", width = 7.8, height = 4.4)
 
