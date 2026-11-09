@@ -121,12 +121,12 @@ function bullets(s, items, x, y, w, h, size = 16) {
   }).flat(), { x, y, w, h, isTextBox: true, fontFace: BODY, fontSize: size, color: INK, valign: "top", margin: 0 });
 }
 
-// Picture scaled to fit a box, keeping its aspect ratio (PNG size from the IHDR header).
-function picture(s, file, x, y, maxW, maxH, align = "center") {
+// Picture with alt text, scaled to fit a box, keeping its aspect ratio (PNG size from the IHDR header).
+function picture(s, file, alt, x, y, maxW, maxH, align = "center") {
   const b = fs.readFileSync(file), pw = b.readUInt32BE(16), ph = b.readUInt32BE(20);
   const k = Math.min(maxW / pw, maxH / ph), w = pw * k, h = ph * k;
   const dx = align === "left" ? 0 : (maxW - w) / 2;
-  s.addImage({ path: file, x: x + dx, y: y + (maxH - h) / 2, w, h });
+  s.addImage({ path: file, altText: alt, x: x + dx, y: y + (maxH - h) / 2, w, h });
 }
 
 const AXIS = { catAxisLabelColor: MUTED, valAxisLabelColor: MUTED, catAxisLabelFontSize: 12, valAxisLabelFontSize: 11,
@@ -216,7 +216,7 @@ badge(s, 0.6, 4.2, 2, BLUE);
 text(s, "Centre on where residents live", { x: 1.2, y: 4.2, w: 4.4, h: 0.46, fontSize: 17, bold: true, color: NAVY, valign: "middle" });
 text(s, "Each subzone's centre is the floor-area-weighted mean of its OSM residential buildings (footprint × storeys). Worker dormitories are excluded, since the census counts only residents.",
   { x: 1.2, y: 4.8, w: 4.4, h: 1.8, fontSize: 15 });
-picture(s, FIG("score_centres_map.png"), 5.9, 1.45, 6.83, 5.35);
+picture(s, FIG("score_centres_map.png"), "Map of the subzone centres used for the 1 km count", 5.9, 1.45, 6.83, 5.35);
 
 s = newSlide("CONTENT", "Step 3: count services within 1 km, on one scale",
   "Counts differ hugely in scale between categories, so each is log-scaled and divided by its maximum before they are combined. 1 km is a straight line: a known caveat, measured in Appendix A.");
@@ -257,7 +257,7 @@ text(s, "Equal weights rank the subzones almost identically. The basket barely m
 
 s = newSlide("CONTENT", "The result: one access score per residential subzone",
   "Composite ranges 14 to 97, median 58.9. Robust to weights, less so to the radius.");
-picture(s, FIG("score_composite_map.png"), 0.6, 1.4, 8.1, 5.45, "left");
+picture(s, FIG("score_composite_map.png"), "Map of the composite access score by residential subzone", 0.6, 1.4, 8.1, 5.45, "left");
 stat(s, 9.1, 1.6, 3.6, "14 – 97", "composite range; median 58.9", BLUE);
 text(s, "Rank agreement with the main score", { x: 9.1, y: 3.05, w: 3.63, h: 0.4, fontSize: 16, bold: true, color: NAVY });
 [["Equal weights", "0.994"], ["800 m radius", "0.95"], ["1.2 km radius", "0.91"]].forEach(([k, v], i) => {
@@ -297,7 +297,7 @@ bullets(s, [
   [{ text: "Logistic odds ratio 0.36 ", options: { bold: true } }, { text: "for non-mature towns rests on Sengkang and Hougang; without them 0.83 (p = 0.56)" }],
   [{ text: "Uneven within groups: ", options: { bold: true } }, { text: "9 subzones mapped clearly better, 8 clearly worse (empirical-Bayes flag)" }],
 ], 0.6, 3.05, 6.0, 3.8, 15);
-picture(s, FIG("coverage_missrate_map.png"), 6.85, 3.0, 5.88, 3.85);
+picture(s, FIG("coverage_missrate_map.png"), "Map of the share of ECDA preschools missing from OSM by subzone", 6.85, 3.0, 5.88, 3.85);
 text(s, "CHAS clinics (supplementary): missed clinics do cluster, p = 0.001, so read the health category with care.", { x: 9.75, y: 1.55, w: 2.98, h: 1.3, fontSize: 14, color: MUTED });
 
 // --- part 3: Q1 ----------------------------------------------------------------
@@ -335,7 +335,7 @@ bullets(s, [
 
 s = newSlide("CONTENT", "Hot spots sit in the centre, with no isolated outliers",
   "After FDR correction almost every significant subzone is High-High. No High-Low or Low-High outlier in any category.");
-picture(s, FIG("q1_lisa_maps.png"), 0.4, 1.35, 8.3, 5.5);
+picture(s, FIG("q1_lisa_maps.png"), "LISA cluster maps for each category and the composite", 0.4, 1.35, 8.3, 5.5);
 bullets(s, [
   [{ text: "Centre: ", options: { bold: true } }, { text: "every map has a hot spot in Kallang, Outram and Rochor (7 subzones for the composite)" }],
   [{ text: "North-east: ", options: { bold: true } }, { text: "education and recreation hot spots in Punggol, Sengkang (and Hougang), where OSM maps best: 79% of preschools missed against 90% island-wide" }],
@@ -424,7 +424,7 @@ s.addChart(pres.charts.BAR, [
 
 s = newSlide("CONTENT", "Old and new towns sit alike on the gradient",
   "H0(a) not rejected, though with only 26 exchangeable blocks the test has little power. H0(b) rejects by construction, so it is reported descriptively.");
-picture(s, FIG("q3_types_map.png"), 0.4, 1.35, 7.4, 5.5);
+picture(s, FIG("q3_types_map.png"), "Map of the low-access and high-access ends of the gradient", 0.4, 1.35, 7.4, 5.5);
 card(s, 8.0, 1.5, 4.73, 3.05, { title: "H₀(a): not rejected", titleColor: TERRA, titleH: 0.4,
   body: "The low-access end holds 42.5% of mature-town and 55.7% of non-mature subzones, a 13.2-point gap. Block permutation: χ² = 2.97, p = 0.27. Only 26 blocks, so this is no evidence of a difference, not evidence of equal mixes." });
 card(s, 8.0, 4.7, 4.73, 2.1, { title: "H₀(b): rejected by construction", titleH: 0.4,
