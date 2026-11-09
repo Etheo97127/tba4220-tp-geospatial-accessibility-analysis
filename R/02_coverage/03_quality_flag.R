@@ -1,7 +1,8 @@
 # 02_coverage/03_quality_flag.R -------------------------------------------------
-# Per-subzone OSM data-quality flag, the hand-off to the score and Q1-Q3, and the
-# map of it. Built from ECDA only: CHAS lists only scheme-participating clinics,
-# so a CHAS miss says less about how well a subzone is mapped.
+# Per-subzone OSM data-quality flag and the map of it. The report's Q1 section
+# reads the flag to qualify hot spots in well-mapped towns. Built from ECDA only:
+# CHAS lists only scheme-participating clinics, so a CHAS miss says less about
+# how well a subzone is mapped.
 
 source("R/00_setup.R")
 library(ggplot2)

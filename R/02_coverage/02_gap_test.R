@@ -187,5 +187,5 @@ rl_tab <- bind_rows(lapply(rl, function(z) tibble(
 print(as.data.frame(rl_tab))
 write_csv(rl_tab, file.path(DIR_TAB, "coverage_random_labelling.csv"))
 
-# Read by 03_quality_flag.R and 05_ceiling_and_validation.R.
+# Read by 03 to 06 of this stage.
 saveRDS(mt, file.path(DIR_INT, "match_tested.rds"))
