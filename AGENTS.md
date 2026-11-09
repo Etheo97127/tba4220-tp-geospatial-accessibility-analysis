@@ -10,7 +10,7 @@ R pipeline for TBA4220 Group 3: an access score for Singapore's 332 MP19 subzone
 an OSM coverage check, and three analysis stages (Q1 spatial, Q2 regression, Q3
 typology) that read the score. One owner and one folder per stage (README table).
 Working plans: `docs/plans/<stage>.md`. Decisions: `docs/consideration.md`. Schedule and
-hand-off IDs: `docs/team_plan.html` (70 KB; open it only when a task needs dates or
+hand-off IDs: `docs/archive/team_plan.html` (archived, 70 KB; open it only when a task needs dates or
 H-numbers).
 
 ## Commands

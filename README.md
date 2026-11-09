@@ -35,7 +35,7 @@ Each stage reads only from `data/processed/` (and the hand-built lookups in
 score also read prep's layers in `data/interim/` (subzones, OSM POIs, reference lists,
 buildings); `run_all.R` runs prep first when they are missing. Join key is always `subzone_c`;
 CRS is EPSG:3414. Column contracts are in each plan; H1–H8 are the hand-off IDs in
-`docs/team_plan.html`. Open decisions behind them are in `docs/consideration.md`.
+`docs/archive/team_plan.html` (the original schedule, archived). Decisions behind them are in `docs/consideration.md`.
 
 | File | ID | Written by | Read by |
 |---|---|---|---|
@@ -84,8 +84,9 @@ data/
 outputs/figures, tables written by scripts, never hand-edited, prefixed by stage
 outputs/slides/         project deck (.pptx), built by report/slides/build_slides.js
 report/                 report.Rmd + one child section per owner (reads outputs/, data/processed/, data/external/)
-docs/                   requirements, download log, proposal versions, critiques
+docs/                   proposal, consideration (brief + decisions), course knowledge, data log
   plans/                one working plan per workstream
+  archive/              team_plan.html, the original schedule (not kept current)
 ```
 
 ## Getting started

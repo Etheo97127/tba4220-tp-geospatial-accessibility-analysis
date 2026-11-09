@@ -91,7 +91,7 @@ CHAS audit is demoted.
 ## 3. P0 decisions
 
 The twelve gaps listed under "Settle before work starts" in
-`docs/team_plan.html`, one row each.
+`docs/archive/team_plan.html`, one row each.
 
 **Status: agreed 2026-11-09.** Drafted 2026-11-02 and accepted by Qu Haotian, who
 is the only member working on the project, after checking each against the
