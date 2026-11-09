@@ -45,7 +45,7 @@ req     <- rob$spearman[rob$column == "score_equal"]
 
 # Data and the access score
 
-**Unit and rows.** The unit is the URA Master Plan 2019 subzone [@ura2019mp]. Of the 332 subzones, `r n_res` have at least `r num(cut_hi)` residents in Census 2020 [@singstat2021census], and they hold `r pct(res_sh, 2)` of all residents. These form the residential set used by every analysis (`r n_res2` at a `r num(cut_lo)`-resident cut-off). Airports, reservoirs, ports and industrial estates drop out. All layers use SVY21 (EPSG:3414), so distances are in metres.
+**Unit and rows.** The unit is the URA Master Plan 2019 subzone [@ura2019mp]. Of the 332 subzones, `r n_res` have at least `r num(cut_hi)` residents in Census 2020 [@singstat2021census], and they hold `r pct(res_sh, 2)` of all residents. These form the residential set used by every analysis (`r n_res2` at a `r num(cut_lo)`-resident cut-off). Airports, reservoirs, ports and industrial estates drop out. All layers use SVY21 (EPSG:3414), so distances are in metres, and spatial operations use R's sf package [@pebesma2018sf].
 
 **Facilities.** Facility locations come from one OpenStreetMap snapshot (2 November 2026, `r num(sum(summ$osm_features))` scored features) [@osm2026]. Each OSM tag maps to one of six categories through a published lookup table, which also generates the download queries. Hospitals, private facilities and alcohol outlets are not scored.
 
