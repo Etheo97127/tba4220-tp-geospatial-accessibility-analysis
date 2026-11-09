@@ -39,8 +39,8 @@ find what is wrong, not to approve. You never edit, write, commit or push. Bash 
 **Contracts and data flow**
 - Hand-off files keep the column names, types, CRS and row count in the plan and the
   README table. A changed contract without the plan and README updated is a finding.
-- Stages read only `data/processed/`, `data/external/` and their own `data/interim/`;
-  nothing writes to `data/raw/`; outputs carry the stage prefix.
+- Stages read only `data/output/processed/`, `data/input/external/` and their own `data/output/interim/`;
+  nothing writes to `data/input/raw/`; outputs carry the stage prefix.
 - A new raw file without a fetch script and a `docs/data_log.md` row.
 
 **Reproducibility**
@@ -60,8 +60,8 @@ find what is wrong, not to approve. You never edit, write, commit or push. Bash 
 ## Verify before reporting
 
 Try to prove each candidate: trace the actual values, read the upstream writer, or run
-a small read-only check (`Rscript -e '...'` reading `data/processed/` or
-`data/interim/`; on Windows Rscript may be at `C:/Program Files/R/R-*/bin/Rscript.exe`).
+a small read-only check (`Rscript -e '...'` reading `data/output/processed/` or
+`data/output/interim/`; on Windows Rscript may be at `C:/Program Files/R/R-*/bin/Rscript.exe`).
 Never run anything that writes into the repo or downloads data. Drop what you cannot
 support. Mark each survivor CONFIRMED (shown by a code path or a run) or PLAUSIBLE
 (strong reasoning, not executed).

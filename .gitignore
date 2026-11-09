@@ -29,7 +29,7 @@ renv/staging/
 renv/local/
 
 # Data: raw, external and processed are committed; interim is regenerated
-data/interim/
+data/output/interim/
 *.osm.pbf
 *.gpkg-journal
 

@@ -25,12 +25,12 @@ On Windows `Rscript` may not be on PATH: call `"C:/Program Files/R/R-<version>/b
 
 ## Invariants (break none)
 
-- `data/raw/` is read-only. A new raw file needs a `00_fetch_*.R` script and a row in
+- `data/input/raw/` is read-only. A new raw file needs a `00_fetch_*.R` script and a row in
   `docs/data_log.md` (URL, date, md5, licence).
 - Join key `subzone_c`. CRS EPSG:3414; EPSG:4326 only for I/O.
-- Stages read only `data/processed/` and `data/external/` (plus their own
-  `data/interim/`) and write outputs prefixed by stage: `coverage_`, `score_`, `q1_` ...
-  One exception: coverage and score also read prep's layers in `data/interim/`
+- Stages read only `data/output/processed/` and `data/input/external/` (plus their own
+  `data/output/interim/`) and write outputs prefixed by stage: `coverage_`, `score_`, `q1_` ...
+  One exception: coverage and score also read prep's layers in `data/output/interim/`
   (subzones, OSM POIs, reference lists, buildings), which are rebuilt rather than
   committed; `run_all.R` runs prep first when they are missing.
 - Hand-off columns in each plan are a contract. Renaming or dropping one means
@@ -50,7 +50,7 @@ Concise, easy to read, modular. Write for a teammate who knows R but not this sc
 - One numbered script per step: `R/<stage>/NN_verb_noun.R`, registered in
   `R/run_all.R` with a one-line comment.
 - Aim for under ~150 lines. Past ~200, split into another numbered script with an
-  `data/interim/*.rds` between them.
+  `data/output/interim/*.rds` between them.
 - Order inside a script: header, `source("R/00_setup.R")`, extra `library()` calls,
   inputs, constants, `# --- section ---` blocks, outputs written last.
 - Header, as in every existing script:
@@ -94,7 +94,7 @@ Small commits, each reviewable in a few minutes.
 - Before committing, run the stage you touched and update whatever the change makes
   stale, in the same commit: plan checkbox, `docs/data_log.md`, README hand-off
   table, `docs/consideration.md`.
-- Never commit `data/interim/`, `*.osm.pbf`, `.Renviron`, credentials or
+- Never commit `data/output/interim/`, `*.osm.pbf`, `.Renviron`, credentials or
   `.claude/worktrees/`.
 
 ## Sessions and effort

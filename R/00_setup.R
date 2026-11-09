@@ -13,12 +13,12 @@ suppressPackageStartupMessages({
 
 # Paths are relative to the project root, so scripts must be run from there.
 ROOT      <- normalizePath(".", winslash = "/")
-DIR_RAW   <- file.path(ROOT, "data", "raw", "sg")
-DIR_INT   <- file.path(ROOT, "data", "interim")
-DIR_PROC  <- file.path(ROOT, "data", "processed")
-DIR_EXT   <- file.path(ROOT, "data", "external")
-DIR_FIG   <- file.path(ROOT, "outputs", "figures")
-DIR_TAB   <- file.path(ROOT, "outputs", "tables")
+DIR_RAW   <- file.path(ROOT, "data", "input", "raw", "sg")
+DIR_INT   <- file.path(ROOT, "data", "output", "interim")
+DIR_PROC  <- file.path(ROOT, "data", "output", "processed")
+DIR_EXT   <- file.path(ROOT, "data", "input", "external")
+DIR_FIG   <- file.path(ROOT, "data", "output", "figures")
+DIR_TAB   <- file.path(ROOT, "data", "output", "tables")
 for (d in c(DIR_INT, DIR_PROC, DIR_EXT, DIR_FIG, DIR_TAB)) dir.create(d, showWarnings = FALSE, recursive = TRUE)
 
 CRS_SVY21 <- 3414   # SVY21 / Singapore TM, metres
@@ -28,7 +28,7 @@ SEED <- 4220
 set.seed(SEED)
 
 # The six score categories, in the order every table uses. Tags map to them in
-# data/external/osm_crosswalk.csv.
+# data/input/external/osm_crosswalk.csv.
 CATEGORIES <- c("food_services", "retail", "health", "food_retail", "education", "recreation")
 
 # Agreed P0 decisions (docs/consideration.md §3); change here, not in the scripts.

@@ -8,7 +8,7 @@
 # either side of a park); it is then moved to the nearest residential building
 # in the subzone. Subzones with no residential buildings fall back to
 # st_point_on_surface() and are flagged. The centres are a hand-off: Q2 measures
-# distance to rail from the same points (data/processed/score_centres.rds).
+# distance to rail from the same points (data/output/processed/score_centres.rds).
 
 source("R/00_setup.R")
 library(ggplot2)

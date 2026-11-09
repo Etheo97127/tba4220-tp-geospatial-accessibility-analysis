@@ -1,5 +1,5 @@
 # 01_prep/00_fetch_datagov.R ----------------------------------------------------
-# Download the data.gov.sg inputs into data/raw/sg/. Not part of run_all.R: raw
+# Download the data.gov.sg inputs into data/input/raw/sg/. Not part of run_all.R: raw
 # files are committed so everyone works on the same snapshot, and this script is
 # the record of where each came from. Files already on disk are never replaced;
 # delete one by hand to refetch it, then update its row in docs/data_log.md.
@@ -8,7 +8,7 @@
 
 source("R/00_setup.R")
 
-# file under data/raw/sg/  ->  data.gov.sg dataset id
+# file under data/input/raw/sg/  ->  data.gov.sg dataset id
 DATAGOV <- c(
   mp19_subzone.geojson          = "d_8594ae9ff96d0c708bc2af633048edfb",
   mp19_rail_station.geojson     = "d_8d886e3a83934d7447acdf5bc6959999",

@@ -16,22 +16,22 @@ Owner: Qu Haotian. Code: `R/01_prep/`, `R/03_score/`. On the critical path: Q1-Q
 
 ## Steps
 
-- [x] OSM extraction for all six categories: one scripted snapshot, `R/01_prep/00_fetch_osm.R` → `data/raw/sg/osm/`
-- [x] Tag -> category lookup: `data/external/osm_crosswalk.csv`, which also generates the Overpass queries
+- [x] OSM extraction for all six categories: one scripted snapshot, `R/01_prep/00_fetch_osm.R` → `data/input/raw/sg/osm/`
+- [x] Tag -> category lookup: `data/input/external/osm_crosswalk.csv`, which also generates the Overpass queries
 - [x] Population-weighted centre per subzone: `R/03_score/01_centres.R` (OSM residential footprints × storeys)
 - [x] Distance calibration (A6): **bonus track, never merged into `master`.** The project uses
   straight-line distance and reports it as a known caveat (Discussion). Routed walks were
   measured after the project on branch `claude/score-a6-calibration-3fcbb3`, with GenAI
   assistance; their numbers do not enter the report
 - [x] Score v0 (A5): weighted composite + equal-weight variant + variety count, `R/03_score/02_score.R`
-- [x] Radius variants (A8, part): 800 m and 1.2 km composites with rank agreement in `outputs/tables/score_robustness.csv`
+- [x] Radius variants (A8, part): 800 m and 1.2 km composites with rank agreement in `data/output/tables/score_robustness.csv`
 - [x] Freeze v1 (A8): decisions agreed 2026-11-09 and H2 published; score reruns unchanged; tagged `score-v1`. From here a change to `score_subzone.rds` needs a dated note in `docs/consideration.md` and a rerun of Q1–Q3
 - [x] Coverage check write-up, in the data and score section (A9)
-- [x] A9 data and score section: `report/sections/02_data_and_score.Rmd`; every number read from `outputs/tables` and `data/processed`
+- [x] A9 data and score section: `report/sections/02_data_and_score.Rmd`; every number read from `data/output/tables` and `data/output/processed`
 
 Next:
 - Tell Q3: food services, retail and food retail correlate 0.84–0.88 across the 201
-  residential subzones (`outputs/tables/score_category_correlation.csv`). Unless k-means
+  residential subzones (`data/output/tables/score_category_correlation.csv`). Unless k-means
   allows for that, it will mostly see one general-access axis. Recreation correlates
   least (0.30–0.48).
 - v0 numbers: 201 residential subzones; median composite 58.9 (range 14–97); 800 m and
@@ -40,7 +40,7 @@ Next:
 
 ## Hand-off (contract, do not rename columns without telling the team)
 
-`data/processed/score_subzone.rds`: sf, subzone polygons, CRS 3414, one row for each
+`data/output/processed/score_subzone.rds`: sf, subzone polygons, CRS 3414, one row for each
 of the 332 MP19 subzones (filter on `residential` for analysis). Released as v0 (H4),
 then frozen as v1 (H5).
 
@@ -57,14 +57,14 @@ then frozen as v1 (H5).
 | `variety` | distinct OSM tag values (`key=value`) within 1 km, all six categories |
 | `score_r800`, `score_r1200` | `score` recomputed at 800 m and 1.2 km (decision 7) |
 
-`data/processed/score_centres.rds`: sf points, CRS 3414, one row per subzone (332):
+`data/output/processed/score_centres.rds`: sf points, CRS 3414, one row per subzone (332):
 `subzone_c`, `centre_method`, `n_buildings` (residential footprints behind the centre; 0
 for fallbacks). Q2 measures distance to rail from these, so the score and the covariates
 share one centre.
 
 Prep hand-offs this track also writes (`R/01_prep/`):
 
-`data/processed/census2020_subzone.csv`, one row per subzone (332), Census 2020 resident
+`data/output/processed/census2020_subzone.csv`, one row per subzone (332), Census 2020 resident
 counts. SingStat rounds to tens and shows zero as "-", read here as 0.
 
 | Column | Meaning |
@@ -81,7 +81,7 @@ counts. SingStat rounds to tens and shows zero as "-", read here as 0.
 The `dw_*` columns count **residents** by the type of dwelling they live in, not
 dwellings. Housing mix (decision 4) is `(dw_hdb_1_2room + dw_hdb_3room) / dw_total`.
 
-`data/processed/hes_weights.csv`, six rows in `CATEGORIES` order: `category`,
+`data/output/processed/hes_weights.csv`, six rows in `CATEGORIES` order: `category`,
 `hes_lines` (the HES lines summed), `sgd_month` (2023 S$ per month), `weight` (sums to 1).
 
 Inputs the score expects from other tracks: `residential_set.csv` (H2, from C1, run in

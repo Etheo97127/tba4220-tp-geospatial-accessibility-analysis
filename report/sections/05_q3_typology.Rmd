@@ -15,10 +15,10 @@ tb    <- tests[grepl("H0\\(b\\)", tests$hypothesis), ]
 share <- function(m, cl) mix$share[mix$maturity == m & mix$cluster == cl]
 low   <- types$cluster[grepl("^Low", types$name)]
 high  <- types$cluster[grepl("^High", types$name)]
-sc    <- readRDS(file.path(ROOT, "data", "processed", "score_subzone.rds")) %>% st_drop_geometry() %>% filter(residential)
+sc    <- readRDS(file.path(ROOT, "data", "output", "processed", "score_subzone.rds")) %>% st_drop_geometry() %>% filter(residential)
 pc1   <- summary(prcomp(scale(sc[paste0("score_", names(CAT_LAB))])))$importance[2, 1]
 prof  <- tab("q3_profiles.csv") %>% filter(cluster == low)
-mat_ext <- readr::read_csv(file.path(ROOT, "data", "external", "town_maturity.csv"), show_col_types = FALSE)
+mat_ext <- readr::read_csv(file.path(ROOT, "data", "input", "external", "town_maturity.csv"), show_col_types = FALSE)
 # Blocks that carry a town label are the units H0(a) permutes.
 n_lab_blocks <- proc("q1_blocks.csv") %>%
   left_join(proc("census2020_subzone.csv") %>% select(subzone_c, pln_area_n), by = "subzone_c") %>%

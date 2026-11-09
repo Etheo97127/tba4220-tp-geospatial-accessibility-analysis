@@ -1,9 +1,9 @@
 // report/slides/build_slides.js -------------------------------------------------
-// Builds the project deck, outputs/slides/group3_project_slides.pptx, from the
+// Builds the project deck, report/slides/group3_project_slides.pptx, from the
 // pipeline's figures. Numbers are typed from report/report.docx as rendered on
 // 2026-11-10; rebuild (and recheck them) after any rerun that moves a number.
 // The appendix numbers come from the bonus-track branch
-// claude/score-a6-calibration-3fcbb3 (outputs/tables/score_calibration.csv),
+// claude/score-a6-calibration-3fcbb3 (data/output/tables/score_calibration.csv),
 // which is never merged into master.
 //
 //   cd report/slides && npm install && node build_slides.js
@@ -13,8 +13,8 @@ const path = require("path");
 const pptxgen = require("pptxgenjs");
 
 const ROOT = path.resolve(__dirname, "..", "..");
-const FIG = (name) => path.join(ROOT, "outputs", "figures", name);
-const OUT = path.join(ROOT, "outputs", "slides", "group3_project_slides.pptx");
+const FIG = (name) => path.join(ROOT, "data", "output", "figures", name);
+const OUT = path.join(__dirname, "group3_project_slides.pptx");
 
 // --- palette: map blue and LISA terracotta match the pipeline's figures -------
 const NAVY = "0F3B47", INK = "1A1F2B", MUTED = "5B6670", TINT = "EEF3F5";

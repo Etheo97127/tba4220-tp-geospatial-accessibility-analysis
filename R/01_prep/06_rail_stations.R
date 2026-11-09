@@ -3,7 +3,7 @@
 # is a master plan, so it also draws lines that were not running at the OSM
 # snapshot (2026-11-02): Jurong Region and Cross Island Lines, shell stations,
 # TEL5/DTL3e (opens 2026-12-26). Those are listed in
-# data/external/rail_not_open.csv as "not_open" and dropped. Rows marked "open"
+# data/input/external/rail_not_open.csv as "not_open" and dropped. Rows marked "open"
 # there record checked 2026 openings (Circle Line stage 6, 2026-07-12).
 # Nine polygons carry no name (e.g. Orchard Boulevard, a Sentosa Express stop,
 # platforms inside Chinatown and Newton); they are kept as "unnamed" and open,

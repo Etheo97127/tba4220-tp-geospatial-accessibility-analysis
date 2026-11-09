@@ -1,8 +1,8 @@
 # run_all.R -------------------------------------------------------------------
 # Whole pipeline, end to end. Run from the repo root (open the .Rproj first):
 #   Rscript R/run_all.R
-# Raw data is read from data/raw/ and never written to. Everything under
-# data/interim, data/processed and outputs/ is regenerated.
+# Raw data is read from data/input/raw/ and never written to. Everything under
+# data/output/ (interim, processed, tables, figures) is regenerated.
 #
 # Stages run in dependency order: the score feeds Q1-Q3, Q1's contiguity
 # blocks and Q2's residuals feed Q3. Add new scripts to the matching stage.
@@ -58,13 +58,13 @@ only <- commandArgs(trailingOnly = TRUE)
 unknown <- setdiff(only, names(stages))
 if (length(unknown)) stop("unknown stage: ", paste(unknown, collapse = ", "))
 
-# Coverage and score also read prep's layers in data/interim/ (subzones, OSM POIs,
+# Coverage and score also read prep's layers in data/output/interim/ (subzones, OSM POIs,
 # reference lists, buildings). Git does not keep them, since prep rebuilds them
-# from data/raw/ in seconds, so on a fresh clone prep runs first.
-PREP_LAYERS <- file.path("data", "interim", c("subzones.rds", "osm_poi.rds", "reference.rds", "res_buildings.rds"))
+# from data/input/raw/ in seconds, so on a fresh clone prep runs first.
+PREP_LAYERS <- file.path("data", "output", "interim", c("subzones.rds", "osm_poi.rds", "reference.rds", "res_buildings.rds"))
 if (length(only) && any(c("coverage", "score") %in% only) && !"prep" %in% only &&
     !all(file.exists(PREP_LAYERS))) {
-  cat("prep layers missing from data/interim/: running prep first\n")
+  cat("prep layers missing from data/output/interim/: running prep first\n")
   only <- c("prep", only)
 }
 if (length(only)) stages <- stages[names(stages) %in% only]
@@ -75,4 +75,4 @@ for (stage in names(stages)) {
     source(s, echo = FALSE)
   }
 }
-cat("\nDone. Tables in outputs/tables, figures in outputs/figures.\n")
+cat("\nDone. Tables in data/output/tables, figures in data/output/figures.\n")

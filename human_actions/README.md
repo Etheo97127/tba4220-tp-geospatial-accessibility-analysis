@@ -7,7 +7,7 @@ says, and tick it here.
 
 | # | Task | Status | Then |
 |---|---|---|---|
-| 1 | [Google Maps check of 29 coverage rows](#1-google-maps-check-of-29-coverage-rows) | open | results into `data/external/coverage_validation_verdicts.csv`; rerun `coverage` |
+| 1 | [Google Maps check of 29 coverage rows](#1-google-maps-check-of-29-coverage-rows) | open | results into `data/input/external/coverage_validation_verdicts.csv`; rerun `coverage` |
 | 2 | [Review the 12 agreed decisions](#2-review-the-12-agreed-decisions) | open (optional) | edit `docs/consideration.md` and the constant in `R/00_setup.R`; rerun all |
 | 3 | [Confirm the calendar, deadlines and report format](#3-confirm-the-calendar-deadlines-and-report-format) | open | fix the calendar line in `docs/consideration.md`; tell the agent the format and page limit |
 | 4 | [ECDA childcare timestamp](#4-ecda-childcare-timestamp) | **done** 2026-11-09 | no newer edition; the 2021 record date is a stated limitation in the report |
@@ -36,10 +36,10 @@ in the same file, then hand it back. How results are applied:
 - **not found**: stays `unsure`.
 
 Each row applied gets `needs_maps_check` set to `FALSE` in
-`data/external/coverage_validation_verdicts.csv`. The report counts the rows still
+`data/input/external/coverage_validation_verdicts.csv`. The report counts the rows still
 `TRUE`, and stops calling the error rates provisional once none are left.
 
-The false-match and false-miss rates in `outputs/tables/coverage_matcher_error.csv`
+The false-match and false-miss rates in `data/output/tables/coverage_matcher_error.csv`
 then tighten. The sample (40 per group) is large enough; it does not need to grow.
 
 ## 2. Review the 12 agreed decisions
@@ -70,7 +70,7 @@ and change `word_document` to `pdf_document` in `report/report.Rmd`.
 
 ## 4. ECDA childcare timestamp
 
-Every record in `data/raw/sg/childcare_services.geojson` has `FMEL_UPD_D` =
+Every record in `data/input/raw/sg/childcare_services.geojson` has `FMEL_UPD_D` =
 2021-12-01, though data.gov.sg says the dataset was updated 2026-04-18. Some centres
 that look "missing from OSM" may have closed or been renamed since 2021. Check the
 dataset page
