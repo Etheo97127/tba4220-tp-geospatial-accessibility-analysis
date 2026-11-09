@@ -31,7 +31,7 @@ set.seed(SEED)
 # data/external/osm_crosswalk.csv.
 CATEGORIES <- c("food_services", "retail", "health", "food_retail", "education", "recreation")
 
-# Agreed P0 decisions (docs/decisions.md); change here, not in the scripts.
+# Agreed P0 decisions (docs/consideration.md §3); change here, not in the scripts.
 RES_MIN_POP <- 1000          # item 2: residents needed for a subzone to count as residential
 RES_MIN_POP_ALT <- 500       # item 2: second cut-off, reported so the choice is visible
 RADIUS_M    <- 1000          # item 7: walking radius for the main score ...

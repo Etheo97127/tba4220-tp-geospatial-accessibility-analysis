@@ -1,6 +1,6 @@
 # 01_prep/04_buildings.R --------------------------------------------------------
 # Residential building footprints from the OSM snapshot, with a floor-area weight
-# for the population-weighted centres (A4, decision 3 in docs/decisions.md).
+# for the population-weighted centres (A4, docs/consideration.md §3 item 3).
 #
 # Weight = footprint area x storeys. Storeys come from `building:levels`; where it
 # is missing they are imputed as the median for the same kind of building in the

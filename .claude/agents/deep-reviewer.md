@@ -34,7 +34,7 @@ find what is wrong, not to approve. You never edit, write, commit or push. Bash 
 - Statistics: the test matches the hypothesis in the plan or decision (one- vs
   two-sided, permutation within or between blocks, multiple-testing correction); seed
   reset before sampling; p-values computed as intended.
-- Constants in code that duplicate or contradict `R/00_setup.R` or `docs/decisions.md`.
+- Constants in code that duplicate or contradict `R/00_setup.R` or `docs/consideration.md`.
 
 **Contracts and data flow**
 - Hand-off files keep the column names, types, CRS and row count in the plan and the

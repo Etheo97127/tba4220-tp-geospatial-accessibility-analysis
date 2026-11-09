@@ -8,8 +8,8 @@ says, and tick it here.
 | # | Task | Status | Then |
 |---|---|---|---|
 | 1 | [Google Maps check of 29 coverage rows](#1-google-maps-check-of-29-coverage-rows) | open | results into `data/external/coverage_validation_verdicts.csv`; rerun `coverage` |
-| 2 | [Review the 12 agreed decisions](#2-review-the-12-agreed-decisions) | open (optional) | edit `docs/decisions.md` and the constant in `R/00_setup.R`; rerun all |
-| 3 | [Confirm the calendar, deadlines and report format](#3-confirm-the-calendar-deadlines-and-report-format) | open | fix the calendar line in `docs/decisions.md`; tell the agent the format and page limit |
+| 2 | [Review the 12 agreed decisions](#2-review-the-12-agreed-decisions) | open (optional) | edit `docs/consideration.md` and the constant in `R/00_setup.R`; rerun all |
+| 3 | [Confirm the calendar, deadlines and report format](#3-confirm-the-calendar-deadlines-and-report-format) | open | fix the calendar line in `docs/consideration.md`; tell the agent the format and page limit |
 | 4 | [ECDA childcare timestamp](#4-ecda-childcare-timestamp) | **done** 2026-11-09 | no newer edition; the 2021 record date is a stated limitation in the report |
 | 5 | [Read the methods outside the lectures](#5-read-the-methods-outside-the-lectures) | open | use it when reviewing the report |
 | 6 | [Push and open the pull request](#6-push-and-open-the-pull-request) | open | after the report is assembled and reviewed |
@@ -44,7 +44,7 @@ then tighten. The sample (40 per group) is large enough; it does not need to gro
 
 ## 2. Review the 12 agreed decisions
 
-`docs/decisions.md` lists the P0 decisions, accepted on 2026-11-09 under your
+`docs/consideration.md` lists the P0 decisions, accepted on 2026-11-09 under your
 delegation. The ones that most shape results:
 
 - 2 (≥ 1,000 residents per residential subzone);
@@ -60,7 +60,7 @@ if it has one, and rerun `Rscript R/run_all.R`.
 
 The plan's weeks are relative. Everything assumes W1 = week of 26 Oct 2026, so the
 report is due around the end of W6 (about 6 Dec 2026). Check the real submission date
-and correct the calendar line in `docs/decisions.md`.
+and correct the calendar line in `docs/consideration.md`.
 
 The draft report (`Rscript report/render.R` → `report/report.docx`) runs to about
 3,800 words before the references (4,400 with them), with seven figures and two tables. The proposal's limit was 5 pages; the

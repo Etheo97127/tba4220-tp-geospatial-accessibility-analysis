@@ -9,7 +9,7 @@ read it first.
 R pipeline for TBA4220 Group 3: an access score for Singapore's 332 MP19 subzones,
 an OSM coverage check, and three analysis stages (Q1 spatial, Q2 regression, Q3
 typology) that read the score. One owner and one folder per stage (README table).
-Working plans: `plans/<stage>.md`. Decisions: `docs/decisions.md`. Schedule and
+Working plans: `plans/<stage>.md`. Decisions: `docs/consideration.md`. Schedule and
 hand-off IDs: `docs/team_plan.html` (70 KB; open it only when a task needs dates or
 H-numbers).
 
@@ -37,7 +37,7 @@ On Windows `Rscript` may not be on PATH: call `"C:/Program Files/R/R-<version>/b
   updating the plan and the README hand-off table in the same PR, and telling the
   stage owners who read it.
 - Decision constants (radius, residential cut-off ...) live only in `R/00_setup.R`,
-  tagged with their item number in `docs/decisions.md`.
+  tagged with their item number in `docs/consideration.md`.
 - Scripts run from the repo root, are idempotent, and reset `set.seed(SEED)` before
   any sampling or permutation.
 - Edit only your own stage's folder. Another stage's folder: ask its owner first.
@@ -93,7 +93,7 @@ Small commits, each reviewable in a few minutes.
   `docs/`. PR to `master`; never commit to `master` directly.
 - Before committing, run the stage you touched and update whatever the change makes
   stale, in the same commit: plan checkbox, `docs/data_log.md`,
-  `data/DATA_SOURCES.md`, README hand-off table, `docs/decisions.md`.
+  `data/DATA_SOURCES.md`, README hand-off table, `docs/consideration.md`.
 - Never commit `data/interim/`, `*.osm.pbf`, `.Renviron`, credentials or
   `.claude/worktrees/`.
 

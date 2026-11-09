@@ -4,7 +4,7 @@
 # magnitude, recessive axes.
 #
 # ECDA preschools lead every figure; CHAS clinics appear only as a labelled
-# supplementary benchmark (docs/REQUIREMENTS.md section 3). Every number and
+# supplementary benchmark (docs/consideration.md §2). Every number and
 # every claim in a title is computed from the tables, so a rerun on a new OSM
 # extract cannot leave a stale caption behind.
 

@@ -37,7 +37,7 @@ log_step("excluded (not an HDB town): ", sum(mt$maturity == "excluded"),
 tested <- mt %>% filter(maturity %in% c("mature", "non-mature"))
 
 # --- (a) two-proportion test -------------------------------------------------
-# ECDA is the headline benchmark (docs/REQUIREMENTS.md section 3, decided
+# ECDA is the headline benchmark (docs/consideration.md §2, decided
 # 2026-09-16): it is close to a census of its category. CHAS lists only
 # scheme-participating clinics, and scheme membership varies along the same
 # heartland / central axis as the hypothesis, so its row is supplementary and

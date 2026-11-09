@@ -3,8 +3,8 @@
 > **Status (2026-11-08):** this file was written before the final proposal. Q1
 > here is now the *coverage check* inside the score workstream; the new Q1 is
 > per-category Moran's I, `plans/q1_spatial.md`. `R/02_coverage/` now follows
-> the 2026-09-16 decision as amended on 2026-11-08 (`docs/REQUIREMENTS.md`
-> section 3). ECDA preschools are the headline benchmark; CHAS clinics are
+> the 2026-09-16 decision as amended on 2026-11-08 (`docs/consideration.md`
+> §2). ECDA preschools are the headline benchmark; CHAS clinics are
 > reported only as a labelled supplementary row and are never pooled with
 > ECDA. What changed: the pooled proportion-test row is gone, and Holm runs
 > within headline / supplementary rather than across all rows (section 4's
@@ -271,7 +271,7 @@ Not part of Q1's question, but it is what the other three are waiting on.
 - ~~Population-weighted centroids: use a gridded population raster (GHS-POP or
   WorldPop, 100 m) for *both* cities rather than a Singapore-specific source, so
   the centroid definition is identical on each side.~~ **Superseded** by item 3
-  in `docs/decisions.md` (proposed; on branch `score/v0` until it merges):
+  in `docs/consideration.md` (proposed; on branch `score/v0` until it merges):
   centroids are weighted by OSM residential building footprints instead.
 - Detour factor: 200 sampled OD pairs routed on the OSM foot network (`dodgr`, or
   a local OSRM foot profile); report the mean ratio and its spread, and apply the
