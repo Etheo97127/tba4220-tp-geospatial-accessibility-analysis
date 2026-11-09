@@ -1,4 +1,31 @@
-<!-- Owner: Hew Xing Yi -->
+<!-- Owner: Hew Xing Yi (B7) -->
 
-# Q1: Spatial structure by category
+```{r q1}
+mi    <- tab("q1_morans_i.csv")
+memo  <- tab("q1_memo.csv")
+wsum  <- tab("q1_weights_summary.csv")
+bsz   <- tab("q1_block_sizes.csv")
+lab7  <- c(CAT_LAB, score = "Composite")
+lab_v <- lab7[sub("^score_", "", mi$variable)]
+comp  <- memo %>% filter(variable == "score")
+```
 
+# Q1: How is each category structured in space?
+
+**H₀**: Moran's I = 0, tested for each category score and for the composite.
+
+**Neighbours.** We used queen contiguity on the `r wsum$n[1]` residential subzones (Lecture 8), with links built *after* dropping non-residential subzones. The one subzone left without a neighbour was linked to its nearest residential subzone, and the network forms a single component with an average of `r num(wsum$mean_links[1], 1)` links. The k = 6 nearest-neighbour rule [@bivand2013] is a check. Weights are row-standardised. The same network and `r nrow(bsz)` planning-area blocks (`r min(bsz$n_subzones)`–`r max(bsz$n_subzones)` subzones each) are reused by Q2 and Q3.
+
+**Global result.** Every category clusters in space: Moran's I ranges from `r num(min(mi$I_queen), 2)` to `r num(max(mi$I_queen), 2)` under queen weights (composite `r num(mi$I_queen[mi$variable == "score"], 2)`). Each test used 999 permutations, and every p-value sits at the permutation floor of 0.001. H₀ is rejected for all seven. The kNN weights give the same answer (`r num(min(mi$I_knn), 2)`–`r num(max(mi$I_knn), 2)`). Subzones with good access sit next to other well-served subzones (Figure 3).
+
+```{r fig-morans, fig.cap = "Figure 3. Global Moran's I by category, queen and k-nearest-neighbour weights.", out.width = "85%"}
+knitr::include_graphics(fig("q1_morans_i.png"))
+```
+
+**Local result.** Local Moran's I (LISA) [@anselin1995lisa] tests each subzone's quadrant on the Moran plot. With 201 local tests, about 10 would look significant at p < 0.05 by chance alone. We therefore used 9,999 conditional permutations and the Benjamini-Hochberg false discovery rate [@benjamini1995]. After correction, the significant subzones are almost all High-High clusters (Figure 4). For the composite they are `r comp$n_high_high` central subzones; education and recreation also have hot spots in the north-east. Recreation has `r memo$n_low_low[memo$variable == "score_recreation"]` Low-Low subzones, the only cold spots of any size. No category has a significant High-Low or Low-High outlier. Getis-Ord Gi* was not run: it repeats LISA's clusters and cannot show outliers.
+
+```{r fig-lisa, fig.cap = "Figure 4. LISA clusters by category after Benjamini-Hochberg correction; grey subzones are non-residential.", out.width = "100%"}
+knitr::include_graphics(fig("q1_lisa_maps.png"))
+```
+
+**What this means for Q3.** By the rule fixed before Q3 ran, all six categories are *contiguous*, and none is *concentrated below subzone scale*. Any neighbourhood types should therefore be spatially coherent. That has two consequences. Stability must be judged by resampling whole blocks, because random resampling would treat near-duplicate neighbours as independent and overstate it. And since there are no outlier subzones, a small Q3 cluster cannot be explained away as a few extreme subzones.

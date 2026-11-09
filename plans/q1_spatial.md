@@ -20,7 +20,7 @@ Owner: Hew Xing Yi. Code: `R/04_q1_spatial/`.
 - [x] B6 memo to Q3 (H6): `R/04_q1_spatial/05_memo.R` → `outputs/tables/q1_memo.csv` (per category: I, p, cluster and outlier counts, `pattern`) and `data/processed/q1_outliers.csv` (empty). Rule fixed in the script before Q3 runs. All six categories and the composite are **contiguous**; none is concentrated below subzone scale.
 
   What this means for Q3: types should come out spatially coherent, so stability must be judged with the block bootstrap (H3), not random resampling, which would overstate it. There are no outlier subzones to set aside, so any small cluster Q3 finds is not explained by Q1 outliers and has to stand or fall on stability alone.
-- [ ] B7 report section
+- [x] B7 report section: `report/sections/03_q1_spatial.Rmd`
 
 ## Inputs
 
