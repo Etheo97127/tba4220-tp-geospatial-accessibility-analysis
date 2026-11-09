@@ -66,12 +66,14 @@ map_dat <- score %>% select(subzone_c) %>% left_join(cl, by = "subzone_c") %>%
   mutate(type = factor(type_lab[as.character(cluster)], levels = type_lab))
 p2 <- ggplot(map_dat) +
   geom_sf(aes(fill = type), colour = "white", linewidth = 0.1) +
-  scale_fill_manual(values = setNames(PAL_CAT[seq_along(type_lab)], type_lab), breaks = type_lab,
-                    na.value = GREY_NA, name = NULL) +
-  labs(title = if (gradient) "One access gradient, cut in two" else "Neighbourhood types across Singapore",
+  scale_fill_manual(values = setNames(PAL_CAT[seq_along(type_lab)], type_lab), breaks = unname(type_lab),
+                    na.value = GREY_NA, name = NULL) +   # named breaks would print the names "1", "2"
+  labs(title = if (gradient) "No evidence of discrete types: one access gradient, cut in two" else "Neighbourhood types across Singapore",
        subtitle = paste0("k-means on six z-scored category scores. ",
-                         if (gradient) "No evidence of discrete types (null test), so read the colours as two ends of one access gradient. "
-                         else "Types more distinct than in a no-cluster null. ",
+                         if (gradient) "Read the colours as the two ends of one access gradient.
+"
+                         else "Types more distinct than in a no-cluster null.
+",
                          if (all(types$stable)) "Both splits stable under a spatial block bootstrap." else "Not all groups are stable.",
                          "
 Grey: non-residential.")) +
