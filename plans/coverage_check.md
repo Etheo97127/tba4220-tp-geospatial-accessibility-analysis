@@ -47,11 +47,14 @@
 >
 > - **Matcher error** (`06_matcher_error.R`, verdicts in
 >   `data/external/coverage_validation_verdicts.csv`, unsure rows excluded): ECDA
->   false-match 0/40, false-miss 3/38 (7.9%); CHAS false-match 3/40 (7.5%), all
->   from the postcode rule in multi-tenant buildings, false-miss 3/37 (8.1%), all
->   clinics in OSM just beyond 50 m. Corrected recall: **ECDA 9.7% → 16.8%**,
->   CHAS 22.2% → 26.9%. OSM is still missing about four in five preschools; the
->   matcher accounts for under half of the measured gap.
+>   false-match 0/40, false-miss 1/38 (2.6%, Wilson 0.5–13.5%). Two more of those
+>   38 are in OSM only as `building=kindergarten`, a tag the crosswalk does not
+>   read: a tagging gap, not matcher error. CHAS false-match 3/40 (7.5%), all from
+>   the postcode rule in multi-tenant buildings, false-miss 3/37 (8.1%), all
+>   clinics in OSM just beyond 50 m. Corrected recall: **ECDA 9.7% → 12.1%**
+>   (9.3–21.9% with both error rates at their Wilson bounds; 16.8% counting the
+>   tagging gaps), CHAS 22.2% → 26.9% (20.0–38.2%). OSM still misses close to nine
+>   in ten preschools; matcher error accounts for 2.4 points of that gap.
 >
 > For section 6, the result points to the "recall low but uniform" case, with
 > the north-east caveat from the logistic fit.
