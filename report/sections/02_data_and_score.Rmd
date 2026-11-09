@@ -29,10 +29,6 @@ r800    <- rob$spearman[rob$column == "score_r800"]
 r1200   <- rob$spearman[rob$column == "score_r1200"]
 cut_hi  <- max(resn$cut_off); cut_lo <- min(resn$cut_off)
 maps_left <- nrow(read.csv(file.path(ROOT, "human_actions", "maps_check_rows.csv")))
-calib_path <- file.path(ROOT, "outputs", "tables", "score_calibration.csv")
-has_calib  <- file.exists(calib_path)
-cal <- if (has_calib) readr::read_csv(calib_path, show_col_types = FALSE) %>% filter(grouping == "all") else NULL
-cal_tg <- if (has_calib) readr::read_csv(calib_path, show_col_types = FALSE) %>% filter(grouping == "town_group") else NULL
 req     <- rob$spearman[rob$column == "score_equal"]
 ```
 
@@ -44,7 +40,7 @@ req     <- rob$spearman[rob$column == "score_equal"]
 
 **Where residents live.** A polygon's centroid can fall in a reservoir or outside an L-shaped subzone. Each subzone's centre is therefore the floor-area-weighted mean of its OSM residential buildings (footprint × storeys). Worker dormitories are excluded, because the census counts only residents. Every residential subzone has such a centre.
 
-**The score.** For each centre we count facilities within 1 km, per category. Counts differ in scale: a median of `r num(summ$median_count[summ$category == "food_services"])` food outlets against `r num(summ$median_count[summ$category == "health"])` health facilities (clinics, dentists and pharmacies). Each count is therefore put on one scale as 100 · log(1 + count) / the maximum over residential subzones. The six category scores are combined with weights equal to each category's share of 2023 household spending [@singstat2024hes] (Table 1). Across residential subzones the composite ranges from `r num(min(sc_res), 0)` to `r num(max(sc_res), 0)`, with a median of `r num(median(sc_res), 1)` (Figure 1).
+**The score.** For each centre we count facilities within 1 km in a straight line, per category (a known caveat, see the Discussion). Counts differ in scale: a median of `r num(summ$median_count[summ$category == "food_services"])` food outlets against `r num(summ$median_count[summ$category == "health"])` health facilities (clinics, dentists and pharmacies). Each count is therefore put on one scale as 100 · log(1 + count) / the maximum over residential subzones. The six category scores are combined with weights equal to each category's share of 2023 household spending [@singstat2024hes] (Table 1). Across residential subzones the composite ranges from `r num(min(sc_res), 0)` to `r num(max(sc_res), 0)`, with a median of `r num(median(sc_res), 1)` (Figure 1).
 
 ```{r tab-weights}
 knitr::kable(
@@ -73,14 +69,3 @@ knitr::include_graphics(fig("coverage_missrate_map.png"))
 
 So OSM counts preschools at a low but roughly even rate. Comparisons between subzones survive, but absolute counts do not: the score is a relative measure. CHAS clinics, reported only as a supplementary benchmark, are less even: missed clinics cluster beyond chance (p `r p_fmt(c_rl$p_value)`). The health category should be read with that in mind. A per-subzone quality flag is available to Q2 and Q3 as a robustness check. It uses empirical-Bayes shrinkage, which pulls a subzone's miss rate towards the island rate when it has few preschools [@efron1975].
 
-```{r calib-text, eval = has_calib, results = "asis"}
-cat(sprintf(paste0(
-  "**How far is 1 km?** The score counts within a 1 km straight line, but people walk along streets. ",
-  "We routed %d sample walks from residential centres to facilities 200–1,000 m away on OpenStreetMap's footpath network. ",
-  "A walk is typically %.2f times the straight line (interquartile range %.2f–%.2f), so a 1 km walk reaches about %d m as the crow flies. ",
-  "The 1 km circle therefore describes roughly a %.1f km walk, about 18–20 minutes, close to LTA's 20-minute-town target. ",
-  "The detour is similar in mature and non-mature towns (%.2f and %.2f), so the straight line favours neither group."),
-  cal$n, cal$detour_median, cal$detour_q25, cal$detour_q75, round(cal$radius_equiv_m),
-  cal$detour_median,
-  cal_tg$detour_median[cal_tg$group == "mature"], cal_tg$detour_median[cal_tg$group == "non-mature"]))
-```
