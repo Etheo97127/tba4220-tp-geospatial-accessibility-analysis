@@ -3,30 +3,35 @@
 ```{r discussion}
 nul_d  <- tab("q3_null_test.csv")
 ta_d   <- tab("q3_tests.csv") %>% filter(grepl("H0\\(a\\)", hypothesis))
+mix_d  <- tab("q3_type_mix.csv")
+typ_d  <- tab("q3_types.csv")
 dens_d <- tab("q2_density_share.csv")
 mi_d   <- tab("q1_morans_i.csv")
 recc_d <- tab("coverage_recall_corrected.csv") %>% filter(set == "ecda")
 rob_d  <- tab("score_robustness.csv")
+low_d  <- typ_d$cluster[grepl("^Low", typ_d$name)]
+sh_d   <- function(m) mix_d$share[mix_d$maturity == m & mix_d$cluster == low_d]
 calib_path <- file.path(ROOT, "outputs", "tables", "score_calibration.csv")
+cal_d  <- if (file.exists(calib_path)) readr::read_csv(calib_path, show_col_types = FALSE) %>% filter(grouping == "all") else NULL
 ```
 
 # Discussion
 
-**Whose 15-minute city?** By walkable access, Singapore's residential subzones do not fall into distinct kinds of neighbourhood. They spread along one gradient from low to high access, on which every category of everyday service rises and falls together. Older and newer towns sit on that gradient in the same proportions (p = `r num(ta_d$p_value, 2)`). The two halves k-means finds are reproducible, but they separate no better than data with no groups at all (p = `r num(nul_d$p_value, 2)`). What differs between neighbourhoods is *how much* lies within walking distance, not *what kind*.
+**Whose 15-minute city?** We find no evidence that Singapore's residential subzones fall into distinct kinds of neighbourhood by walkable access. They spread along one gradient from low to high access, on which every category of everyday service rises and falls together. The two halves k-means finds are reproducible, but they separate no better than data with no groups at all (p = `r num(nul_d$p_value, 2)`). Older and newer towns show no clear difference in where they sit on that gradient: the low-access end holds `r pct(sh_d("mature"), 0)` of mature-town and `r pct(sh_d("non-mature"), 0)` of non-mature-town subzones (p = `r num(ta_d$p_value, 2)`), though the test has little power. What differs between neighbourhoods is *how much* lies within walking distance, more than *what kind*.
 
 The three questions support that reading from different sides.
 
-- **Q1** shows the gradient is spatial: every category clusters (Moran's I `r num(min(mi_d$I_queen), 2)`–`r num(max(mi_d$I_queen), 2)`), around a few central and north-eastern hot spots, with no isolated outliers.
-- **Q2** shows the gradient is not just density, which explains about a third of the model (share `r num(dens_d$density_share, 2)`). Distance to rail matters, but the expected equity pattern does not appear: subzones with more elderly residents or more small HDB flats are no worse served once location is held fixed.
+- **Q1** shows the gradient is spatial. Every category clusters (Moran's I `r num(min(mi_d$I_queen), 2)`–`r num(max(mi_d$I_queen), 2)`), with hot spots in the centre. Education and recreation also have hot spots in the north-east, partly where OSM maps best. No subzone is an isolated outlier.
+- **Q2** shows the gradient is not just density, which explains about a third of the model (share `r num(dens_d$density_share, 2)`). Distance to rail matters. The expected equity pattern does not appear: we find no evidence that subzones with more elderly residents or more small HDB flats have lower access once location is held fixed.
 - **Q3** turns those two findings into the answer above.
 
-For planning, the useful unit is the low-access end of the gradient, which spans both town groups. Being old or new is not the issue.
+For planning, the useful unit is the low-access end of the gradient, which spans both town groups. Town age alone is not a reliable guide to it.
 
 ## Limitations
 
-- **OpenStreetMap is incomplete.** Even after correcting for matcher error, OSM holds only about `r pct(recc_d$recall_corrected, 0)` of licensed preschools. The gaps are even across town groups for preschools, the one category with a complete register, so comparisons between subzones hold, but absolute counts do not. Health is less certain: missed CHAS clinics cluster. Retail goods and food services have no register to check against.
-- **Mapping effort is partly mechanical.** The mapping-effort control in Q2 is counted from the same OSM features as the score. We report the model with and without it. Neither version rejects H₀. Without the control, elderly share turns significantly *positive*, the opposite of the hypothesis.
-- **Straight-line reach.** Access is counted within a 1 km straight line. The rankings are less robust to the radius (Spearman `r num(rob_d$spearman[rob_d$column == "score_r800"], 2)` at 800 m) than to the weights.`r if (file.exists(calib_path)) " A calibration on routed walks quantifies the gap between the straight line and the real walk (see the data section)." else " A calibration of the straight line against routed walking distances is in progress."`
+- **OpenStreetMap is incomplete.** Even after a provisional correction for matcher error, OSM holds only about `r pct(recc_d$recall_corrected, 0)` of licensed preschools. The gaps are even across town groups for preschools, the one category with a complete register, so comparisons between subzones hold, but absolute counts do not. Health is less certain: missed CHAS clinics cluster. Retail goods and food services have no register to check against. The north-eastern education hot spot coincides with the best-mapped preschool towns.
+- **Mapping effort is partly mechanical.** The mapping-effort control in Q2 is counted from the same OSM features as the score. We report the model with and without it. Neither version rejects H₀. Without the control, the elderly-share coefficient turns positive, outside the pre-specified one-sided test.
+- **Straight-line reach.** Access is counted within a 1 km straight line. The rankings are less robust to the radius (Spearman `r num(rob_d$spearman[rob_d$column == "score_r800"], 2)` at 800 m and `r num(rob_d$spearman[rob_d$column == "score_r1200"], 2)` at 1.2 km) than to the weights.`r if (!is.null(cal_d)) sprintf(" Routed walks show the 1 km circle describes roughly a %.1f km walk (median detour %.2f), similarly in both town groups.", cal_d$detour_median, cal_d$detour_median) else " The straight line has not been calibrated against routed walks."`
 - **Dates do not align.** Residents are counted in 2020 and facilities mapped in 2026. The ECDA childcare register's records carry a 2021 timestamp.
-- **H₀(b) is partly by construction.** The under-service test compares groups built from the scores with residuals built from the same scores. We read it only as "low access is not explained by density, rail or mapping effort".
-- **Household spending weights are national averages.** They do not vary by income. Equal weights give near-identical rankings (Spearman `r num(rob_d$spearman[rob_d$column == "score_equal"], 2)`), so this matters little here.
+- **The under-service test cannot discriminate.** H₀(b) compares groups cut by score level with residuals built from the same scores, so it rejects by construction. We report it only descriptively.
+- **Spending weights are national averages.** They do not vary by income, and income-specific baskets were not tested. Equal weights give near-identical rankings (Spearman `r num(rob_d$spearman[rob_d$column == "score_equal"], 2)`), which suggests the composite is not very sensitive to the basket.
