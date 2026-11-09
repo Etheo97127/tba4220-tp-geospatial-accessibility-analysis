@@ -7,8 +7,13 @@ diag  <- tab("q2_spatial_diagnostics.csv")
 mods  <- tab("q2_models.csv")
 dens  <- tab("q2_density_share.csv")
 sens  <- tab("q2_ols_sensitivity.csv")
-covs  <- tab("q2_covariates_summary.csv")
 fit   <- tab("q2_ols_fit.csv")
+bycat <- tab("q2_ols_by_category.csv")
+n_res <- tab("q2_residential_n.csv") %>% filter(cut_off == max(cut_off)) %>% pull(n_residential)
+# The two tested terms across the six category models: 12 one-sided tests, Holm-corrected.
+cat_t <- bycat %>% filter(outcome != "score", alternative == "less") %>%
+  mutate(p_holm = p.adjust(p_one_sided, method = "holm")) %>% arrange(p_one_sided)
+slope_scale <- 1 / (1 - diag$rho_lag)
 
 TERM_LAB <- c(elderly_share = "Elderly share (65+)", housing_mix = "Housing mix (HDB 1–3 room)",
               log_density = "Log population density", dist_rail_m = "Distance to rail",
@@ -20,15 +25,15 @@ co      <- function(d, t, col = "estimate") d[[col]][d$term == t]
 
 # Q2: What explains access, and how much is just density?
 
-**H₀**: elderly share and housing mix have no effect on the composite score. Both are tested one-sided against the expected negative sign: a higher elderly share and a less affluent housing mix should mean less access.
+**H₀**: elderly share and housing mix do not lower the composite score (coefficient ≥ 0). Both are tested one-sided against the expected negative sign: a higher elderly share and a less affluent housing mix should mean less access.
 
-**Model.** The model is an ordinary least-squares regression across the 201 residential subzones [@james2021]. Its predictors are elderly share and housing mix (the share of residents in HDB 1–3 room flats, a proxy for income, which is not published by subzone). Three controls sit alongside them:
+**Model.** The model is an ordinary least-squares regression across the `r n_res` residential subzones [@james2021]. Its predictors are elderly share and housing mix (the share of residents in HDB 1–3 room flats, a proxy for income, which is not published by subzone). Three controls sit alongside them:
 
 - log population density, since shops go where people are;
 - distance from the subzone's centre to the nearest station in service;
 - OSM mapping effort (distinct mappers per km²), since the counts come from a volunteer map.
 
-Predictors are standardised, so each coefficient is in score points per standard deviation. Collinearity is low (largest variance inflation factor `r num(max(vif$vif), 1)`). The model explains R² = `r num(fit$r2[fit$outcome == "score"], 2)`.
+Predictors are standardised, so each coefficient is in score points per standard deviation. Collinearity is low. The largest variance inflation factor, which measures how much overlap with the other predictors inflates a coefficient's variance (values above about 5 are a concern [@james2021]), is `r num(max(vif$vif), 1)`. The model explains R² = `r num(fit$r2[fit$outcome == "score"], 2)`.
 
 ```{r tab-models}
 show <- names(TERM_LAB)
@@ -47,11 +52,11 @@ knitr::kable(tab_m, caption = "Table 2. Composite score on standardised predicto
 - **lag**: a subzone's access depends on its neighbours' access;
 - **error**: unmeasured causes cluster in space.
 
-They favour lag (robust lag p `r p_fmt(diag$robust_lm_lag_p)`; robust error p `r p_fmt(diag$robust_lm_error_p)`). The spatial lag model also has the lowest AIC (`r num(diag$aic_lag)` against `r num(diag$aic_error)` for the error model and `r num(diag$aic_ols)` for OLS), with ρ = `r num(diag$rho_lag, 2)`. In a lag model a coefficient is not a marginal effect, so Table 2 reports total impacts: direct plus spillover [@lesage2009]. The proposal had planned a spatial error model. It gives the same conclusion: elderly share `r num(co(sem, "elderly_share"), 2)` and housing mix `r num(co(sem, "housing_mix"), 2)`, one-sided p = `r num(co(sem, "elderly_share", "p_one_sided"), 2)` and `r num(co(sem, "housing_mix", "p_one_sided"), 2)`.
+They favour lag (robust lag p `r p_fmt(diag$robust_lm_lag_p)`; robust error p `r p_fmt(diag$robust_lm_error_p)`). The spatial lag model also has the lowest Akaike information criterion, which trades fit against the number of parameters [@akaike1974] (AIC `r num(diag$aic_lag)` against `r num(diag$aic_error)` for the error model and `r num(diag$aic_ols)` for OLS), with ρ = `r num(diag$rho_lag, 2)`. In a lag model a coefficient is not a marginal effect, because a change in one subzone spills over to its neighbours and back. Table 2 therefore reports total impacts [@lesage2009]. A total impact is the change in the average score if the predictor rose by one SD in *every* subzone at once, spillovers included; here it is the lag coefficient times 1/(1 − ρ) ≈ `r num(slope_scale, 1)`. The proposal had planned a spatial error model [@anselin1988], in which only the errors are correlated. It gives the same conclusion: elderly share `r num(co(sem, "elderly_share"), 2)` and housing mix `r num(co(sem, "housing_mix"), 2)`, one-sided p = `r num(co(sem, "elderly_share", "p_one_sided"), 2)` and `r num(co(sem, "housing_mix", "p_one_sided"), 2)`.
 
-**Answer.** H₀ is not rejected for either tested variable, in any model.
+**Answer.** For the composite score, H₀ is not rejected for either tested variable in any of the three models. Across the six category models the smallest one-sided p is `r num(cat_t$p_one_sided[1], 3)` (`r gsub("_", " ", cat_t$term[1])` on `r tolower(CAT_LAB[sub("^score_", "", cat_t$outcome[1])])`), which is `r num(cat_t$p_holm[1], 2)` after a Holm correction for the 12 tests.
 
-- **Elderly share and housing mix.** Subzones with more elderly residents or more small HDB flats have no less access once the controls are held fixed. Without the mapping-effort control, elderly share even turns *positive* (b = `r num(co(sens, "elderly_share"), 2)`): older estates are central and well served. That control is partly mechanical, because mappers are counted from the same features, so we report the model both ways.
-- **What does matter.** Access falls with distance to rail (total impact `r num(co(lag_tot, "dist_rail_m"), 1)` points per SD) and rises with density (`r num(co(lag_tot, "log_density"), 1)`). Mapping effort matters too.
+- **Elderly share and housing mix.** We find no evidence that subzones with more elderly residents or more small HDB flats have lower access once the controls are held fixed. This is a failure to reject, not a demonstration of equal access. Without the mapping-effort control, the elderly-share coefficient turns positive (b = `r num(co(sens, "elderly_share"), 2)`, two-sided p = `r num(co(sens, "elderly_share", "p_two_sided"), 2)`). This is outside the pre-specified one-sided test, so we read it descriptively. The control is partly mechanical, because mappers are counted from the same features, so we report the model both ways.
+- **What does matter.** Access falls with distance to rail and rises with density: total impacts of `r num(co(lag_tot, "dist_rail_m"), 1)` and `r num(co(lag_tot, "log_density"), 1)` points per SD (OLS, which ignores spillovers, gives `r num(co(ols, "dist_rail_m"), 1)` and `r num(co(ols, "log_density"), 1)`). Mapping effort matters too.
 
-**How much is density?** Density alone explains R² = `r num(dens$r2_density, 2)` of the full model's `r num(dens$r2_full, 2)`, a share of `r num(dens$density_share, 2)`. That is below the 0.5 threshold fixed in advance. Q3 therefore clusters on the raw category scores: a typology built on them is not just the density gradient under another name. The model's residuals go to Q3. Each is the score minus what the predictors alone imply, the reduced form of the lag model.
+**How much is density?** Density alone explains R² = `r num(dens$r2_density, 2)` of the full model's `r num(dens$r2_full, 2)`, a share of `r num(dens$density_share, 2)`. That is below the `r num(dens$threshold, 1)` threshold fixed in advance. Q3 therefore clusters on the raw category scores: a typology built on them is not just the density gradient under another name. The model's residuals go to Q3. Each is the score minus what the five predictors alone imply, the reduced form of the lag model.
