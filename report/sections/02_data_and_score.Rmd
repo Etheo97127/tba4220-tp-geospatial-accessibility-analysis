@@ -10,7 +10,9 @@ recc   <- tab("coverage_recall_corrected.csv")
 prop   <- tab("coverage_prop_test.csv")
 rl     <- tab("coverage_random_labelling.csv")
 logit  <- tab("coverage_logistic.csv")
+lsens  <- tab("coverage_logistic_sensitivity.csv")
 merr   <- tab("coverage_matcher_error.csv")
+qflag  <- proc("subzone_quality_flag.csv")
 score  <- readRDS(file.path(ROOT, "data", "processed", "score_subzone.rds"))
 
 n_res   <- resn$n_residential[resn$cut_off == max(resn$cut_off)]
@@ -25,6 +27,12 @@ c_rl    <- rl %>% dplyr::filter(set == "chas")
 e_or    <- logit %>% dplyr::filter(set == "ecda", term == "maturitynon-mature")
 e_fm    <- merr %>% dplyr::filter(set == "ecda", stratum == "accepted match")
 e_fmiss <- merr %>% dplyr::filter(set == "ecda", stratum != "accepted match")
+e_both  <- lsens %>% dplyr::filter(dropped == "Sengkang and Hougang")
+tag_gap_txt <- if (e_fmiss$n_tag_gap > 0) sprintf(
+  " Another %d of the %d are in OSM only as a building tagged kindergarten, which the score does not read.",
+  e_fmiss$n_tag_gap, e_fmiss$n_checked) else ""
+n_better <- sum(qflag$quality_flag == "better", na.rm = TRUE)
+n_worse  <- sum(qflag$quality_flag == "worse", na.rm = TRUE)
 r800    <- rob$spearman[rob$column == "score_r800"]
 r1200   <- rob$spearman[rob$column == "score_r1200"]
 cut_hi  <- max(resn$cut_off); cut_lo <- min(resn$cut_off)
@@ -63,9 +71,9 @@ OSM is volunteer-built, so its gaps could bias every later result. We checked on
 knitr::include_graphics(fig("coverage_missrate_map.png"))
 ```
 
-- **Recall is low.** Only `r pct(e_rec$recall)` of ECDA preschools are in OSM (95% CI `r pct(e_rec$ci_lo)`–`r pct(e_rec$ci_hi)`; a Wilson interval, which stays sensible for proportions near 0 [@wilson1927]). The checked sample shows no false matches (`r e_fm$n_incorrect`/`r e_fm$n_checked`) and a `r pct(e_fmiss$rate)` false-miss rate. Correcting for both puts true recall at about `r pct(e_cor$recall_corrected)`, provisionally. OSM, not the matcher, accounts for most of the gap.
-- **Recall is spatially even.** Mature and non-mature towns miss `r pct(e_prop$p_mature)` and `r pct(e_prop$p_nonmature)` of their preschools (two-proportion test, p `r p_fmt(e_prop$p_value)`). The arms could have detected a gap of `r num(e_prop$mdd_pp, 1)` points at 80% power [@cohen1988], so this null result is not just low power.
-- **Missed preschools are not clustered.** Random labelling with cross-K [@baddeley2015] finds that missed preschools cluster no more than preschools themselves (p `r p_fmt(e_rl$p_value)`). A logistic regression of the odds that a preschool is missing [@james2021], controlling for distance to the CBD, gives non-mature towns lower odds of a miss (odds ratio `r num(e_or$OR, 2)`). That effect rests on two north-eastern towns, Sengkang and Hougang, which are better mapped than average: dropping both removes it.
+- **Recall is low.** Only `r pct(e_rec$recall)` of ECDA preschools are in OSM (95% CI `r pct(e_rec$ci_lo)`–`r pct(e_rec$ci_hi)`; a Wilson interval, which stays sensible for proportions near 0 [@wilson1927]). In the checked sample the matcher made no false matches (`r e_fm$n_error`/`r e_fm$n_checked`) and missed `r e_fmiss$n_error` of `r e_fmiss$n_checked` preschools that OSM did hold. Correcting for both puts true recall at about `r pct(e_cor$recall_corrected)` (`r pct(e_cor$recall_corrected_lo)`–`r pct(e_cor$recall_corrected_hi)` with both error rates at the ends of their Wilson intervals), provisionally.`r tag_gap_txt` OSM, not the matcher, accounts for most of the gap.
+- **No gap between town groups.** Mature and non-mature towns miss `r pct(e_prop$p_mature)` and `r pct(e_prop$p_nonmature)` of their preschools (two-proportion test, p `r p_fmt(e_prop$p_value)`). The arms could have detected a gap of `r num(e_prop$mdd_pp, 1)` points at 80% power [@cohen1988], so this null result is not just low power.
+- **Missed preschools are not clustered.** Random labelling with cross-K [@baddeley2015] finds that missed preschools cluster no more than preschools themselves (p `r p_fmt(e_rl$p_value)`). A logistic regression of the odds that a preschool is missing [@james2021], controlling for distance to the CBD, gives non-mature towns lower odds of a miss (odds ratio `r num(e_or$OR, 2)`). That effect rests on two north-eastern towns, Sengkang and Hougang, which are better mapped than average: without both, the odds ratio is `r num(e_both$OR, 2)` (p = `r num(e_both$p_value, 2)`), no detectable effect.
 
-So OSM counts preschools at a low but roughly even rate. Comparisons between subzones survive, but absolute counts do not: the score is a relative measure. CHAS clinics, reported only as a supplementary benchmark, are less even: missed clinics cluster beyond chance (p `r p_fmt(c_rl$p_value)`). The health category should be read with that in mind. A per-subzone quality flag is available to Q2 and Q3 as a robustness check. It uses empirical-Bayes shrinkage, which pulls a subzone's miss rate towards the island rate when it has few preschools [@efron1975].
+So OSM counts preschools at a low rate, with no detectable gap between the two town groups. Within them it is uneven: `r n_better` subzones are mapped clearly better than the island rate and `r n_worse` clearly worse (Figure 2). Comparisons between subzones therefore hold only approximately, and absolute counts not at all: the score is a relative measure. CHAS clinics, reported only as a supplementary benchmark, are less even: missed clinics cluster beyond chance (p `r p_fmt(c_rl$p_value)`). The health category should be read with that in mind. The better and worse subzones come from a per-subzone quality flag, which Q1 uses to qualify its hot spots. It uses empirical-Bayes shrinkage, which pulls a subzone's miss rate towards the island rate when it has few preschools [@efron1975].
 
