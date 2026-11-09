@@ -82,7 +82,7 @@ the 2021 vintage as a limitation.
 **Result (2026-11-09):** the data.gov.sg API still gives 2026-04-18 as the dataset's
 last update, the edition downloaded on 2026-09-15, so there is nothing newer. The
 report's Discussion states the 2021 record date as a limitation, and
-`plans/coverage_check.md` notes it. Recheck only if data.gov.sg publishes a new edition.
+`docs/plans/coverage_check.md` notes it. Recheck only if data.gov.sg publishes a new edition.
 
 ## 5. Read the methods outside the lectures
 

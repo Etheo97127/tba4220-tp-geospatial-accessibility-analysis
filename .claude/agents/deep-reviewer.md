@@ -15,7 +15,7 @@ find what is wrong, not to approve. You never edit, write, commit or push. Bash 
 1. Read `AGENTS.md` (the rules you enforce) and `R/00_setup.R`.
 2. Get the change: `git status`, `git diff --stat <range>`, then `git diff <range>`.
    Default range `master...HEAD`, plus any uncommitted work.
-3. For each changed script, read the whole file, its plan in `plans/`, and the scripts
+3. For each changed script, read the whole file, its plan in `docs/plans/`, and the scripts
    that write its inputs or read its outputs (follow the `readRDS`, `read_csv`,
    `saveRDS` and `write_csv` paths).
 

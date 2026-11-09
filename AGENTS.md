@@ -9,7 +9,7 @@ read it first.
 R pipeline for TBA4220 Group 3: an access score for Singapore's 332 MP19 subzones,
 an OSM coverage check, and three analysis stages (Q1 spatial, Q2 regression, Q3
 typology) that read the score. One owner and one folder per stage (README table).
-Working plans: `plans/<stage>.md`. Decisions: `docs/consideration.md`. Schedule and
+Working plans: `docs/plans/<stage>.md`. Decisions: `docs/consideration.md`. Schedule and
 hand-off IDs: `docs/team_plan.html` (70 KB; open it only when a task needs dates or
 H-numbers).
 
@@ -103,7 +103,7 @@ Agent sessions are cheap to start and costly to keep long. Split the work so mos
 it runs at low effort.
 
 **One session = one task = one branch (or worktree) = ends in commits.** The usual
-task is one checkbox in `plans/<stage>.md`.
+task is one checkbox in `docs/plans/<stage>.md`.
 
 **Plan high, build low, review high.** Set the model and effort when you start the
 session.
@@ -116,7 +116,7 @@ session.
 | Review | Before every PR: the `deep-reviewer` subagent | High (set in its definition) |
 
 A planning session's deliverable is the hand-off: it writes the step into
-`plans/<stage>.md` concretely enough (files, inputs, output columns, the check that
+`docs/plans/<stage>.md` concretely enough (files, inputs, output columns, the check that
 proves it works) that a fresh low-effort session can build it without the planning
 conversation.
 
@@ -130,7 +130,7 @@ conversation.
 **The repo is the memory, not the chat.**
 - End a session with: commits made, the plan checkbox ticked, and a `Next:` line under
   the step for anything left (open question, what to verify).
-- Start one with: "Read AGENTS.md and `plans/<stage>.md`, then do step X." Nothing
+- Start one with: "Read AGENTS.md and `docs/plans/<stage>.md`, then do step X." Nothing
   else should be needed.
 
 **Keep context small.**

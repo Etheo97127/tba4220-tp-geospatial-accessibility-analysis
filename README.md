@@ -12,10 +12,10 @@ Proposal: [`docs/proposal/proposal_submitted.docx`](docs/proposal/proposal_submi
 
 | Stage | Owner | Question | Code | Plan |
 |---|---|---|---|---|
-| Score + coverage check | Qu Haotian | Build the access score; how uniformly does OSM cover preschools vs ECDA? | `R/01_prep/`, `R/02_coverage/`, `R/03_score/` | [score](plans/score.md), [coverage](plans/coverage_check.md) |
-| Q1 | Hew Xing Yi | How is each category structured in space? (Moran's I per category) | `R/04_q1_spatial/` | [q1](plans/q1_spatial.md) |
-| Q2 | Zachary Chng Yao Wei | What explains access, and how much is just density? (OLS / spatial lag) | `R/05_q2_regression/` | [q2](plans/q2_regression.md) |
-| Q3 | Coltrane Yao Zhiming | What kinds of neighbourhood exist? (k-means, block bootstrap) | `R/06_q3_typology/` | [q3](plans/q3_typology.md) |
+| Score + coverage check | Qu Haotian | Build the access score; how uniformly does OSM cover preschools vs ECDA? | `R/01_prep/`, `R/02_coverage/`, `R/03_score/` | [score](docs/plans/score.md), [coverage](docs/plans/coverage_check.md) |
+| Q1 | Hew Xing Yi | How is each category structured in space? (Moran's I per category) | `R/04_q1_spatial/` | [q1](docs/plans/q1_spatial.md) |
+| Q2 | Zachary Chng Yao Wei | What explains access, and how much is just density? (OLS / spatial lag) | `R/05_q2_regression/` | [q2](docs/plans/q2_regression.md) |
+| Q3 | Coltrane Yao Zhiming | What kinds of neighbourhood exist? (k-means, block bootstrap) | `R/06_q3_typology/` | [q3](docs/plans/q3_typology.md) |
 
 **Bonus track (outside the project).** How far do people really walk compared with the
 1 km straight line? Answered after the project, with GenAI assistance, on branch
@@ -85,7 +85,7 @@ outputs/figures, tables written by scripts, never hand-edited, prefixed by stage
 outputs/slides/         project deck (.pptx), built by report/slides/build_slides.js
 report/                 report.Rmd + one child section per owner (reads outputs/, data/processed/, data/external/)
 docs/                   requirements, download log, proposal versions, critiques
-plans/                  one working plan per workstream
+  plans/                one working plan per workstream
 ```
 
 ## Getting started

@@ -2,7 +2,7 @@
 
 > **Status (2026-11-08):** this file was written before the final proposal. Q1
 > here is now the *coverage check* inside the score workstream; the new Q1 is
-> per-category Moran's I, `plans/q1_spatial.md`. `R/02_coverage/` now follows
+> per-category Moran's I, `docs/plans/q1_spatial.md`. `R/02_coverage/` now follows
 > the 2026-09-16 decision as amended on 2026-11-08 (`docs/consideration.md`
 > §2). ECDA preschools are the headline benchmark; CHAS clinics are
 > reported only as a labelled supplementary row and are never pooled with
