@@ -1,6 +1,6 @@
 # 00_setup.R ------------------------------------------------------------------
 # Shared paths, constants and helpers. Sourced by every numbered script.
-# Singapore only for now; the Hong Kong extension will add its own DIR_RAW_HK.
+# Singapore only: the optional Hong Kong extension (team plan P4) was dropped.
 
 suppressPackageStartupMessages({
   library(sf)

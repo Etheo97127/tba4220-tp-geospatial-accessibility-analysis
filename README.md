@@ -66,7 +66,7 @@ R/
   02_coverage/          OSM vs ECDA record linkage + uniformity tests
   03_score/  04_q1_spatial/  05_q2_regression/  06_q3_typology/
 data/
-  raw/sg, raw/hk        downloaded, never edited                  (committed)
+  raw/sg                downloaded, never edited                  (committed)
   external/             hand-built lookups, e.g. town_maturity    (committed)
   interim/              intermediate objects                      (ignored, regenerated)
   processed/            hand-off tables between stages            (committed)
@@ -89,7 +89,7 @@ plans/                  one working plan per workstream
 
 - `data/raw/` is read-only. Every raw file gets a row in [`docs/data_log.md`](docs/data_log.md): source URL, download date, md5, licence.
 - Raw data is committed so everyone works on the same OSM snapshot. Files over ~50 MB (e.g. the Geofabrik `.osm.pbf` for routing) are ignored and fetched by script.
-- CRS: EPSG:3414 (SVY21) for SG, EPSG:2326 (HK1980 Grid) for HK, EPSG:4326 only for I/O.
+- CRS: EPSG:3414 (SVY21), EPSG:4326 only for I/O.
 - Scripts are numbered within their stage and idempotent; run from the repo root.
 - Output files are prefixed by stage: `coverage_`, `score_`, `q1_`, `q2_`, `q3_`.
 - Seeds are set in `00_setup.R` (`SEED <- 4220`); reset it at the top of any script that samples or permutes.

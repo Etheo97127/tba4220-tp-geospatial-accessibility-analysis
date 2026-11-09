@@ -88,37 +88,15 @@ come from SingStat Table Builder, not from data.gov.sg.
 SingStat Table Builder: <https://tablebuilder.singstat.gov.sg/> — *returned 403 to
 an automated request; it works in a normal browser.*
 
-## C. Hong Kong — proposed, not downloaded, **not yet verified**
+## C. OpenStreetMap
 
-Q1 is Singapore-only, so nothing here was needed yet. I have **not** confirmed
-specific HK dataset IDs, and I am not going to invent deep links. These are the
-portals to search; treat the dataset identity as an open question.
-
-| What we need | Where to look | Checked |
-|---|---|---|
-| 2021 Population Census by Small Tertiary Planning Unit Group | Census & Statistics Dept, 2021 Census site — <https://www.censtatd.gov.hk/en/scode600.html> | reachable |
-| Same, via the open data portal | <https://data.gov.hk/en-datasets/search?q=tertiary+planning+unit> | reachable |
-| TPU / Small TPU Group boundary files | data.gov.hk search above; also the CSDI geoportal — <https://portal.csdi.gov.hk/> | **CSDI refused an automated request — open it in a browser** |
-| C&SD landing page | <https://www.censtatd.gov.hk/en/> | reachable |
-
-**Open risk, flagged in the proposal's own contingency:** there is no Hong Kong
-equivalent of CHAS or ECDA, so the Q1 completeness audit cannot be repeated there.
-Whatever the HK boundary and census files turn out to be, the cross-city comparison
-rests on an assumption about OSM completeness in HK that we have no way to test the
-same way.
-
-## D. OpenStreetMap
-
-The facility locations, and the only source available in identical form for both
-cities.
+The facility locations and residential building footprints.
 
 | Route | URL | Notes |
 |---|---|---|
 | **Overpass API** (what the project uses) | <https://overpass-api.de/api/interpreter> | `R/01_prep/00_fetch_osm.R` builds the queries from `data/external/osm_crosswalk.csv` and saves each one beside its result as `data/raw/sg/osm/*.overpassql`. **Clicking this link gives a 406**: the server refuses clients without a descriptive User-Agent. Use Overpass Turbo below to look at a query |
 | Overpass Turbo (to eyeball a query) | <https://overpass-turbo.eu/> | paste a query and run it visually |
 | Geofabrik — Malaysia/Singapore/Brunei extract | <https://download.geofabrik.de/asia/malaysia-singapore-brunei.html> | Singapore is **not** a standalone Geofabrik extract; it comes bundled |
-| Geofabrik — China extract | <https://download.geofabrik.de/asia/china.html> | where HK would come from if using Geofabrik |
-| BBBike custom extracts | <https://extract.bbbike.org/> | lets you draw a box — easier for Hong Kong alone |
 
 Singapore was pulled via Overpass using the OSM administrative area
 `3600536780` (relation 536780), which clips to the national boundary and avoids
@@ -129,7 +107,7 @@ residential building footprints). The September `osm_health.json` and
 
 Licence: ODbL 1.0 — attribution required, share-alike on derived databases.
 
-## E. Supporting service
+## D. Supporting service
 
 | Service | URL | Used for |
 |---|---|---|
@@ -143,4 +121,3 @@ it is the fallback if a future reference list arrives as addresses only.
 
 - data.gov.sg datasets: Singapore Open Data Licence 1.0 — <https://data.gov.sg/open-data-licence>
 - OpenStreetMap: ODbL 1.0 — <https://www.openstreetmap.org/copyright>
-- data.gov.hk: check each dataset's own terms — <https://data.gov.hk/en/terms-and-conditions>
