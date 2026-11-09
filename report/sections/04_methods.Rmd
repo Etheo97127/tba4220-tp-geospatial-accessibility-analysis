@@ -1,0 +1,81 @@
+# Methods
+
+The analysis runs as one pipeline in a fixed order: data preparation, the OSM completeness check, the access score, then Q1, Q2 and Q3. Each stage reads only what earlier stages wrote, and each question fixes a rule that the next one follows. Table 3 lists every hypothesis and its test. All tests use α = 0.05, and all random draws start from one fixed seed.
+
+```{r tab-hypotheses}
+kable_w(tibble::tribble(
+  ~Stage, ~`Null hypothesis`, ~Test, ~`Guard against`,
+  "Coverage", "OSM misses the same share of preschools in mature and non-mature towns", "Two-proportion test; logistic regression with distance to the CBD", "Low power: minimum detectable difference at 80% power",
+  "Coverage", "Missed preschools cluster no more than preschools do", "Random labelling with cross-K, 999 simulations", "—",
+  "Q1", "Moran's I = 0, per category and composite", "Global Moran's I, 999 permutations; LISA, 9,999", "201 local tests: Benjamini-Hochberg",
+  "Q2", "Elderly share and housing mix do not lower the score (b ≥ 0)", "One-sided t-test in OLS, spatial lag and error models", "12 category tests: Holm",
+  "Q3 (a)", "The type mix is the same in mature and non-mature towns", "χ² with town labels permuted between whole blocks, 999 draws", "Spatial dependence: block permutation",
+  "Q3 (b)", "Type membership is unrelated to Q2's residuals", "F with residuals permuted within blocks, 999 draws", "Spatial dependence: block permutation"
+), widths = c(1.4, 3.1, 3.1, 2.5), caption = "Table 3. Hypotheses and tests.")
+```
+
+## Access score
+
+For each residential subzone we count the OSM facilities of each category within 1 km of its centre, in a straight line. The straight line is a known simplification: people walk along streets and paths, so a 1 km circle reaches further than a 1 km walk. We keep it because it is transparent and needs no network model, and we test how much the radius matters.
+
+The counts differ in scale between categories, so each count is put on its own 0–100 scale:
+
+  category score = 100 · log(1 + count) / max, where max is the largest log(1 + count) over the residential subzones.
+
+The logarithm compresses the long upper tail, so one very dense centre does not flatten every other subzone towards zero. The composite score is the sum of the six category scores, each weighted by its share of household spending (Table 2).
+
+Three variants test the design choices: equal weights, an 800 m radius and a 1.2 km radius. Each is compared with the main score by Spearman's rank correlation, which compares the two rankings rather than the scores [@spearman1904].
+
+## OpenStreetMap completeness check
+
+**Matching.** Each ECDA preschool is matched to an OSM preschool within 50 m that has a similar name or the same postcode. Name similarity uses the Jaro-Winkler score, which is close to 1 for near-identical spellings and tolerates typos [@winkler1990]. An unnamed OSM preschool within 30 m also counts. Matching is one to one, using the Hungarian algorithm, which picks the set of pairs with the best total score, so no OSM feature is claimed twice [@kuhn1955]. Recall is the share of ECDA preschools matched, with a Wilson interval, which stays sensible for proportions near 0 [@wilson1927].
+
+**Validation.** A stratified sample of `r nrow(verdicts)` matched and unmatched pairs was checked by hand against the OSM database, OpenStreetMap's place search and operators' web pages. The checked sample gives a false-match rate and a false-miss rate. Recall is then corrected for both, and the corrected range takes each rate at the ends of its Wilson interval.
+
+**Uniformity.** Three tests ask whether OSM misses preschools evenly:
+
+- a two-proportion test of the miss rate in mature against non-mature towns, which compares two shares against their sampling variation [@rice2007], with the smallest gap the sample could detect at 80% power [@cohen1988];
+- random labelling with the cross-K function, which shuffles the found and missed labels over the fixed preschool locations and asks whether missed preschools cluster beyond the clustering of preschools themselves [@baddeley2015];
+- a logistic regression of the odds that a preschool is missing [@james2021], with town group and distance to the CBD, which is tangled with town age. The model is refitted without the best-mapped towns to see whether any effect rests on them.
+
+**Quality flag.** A per-subzone miss rate is noisy where a subzone has few preschools. Empirical-Bayes shrinkage pulls each subzone's rate towards the island rate, more strongly when it has few preschools [@efron1975]. Subzones whose shrunk rate lies clearly above or below the island rate are flagged as worse or better mapped; Q1 uses the flag to qualify its hot spots.
+
+## Q1: spatial structure
+
+**Neighbours.** Neighbours are defined by queen contiguity on the `r wsum$n[1]` residential subzones (Lecture 8), with links built *after* dropping non-residential subzones, so a reservoir is never a neighbour. A subzone left without a neighbour is linked to the nearest residential subzone. Weights are row-standardised. A k = 6 nearest-neighbour network is a check on the contiguity rule [@bivand2013]. The `r nrow(bsz)` planning areas, of `r min(bsz$n_subzones)`–`r max(bsz$n_subzones)` residential subzones each, form the blocks that Q2 and Q3 resample.
+
+**Tests.** Global Moran's I is tested for each category score and the composite by permutation, with 999 shuffled maps per test. Local Moran's I (LISA) [@anselin1995lisa] then tests each subzone's quadrant on the Moran plot. With `r wsum$n[1]` local tests, about `r round(0.05 * wsum$n[1])` would look significant at p < 0.05 by chance alone. We therefore use 9,999 conditional permutations and control the false discovery rate at 5% with the Benjamini-Hochberg procedure [@benjamini1995]. Getis-Ord Gi* is not run: it repeats LISA's clusters and cannot show outliers.
+
+**Rule for Q3.** A rule fixed before Q3 ran classifies each category as *contiguous* (global I significant, and at least twice as many significant clusters as significant outliers), *concentrated below subzone scale* (outliers more than half the clusters) or *no pattern* (global I not significant). If any category is contiguous, Q3 must judge stability by resampling whole blocks, because resampling single subzones would treat near-duplicate neighbours as independent.
+
+## Q2: drivers of access
+
+**Model.** An ordinary least-squares regression across the residential subzones [@james2021] relates the composite score to two tested variables, elderly share and housing mix, and three controls:
+
+- log population density, since services go where people are;
+- distance from the subzone's centre to the nearest rail station;
+- OSM mapping effort, since the counts come from a volunteer map.
+
+Predictors are standardised, so each coefficient is in score points per standard deviation. Both tested variables are expected to lower access, so they are tested one-sided. Collinearity is checked with the variance inflation factor, which measures how much overlap with the other predictors inflates a coefficient's variance; values above about 5 are a concern [@james2021]. The same model is fitted to each of the six category scores, and the 12 one-sided tests of the tested variables are corrected with Holm's method, which keeps the chance of any false rejection at 5% [@holm1979].
+
+**Spatial model.** If the OLS residuals are spatially autocorrelated, robust Lagrange-multiplier tests [@anselin1996lm] choose between two spatial models:
+
+- **spatial lag**: a subzone's access depends on its neighbours' access;
+- **spatial error**: unmeasured causes cluster in space [@anselin1988].
+
+The Akaike information criterion, which trades fit against the number of parameters [@akaike1974], is a second check. In a lag model a coefficient is not a marginal effect, because a change in one subzone spills over to its neighbours and back. We therefore report total impacts [@lesage2009]: the change in the average score if a predictor rose by one SD in every subzone at once, spillovers included.
+
+**Hand-offs to Q3.** Density's share of the model's explanatory power is the R² of density alone divided by the full model's R². If it exceeded 0.5, a threshold fixed in advance, Q3 would cluster on density-adjusted scores; otherwise on the raw scores. The model's residuals, each subzone's score minus what the five predictors alone imply, go to Q3 for a test of under-service.
+
+## Q3: neighbourhood types
+
+**Clustering.** The residential subzones are clustered by k-means [@hartigan1979] on their six category scores, as z-scores so that each category weighs equally. The lectures used k-means only to bin map colours. The number of groups k is the one with the highest mean silhouette, a measure of how much better each subzone fits its own group than the next one [@rousseeuw1987]. As a check on the code, the same procedure is run on simulated data with three planted groups, which it must recover.
+
+**Are there types at all?** The silhouette rule always picks some k ≥ 2, even in data with no groups. We therefore rerun the same rule on `r nul$n_null` simulated datasets that have the real scores' correlations but no groups. This is a no-cluster null in the spirit of the gap statistic [@tibshirani2001], with the same logic as Lecture 7's simulation envelope. A principal component analysis [@james2021] shows how much of the scores' variation lies on one axis.
+
+**Stability.** A spatial block bootstrap [@kunsch1989; @hennig2007] resamples Q1's planning-area blocks 200 times and re-clusters each sample. Each resampled group is matched to an original group with the Hungarian algorithm. Their overlap is the Jaccard index: subzones in both groups divided by subzones in either. A group is stable if its mean Jaccard is at least 0.75.
+
+**Tests.** Neighbouring subzones are not independent, so textbook χ² and F p-values would be too small. Both tests are therefore permutation tests [@good2005] that respect the blocks:
+
+- **H₀(a)**: Pearson's χ² for the table of type by town group, which grows as the two mixes diverge [@rice2007]. Town labels are permuted between whole blocks, since the label is set by planning area and shuffling within a block would change nothing.
+- **H₀(b)**: the one-way analysis-of-variance F ratio of Q2's residuals between types [@rice2007], with residuals permuted within blocks.

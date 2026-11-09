@@ -5,50 +5,50 @@ author: "Qu Haotian, Hew Xing Yi, Zachary Chng Yao Wei, Coltrane Yao Zhiming"
 date: "`r format(Sys.Date(), '%d %B %Y')`"
 output:
   word_document:
-    toc: false
+    toc: true
+    toc_depth: 2
+    number_sections: true
     fig_caption: true
 bibliography: references.bib
 link-citations: true
 ---
 
 ```{r setup, include = FALSE}
-# The report reads data/output/, data/output/processed/ and data/input/external/; run R/run_all.R
-# first, then render with `Rscript report/render.R`. Every result in the text
-# (estimates, p-values, counts) comes from those files, so it cannot drift from
-# the pipeline. Method settings fixed by design (distance thresholds, permutation
-# and bootstrap counts) are typed, and match R/00_setup.R and the stage scripts.
+# Render with `Rscript report/scripts/render.R` after `Rscript R/run_all.R`.
+# The report reads only data/output/ and data/input/external/: every estimate,
+# p-value and count in the text is computed from those files by the scripts
+# below, so it cannot drift from the pipeline. Method settings fixed by design
+# (distance thresholds, permutation and bootstrap counts) are typed, and match
+# R/00_setup.R and the stage scripts.
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, dpi = 300)
 suppressPackageStartupMessages({ library(dplyr); library(sf) })
-ROOT <- normalizePath("..", winslash = "/")
-fig  <- function(name) file.path(ROOT, "data", "output", "figures", name)
-tab  <- function(name) readr::read_csv(file.path(ROOT, "data", "output", "tables", name), show_col_types = FALSE)
-proc <- function(name) readr::read_csv(file.path(ROOT, "data", "output", "processed", name), show_col_types = FALSE)
-
-# Inline formatting: pct(0.0971) -> "9.7%", num(1234.5) -> "1,235", p_fmt(0.0004) -> "< 0.001".
-pct   <- function(x, d = 1) paste0(formatC(100 * x, format = "f", digits = d), "%")
-num   <- function(x, d = 0) formatC(x, format = "f", digits = d, big.mark = ",")
-p_fmt <- function(p) ifelse(p < 0.001, "< 0.001", paste("=", formatC(p, format = "f", digits = 3)))
-p_cell <- function(p) ifelse(p < 0.001, "< 0.001", formatC(p, format = "f", digits = 3))  # for table cells
-CAT_LAB <- c(food_services = "Food services", retail = "Retail goods", health = "Health",
-             food_retail = "Food retail", education = "Education", recreation = "Recreation")
+for (f in c("helpers.R", "results_score.R", "results_q1.R", "results_q2.R", "results_q3.R")) {
+  source(file.path("scripts", f), local = knitr::knit_global())
+}
 ```
 
 ```{r child = "sections/01_introduction.Rmd"}
 ```
 
-```{r child = "sections/02_data_and_score.Rmd"}
+```{r child = "sections/02_background.Rmd"}
 ```
 
-```{r child = "sections/03_q1_spatial.Rmd"}
+```{r child = "sections/03_data.Rmd"}
 ```
 
-```{r child = "sections/04_q2_regression.Rmd"}
+```{r child = "sections/04_methods.Rmd"}
 ```
 
-```{r child = "sections/05_q3_typology.Rmd"}
+```{r child = "sections/05_analysis.Rmd"}
 ```
 
-```{r child = "sections/06_discussion.Rmd"}
+```{r child = "sections/06_conclusions.Rmd"}
 ```
 
-# References
+```{r child = "sections/07_extra_mile.Rmd"}
+```
+
+```{r child = "sections/08_reproducibility.Rmd"}
+```
+
+# References {-}

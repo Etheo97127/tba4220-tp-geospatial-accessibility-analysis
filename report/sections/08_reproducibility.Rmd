@@ -1,0 +1,37 @@
+# Reproducing the results
+
+Every table, figure and number in this report can be regenerated from the repository with two commands, run from the repository root:
+
+```
+Rscript R/run_all.R
+Rscript report/scripts/render.R
+```
+
+The first rebuilds everything under `data/output/` in about one minute on a laptop. The second knits this report to `report/report.docx`. It finds the pandoc that ships with RStudio when none is on the path; knitting `report/report.Rmd` in RStudio works too.
+
+**Requirements.** R 4.6 (tested on `r R.version$version.string`) with sf, dplyr, tidyr, stringr, readr, jsonlite, ggplot2, scales, stringdist, clue, binom, pwr, spatstat, spdep, spatialreg, tmap, cluster, rmarkdown and knitr. No API key or download is needed.
+
+**What makes the run repeatable.**
+
+- **Fixed inputs.** The raw data are committed byte for byte under `data/input/raw/`, with their URLs, download dates and md5 checksums in `docs/data_log.md`, so every run reads the same OpenStreetMap snapshot. The download scripts (`R/01_prep/00_fetch_*.R`) are run by hand only to refresh the data, never by the pipeline.
+- **Fixed randomness.** One seed (`SEED <- 4220` in `R/00_setup.R`) is reset before every sampling, permutation and bootstrap, so repeated runs give identical tables.
+- **One place for decisions.** Every design constant, such as the 1 km radius, the 1,000-resident cut-off, the 0.5 density threshold and the permutation counts, is set once in `R/00_setup.R`, tagged with the decision that fixed it.
+- **Outputs checked into the repository.** `data/output/tables/`, `figures/` and `processed/` are committed, so a rerun that changes any result shows up as a difference in version control. A clean rerun of the current pipeline leaves all of them unchanged.
+- **A report that reads the outputs.** The report's R chunks only read the pipeline's tables and format them (`report/scripts/`), so the text cannot drift from the results.
+
+**How the code is organised.** Table 6 lists the stages. Each script is numbered within its stage, runs from the repository root, is idempotent, and opens with a header that says what it produces and why the method was chosen. `Rscript R/run_all.R q1 q2` reruns selected stages once their inputs exist.
+
+```{r tab-stages}
+kable_w(tibble::tribble(
+  ~Folder, ~Scripts, ~`What it produces`,
+  "`R/01_prep/`", "01–07", "Subzone frame, reference lists, OSM features, census table, residential buildings, spending weights, rail stations, mapping effort",
+  "`R/02_coverage/`", "01–06", "ECDA–OSM matching, uniformity tests, quality flag, validation sample and corrected recall",
+  "`R/03_score/`", "01–03", "Residents' centres, category and composite scores with robustness variants, score maps",
+  "`R/04_q1_spatial/`", "01–05", "Neighbour weights, planning-area blocks, global Moran's I, LISA, memo to Q3",
+  "`R/05_q2_regression/`", "01–05", "Residential set, covariates, OLS, spatial models, density share and residuals",
+  "`R/06_q3_typology/`", "01–05", "Clustering inputs, k and the no-cluster null, block bootstrap, block tests, profiles and maps",
+  "`report/`", "`scripts/`, `sections/`", "This report (`report.Rmd` and one file per section) and the slide deck"
+), widths = c(3, 1.6, 4.4), caption = "Table 6. Pipeline stages, in run order.")
+```
+
+The repository is at https://github.com/Etheo97127/tba4220-tp-geospatial-accessibility-analysis.

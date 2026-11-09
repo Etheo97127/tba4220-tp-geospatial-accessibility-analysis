@@ -1,0 +1,95 @@
+# Analysis
+
+## How complete is OpenStreetMap?
+
+`r if (maps_left > 0) sprintf("%d of the %d checked rows still await a Google Maps check, so the error rates and corrected recall below are provisional.", maps_left, nrow(verdicts)) else "Every checked row was settled."`
+
+- **Recall is low.** Only `r pct(e_rec$recall)` of ECDA preschools match an OSM preschool (95% CI `r pct(e_rec$ci_lo)`–`r pct(e_rec$ci_hi)`). The matcher made no false matches in the checked sample (`r e_fm$n_error`/`r e_fm$n_checked`). Of `r e_fmiss$n_checked` checked unmatched preschools, the matcher had missed `r e_fmiss$n_error` that sat among the OSM features the score reads. Correcting for both puts recall in those features at about `r pct(e_cor$recall_corrected)` (`r pct(e_cor$recall_corrected_lo)`–`r pct(e_cor$recall_corrected_hi)`)`r prov`.`r tag_gap_txt` OSM, not the matcher, accounts for most of the gap.
+- **No gap between town groups.** Mature and non-mature towns miss `r pct(e_prop$p_mature)` and `r pct(e_prop$p_nonmature)` of their preschools (p `r p_fmt(e_prop$p_value)`). The test could have detected a gap of `r num(e_prop$mdd_pp, 1)` points at 80% power, so this null result is not just low power.
+- **Missed preschools are not clustered.** Random labelling finds that missed preschools cluster no more than preschools themselves (p `r p_fmt(e_rl$p_value)`). The logistic regression gives non-mature towns lower odds of a miss (odds ratio `r num(e_or$OR, 2)`), but that effect rests on two north-eastern towns, Sengkang and Hougang, which are better mapped than average: without both, the odds ratio is `r num(e_both$OR, 2)` (p = `r num(e_both$p_value, 2)`), no detectable effect.
+
+So OSM counts preschools at a low rate, with no detectable gap between the two town groups. Within them it is uneven: `r n_better` subzones are mapped clearly better than the island rate and `r n_worse` clearly worse (Figure 2). Comparisons between subzones therefore hold only approximately, and absolute counts not at all: the score is a relative measure. CHAS clinics are less even: missed clinics cluster beyond chance (p `r p_fmt(c_rl$p_value)`), so the health category should be read with that in mind.
+
+```{r fig-coverage, fig.cap = "Figure 2. Share of ECDA preschools missing from OSM by subzone, empirical-Bayes shrunk; subzones with fewer than five preschools are grey.", out.width = "100%"}
+knitr::include_graphics(fig("coverage_missrate_map.png"))
+```
+
+## The access score
+
+Across residential subzones the composite score ranges from `r num(min(sc_res), 0)` to `r num(max(sc_res), 0)`, with a median of `r num(median(sc_res), 1)` (Figure 3). The highest scores sit in and around the city centre, and lower scores are more common towards the edges of the residential area. The category maps (Figure 4) share that broad pattern. Recreation is the most even category (median score `r num(summ$median_score[summ$category == "recreation"], 1)`, standard deviation `r num(summ$sd_score[summ$category == "recreation"], 1)`, the smallest of the six).
+
+The score is robust to the weights: equal weights rank subzones almost identically (Spearman `r num(req, 3)`). It is less robust to the radius: 800 m and 1.2 km give `r num(r800, 2)` and `r num(r1200, 2)`, and single subzones move by up to `r num(max(rob$max_rank_shift))` places. The ranking of groups of subzones is therefore safer to read than the rank of any single one.
+
+```{r fig-score, fig.cap = "Figure 3. Composite access score for the residential subzones.", out.width = "100%"}
+knitr::include_graphics(fig("score_composite_map.png"))
+```
+
+```{r fig-categories, fig.cap = "Figure 4. The six category scores behind the composite; 100 is the best-served residential subzone in each category.", out.width = "100%"}
+knitr::include_graphics(fig("score_category_maps.png"))
+```
+
+## Q1: spatial structure
+
+**Neighbours.** `r if (wsum$islands_linked[1] == 1) "One subzone had no residential neighbour and was" else paste(wsum$islands_linked[1], "subzones had no residential neighbour and were")` linked to the nearest one. The network forms a single component with an average of `r num(wsum$mean_links[1], 1)` links per subzone.
+
+**Global result.** Every category clusters in space: Moran's I ranges from `r num(min(mi$I_queen), 2)` to `r num(max(mi$I_queen), 2)` under queen weights (composite `r num(mi$I_queen[mi$variable == "score"], 2)`). With 999 permutations no p-value can fall below 0.001, and `r if (max(c(mi$p_queen, mi$p_knn)) <= 0.001) "every p-value sits at that floor" else paste("the largest is", num(max(c(mi$p_queen, mi$p_knn)), 3))`. H₀ is rejected for all seven. The kNN weights give the same answer (`r num(min(mi$I_knn), 2)`–`r num(max(mi$I_knn), 2)`). Well-served subzones sit next to other well-served subzones (Figure 5).
+
+```{r fig-morans, fig.cap = "Figure 5. Global Moran's I by category, queen and k-nearest-neighbour weights.", out.width = "85%"}
+knitr::include_graphics(fig("q1_morans_i.png"))
+```
+
+**Local result.** After the false-discovery-rate correction, the significant subzones are almost all High-High clusters (Figure 6). `r if (n_centre == nrow(memo)) "Every map" else paste(n_centre, "of the", nrow(memo), "maps")` has a hot spot in the centre (`r centre_tw`; `r comp$n_high_high` subzones for the composite). Some also have one in the north-east: `r ne_txt`. That is also where OSM maps preschools best: those towns miss `r pct(ne_miss, 0)` of ECDA preschools against `r pct(all_miss, 0)` island-wide, so the education hot spot there may partly reflect mapping quality rather than provision. `r other_txt` Recreation has `r memo$n_low_low[memo$variable == "score_recreation"]` Low-Low subzones, the only cold spots of any size. No category has a significant High-Low or Low-High outlier.
+
+```{r fig-lisa, fig.cap = "Figure 6. LISA clusters by category after Benjamini-Hochberg correction; grey subzones are non-residential.", out.width = "100%"}
+knitr::include_graphics(fig("q1_lisa_maps.png"))
+```
+
+**What this means for Q3.** By the rule fixed in advance, all six categories are *contiguous* and none is concentrated below subzone scale. Any neighbourhood types should therefore be spatially coherent, and Q3 must judge their stability by resampling whole blocks. Since no subzone is a significant spatial outlier, a small Q3 cluster cannot be dismissed as a scatter of isolated subzones.
+
+## Q2: drivers of access
+
+The OLS model explains R² = `r num(fit$r2[fit$outcome == "score"], 2)` of the composite score, and collinearity is low (largest variance inflation factor `r num(max(vif$vif), 1)`). Its residuals are spatially autocorrelated (Moran's I `r num(diag$residual_moran_I, 2)`, p `r p_fmt(diag$residual_moran_p)`), so a spatial model is needed. The robust Lagrange-multiplier tests favour lag (robust lag p `r p_fmt(diag$robust_lm_lag_p)`; robust error p `r p_fmt(diag$robust_lm_error_p)`). The spatial lag model also has the lowest AIC (`r num(diag$aic_lag)` against `r num(diag$aic_error)` for the error model and `r num(diag$aic_ols)` for OLS), with ρ = `r num(diag$rho_lag, 2)`. Its total impacts are the lag coefficients times 1/(1 − ρ) ≈ `r num(slope_scale, 1)` (Table 4). The proposal had planned a spatial error model; it gives the same conclusion (elderly share `r num(co(sem, "elderly_share"), 2)` and housing mix `r num(co(sem, "housing_mix"), 2)`, one-sided p = `r num(co(sem, "elderly_share", "p_one_sided"), 2)` and `r num(co(sem, "housing_mix", "p_one_sided"), 2)`).
+
+```{r tab-models}
+show <- names(TERM_LAB)
+kable_w(tibble::tibble(
+  Predictor = TERM_LAB[show],
+  `OLS b`   = num(sapply(show, function(t) co(ols, t)), 2),
+  `OLS p`   = p_cell(sapply(show, function(t) p_used(ols, t))),
+  `Lag model total impact` = num(sapply(show, function(t) co(lag_tot, t)), 2),
+  `Lag p`   = p_cell(sapply(show, function(t) p_used(lag_tot, t)))
+), widths = c(3, 1, 1.1, 1.6, 1.1), caption = "Table 4. Composite score on standardised predictors. p is one-sided for the two tested variables and two-sided for the controls.")
+```
+
+**H₀ is not rejected.** For the composite score, neither tested variable lowers access in any of the three models. Across the six category models the smallest one-sided p is `r num(cat_t$p_one_sided[1], 3)` (`r gsub("_", " ", cat_t$term[1])` on `r tolower(CAT_LAB[sub("^score_", "", cat_t$outcome[1])])`), which is `r num(cat_t$p_holm[1], 2)` after the Holm correction for `r nrow(cat_t)` tests.
+
+- **Elderly share and housing mix.** We find no evidence that subzones with more elderly residents or more small HDB flats have lower access once the controls are held fixed. This is a failure to reject, not a demonstration of equal access. Without the mapping-effort control, the elderly-share coefficient grows from `r num(co(ols, "elderly_share"), 2)` to `r num(co(sens, "elderly_share"), 2)` (two-sided p = `r num(co(sens, "elderly_share", "p_two_sided"), 2)`). A positive effect is the opposite of the pre-specified one-sided test, so we read it descriptively. The control is partly mechanical, because mappers are counted from the same features, so we report the model both ways.
+- **What does matter.** Access falls with distance to rail and rises with density: total impacts of `r num(co(lag_tot, "dist_rail_m"), 1)` and `r num(co(lag_tot, "log_density"), 1)` points per SD (OLS, which ignores spillovers, gives `r num(co(ols, "dist_rail_m"), 1)` and `r num(co(ols, "log_density"), 1)`). Mapping effort matters too.
+
+**How much is density?** Density alone explains R² = `r num(dens$r2_density, 2)` of the full model's `r num(dens$r2_full, 2)`, a share of `r num(dens$density_share, 2)`, below the `r num(dens$threshold, 1)` threshold. Q3 therefore clusters on the raw category scores: a typology built on them is not just the density gradient under another name.
+
+## Q3: neighbourhood types
+
+**No evidence of discrete types.** The code recovers exactly three groups from the planted test data. On the real data, the silhouette rule picks k = `r k` (`r num(sil_k, 2)`, against `r num(sil_3, 2)` at k = 3; Figure 7). But the real data separate no better than the `r nul$n_null` structureless clouds of the no-cluster null:
+
+- observed silhouette `r num(nul$observed_max_silhouette, 3)`;
+- null mean `r num(nul$null_mean, 3)`, 95th percentile `r num(nul$null_q95, 3)`;
+- p = `r num(nul$p_value, 2)`.
+
+The six scores move together along one general-access axis: the first principal component holds `r pct(pc1, 0)` of their variation. The data give no evidence that k = `r k` is more than a cut through that axis. Both halves are reproducible: in the block bootstrap their mean Jaccard overlap is `r num(min(stab$mean_jaccard), 2)`–`r num(max(stab$mean_jaccard), 2)`, well above the 0.75 bar. A cut through a continuum is also stable, though, so this confirms a repeatable split, not distinct types. We call the halves the **low-access end** (`r types$n_subzones[types$cluster == low]` subzones, every category `r num(-max(prof$mean_z), 1)`–`r num(-min(prof$mean_z), 1)` SD below average) and the **high-access end** (`r types$n_subzones[types$cluster == high]`). Their profiles differ in level, not in mix (Figures 8 and 9).
+
+```{r fig-k, fig.cap = "Figure 7. Choosing k: within-cluster sum of squares and mean silhouette.", out.width = "90%"}
+knitr::include_graphics(fig("q3_choose_k.png"))
+```
+
+```{r fig-profiles, fig.cap = "Figure 8. Mean z-score per category for the two ends of the access gradient.", out.width = "80%"}
+knitr::include_graphics(fig("q3_profiles.png"))
+```
+
+```{r fig-types-map, fig.cap = "Figure 9. The two ends of the access gradient across Singapore.", out.width = "100%"}
+knitr::include_graphics(fig("q3_types_map.png"))
+```
+
+**H₀(a): not rejected.** The low-access end holds `r pct(share("mature", low))` of mature-town subzones and `r pct(share("non-mature", low))` of non-mature ones, a gap of `r num(100 * abs(share("mature", low) - share("non-mature", low)), 1)` points. The gap is within chance (χ² = `r num(ta$observed, 2)`, block-permutation p = `r num(ta$p_value, 2)`). But only `r n_lab_blocks` labelled blocks can be exchanged, so the test has little power: this is no evidence of a difference, not evidence of equal mixes. The comparison leaves out `r nrow(excl)` residential subzones with `r pct(sum(excl$pop) / sum(res_pa$pop), 0)` of residents: the Central Area, which HDB counts as a mature estate, largely private Tanglin and a few non-town areas. Most Central Area subzones are private or commercial, though `r and_list(hdb_central)` hold HDB estates. The exclusion matters for reading the result: the Central Area holds `r sum(hh_comp$subzone_c %in% res_pa$subzone_c[res_pa$central])` of the composite's `r nrow(hh_comp)` hot-spot subzones from Q1, so H₀(a) compares the heartland towns, not the city centre with the rest.
+
+**H₀(b): rejected, but the test cannot discriminate.** The low-access end averages `r num(abs(rbt$mean_residual[rbt$cluster == low]), 1)` points below what the five Q2 predictors imply, and the high-access end `r num(rbt$mean_residual[rbt$cluster == high], 1)` above (F = `r num(tb$observed, 1)`; p ≤ `r num(1 / (tb$n_perm + 1), 3)`, the permutation floor). But the groups are cut by score level, and the residual is the score minus its prediction. Whenever the model leaves anything unexplained, the low group must get negative residuals, so this test rejects by construction. We report the residual means as a description only.
