@@ -3,5 +3,12 @@
 *.csv text eol=lf
 
 # Raw downloads stay byte-for-byte what the source served, because their md5s are
-# logged in docs/data_log.md. Never convert their line endings.
+# logged in docs/data_log.md. Most were served with LF and are stored as-is.
 data/raw/** -text
+
+# These four were served with CRLF but committed as LF blobs, so they are checked
+# out with CRLF: that rebuilds the served bytes and their logged md5s.
+data/raw/sg/childcare_services.geojson text eol=crlf
+data/raw/sg/kindergartens.geojson text eol=crlf
+data/raw/sg/mp19_subzone.geojson text eol=crlf
+data/raw/sg/mp19_rail_station.geojson text eol=crlf
