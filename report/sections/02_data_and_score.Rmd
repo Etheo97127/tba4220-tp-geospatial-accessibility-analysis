@@ -28,9 +28,10 @@ e_or    <- logit %>% dplyr::filter(set == "ecda", term == "maturitynon-mature")
 e_fm    <- merr %>% dplyr::filter(set == "ecda", stratum == "accepted match")
 e_fmiss <- merr %>% dplyr::filter(set == "ecda", stratum != "accepted match")
 e_both  <- lsens %>% dplyr::filter(dropped == "Sengkang and Hougang")
-tag_gap_txt <- if (e_fmiss$n_tag_gap > 0) sprintf(
-  " Another %d of the %d are in OSM only as a building tagged kindergarten, which the score does not read.",
-  e_fmiss$n_tag_gap, e_fmiss$n_checked) else ""
+tag_gap_txt <- if (e_fmiss$n_tag_gap > 0) sprintf(paste0(
+  " Another %d of the %d are in OSM only as a building tagged kindergarten, a tag the score does not read;",
+  " counting such buildings, OSM holds about %s."),
+  e_fmiss$n_tag_gap, e_fmiss$n_checked, pct(e_cor$recall_any_tag, 0)) else ""
 n_better <- sum(qflag$quality_flag == "better", na.rm = TRUE)
 n_worse  <- sum(qflag$quality_flag == "worse", na.rm = TRUE)
 r800    <- rob$spearman[rob$column == "score_r800"]
@@ -74,7 +75,7 @@ OSM is volunteer-built, so its gaps could bias every later result. We checked on
 knitr::include_graphics(fig("coverage_missrate_map.png"))
 ```
 
-- **Recall is low.** Only `r pct(e_rec$recall)` of ECDA preschools are in OSM (95% CI `r pct(e_rec$ci_lo)`–`r pct(e_rec$ci_hi)`; a Wilson interval, which stays sensible for proportions near 0 [@wilson1927]). In the checked sample the matcher made no false matches (`r e_fm$n_error`/`r e_fm$n_checked`) and missed `r e_fmiss$n_error` of `r e_fmiss$n_checked` preschools that OSM did hold. Correcting for both puts true recall at about `r pct(e_cor$recall_corrected)` (`r pct(e_cor$recall_corrected_lo)`–`r pct(e_cor$recall_corrected_hi)` with both error rates at the ends of their Wilson intervals)`r prov`.`r tag_gap_txt` OSM, not the matcher, accounts for most of the gap.
+- **Recall is low.** Only `r pct(e_rec$recall)` of ECDA preschools match an OSM preschool (95% CI `r pct(e_rec$ci_lo)`–`r pct(e_rec$ci_hi)`; a Wilson interval, which stays sensible for proportions near 0 [@wilson1927]). In the checked sample the matcher made no false matches (`r e_fm$n_error`/`r e_fm$n_checked`). Of `r e_fmiss$n_checked` checked unmatched preschools, the matcher had missed `r e_fmiss$n_error` that sat among the OSM features the score reads. Correcting for both puts recall in those features at about `r pct(e_cor$recall_corrected)` (`r pct(e_cor$recall_corrected_lo)`–`r pct(e_cor$recall_corrected_hi)` with both error rates at the ends of their Wilson intervals)`r prov`.`r tag_gap_txt` OSM, not the matcher, accounts for most of the gap.
 - **No gap between town groups.** Mature and non-mature towns miss `r pct(e_prop$p_mature)` and `r pct(e_prop$p_nonmature)` of their preschools (p `r p_fmt(e_prop$p_value)` in a two-proportion test, which compares two shares against their sampling variation [@rice2007]). The arms could have detected a gap of `r num(e_prop$mdd_pp, 1)` points at 80% power [@cohen1988], so this null result is not just low power.
 - **Missed preschools are not clustered.** Random labelling with cross-K [@baddeley2015] finds that missed preschools cluster no more than preschools themselves (p `r p_fmt(e_rl$p_value)`). A logistic regression of the odds that a preschool is missing [@james2021], controlling for distance to the CBD, gives non-mature towns lower odds of a miss (odds ratio `r num(e_or$OR, 2)`). That effect rests on two north-eastern towns, Sengkang and Hougang, which are better mapped than average: without both, the odds ratio is `r num(e_both$OR, 2)` (p = `r num(e_both$p_value, 2)`), no detectable effect.
 
