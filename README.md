@@ -83,7 +83,7 @@ plans/                  one working plan per workstream
    (the working directory must be the repo root).
 2. Install packages: `sf dplyr tidyr stringr readr jsonlite ggplot2 scales stringdist clue binom pwr spatstat spdep spatialreg tmap cluster factoextra osmdata`.
 3. `Rscript R/run_all.R` rebuilds `data/interim`, `data/processed` and `outputs/`.
-4. Knit `report/report.Rmd`.
+4. `Rscript report/render.R` writes `report/report.docx` (it finds the pandoc bundled with RStudio; or knit `report/report.Rmd` in RStudio).
 
 ## Rules
 
