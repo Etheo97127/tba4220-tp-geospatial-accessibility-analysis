@@ -1,7 +1,7 @@
 # 02_coverage/06_matcher_error.R ------------------------------------------------
 # How wrong is the matcher? The 160-row validation sample (05) was checked
 # against the OSM snapshot, the OSM API, Nominatim and the web; the verdicts sit
-# in data/external/coverage_validation_verdicts.csv because the sample file
+# in data/input/external/coverage_validation_verdicts.csv because the sample file
 # itself is rewritten on every run. From them:
 #   false-match rate = incorrect among accepted matches
 #   false-miss rate  = rejected facilities the POI layer held after all (past the

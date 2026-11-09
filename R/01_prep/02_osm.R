@@ -1,5 +1,5 @@
 # 01_prep/02_osm.R --------------------------------------------------------------
-# Turn the raw Overpass snapshot (data/raw/sg/osm/, pulled by 00_fetch_osm.R)
+# Turn the raw Overpass snapshot (data/input/raw/sg/osm/, pulled by 00_fetch_osm.R)
 # into one tidy sf point layer for the coverage check and the access score.
 #
 # Ways and relations are reduced to their centre (Overpass `out center`), so a
@@ -9,7 +9,7 @@
 source("R/00_setup.R")
 
 # --- tag -> category ---------------------------------------------------------
-# data/external/osm_crosswalk.csv is the single definition. `osm_cat` is the
+# data/input/external/osm_crosswalk.csv is the single definition. `osm_cat` is the
 # fine type the coverage check matches on; `category` is one of the six score
 # categories; `scored = FALSE` rows (hospitals) are kept for the coverage check
 # but never counted in the score.

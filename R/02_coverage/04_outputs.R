@@ -4,7 +4,7 @@
 # magnitude, recessive axes.
 #
 # ECDA preschools lead every figure; CHAS clinics appear only as a labelled
-# supplementary benchmark (docs/REQUIREMENTS.md section 3). Every number and
+# supplementary benchmark (docs/consideration.md §2). Every number and
 # every claim in a title is computed from the tables, so a rerun on a new OSM
 # extract cannot leave a stale caption behind.
 
@@ -134,7 +134,7 @@ p4 <- pa %>%
        x = "missing from OSM", y = NULL,
        caption = sprintf(paste0("Bars: Wilson 95%% CI. Two-proportion test on %s mature and %s non-mature preschools;\n",
                                 "it detects a gap of %.1f pp at 80%% power. CHAS clinics (supplementary) are not shown,\n",
-                                "see outputs/tables/coverage_prop_test.csv."),
+                                "see data/output/tables/coverage_prop_test.csv."),
                          comma(pt$n_mature), comma(pt$n_nonmature), pt$mdd_pp)) +
   theme_project() + theme(panel.grid.major.y = element_blank())
 save_fig(p4, "coverage_missrate_by_planning_area.png", width = 6.6, height = 5.2)

@@ -100,7 +100,7 @@ p_map <- ggplot() +
        caption = sprintf(paste0("Reference: ECDA childcare and kindergarten listings, Singapore only. ",
                                 "Island-wide miss rate %s (%s of %s).\n",
                                 "CHAS clinics are a supplementary benchmark and are not mapped. ",
-                                "Per-subzone counts in data/processed/subzone_quality_flag.csv."),
+                                "Per-subzone counts in data/output/processed/subzone_quality_flag.csv."),
                          percent(mu, accuracy = 0.1),
                          comma(sum(sz$n_missed)), comma(sum(sz$n_ref)))) +
   theme_map() +

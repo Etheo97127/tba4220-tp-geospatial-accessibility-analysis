@@ -2,9 +2,9 @@
 
 > **Status (2026-11-08):** this file was written before the final proposal. Q1
 > here is now the *coverage check* inside the score workstream; the new Q1 is
-> per-category Moran's I, `plans/q1_spatial.md`. `R/02_coverage/` now follows
-> the 2026-09-16 decision as amended on 2026-11-08 (`docs/REQUIREMENTS.md`
-> section 3). ECDA preschools are the headline benchmark; CHAS clinics are
+> per-category Moran's I, `docs/plans/q1_spatial.md`. `R/02_coverage/` now follows
+> the 2026-09-16 decision as amended on 2026-11-08 (`docs/consideration.md`
+> §2). ECDA preschools are the headline benchmark; CHAS clinics are
 > reported only as a labelled supplementary row and are never pooled with
 > ECDA. What changed: the pooled proportion-test row is gone, and Holm runs
 > within headline / supplementary rather than across all rows (section 4's
@@ -37,7 +37,7 @@
 >   holds 63% and 62% of them. The effect rests mainly on Sengkang (69% missed):
 >   dropping it gives OR 0.57 (p = 0.03), while dropping Hougang (83%) alone leaves
 >   OR 0.37 (p = 0.001); only dropping both leaves no detectable effect, 0.83
->   (p = 0.56) (`outputs/tables/coverage_logistic_sensitivity.csv`). The
+>   (p = 0.56) (`data/output/tables/coverage_logistic_sensitivity.csv`). The
 >   standard errors are not clustered by town (26 towns).
 > - **Quality flag** (ECDA only): island miss rate 90.3%. 141 subzones hold at
 >   least 5 preschools and get a flag: 9 better / 124 typical / 8 worse. The other
@@ -48,7 +48,7 @@
 >   Random labelling p = 0.001.
 >
 > - **Matcher error** (`06_matcher_error.R`, verdicts in
->   `data/external/coverage_validation_verdicts.csv`, unsure rows excluded): ECDA
+>   `data/input/external/coverage_validation_verdicts.csv`, unsure rows excluded): ECDA
 >   false-match 0/40, false-miss 1/38 (2.6%, Wilson 0.5–13.5%). Two more of those
 >   38 are in OSM only as `building=kindergarten`, a tag the crosswalk does not
 >   read: a tagging gap, not matcher error. CHAS false-match 3/40 (7.5%), all from
@@ -125,7 +125,7 @@ placed at the actual shopfront — an offset of 20–80 m with no error on eithe
 side. This is the main driver of the match threshold in section 3, so the
 threshold has to be chosen with that in mind rather than assumed.
 
-Output: `data/interim/ref_chas.gpkg`, `data/interim/ref_ecda.gpkg`.
+Output: `data/output/interim/ref_chas.gpkg`, `data/output/interim/ref_ecda.gpkg`.
 
 ## 3. Matching OSM to the reference lists
 
@@ -164,7 +164,7 @@ accepted matches and 40 rejected reference facilities (seed fixed and recorded),
 and report the false-match and false-miss rate of the *procedure*. This is the
 difference between "OSM recall is 68%" and "our matcher says 68%".
 
-Output: `data/interim/match_table.csv` — one row per reference facility, with
+Output: `data/output/interim/match_table.csv` — one row per reference facility, with
 `matched` (logical), `osm_id`, `dist_m`, `name_sim`, `rule_fired`.
 
 ## 4. The test: are the gaps spread evenly?
@@ -172,7 +172,7 @@ Output: `data/interim/match_table.csv` — one row per reference facility, with
 **Grouping variable.** The proposal says mature vs non-mature town. One line of
 caveat is warranted: HDB retired the mature/non-mature classification in 2024
 (replaced by the Standard/Plus/Prime flat framework). So fix the list explicitly
-as a historical definition, store it in `data/external/town_maturity.csv` with a
+as a historical definition, store it in `data/input/external/town_maturity.csv` with a
 source note, and treat it as a given classification rather than current policy.
 Assign each reference facility to a planning area by point-in-polygon on MP19.
 
@@ -206,14 +206,14 @@ Optional, and reported as supporting rather than headline.
 
 ## 5. Outputs
 
-- `outputs/tables/q1_recall_by_category.csv` — n, matched, recall, Wilson 95% CI.
-- `outputs/tables/q1_threshold_sensitivity.csv` — the twelve-cell grid.
-- `outputs/tables/q1_prop_test.csv` — proportions, difference, CI, p, adjusted p.
-- `outputs/figures/q1_missrate_map.png` — subzone choropleth of miss rate with
+- `data/output/tables/q1_recall_by_category.csv` — n, matched, recall, Wilson 95% CI.
+- `data/output/tables/q1_threshold_sensitivity.csv` — the twelve-cell grid.
+- `data/output/tables/q1_prop_test.csv` — proportions, difference, CI, p, adjusted p.
+- `data/output/figures/q1_missrate_map.png` — subzone choropleth of miss rate with
   missed facilities drawn over it. Subzones holding fewer than 5 reference
   facilities are greyed out, not coloured; a one-of-one miss is not 100%.
-- `outputs/figures/q1_random_labelling.png` — the envelope plot.
-- `data/processed/subzone_quality_flag.csv` — per subzone, counting ECDA
+- `data/output/figures/q1_random_labelling.png` — the envelope plot.
+- `data/output/processed/subzone_quality_flag.csv` — per subzone, counting ECDA
   preschools only (CHAS clinics never enter it): reference count, miss rate,
   empirical-Bayes shrunk miss rate (so thin subzones do not dominate), and a
   three-level flag. Built by `R/02_coverage/03_quality_flag.R`. **This is the
@@ -259,7 +259,7 @@ stated limitation.
 Not part of Q1's question, but it is what the other three are waiting on.
 
 - **Wk 2 deliverable: rough equal-weight Singapore score** written to
-  `data/processed/`, so M2/M3/M4 can start. Ship it knowingly imperfect — the
+  `data/output/processed/`, so M2/M3/M4 can start. Ship it knowingly imperfect — the
   schema is what matters, so freeze the column names then and do not change them.
 - **Wk 3: final score, both cities**, with spending weights applied.
 - Extraction: one `osmdata` query per category with an explicit tag list, kept in
@@ -271,7 +271,7 @@ Not part of Q1's question, but it is what the other three are waiting on.
 - ~~Population-weighted centroids: use a gridded population raster (GHS-POP or
   WorldPop, 100 m) for *both* cities rather than a Singapore-specific source, so
   the centroid definition is identical on each side.~~ **Superseded** by item 3
-  in `docs/decisions.md` (proposed; on branch `score/v0` until it merges):
+  in `docs/consideration.md` (proposed; on branch `score/v0` until it merges):
   centroids are weighted by OSM residential building footprints instead.
 - Detour factor: 200 sampled OD pairs routed on the OSM foot network (`dodgr`, or
   a local OSRM foot profile); report the mean ratio and its spread, and apply the
@@ -283,7 +283,7 @@ Not part of Q1's question, but it is what the other three are waiting on.
 | Wk | Q1 work | Done when |
 |---|---|---|
 | 1 | Download CHAS, ECDA, MP19 subzones; log each in `docs/data_log.md`; confirm the OSM extract loads for both cities | raw files present and logged |
-| 2 | OSM extraction, cleaning, de-dup; geocode both reference lists; **ship the rough equal-weight score** | score in `data/processed/`, schema frozen |
+| 2 | OSM extraction, cleaning, de-dup; geocode both reference lists; **ship the rough equal-weight score** | score in `data/output/processed/`, schema frozen |
 | 3 | Matcher built, threshold grid run, 80-case hand validation; detour factor; final weighted score for both cities | `match_table.csv` + final score |
 | 4 | (M2 runs Q2 on the score) — M1 buffer and catch-up | — |
 | 5 | Proportion test, random labelling, maps, quality flag; hand section 6 to M2/M3/M4 | all outputs written |
@@ -291,7 +291,7 @@ Not part of Q1's question, but it is what the other three are waiting on.
 ## 9. Risks specific to Q1
 
 - **Geocoding is the hidden time sink** — rate limits and address-format failures.
-  Cache every API response to `data/interim/geocode_cache/` so a rerun is free,
+  Cache every API response to `data/output/interim/geocode_cache/` so a rerun is free,
   and start it in Week 1, not Week 3.
 - **Threshold fishing.** It is tempting to tune `d` and `s` until recall looks
   respectable. Defence: publish the grid in the appendix, and do the 80-case hand

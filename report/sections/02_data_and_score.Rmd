@@ -13,7 +13,7 @@ logit  <- tab("coverage_logistic.csv")
 lsens  <- tab("coverage_logistic_sensitivity.csv")
 merr   <- tab("coverage_matcher_error.csv")
 qflag  <- proc("subzone_quality_flag.csv")
-score  <- readRDS(file.path(ROOT, "data", "processed", "score_subzone.rds"))
+score  <- readRDS(file.path(ROOT, "data", "output", "processed", "score_subzone.rds"))
 
 n_res   <- resn$n_residential[resn$cut_off == max(resn$cut_off)]
 res_sh  <- resn$share_of_residents[resn$cut_off == max(resn$cut_off)]
@@ -38,7 +38,7 @@ r800    <- rob$spearman[rob$column == "score_r800"]
 r1200   <- rob$spearman[rob$column == "score_r1200"]
 cut_hi  <- max(resn$cut_off); cut_lo <- min(resn$cut_off)
 # Rows still flagged for a Google Maps check; settled rows are set to FALSE.
-verdicts  <- readr::read_csv(file.path(ROOT, "data", "external", "coverage_validation_verdicts.csv"), show_col_types = FALSE)
+verdicts  <- readr::read_csv(file.path(ROOT, "data", "input", "external", "coverage_validation_verdicts.csv"), show_col_types = FALSE)
 maps_left <- sum(verdicts$needs_maps_check)
 prov      <- if (maps_left > 0) ", provisionally" else ""
 req     <- rob$spearman[rob$column == "score_equal"]

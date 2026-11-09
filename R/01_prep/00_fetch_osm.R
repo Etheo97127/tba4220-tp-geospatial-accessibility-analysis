@@ -1,8 +1,8 @@
 # 01_prep/00_fetch_osm.R --------------------------------------------------------
-# Pull one OpenStreetMap snapshot from Overpass into data/raw/sg/osm/. Not part
+# Pull one OpenStreetMap snapshot from Overpass into data/input/raw/sg/osm/. Not part
 # of run_all.R: the snapshot is committed so every track works on the same data.
 #
-# The POI queries are generated from data/external/osm_crosswalk.csv, so the
+# The POI queries are generated from data/input/external/osm_crosswalk.csv, so the
 # crosswalk is the single definition of what each category contains. One file
 # per category. `out center meta` gives ways and relations a centre point and
 # carries the mapper's user id, which Q2 needs for OSM contributor density.

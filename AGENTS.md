@@ -9,8 +9,8 @@ read it first.
 R pipeline for TBA4220 Group 3: an access score for Singapore's 332 MP19 subzones,
 an OSM coverage check, and three analysis stages (Q1 spatial, Q2 regression, Q3
 typology) that read the score. One owner and one folder per stage (README table).
-Working plans: `plans/<stage>.md`. Decisions: `docs/decisions.md`. Schedule and
-hand-off IDs: `docs/team_plan.html` (70 KB; open it only when a task needs dates or
+Working plans: `docs/plans/<stage>.md`. Decisions: `docs/consideration.md`. Schedule and
+hand-off IDs: `docs/archive/team_plan.html` (archived, 70 KB; open it only when a task needs dates or
 H-numbers).
 
 ## Commands
@@ -25,19 +25,19 @@ On Windows `Rscript` may not be on PATH: call `"C:/Program Files/R/R-<version>/b
 
 ## Invariants (break none)
 
-- `data/raw/` is read-only. A new raw file needs a `00_fetch_*.R` script and a row in
+- `data/input/raw/` is read-only. A new raw file needs a `00_fetch_*.R` script and a row in
   `docs/data_log.md` (URL, date, md5, licence).
 - Join key `subzone_c`. CRS EPSG:3414; EPSG:4326 only for I/O.
-- Stages read only `data/processed/` and `data/external/` (plus their own
-  `data/interim/`) and write outputs prefixed by stage: `coverage_`, `score_`, `q1_` ...
-  One exception: coverage and score also read prep's layers in `data/interim/`
+- Stages read only `data/output/processed/` and `data/input/external/` (plus their own
+  `data/output/interim/`) and write outputs prefixed by stage: `coverage_`, `score_`, `q1_` ...
+  One exception: coverage and score also read prep's layers in `data/output/interim/`
   (subzones, OSM POIs, reference lists, buildings), which are rebuilt rather than
   committed; `run_all.R` runs prep first when they are missing.
 - Hand-off columns in each plan are a contract. Renaming or dropping one means
   updating the plan and the README hand-off table in the same PR, and telling the
   stage owners who read it.
 - Decision constants (radius, residential cut-off ...) live only in `R/00_setup.R`,
-  tagged with their item number in `docs/decisions.md`.
+  tagged with their item number in `docs/consideration.md`.
 - Scripts run from the repo root, are idempotent, and reset `set.seed(SEED)` before
   any sampling or permutation.
 - Edit only your own stage's folder. Another stage's folder: ask its owner first.
@@ -50,7 +50,7 @@ Concise, easy to read, modular. Write for a teammate who knows R but not this sc
 - One numbered script per step: `R/<stage>/NN_verb_noun.R`, registered in
   `R/run_all.R` with a one-line comment.
 - Aim for under ~150 lines. Past ~200, split into another numbered script with an
-  `data/interim/*.rds` between them.
+  `data/output/interim/*.rds` between them.
 - Order inside a script: header, `source("R/00_setup.R")`, extra `library()` calls,
   inputs, constants, `# --- section ---` blocks, outputs written last.
 - Header, as in every existing script:
@@ -92,9 +92,9 @@ Small commits, each reviewable in a few minutes.
 - Branch per task, prefixed by workstream: `score/`, `coverage/`, `q1/`, `q2/`, `q3/`,
   `docs/`. PR to `master`; never commit to `master` directly.
 - Before committing, run the stage you touched and update whatever the change makes
-  stale, in the same commit: plan checkbox, `docs/data_log.md`,
-  `data/DATA_SOURCES.md`, README hand-off table, `docs/decisions.md`.
-- Never commit `data/interim/`, `*.osm.pbf`, `.Renviron`, credentials or
+  stale, in the same commit: plan checkbox, `docs/data_log.md`, README hand-off
+  table, `docs/consideration.md`.
+- Never commit `data/output/interim/`, `*.osm.pbf`, `.Renviron`, credentials or
   `.claude/worktrees/`.
 
 ## Sessions and effort
@@ -103,7 +103,7 @@ Agent sessions are cheap to start and costly to keep long. Split the work so mos
 it runs at low effort.
 
 **One session = one task = one branch (or worktree) = ends in commits.** The usual
-task is one checkbox in `plans/<stage>.md`.
+task is one checkbox in `docs/plans/<stage>.md`.
 
 **Plan high, build low, review high.** Set the model and effort when you start the
 session.
@@ -116,7 +116,7 @@ session.
 | Review | Before every PR: the `deep-reviewer` subagent | High (set in its definition) |
 
 A planning session's deliverable is the hand-off: it writes the step into
-`plans/<stage>.md` concretely enough (files, inputs, output columns, the check that
+`docs/plans/<stage>.md` concretely enough (files, inputs, output columns, the check that
 proves it works) that a fresh low-effort session can build it without the planning
 conversation.
 
@@ -130,7 +130,7 @@ conversation.
 **The repo is the memory, not the chat.**
 - End a session with: commits made, the plan checkbox ticked, and a `Next:` line under
   the step for anything left (open question, what to verify).
-- Start one with: "Read AGENTS.md and `plans/<stage>.md`, then do step X." Nothing
+- Start one with: "Read AGENTS.md and `docs/plans/<stage>.md`, then do step X." Nothing
   else should be needed.
 
 **Keep context small.**

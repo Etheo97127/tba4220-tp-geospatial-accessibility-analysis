@@ -12,7 +12,7 @@ link-citations: true
 ---
 
 ```{r setup, include = FALSE}
-# The report reads outputs/, data/processed/ and data/external/; run R/run_all.R
+# The report reads data/output/, data/output/processed/ and data/input/external/; run R/run_all.R
 # first, then render with `Rscript report/render.R`. Every result in the text
 # (estimates, p-values, counts) comes from those files, so it cannot drift from
 # the pipeline. Method settings fixed by design (distance thresholds, permutation
@@ -20,9 +20,9 @@ link-citations: true
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, dpi = 300)
 suppressPackageStartupMessages({ library(dplyr); library(sf) })
 ROOT <- normalizePath("..", winslash = "/")
-fig  <- function(name) file.path(ROOT, "outputs", "figures", name)
-tab  <- function(name) readr::read_csv(file.path(ROOT, "outputs", "tables", name), show_col_types = FALSE)
-proc <- function(name) readr::read_csv(file.path(ROOT, "data", "processed", name), show_col_types = FALSE)
+fig  <- function(name) file.path(ROOT, "data", "output", "figures", name)
+tab  <- function(name) readr::read_csv(file.path(ROOT, "data", "output", "tables", name), show_col_types = FALSE)
+proc <- function(name) readr::read_csv(file.path(ROOT, "data", "output", "processed", name), show_col_types = FALSE)
 
 # Inline formatting: pct(0.0971) -> "9.7%", num(1234.5) -> "1,235", p_fmt(0.0004) -> "< 0.001".
 pct   <- function(x, d = 1) paste0(formatC(100 * x, format = "f", digits = d), "%")

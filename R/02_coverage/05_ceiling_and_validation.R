@@ -7,7 +7,7 @@
 #     No name-based matcher can beat this. If measured recall sits close to the
 #     ceiling, the matcher is not the binding constraint.
 # (2) A stratified sample for verification. Verdicts live in
-#     data/external/coverage_validation_verdicts.csv; 06 turns them into error rates.
+#     data/input/external/coverage_validation_verdicts.csv; 06 turns them into error rates.
 
 source("R/00_setup.R")
 library(binom)
