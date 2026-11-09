@@ -55,7 +55,19 @@ stages <- list(
 
 # Rscript R/run_all.R q2 q3  -> run only those stages (upstream outputs must exist)
 only <- commandArgs(trailingOnly = TRUE)
-if (length(only)) stages <- stages[only]
+unknown <- setdiff(only, names(stages))
+if (length(unknown)) stop("unknown stage: ", paste(unknown, collapse = ", "))
+
+# Coverage and score also read prep's layers in data/interim/ (subzones, OSM POIs,
+# reference lists, buildings). Git does not keep them, since prep rebuilds them
+# from data/raw/ in seconds, so on a fresh clone prep runs first.
+PREP_LAYERS <- file.path("data", "interim", c("subzones.rds", "osm_poi.rds", "reference.rds", "res_buildings.rds"))
+if (length(only) && any(c("coverage", "score") %in% only) && !"prep" %in% only &&
+    !all(file.exists(PREP_LAYERS))) {
+  cat("prep layers missing from data/interim/: running prep first\n")
+  only <- c("prep", only)
+}
+if (length(only)) stages <- stages[names(stages) %in% only]
 
 for (stage in names(stages)) {
   for (s in stages[[stage]]) {

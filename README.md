@@ -31,7 +31,9 @@ prep ──> coverage
 ## Hand-off files
 
 Each stage reads only from `data/processed/` (and the hand-built lookups in
-`data/external/`) and writes its own outputs there. Join key is always `subzone_c`;
+`data/external/`) and writes its own outputs there. The one exception: coverage and
+score also read prep's layers in `data/interim/` (subzones, OSM POIs, reference lists,
+buildings); `run_all.R` runs prep first when they are missing. Join key is always `subzone_c`;
 CRS is EPSG:3414. Column contracts are in each plan; H1–H8 are the hand-off IDs in
 `docs/team_plan.html`. Open decisions behind them are in `docs/decisions.md`.
 
