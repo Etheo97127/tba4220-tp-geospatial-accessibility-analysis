@@ -32,7 +32,9 @@ name_type <- function(p) {
   hi <- CAT_LAB[p$category[dev > STANDOUT]]; lo <- CAT_LAB[p$category[dev < -STANDOUT]]
   tail <- c(if (length(hi)) paste("strong in", paste(hi, collapse = ", ")),
             if (length(lo)) paste("weak in", paste(lo, collapse = ", ")))
-  paste0(head, if (gradient) " end" else "", if (length(tail)) paste0(", ", paste(tail, collapse = "; ")))
+  # Along one gradient the outer groups are its ends; a middle group is not.
+  paste0(head, if (gradient && head != "Mid-access") " end" else "",
+         if (length(tail)) paste0(", ", paste(tail, collapse = "; ")))
 }
 
 types <- cl %>% count(cluster, stable, name = "n_subzones") %>%
@@ -68,15 +70,13 @@ p2 <- ggplot(map_dat) +
   geom_sf(aes(fill = type), colour = "white", linewidth = 0.1) +
   scale_fill_manual(values = setNames(PAL_CAT[seq_along(type_lab)], type_lab), breaks = unname(type_lab),
                     na.value = GREY_NA, name = NULL) +   # named breaks would print the names "1", "2"
-  labs(title = if (gradient) "No evidence of discrete types: one access gradient, cut in two" else "Neighbourhood types across Singapore",
+  labs(title = if (gradient) sprintf("No evidence of discrete types: one access gradient, cut into %d groups", nrow(types))
+               else "Neighbourhood types across Singapore",
        subtitle = paste0("k-means on six z-scored category scores. ",
-                         if (gradient) "Read the colours as the two ends of one access gradient.
-"
-                         else "Types more distinct than in a no-cluster null.
-",
-                         if (all(types$stable)) "Both splits stable under a spatial block bootstrap." else "Not all groups are stable.",
-                         "
-Grey: non-residential.")) +
+                         if (gradient) "Read the colours as bands along one access gradient.\n"
+                         else "Types more distinct than in a no-cluster null.\n",
+                         if (all(types$stable)) "All groups stable under a spatial block bootstrap." else "Not all groups are stable.",
+                         "\nGrey: non-residential.")) +
   theme_map() + theme(legend.position = "bottom", legend.direction = "vertical")
 save_fig(p2, "q3_types_map.png", width = 7.8, height = 5)
 
